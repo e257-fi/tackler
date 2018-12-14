@@ -1,0 +1,10 @@
+
+BALANCE
+-------
+                33.75   33.75 EUR Billing:diverX:Receivable
+                 0.00    0.00 bar·He User:diverX:He
+                 0.00    0.00 bar·O2 User:diverX:O2
+=========================
+                33.75 EUR
+                 0.00 bar·He
+                 0.00 bar·O2

@@ -1,0 +1,191 @@
+exe: ""
+build: ""
+version: ""
+set: "1E4"
+runs:
+  - run:
+      storage: "fs"
+      report: "balance-group"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+        prosessing:
+          logs:
+            - "Total processing time: 3074, input: 38, parse: 1010, reporting: 335"
+            - "Total processing time: 3066, input: 35, parse: 1002, reporting: 330"
+            - "Total processing time: 3047, input: 38, parse: 1004, reporting: 318"
+            - "Total processing time: 3112, input: 37, parse: 1026, reporting: 369"
+            - "Total processing time: 2976, input: 37, parse: 907, reporting: 341"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 3.31
+              - 3.46
+              - 3.32
+              - 3.48
+              - 3.25
+          user:
+            unit: "s"
+            values:
+              - 11.42
+              - 11.69
+              - 11.62
+              - 12.24
+              - 11.17
+          sys:
+            unit: "s"
+            values:
+              - 0.36
+              - 0.42
+              - 0.44
+              - 0.40
+              - 0.41
+        mem:
+          unit: "k (max)"
+          values:
+             - 525180
+             - 526648
+             - 510544
+             - 523672
+             - 517384
+        cpu:
+          unit: "%"
+          values:
+             - 356
+             - 349
+             - 363
+             - 363
+             - 356
+  - run:
+      storage: "fs"
+      report: "balance"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+        prosessing:
+          logs:
+            - "Total processing time: 3186, input: 38, parse: 1249, reporting: 182"
+            - "Total processing time: 2903, input: 37, parse: 979, reporting: 172"
+            - "Total processing time: 2729, input: 38, parse: 851, reporting: 188"
+            - "Total processing time: 2950, input: 37, parse: 999, reporting: 232"
+            - "Total processing time: 2858, input: 37, parse: 896, reporting: 226"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 3.41
+              - 3.30
+              - 3.01
+              - 3.35
+              - 3.11
+          user:
+            unit: "s"
+            values:
+              - 10.70
+              - 10.53
+              - 9.11
+              - 10.95
+              - 10.14
+          sys:
+            unit: "s"
+            values:
+              - 0.73
+              - 0.39
+              - 0.44
+              - 0.37
+              - 0.42
+        mem:
+          unit: "k (max)"
+          values:
+             - 468136
+             - 491296
+             - 512448
+             - 493708
+             - 501872
+        cpu:
+          unit: "%"
+          values:
+             - 335
+             - 331
+             - 317
+             - 337
+             - 339
+  - run:
+      storage: "fs"
+      report: "register"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+            - "Txns size: 10000"
+        prosessing:
+          logs:
+            - "Total processing time: 3446, input: 38, parse: 850, reporting: 872"
+            - "Total processing time: 3481, input: 37, parse: 984, reporting: 755"
+            - "Total processing time: 3465, input: 38, parse: 994, reporting: 743"
+            - "Total processing time: 3490, input: 38, parse: 951, reporting: 813"
+            - "Total processing time: 3464, input: 37, parse: 979, reporting: 756"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 3.71
+              - 3.70
+              - 3.69
+              - 3.90
+              - 3.88
+          user:
+            unit: "s"
+            values:
+              - 11.89
+              - 12.51
+              - 12.53
+              - 12.55
+              - 12.22
+          sys:
+            unit: "s"
+            values:
+              - 0.49
+              - 0.44
+              - 0.50
+              - 0.49
+              - 0.49
+        mem:
+          unit: "k (max)"
+          values:
+             - 736824
+             - 731600
+             - 742724
+             - 709648
+             - 723664
+        cpu:
+          unit: "%"
+          values:
+             - 333
+             - 349
+             - 352
+             - 334
+             - 327

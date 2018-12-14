@@ -1,0 +1,563 @@
+exe: "dist/tackler-cli-0.7.0.jar"
+build: ""
+version: "0.7.0"
+set: "1E3"
+runs:
+  - run:
+      storage: "fs"
+      report: "balance-group"
+      formats: "json"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1436, parse: 489, reporting: 210"
+            - "Total processing time: 1443, parse: 497, reporting: 216"
+            - "Total processing time: 1458, parse: 502, reporting: 220"
+            - "Total processing time: 1443, parse: 488, reporting: 216"
+            - "Total processing time: 1414, parse: 468, reporting: 215"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.70
+              - 1.71
+              - 1.68
+              - 1.72
+              - 1.69
+          user:
+            unit: "s"
+            values:
+              - 4.76
+              - 4.88
+              - 4.94
+              - 4.82
+              - 4.65
+          sys:
+            unit: "s"
+            values:
+              - 0.17
+              - 0.16
+              - 0.17
+              - 0.16
+              - 0.15
+        mem:
+          unit: "k (max)"
+          values:
+             - 268600
+             - 267028
+             - 265608
+             - 265368
+             - 264968
+        cpu:
+          unit: "%"
+          values:
+             - 289
+             - 294
+             - 302
+             - 290
+             - 284
+  - run:
+      storage: "fs"
+      report: "balance-group"
+      formats: "txt_json"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1504, parse: 488, reporting: 281"
+            - "Total processing time: 1527, parse: 502, reporting: 288"
+            - "Total processing time: 1537, parse: 509, reporting: 299"
+            - "Total processing time: 1526, parse: 514, reporting: 280"
+            - "Total processing time: 1493, parse: 477, reporting: 284"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.77
+              - 1.78
+              - 1.76
+              - 1.77
+              - 1.74
+          user:
+            unit: "s"
+            values:
+              - 5.37
+              - 5.42
+              - 5.49
+              - 5.54
+              - 5.29
+          sys:
+            unit: "s"
+            values:
+              - 0.17
+              - 0.16
+              - 0.17
+              - 0.16
+              - 0.16
+        mem:
+          unit: "k (max)"
+          values:
+             - 280916
+             - 279504
+             - 272416
+             - 279048
+             - 281508
+        cpu:
+          unit: "%"
+          values:
+             - 312
+             - 313
+             - 320
+             - 321
+             - 312
+  - run:
+      storage: "fs"
+      report: "balance-group"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1450, parse: 498, reporting: 202"
+            - "Total processing time: 1443, parse: 480, reporting: 210"
+            - "Total processing time: 1479, parse: 519, reporting: 234"
+            - "Total processing time: 1447, parse: 508, reporting: 206"
+            - "Total processing time: 1461, parse: 489, reporting: 231"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.72
+              - 1.67
+              - 1.71
+              - 1.67
+              - 1.69
+          user:
+            unit: "s"
+            values:
+              - 5.04
+              - 4.97
+              - 5.21
+              - 5.04
+              - 5.00
+          sys:
+            unit: "s"
+            values:
+              - 0.21
+              - 0.17
+              - 0.16
+              - 0.16
+              - 0.16
+        mem:
+          unit: "k (max)"
+          values:
+             - 269392
+             - 272136
+             - 269108
+             - 268232
+             - 274052
+        cpu:
+          unit: "%"
+          values:
+             - 306
+             - 307
+             - 314
+             - 312
+             - 304
+  - run:
+      storage: "fs"
+      report: "balance"
+      formats: "json"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1448, parse: 496, reporting: 218"
+            - "Total processing time: 1431, parse: 468, reporting: 232"
+            - "Total processing time: 1432, parse: 483, reporting: 215"
+            - "Total processing time: 1440, parse: 482, reporting: 208"
+            - "Total processing time: 1445, parse: 512, reporting: 209"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.71
+              - 1.69
+              - 1.66
+              - 1.67
+              - 1.67
+          user:
+            unit: "s"
+            values:
+              - 4.38
+              - 4.25
+              - 4.32
+              - 4.30
+              - 4.41
+          sys:
+            unit: "s"
+            values:
+              - 0.14
+              - 0.18
+              - 0.13
+              - 0.16
+              - 0.15
+        mem:
+          unit: "k (max)"
+          values:
+             - 248748
+             - 250440
+             - 259344
+             - 251292
+             - 258920
+        cpu:
+          unit: "%"
+          values:
+             - 264
+             - 261
+             - 268
+             - 266
+             - 272
+  - run:
+      storage: "fs"
+      report: "balance"
+      formats: "txt_json"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1483, parse: 478, reporting: 269"
+            - "Total processing time: 1525, parse: 504, reporting: 275"
+            - "Total processing time: 1476, parse: 475, reporting: 269"
+            - "Total processing time: 1528, parse: 502, reporting: 286"
+            - "Total processing time: 1517, parse: 506, reporting: 279"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.75
+              - 1.79
+              - 1.70
+              - 1.79
+              - 1.76
+          user:
+            unit: "s"
+            values:
+              - 4.50
+              - 4.58
+              - 4.45
+              - 4.64
+              - 4.54
+          sys:
+            unit: "s"
+            values:
+              - 0.16
+              - 0.17
+              - 0.15
+              - 0.17
+              - 0.16
+        mem:
+          unit: "k (max)"
+          values:
+             - 250620
+             - 259012
+             - 253584
+             - 253780
+             - 253832
+        cpu:
+          unit: "%"
+          values:
+             - 266
+             - 265
+             - 270
+             - 268
+             - 266
+  - run:
+      storage: "fs"
+      report: "balance"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1438, parse: 507, reporting: 200"
+            - "Total processing time: 1393, parse: 460, reporting: 198"
+            - "Total processing time: 1447, parse: 497, reporting: 217"
+            - "Total processing time: 1429, parse: 486, reporting: 203"
+            - "Total processing time: 1420, parse: 489, reporting: 197"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.70
+              - 1.64
+              - 1.70
+              - 1.65
+              - 1.65
+          user:
+            unit: "s"
+            values:
+              - 4.35
+              - 4.17
+              - 4.50
+              - 4.32
+              - 4.34
+          sys:
+            unit: "s"
+            values:
+              - 0.13
+              - 0.17
+              - 0.16
+              - 0.17
+              - 0.14
+        mem:
+          unit: "k (max)"
+          values:
+             - 253672
+             - 251208
+             - 254924
+             - 249156
+             - 248688
+        cpu:
+          unit: "%"
+          values:
+             - 264
+             - 264
+             - 274
+             - 271
+             - 271
+  - run:
+      storage: "fs"
+      report: "register"
+      formats: "json"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1511, parse: 483, reporting: 296"
+            - "Total processing time: 1497, parse: 479, reporting: 289"
+            - "Total processing time: 1533, parse: 497, reporting: 303"
+            - "Total processing time: 1545, parse: 492, reporting: 322"
+            - "Total processing time: 1515, parse: 487, reporting: 287"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.74
+              - 1.75
+              - 1.75
+              - 1.81
+              - 1.75
+          user:
+            unit: "s"
+            values:
+              - 4.57
+              - 4.56
+              - 4.69
+              - 4.66
+              - 4.51
+          sys:
+            unit: "s"
+            values:
+              - 0.20
+              - 0.15
+              - 0.15
+              - 0.18
+              - 0.16
+        mem:
+          unit: "k (max)"
+          values:
+             - 257540
+             - 253476
+             - 258036
+             - 259772
+             - 253788
+        cpu:
+          unit: "%"
+          values:
+             - 274
+             - 268
+             - 276
+             - 267
+             - 267
+  - run:
+      storage: "fs"
+      report: "register"
+      formats: "txt_json"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1620, parse: 485, reporting: 399"
+            - "Total processing time: 1633, parse: 492, reporting: 411"
+            - "Total processing time: 1634, parse: 486, reporting: 407"
+            - "Total processing time: 1604, parse: 469, reporting: 383"
+            - "Total processing time: 1613, parse: 467, reporting: 398"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.89
+              - 1.88
+              - 1.91
+              - 1.86
+              - 1.92
+          user:
+            unit: "s"
+            values:
+              - 5.04
+              - 5.20
+              - 5.16
+              - 5.00
+              - 5.09
+          sys:
+            unit: "s"
+            values:
+              - 0.20
+              - 0.18
+              - 0.21
+              - 0.18
+              - 0.19
+        mem:
+          unit: "k (max)"
+          values:
+             - 274312
+             - 275304
+             - 277036
+             - 277528
+             - 278372
+        cpu:
+          unit: "%"
+          values:
+             - 276
+             - 285
+             - 280
+             - 277
+             - 274
+  - run:
+      storage: "fs"
+      report: "register"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+            - "Txns size: 1000"
+        prosessing:
+          logs:
+            - "Total processing time: 1473, parse: 497, reporting: 243"
+            - "Total processing time: 1491, parse: 494, reporting: 262"
+            - "Total processing time: 1497, parse: 492, reporting: 272"
+            - "Total processing time: 1458, parse: 481, reporting: 243"
+            - "Total processing time: 1446, parse: 477, reporting: 238"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 1.70
+              - 1.72
+              - 1.72
+              - 1.70
+              - 1.69
+          user:
+            unit: "s"
+            values:
+              - 4.61
+              - 4.65
+              - 4.64
+              - 4.53
+              - 4.50
+          sys:
+            unit: "s"
+            values:
+              - 0.17
+              - 0.15
+              - 0.19
+              - 0.16
+              - 0.16
+        mem:
+          unit: "k (max)"
+          values:
+             - 256604
+             - 257520
+             - 254868
+             - 254896
+             - 254812
+        cpu:
+          unit: "%"
+          values:
+             - 281
+             - 279
+             - 279
+             - 276
+             - 275

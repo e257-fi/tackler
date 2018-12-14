@@ -1,0 +1,191 @@
+exe: ""
+build: ""
+version: ""
+set: "1E5"
+runs:
+  - run:
+      storage: "fs"
+      report: "balance-group"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+        prosessing:
+          logs:
+            - "Total processing time: 4919, parse: 2964, reporting: 319"
+            - "Total processing time: 4977, parse: 2962, reporting: 350"
+            - "Total processing time: 5157, parse: 2997, reporting: 357"
+            - "Total processing time: 5321, parse: 3342, reporting: 321"
+            - "Total processing time: 5204, parse: 3091, reporting: 304"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 5.17
+              - 5.20
+              - 5.39
+              - 5.56
+              - 5.43
+          user:
+            unit: "s"
+            values:
+              - 21.65
+              - 22.27
+              - 22.36
+              - 25.00
+              - 23.23
+          sys:
+            unit: "s"
+            values:
+              - 1.89
+              - 1.88
+              - 1.85
+              - 1.85
+              - 1.86
+        mem:
+          unit: "k (max)"
+          values:
+             - 1341852
+             - 1330312
+             - 1345088
+             - 1339996
+             - 1340360
+        cpu:
+          unit: "%"
+          values:
+             - 454
+             - 464
+             - 449
+             - 483
+             - 461
+  - run:
+      storage: "fs"
+      report: "balance"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+        prosessing:
+          logs:
+            - "Total processing time: 4870, parse: 2967, reporting: 283"
+            - "Total processing time: 5263, parse: 3282, reporting: 346"
+            - "Total processing time: 5079, parse: 3003, reporting: 246"
+            - "Total processing time: 5044, parse: 3129, reporting: 291"
+            - "Total processing time: 5072, parse: 2965, reporting: 294"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 5.13
+              - 5.53
+              - 5.33
+              - 5.32
+              - 5.34
+          user:
+            unit: "s"
+            values:
+              - 21.18
+              - 24.15
+              - 22.13
+              - 22.52
+              - 21.54
+          sys:
+            unit: "s"
+            values:
+              - 1.91
+              - 1.82
+              - 1.81
+              - 1.78
+              - 1.83
+        mem:
+          unit: "k (max)"
+          values:
+             - 1336172
+             - 1347564
+             - 1336624
+             - 1382608
+             - 1341384
+        cpu:
+          unit: "%"
+          values:
+             - 450
+             - 469
+             - 448
+             - 456
+             - 437
+  - run:
+      storage: "fs"
+      report: "register"
+      formats: "txt"
+      filter: |
+          
+      result:
+        size:
+          logs:
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+            - "Txns size: 100000"
+        prosessing:
+          logs:
+            - "Total processing time: 8017, parse: 3278, reporting: 3089"
+            - "Total processing time: 8295, parse: 3011, reporting: 3666"
+            - "Total processing time: 8410, parse: 2999, reporting: 3612"
+            - "Total processing time: 7726, parse: 3011, reporting: 3020"
+            - "Total processing time: 7826, parse: 3149, reporting: 3007"
+        times:
+          real:
+            unit: "s"
+            values:
+              - 8.43
+              - 8.57
+              - 8.69
+              - 7.99
+              - 8.09
+          user:
+            unit: "s"
+            values:
+              - 28.16
+              - 26.99
+              - 28.42
+              - 26.89
+              - 27.42
+          sys:
+            unit: "s"
+            values:
+              - 2.30
+              - 2.43
+              - 2.37
+              - 2.35
+              - 2.41
+        mem:
+          unit: "k (max)"
+          values:
+             - 1427084
+             - 1441160
+             - 1427984
+             - 1444596
+             - 1438416
+        cpu:
+          unit: "%"
+          values:
+             - 361
+             - 343
+             - 354
+             - 366
+             - 368
