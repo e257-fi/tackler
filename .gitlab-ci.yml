@@ -1,7 +1,7 @@
 ### vim: tabstop=2 shiftwidth=2 softtabstop=2 smarttab expandtab autoindent
 ###
 ### E257.FI: tackler
-### https://gitlab.com/e257/tackler
+### https://gitlab.com/e257/accounting/tackler
 ###
 cache:
   key: "$CI_BUILD_REF_NAME"

@@ -22,12 +22,12 @@ inThisBuild(
       ("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
     ),
     homepage := Some(
-      url("https://gitlab.com/e257/tackler")
+      url("https://gitlab.com/e257/accounting/tackler")
     ),
     scmInfo := Some(
       ScmInfo(
-        url("https://gitlab.com/e257/tackler"),
-        "scm:git:https://gitlab.com/e257/tackler.git"
+        url("https://gitlab.com/e257/accounting/tackler"),
+        "scm:git:https://gitlab.com/e257/accounting/tackler.git"
       )
     ),
     developers := List(

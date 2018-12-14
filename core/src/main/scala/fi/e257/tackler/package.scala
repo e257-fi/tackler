@@ -17,7 +17,7 @@
 package fi.e257
 
 /**
- * [[https://gitlab.com/e257/tackler Tackler]] core library
+ * [[https://gitlab.com/e257/accounting/tackler Tackler]] core library
  *
  * = Base components =
  *  - [[fi.e257.tackler.core]] Core functionality

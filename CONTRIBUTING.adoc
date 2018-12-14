@@ -16,7 +16,7 @@ if your plan is feasible and viable from project's perspective.
 +
 . Get source code
 +
-    git clone https://gitlab.com/e257/tackler.git
+    git clone https://gitlab.com/e257/accounting/tackler.git
     cd tackler
 +
 . Build and test
