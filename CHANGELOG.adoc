@@ -2,22 +2,27 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.10.0"
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.10.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.20.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.20.0"
 
 == Release history
 
-=== 0.20.0-SNAPSHOT
+=== 0.20.0
+
+This is same as Tackler v0.10.0. The difference is that code is
+hosted at gitlab.com and moved under new groupId.
 
 ==== Fixes
+
+None
 
 ==== Development
 
 Updated deps and tools:
 
- * Updated dependencies
  * build
  ** sbt-sonatype: 2.3
+
 
 === 0.10.0
 
