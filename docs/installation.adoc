@@ -4,7 +4,7 @@ This is installation manual for tackler command line.
 
 To use tackler cli you will need
 
-  * Java Runtime Environment (Java 8)
+  * Java Runtime Environment (Java 8 and Java 11 are tested regularly)
   * Tackler command line binary (`tackler-cli.jar`-file)
 
 
@@ -82,6 +82,33 @@ Total processing time: 1284, parse: 464, reporting: 80
 
 Default embedded configuration will try to find transaction data (files with `.txn` suffix)
 on `txns`-directory next to the jar-file.
+
+=== Minimal Chart of Accounts
+
+Minimal Chart of Accounts for above demo setup could be something like:
+
+----
+cat >> accounts.conf << EOF
+accounts {
+
+  strict = true
+
+  coa = [
+    "Expenses:Ice_cream",
+    "Expenses:Lemonade",
+    "Assets:Cash"
+  ]
+}
+EOF
+----
+
+After that it's possible to run tackler with account name validation:
+
+ java -jar ./tackler-cli.jar
+
+If there is missing or mistyped account, that will cause an exception error.
+See link:./accounts.conf[example of accounts.conf] for full documentation
+of Chart of Accounts.
 
 
 == Recommend layout

@@ -4,7 +4,7 @@ This is general usage guide for tackler reporting engine.
 
 To use tackler you have to have
 
-  * Java Runtime Environment (Java 8)
+  * Java Runtime Environment (Java 8 and Java 11 are tested regularly)
   * Tackler binaries
   * Correct configuration for your setup
 

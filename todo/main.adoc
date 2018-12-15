@@ -41,19 +41,15 @@ Git Storage: link:../docs/tep/tep-1002.adoc[TEP-1002]
 
 == Reporting
 
- * [x] different formats
- ** [x] json
 
 === Equity report
 
 Equity report: link:../docs/tep/tep-1000.adoc[TEP-1000]
 
- * [x] basic equity report 
- ** [ ] special input handling for equity (input-path by conf)
+ * [ ] special input handling for equity (input-path by conf)
 
 === Reporting API
 
- * [x] server interface
  * [ ] Far-Far-Away
  ** [ ] Reporting shell a'la jline?
 
