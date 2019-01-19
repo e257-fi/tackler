@@ -1,0 +1,193 @@
+= TEP-1006: CFG settings for report output precision
+
+Support configuration settings for report output precision.
+
+
+== Journal file format
+
+None
+
+
+== CLI changes
+
+Precision setting is not supported by CLI argument.
+
+
+== CONF changes
+
+Changes to conf-settings
+
+* [ ] Global settings
+** [ ] min value
+** [ ] max value
+* [ ] Report spesific settings
+** [ ] min value
+** [ ] max value
+
+
+== Machinery
+
+Changes to machinery
+
+* [ ] Settings min-scale
+* [ ] Settings max-scale
+* [ ] ReportLike / Reporter changes to support report specific scale
+
+
+=== API changes
+
+No API changes to server or client interfaces.
+
+
+==== Server API changes
+
+No changes.
+
+
+==== Client API changes
+
+No changes.
+
+
+=== New dependencies
+
+No new dependencies.
+
+
+== Reporting
+
+Changes to reports or reporting
+
+
+=== Balance report
+
+Changes to balance report
+
+* [ ] min-scale
+* [ ] max-scale
+
+
+=== Balance Group report
+
+Changes to balance group report
+
+* [ ] min-scale
+* [ ] max-scale
+
+
+=== Register report
+
+Changes to register report
+
+* [ ] min-scale
+* [ ] max-scale
+
+
+== Exporting
+
+All export formats use full precision at the moment. For this reason it is not
+possible to define used output precision for equity or identity exports.
+
+....
+feature:
+  id: 51e6b270-0a1b-4262-aae0-52ff0b93bdb4
+test:
+  refid: 0f862997-95b1-4e06-bc5f-bc170c7594ff
+....
+
+
+=== Equity export
+
+None
+
+
+=== Identity export
+
+None
+
+
+== Documentation
+
+* [ ] link:../../CHANGELOG[]: add new item
+* [ ] User docs
+** [ ] tackler.conf
+*** [ ] global settings
+**** [ ] `reporting.min-scale`
+**** [ ] `reporting.max-scale`
+*** [ ] report spesific settings
+**** [ ] balance
+***** [ ] `reports.balance.min-scale`
+***** [ ] `reports.balance.max-scale`
+**** [ ] balance-group
+***** [ ] `reports.balance-group.min-scale`
+***** [ ] `reports.balance-group.max-scale`
+**** [ ] register
+***** [ ] `reports.register.min-scale`
+***** [ ] `reports.register.max-scale`
+
+
+== Future plans and Postponed (PP) features
+
+Any needs for Server API to set reporting precision per report.
+
+
+=== Postponed (PP) features
+
+None at the moment
+
+
+== Tests
+
+Normal, ok-case tests to validate functionality:
+
+* [ ] Set global
+* [ ] Iterate over all report settings
+
+
+=== Errors
+
+Various error cases:
+
+* [ ] e: maxScale is smaller than minScale
+* [ ] e: minScale is negative
+* [ ] e: maxScale is negative
+* [ ] e: minScale is too large
+* [ ] e: maxScale is too large
+
+
+=== Perf
+
+Should not affect performance.
+
+
+=== Metadata template for test coverage tracking
+
+....
+features:
+  - feature:
+      id: uuid
+      subject: "todo: one-line description of main feature"
+
+  - feature:
+      id: uuid
+      parent: uuid-of-parent
+      subject: "todo: one-line description of sub feature"
+      tests:
+        errors:
+          - error:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              desc: "todo: description"
+        operations:
+          - test:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              descriptions:
+                - desc: "todo: description"
+              references:
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+                - ref: identity
+		- ref: equity
+....
