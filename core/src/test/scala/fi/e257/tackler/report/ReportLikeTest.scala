@@ -16,23 +16,23 @@
  */
 package fi.e257.tackler.report
 
-import com.typesafe.config.ConfigFactory
 import io.circe.Json
 import org.scalatest.FlatSpec
-
-import fi.e257.tackler.core.Settings
 import fi.e257.tackler.model.TxnData
 
 class ReportLikeTest extends FlatSpec {
 
-  class Frmt(val name: String, val settings: Settings) extends ReportLike(new ReportSettings(settings)) {
+  class ReportSettings extends ReportConfiguration {
+    override val minScale = 2
+    override val maxScale = 7
+  }
+
+  class Frmt(val name: String, cfg: ReportConfiguration) extends ReportLike(cfg) {
     override def writeReport(formats: Formats, txns: TxnData): Unit = ???
     override def jsonReport(txnData: TxnData): Json = ???
   }
 
-  val settings = Settings(ConfigFactory.empty())
-
-  val frmt = new Frmt("", settings)
+  val frmt = new Frmt("", new ReportSettings())
 
   val sc0: scala.math.BigDecimal = 1
   val sc1: scala.math.BigDecimal = 1.1
@@ -48,6 +48,9 @@ class ReportLikeTest extends FlatSpec {
 
   val sc18_2 = BigDecimal(123456789123456789l) + BigDecimal(.12)
   val sc18_9 = BigDecimal("123456789123456789.123456789")
+
+  //                                                                 1         2         3         4         5         6         7         8         9        10        11        12        13
+  val sc30_130 = BigDecimal("123456789012345678901234567890.0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")
 
   behavior of "scaleFrmtStr"
 
@@ -108,5 +111,18 @@ class ReportLikeTest extends FlatSpec {
 
     assert(frmt.fillFormat(22, sc18_2) === " 123456789123456789.12")
     assert(frmt.fillFormat(27, sc18_9) === " 123456789123456789.1234568")
+  }
+
+  /**
+   * test: 1cf0c2c7-35a9-42b3-b916-8d3a20a9d428
+   */
+  it should "format, truncate and round with very large numbers (30 digits) with high precision (128 decimals)" in {
+    class LargeScale extends ReportConfiguration {
+      override val minScale = 2
+      override val maxScale = 128
+    }
+    val largeFrmt = new Frmt("", new LargeScale())
+
+    assert(largeFrmt.fillFormat(160, sc30_130) == " 123456789012345678901234567890.01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234568")
   }
 }

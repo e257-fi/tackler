@@ -17,21 +17,21 @@ Precision setting is not supported by CLI argument.
 
 Changes to conf-settings
 
-* [ ] Global settings
-** [ ] min value
-** [ ] max value
-* [ ] Report spesific settings
-** [ ] min value
-** [ ] max value
+* [x] Global settings
+** [x] min value
+** [x] max value
+* [x] Report spesific settings
+** [x] min value
+** [x] max value
 
 
 == Machinery
 
 Changes to machinery
 
-* [ ] Settings min-scale
-* [ ] Settings max-scale
-* [ ] ReportLike / Reporter changes to support report specific scale
+* [x] Settings min-scale
+* [x] Settings max-scale
+* [x] ReportLike / Reporter changes to support report specific scale
 
 
 === API changes
@@ -63,24 +63,24 @@ Changes to reports or reporting
 
 Changes to balance report
 
-* [ ] min-scale
-* [ ] max-scale
+* [x] scale.min
+* [x] scale.max
 
 
 === Balance Group report
 
 Changes to balance group report
 
-* [ ] min-scale
-* [ ] max-scale
+* [x] scale.min
+* [x] scale.max
 
 
 === Register report
 
 Changes to register report
 
-* [ ] min-scale
-* [ ] max-scale
+* [x] scale.min
+* [x] scale.max
 
 
 == Exporting
@@ -108,22 +108,22 @@ None
 
 == Documentation
 
-* [ ] link:../../CHANGELOG[]: add new item
+* [x] link:../../CHANGELOG[]: add new item
 * [ ] User docs
 ** [ ] tackler.conf
 *** [ ] global settings
-**** [ ] `reporting.min-scale`
-**** [ ] `reporting.max-scale`
+**** [ ] `reporting.scale.min`
+**** [ ] `reporting.scale.max`
 *** [ ] report spesific settings
 **** [ ] balance
-***** [ ] `reports.balance.min-scale`
-***** [ ] `reports.balance.max-scale`
+***** [ ] `reports.balance.scale.min`
+***** [ ] `reports.balance.scale.max`
 **** [ ] balance-group
-***** [ ] `reports.balance-group.min-scale`
-***** [ ] `reports.balance-group.max-scale`
+***** [ ] `reports.balance-group.scale.min`
+***** [ ] `reports.balance-group.scale.max`
 **** [ ] register
-***** [ ] `reports.register.min-scale`
-***** [ ] `reports.register.max-scale`
+***** [ ] `reports.register.scale.min`
+***** [ ] `reports.register.scale.max`
 
 
 == Future plans and Postponed (PP) features
@@ -140,19 +140,21 @@ None at the moment
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] Set global
-* [ ] Iterate over all report settings
+* [x] Set global
+** [x] old 2-7
+** [x] something else, e.g. 1-3
+* [x] Iterate over all report settings with report specific settings
 
 
 === Errors
 
 Various error cases:
 
-* [ ] e: maxScale is smaller than minScale
-* [ ] e: minScale is negative
-* [ ] e: maxScale is negative
-* [ ] e: minScale is too large
-* [ ] e: maxScale is too large
+* [x] e: maxScale is smaller than minScale
+* [x] e: minScale is negative
+* [x] e: maxScale is negative
+* [-] e: minScale is too large (arbitrary precision)
+* [-] e: maxScale is too large (arbitrary precision)
 
 
 === Perf
@@ -189,5 +191,5 @@ features:
                 - ref: balance-group
                 - ref: register
                 - ref: identity
-		- ref: equity
+                - ref: equity
 ....
