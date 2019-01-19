@@ -11,16 +11,27 @@ Current published release is:
 
 === 0.21.0-SNAPSHOT
 
+New features in this release are:
+
+* link:./docs/tep/tep-1006.adoc[Support for report output precision settings]
+
+
 ==== Fixes
 
 None
+
 
 ==== Development
 
 Updated deps and tools:
 
  * Updated dependencies
+ ** ANTLR: 4.7.2
+ ** circe: 0.11.1
+ ** jgit: 5.2.1.201812262042-r
  * build
+ ** sbt: 1.2.8
+
 
 
 === 0.20.0
