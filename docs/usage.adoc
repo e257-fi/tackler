@@ -192,7 +192,7 @@ Valid options are: `txt` and `json`
 
 ===== Configuring used output scale of reports
 
-Report output precision scale can be set either globally or based on report type.
+Report output scale (e.g. count of decimals) can be set either globally or based on report type.
 
 Example of global scale settings:
 ....

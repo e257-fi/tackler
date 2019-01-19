@@ -1,6 +1,9 @@
-= TEP-1006: CFG settings for report output precision
+= TEP-1006: CFG settings for report output scale
 
-Support configuration settings for report output precision.
+Support configuration settings for report output scale.
+
+Report scale settings will control how many decimals will be used 
+in minimum and at maximum to output report's values.
 
 
 == Journal file format
@@ -85,8 +88,8 @@ Changes to register report
 
 == Exporting
 
-All export formats use full precision at the moment. For this reason it is not
-possible to define used output precision for equity or identity exports.
+All export formats use full scale at the moment. For this reason it is not
+possible to define used output scale for equity or identity exports.
 
 ....
 feature:
@@ -128,7 +131,7 @@ None
 
 == Future plans and Postponed (PP) features
 
-Any needs for Server API to set reporting precision per report.
+Any needs for Server API to set report output scale per report?
 
 
 === Postponed (PP) features
@@ -153,8 +156,8 @@ Various error cases:
 * [x] e: maxScale is smaller than minScale
 * [x] e: minScale is negative
 * [x] e: maxScale is negative
-* [-] e: minScale is too large (arbitrary precision)
-* [-] e: maxScale is too large (arbitrary precision)
+* [-] e: minScale is too large (Used data type is arbitrary precision number)
+* [-] e: maxScale is too large (Used data type is arbitrary precision number)
 
 
 === Perf
@@ -162,34 +165,6 @@ Various error cases:
 Should not affect performance.
 
 
-=== Metadata template for test coverage tracking
+=== Test coverage tracking
 
-....
-features:
-  - feature:
-      id: uuid
-      subject: "todo: one-line description of main feature"
-
-  - feature:
-      id: uuid
-      parent: uuid-of-parent
-      subject: "todo: one-line description of sub feature"
-      tests:
-        errors:
-          - error:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              desc: "todo: description"
-        operations:
-          - test:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              descriptions:
-                - desc: "todo: description"
-              references:
-                - ref: balance
-                - ref: balance-group
-                - ref: register
-                - ref: identity
-                - ref: equity
-....
+link:../../tests/tests-1006.yml[TEP-1006 test cases]

@@ -110,11 +110,9 @@ All accounts must be declared in Chart of Accounts, if not, `accounts.strict=fal
 
 1.12345678 is printed as 1.1234568
 ----
-| *Output* precision is between 2..7 decimal points.
+| Default configuration setting for *output* scale is between 2..7 decimal points, see link:tackler.conf[].
 
-Internally these are Scala's BigDecimals, and the precision
-approximately matches that of IEEE 128-bit floating point numbers
-(34 decimal digits, HALF_EVEN rounding mode).
+Internally these are Scala's BigDecimals, which represents decimal floating-point numbers of arbitrary precision. 
 
 
 | Commodities

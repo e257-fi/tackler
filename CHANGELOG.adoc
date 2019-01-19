@@ -13,7 +13,7 @@ Current published release is:
 
 New features in this release are:
 
-* link:./docs/tep/tep-1006.adoc[Support for report output precision settings]
+* link:./docs/tep/tep-1006.adoc[Configuration settings for report output scale]
 
 
 ==== Fixes
