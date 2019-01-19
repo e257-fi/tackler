@@ -17,8 +17,11 @@ features:
                 - desc: "report output with min scale settings"
               references:
                 - ref: balance
+                  formats: txt, json
                 - ref: balance-group
+                  formats: txt, json
                 - ref: register
+                  formats: txt, json
 
           - test:
               id: 814654ee-83a8-466b-bcac-0b671d4ddf80
@@ -27,8 +30,11 @@ features:
                 - desc: "report output with max scale settings"
               references:
                 - ref: balance
+                  formats: txt, json
                 - ref: balance-group
+                  formats: txt, json
                 - ref: register
+                  formats: txt, json
 
   - feature:
       id: a3e8a287-b8ef-41e5-86de-39805fcf729e

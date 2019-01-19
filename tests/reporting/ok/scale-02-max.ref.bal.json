@@ -1,0 +1,20 @@
+{
+  "title" : "BALANCE",
+  "balances" : [
+    {
+      "accountSum" : "-2.12345679",
+      "accountTreeSum" : "-2.12345679",
+      "account" : "a"
+    },
+    {
+      "accountSum" : "2.12345679",
+      "accountTreeSum" : "2.12345679",
+      "account" : "e"
+    }
+  ],
+  "deltas" : [
+    {
+      "delta" : "0.00000000"
+    }
+  ]
+}

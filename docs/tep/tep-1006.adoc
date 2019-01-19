@@ -109,21 +109,21 @@ None
 == Documentation
 
 * [x] link:../../CHANGELOG[]: add new item
-* [ ] User docs
-** [ ] tackler.conf
-*** [ ] global settings
-**** [ ] `reporting.scale.min`
-**** [ ] `reporting.scale.max`
-*** [ ] report spesific settings
-**** [ ] balance
-***** [ ] `reports.balance.scale.min`
-***** [ ] `reports.balance.scale.max`
-**** [ ] balance-group
-***** [ ] `reports.balance-group.scale.min`
-***** [ ] `reports.balance-group.scale.max`
-**** [ ] register
-***** [ ] `reports.register.scale.min`
-***** [ ] `reports.register.scale.max`
+* [x] User docs
+** [x] tackler.conf
+*** [x] global settings
+**** [x] `reporting.scale.min`
+**** [x] `reporting.scale.max`
+*** [x] report spesific settings
+**** [x] balance
+***** [x] `reports.balance.scale.min`
+***** [x] `reports.balance.scale.max`
+**** [x] balance-group
+***** [x] `reports.balance-group.scale.min`
+***** [x] `reports.balance-group.scale.max`
+**** [x] register
+***** [x] `reports.register.scale.min`
+***** [x] `reports.register.scale.max`
 
 
 == Future plans and Postponed (PP) features
