@@ -18,6 +18,8 @@ package fi.e257.tackler.core
 
 class TacklerException(val message: String) extends Exception(message)
 
+class ConfigurationException(message: String) extends TacklerException(message)
+
 class AccountException(message: String) extends TacklerException(message)
 
 class CommodityException(message: String) extends TacklerException(message)

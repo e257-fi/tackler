@@ -24,7 +24,6 @@ import com.typesafe.config.{Config, ConfigFactory}
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
-
 import fi.e257.tackler.model.AccountTreeNode
 
 /**
@@ -49,10 +48,16 @@ object CfgKeys {
   val accounts_strict: String = "accounts.strict"
   val accounts_coa: String = "accounts.coa"
 
+  val reporting: String = "reporting"
+
   val reporting_reports: String  = "reporting.reports"
   val reporting_exports: String  = "reporting.exports"
 
   val reporting_formats: String  = "reporting.formats"
+
+  val reporting_scale_min: String  = "reporting.scale.min"
+  val reporting_scale_max: String  = "reporting.scale.max"
+
   val reporting_accounts: String = "reporting.accounts"
   val reporting_console: String = "reporting.console"
 
@@ -60,14 +65,20 @@ object CfgKeys {
     protected val keybase: String = "reports"
 
     object Balance {
-      protected val keybase: String = Reports.keybase + "." + "balance"
+      val keybase: String = Reports.keybase + "." + "balance"
+
+      val minScale: String = keybase + "." + "scale.min"
+      val maxScale: String = keybase + "." + "scale.max"
 
       val title: String = keybase + "." + "title"
       val accounts: String = keybase + "." + "accounts"
     }
 
     object BalanceGroup {
-      protected val keybase: String = Reports.keybase + "." + "balance-group"
+      val keybase: String = Reports.keybase + "." + "balance-group"
+
+      val minScale: String = keybase + "." + "scale.min"
+      val maxScale: String = keybase + "." + "scale.max"
 
       val title: String = keybase + "." + "title"
       val accounts: String = keybase + "." + "accounts"
@@ -75,7 +86,10 @@ object CfgKeys {
     }
 
     object Register {
-      protected val keybase: String = Reports.keybase + "." + "register"
+      val keybase: String = Reports.keybase + "." + "register"
+
+      val minScale: String = keybase + "." + "scale.min"
+      val maxScale: String = keybase + "." + "scale.max"
 
       val title: String = keybase + "." + "title"
       val accounts: String = keybase + "." + "accounts"
@@ -203,11 +217,6 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
    * Reporting
    */
   object Reporting {
-    // Far-Far-Away: scales could be set by conf
-    // Far-Far-Away: scales could be per report settings
-    val minScale: Int = 2
-    val maxScale: Int = 7
-
     val reports: List[ReportType] = cfg.getStringList(CfgKeys.reporting_reports).asScala
       .map(ReportType(_)).toList
 
@@ -225,6 +234,9 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   object Reports {
     object Balance {
       protected val keys = CfgKeys.Reports.Balance
+      private val scale = getReportScale(keys.keybase)
+      val minScale: Int = scale._1
+      val maxScale: Int = scale._2
 
       val title: String = cfg.getString(keys.title)
       val accounts: List[String] = getReportAccounts(keys.accounts)
@@ -232,6 +244,11 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
 
     object BalanceGroup {
       protected val keys = CfgKeys.Reports.BalanceGroup
+
+      private val scale = getReportScale(keys.keybase)
+
+      val minScale: Int = scale._1
+      val maxScale: Int = scale._2
 
       val title: String = cfg.getString(keys.title)
       val accounts: List[String] = getReportAccounts(keys.accounts)
@@ -245,6 +262,10 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
     object Register {
       protected val keys = CfgKeys.Reports.Register
 
+      private val scale = getReportScale(keys.keybase)
+      val minScale: Int = scale._1
+      val maxScale: Int = scale._2
+
       val title: String = cfg.getString(keys.title)
       val accounts: List[String] = getReportAccounts(keys.accounts)
     }
@@ -256,6 +277,44 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
 
       val accounts: List[String] = getReportAccounts(keys.accounts)
     }
+  }
+
+  def getReportScale(keyBase: String): (Int, Int) = {
+
+    def getScale(keyBase: String, key: String): Int = {
+      val fullKey = keyBase + "." + key
+
+      val k = if (cfg.hasPath(fullKey)) {
+        fullKey
+      } else {
+        CfgKeys.reporting + "." + key
+      }
+
+      val scale = cfg.getInt(k)
+
+      if (scale < 0){
+        val msg = "scale can not be negative. CFG key: " + k
+        log.error(msg)
+        throw new ConfigurationException(msg)
+      }
+
+      scale
+    }
+
+    val minScaleKey = "scale.min"
+    val maxScaleKey = "scale.max"
+
+    val minScale = getScale(keyBase, minScaleKey)
+    val maxScale = getScale(keyBase, maxScaleKey)
+
+    if (maxScale < minScale) {
+      val msg = "max scale can not be smaller than min scale. CFG keys: " + CfgKeys.reporting + ", and/or keys: " + keyBase
+      log.error(msg)
+      log.error("max scale: {}, min scale: {}", maxScale, minScale)
+      throw new ConfigurationException(msg)
+    }
+
+    (minScale, maxScale)
   }
 
   def getReportAccounts(key: String): List[String] = {

@@ -28,8 +28,8 @@ class RegisterSettingsTest extends FlatSpec with MustMatchers {
   it should "apply with default" in {
     val cfg = RegisterSettings(settings)
 
-    cfg.minScale mustBe settings.Reporting.minScale
-    cfg.maxScale mustBe settings.Reporting.maxScale
+    cfg.minScale mustBe 2
+    cfg.maxScale mustBe 7
 
     cfg.title mustBe "REGISTER"
     cfg.accounts mustBe List[String]()
@@ -38,8 +38,8 @@ class RegisterSettingsTest extends FlatSpec with MustMatchers {
   it should "apply" in {
     val cfg = RegisterSettings(settings, Some("unit test"), Some(List("a", "b")))
 
-    cfg.minScale mustBe settings.Reporting.minScale
-    cfg.maxScale mustBe settings.Reporting.maxScale
+    cfg.minScale mustBe 2
+    cfg.maxScale mustBe 7
 
     cfg.title mustBe "unit test"
     cfg.accounts mustBe List("a", "b")

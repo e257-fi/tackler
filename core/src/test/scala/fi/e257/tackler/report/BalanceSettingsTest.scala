@@ -28,8 +28,8 @@ class BalanceSettingsTest extends FlatSpec with MustMatchers {
   it should "apply with default" in {
     val cfg = BalanceSettings(settings)
 
-    cfg.minScale mustBe settings.Reporting.minScale
-    cfg.maxScale mustBe settings.Reporting.maxScale
+    cfg.minScale mustBe 2
+    cfg.maxScale mustBe 7
 
     cfg.title mustBe "BALANCE"
     cfg.accounts mustBe List[String]()
@@ -38,8 +38,8 @@ class BalanceSettingsTest extends FlatSpec with MustMatchers {
   it should "apply" in {
     val cfg = BalanceSettings(settings, Some("unit test"), Some(List("a", "b")))
 
-    cfg.minScale mustBe settings.Reporting.minScale
-    cfg.maxScale mustBe settings.Reporting.maxScale
+    cfg.minScale mustBe 2
+    cfg.maxScale mustBe 7
 
     cfg.title mustBe "unit test"
     cfg.accounts mustBe List("a", "b")

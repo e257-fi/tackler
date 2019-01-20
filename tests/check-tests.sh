@@ -18,7 +18,7 @@ exe_dir=$(dirname $(realpath $0))
 db_dir="$exe_dir"
 
 echo "Check test DB YAML validity:"
-for test_db in "$db_dir/tests.yml" "$db_dir/tests-1005.yml"
+for test_db in "$db_dir/tests.yml" "$db_dir/tests-1005.yml" "$db_dir/tests-1006.yml"
 do
 	$sh_pykwalify -v -s  "$exe_dir/tests-schema.yml" -d  "$test_db"
 
@@ -28,9 +28,10 @@ done
 # good enough for know
 test_db01="$db_dir/tests.yml"
 test_db02="$db_dir/tests-1005.yml"
-grep ' refid:' $test_db01 $test_db02 | sed 's/.*refid: //' | while read refid; 
+test_db03="$db_dir/tests-1006.yml"
+grep ' refid:' $test_db01 $test_db02 $test_db03 | sed 's/.*refid: //' | while read refid; 
 do  
-	egrep -q -L '.* id: +'$refid' *$' "$test_db01" "$test_db02" || echo $refid
+	egrep -q -L '.* id: +'$refid' *$' "$test_db01" "$test_db02" "$test_db03" || echo $refid
 done
 
 echo "Check missing uuid:"

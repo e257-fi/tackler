@@ -1,0 +1,41 @@
+{
+  "title" : "REGISTER",
+  "transactions" : [
+    {
+      "txn" : {
+        "timestamp" : "2019-01-19T00:00:00Z",
+        "description" : "max"
+      },
+      "postings" : [
+        {
+          "account" : "a",
+          "amount" : "-1.1234567890",
+          "runningTotal" : "-1.1234567890"
+        },
+        {
+          "account" : "e",
+          "amount" : "1.1234567890",
+          "runningTotal" : "1.1234567890"
+        }
+      ]
+    },
+    {
+      "txn" : {
+        "timestamp" : "2019-01-19T00:00:00Z",
+        "description" : "min"
+      },
+      "postings" : [
+        {
+          "account" : "a",
+          "amount" : "-1.00000",
+          "runningTotal" : "-2.1234567890"
+        },
+        {
+          "account" : "e",
+          "amount" : "1.00000",
+          "runningTotal" : "2.1234567890"
+        }
+      ]
+    }
+  ]
+}

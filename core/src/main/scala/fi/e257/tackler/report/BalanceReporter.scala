@@ -23,7 +23,7 @@ import fi.e257.tackler.api.{BalanceItem, BalanceReport, Delta, OrderByDelta}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{BalanceTreeNode, TxnData}
 
-abstract class BalanceReporterLike(cfg: ReportSettings) extends ReportLike(cfg) {
+abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(cfg) {
 
   @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
   protected def txtBalanceBody(balance: Balance): (Seq[String], String) = {

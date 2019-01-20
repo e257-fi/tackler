@@ -615,6 +615,9 @@ features:
           registry:
             - test:
                 refid: 0f862997-95b1-4e06-bc5f-bc170c7594ff
+          equity:
+            - test:
+                refid: 0f862997-95b1-4e06-bc5f-bc170c7594ff
           identity:
             - test:
                 refid: 0f862997-95b1-4e06-bc5f-bc170c7594ff
@@ -631,6 +634,7 @@ features:
                 - ref: balance
                 - ref: balance-group
                 - ref: register
+                - ref: equity
                 - ref: identity
 
   - feature:

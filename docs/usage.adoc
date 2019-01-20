@@ -160,30 +160,63 @@ If truly stable reporting output is needed (especially Register and Identity rep
 then either Txns must have either `uuid` or unique `time`, `code` or `description`.
 
 
-===== Selecting reports
+===== Selecting reports and exports
 
 Produced reports can be selected either by link:./tackler.conf[configuration] or CLI options:
 
- * `--reporting.reports "report1" "report2"`
+    --reporting.reports "report1" "report2"
 
 Valid options are:
 link:./report-balance.adoc[`balance`],
 link:./report-balance-group.adoc[`balance-group`],
 link:./report-register.adoc[`register`],
 
- * `--reporting.exports "export1" "export2"`
 
+Produced exports can be selected either by link:./tackler.conf[configuration] or CLI options:
+
+    --reporting.exports "export1" "export2"
+
+valid options are:
 link:./export-equity.adoc[`equity`],
 link:./export-identity.adoc[`identity`]
 
 
-===== Selecting reports
+===== Selecting report formats
 
 Report formats can be selected either by link:./tackler.conf[configuration] or CLI options:
 
- * `--reporting.formats "frmt1" "frmt2"`
+    --reporting.formats "frmt1" "frmt2"
 
 Valid options are: `txt` and `json`
+
+
+===== Configuring used output scale of reports
+
+Report output scale (e.g. count of decimals) can be set either globally or based on report type.
+
+Example of global scale settings:
+....
+reporting {
+  scale {
+    min = 2
+    max = 7
+  }
+}
+....
+
+and report specific scale settings:
+....
+reports {
+   balance {
+     scale {
+        min = 2
+        max = 2
+     }
+   }
+}
+....
+
+See link:./tackler.conf[tackler.conf] full documentation.
 
 
 ===== Selecting accounts for reports
@@ -220,7 +253,6 @@ reporting {
 
 If There are no accounts matched for report then report's sub-section
 is not printed / outputted at all (balance Group, register report).
-
 
 ===== Balance Group Report and GroupBy
 

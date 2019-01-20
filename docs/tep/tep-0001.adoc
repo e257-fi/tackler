@@ -183,5 +183,5 @@ features:
                 - ref: balance-group
                 - ref: register
                 - ref: identity
-		- ref: equity
+                - ref: equity
 ....
