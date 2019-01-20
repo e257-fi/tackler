@@ -18,7 +18,7 @@ New features in this release are:
 
 ==== Fixes
 
-None
+ * Fix failing test: e257/accounting/tackler#1
 
 
 ==== Development
