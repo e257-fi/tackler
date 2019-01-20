@@ -22,7 +22,7 @@ import fi.e257.tackler.model.TxnData
 
 class ReportLikeTest extends FlatSpec {
 
-  class ReportSettings extends ReportConfiguration {
+  class DefaultReportSettings extends ReportConfiguration {
     override val minScale = 2
     override val maxScale = 7
   }
@@ -32,7 +32,7 @@ class ReportLikeTest extends FlatSpec {
     override def jsonReport(txnData: TxnData): Json = ???
   }
 
-  val frmt = new Frmt("", new ReportSettings())
+  val defaultFrmt = new Frmt("", new DefaultReportSettings())
 
   val sc0: scala.math.BigDecimal = 1
   val sc1: scala.math.BigDecimal = 1.1
@@ -55,62 +55,70 @@ class ReportLikeTest extends FlatSpec {
   behavior of "scaleFrmtStr"
 
   it should "DIR with minScale" in {
-    assert(frmt.getScaleFormat(sc0) === ".2f")
-    assert(frmt.getScaleFormat(sc1) === ".2f")
+    assert(defaultFrmt.getScaleFormat(sc0) === ".2f")
+    assert(defaultFrmt.getScaleFormat(sc1) === ".2f")
   }
 
   it should "DIR between min and max" in {
-    assert(frmt.getScaleFormat(sc2) === ".2f")
-    assert(frmt.getScaleFormat(sc3) === ".3f")
-    assert(frmt.getScaleFormat(sc6) === ".6f")
+    assert(defaultFrmt.getScaleFormat(sc2) === ".2f")
+    assert(defaultFrmt.getScaleFormat(sc3) === ".3f")
+    assert(defaultFrmt.getScaleFormat(sc6) === ".6f")
   }
 
   it should "DIR with maxScale" in {
-    assert(frmt.getScaleFormat(sc8_tr7) === ".7f")
+    assert(defaultFrmt.getScaleFormat(sc8_tr7) === ".7f")
   }
 
   behavior of "valueFillFrmtStr"
 
   it should "DIR with small and big values" in {
-    assert(frmt.getFillFormat(5, sc1) === "%5.2f")
-    assert(frmt.getFillFormat(5, sc3) === "%5.3f")
-    assert(frmt.getFillFormat(18, sc8_tr7) === "%18.7f")
-    assert(frmt.getFillFormat(26, sc18_9) === "%26.7f")
+    assert(defaultFrmt.getFillFormat(5, sc1) === "%5.2f")
+    assert(defaultFrmt.getFillFormat(5, sc3) === "%5.3f")
+    assert(defaultFrmt.getFillFormat(18, sc8_tr7) === "%18.7f")
+    assert(defaultFrmt.getFillFormat(26, sc18_9) === "%26.7f")
   }
 
   behavior of "fillFormat"
 
+  /**
+   * test: 52a72e6e-0d5d-4620-af1c-c6edf0143d82
+   */
   it should "format normal values" in {
-    assert(frmt.scaleFormat(sc0) === "1.00")
-    assert(frmt.scaleFormat(sc6) === "1.123456")
-    assert(frmt.scaleFormat(sc10_2) === "1234567890.12")
+    assert(defaultFrmt.scaleFormat(sc0) === "1.00")
+    assert(defaultFrmt.scaleFormat(sc6) === "1.123456")
+    assert(defaultFrmt.scaleFormat(sc10_2) === "1234567890.12")
 
-    assert(frmt.fillFormat(1, sc0) === "1.00")
-    assert(frmt.fillFormat(4, sc0) === "1.00")
-    assert(frmt.fillFormat(5, sc0) === " 1.00")
+    assert(defaultFrmt.fillFormat(1, sc0) === "1.00")
+    assert(defaultFrmt.fillFormat(4, sc0) === "1.00")
+    assert(defaultFrmt.fillFormat(5, sc0) === " 1.00")
 
-    assert(frmt.fillFormat(9, sc6) === " 1.123456")
-    assert(frmt.fillFormat(14, sc10_2) === " 1234567890.12")
+    assert(defaultFrmt.fillFormat(9, sc6) === " 1.123456")
+    assert(defaultFrmt.fillFormat(14, sc10_2) === " 1234567890.12")
 
   }
 
+  /**
+   * test: be4cec3b-b025-4dbd-9331-e78896843f04
+   */
   it should "truncate values correctly" in {
-    assert(frmt.scaleFormat(sc8_tr7) === "1.1234568")
-    assert(frmt.scaleFormat(sc8_tr5) === "1.1234568")
-    assert(frmt.scaleFormat(sc8_tr4) === "1.1234567")
+    assert(defaultFrmt.scaleFormat(sc8_tr7) === "1.1234568")
+    assert(defaultFrmt.scaleFormat(sc8_tr5) === "1.1234568")
+    assert(defaultFrmt.scaleFormat(sc8_tr4) === "1.1234567")
 
-    assert(frmt.fillFormat(10, sc8_tr7) === " 1.1234568")
-    assert(frmt.fillFormat(10, sc8_tr5) === " 1.1234568")
-    assert(frmt.fillFormat(10, sc8_tr4) === " 1.1234567")
+    assert(defaultFrmt.fillFormat(10, sc8_tr7) === " 1.1234568")
+    assert(defaultFrmt.fillFormat(10, sc8_tr5) === " 1.1234568")
+    assert(defaultFrmt.fillFormat(10, sc8_tr4) === " 1.1234567")
   }
 
-
+  /**
+   * test: 77f9a99e-ef0a-47c4-a8c9-59f3d4478f31
+   */
   it should "format large value" in {
-    assert(frmt.scaleFormat(sc18_2) === "123456789123456789.12")
-    assert(frmt.scaleFormat(sc18_9) === "123456789123456789.1234568")
+    assert(defaultFrmt.scaleFormat(sc18_2) === "123456789123456789.12")
+    assert(defaultFrmt.scaleFormat(sc18_9) === "123456789123456789.1234568")
 
-    assert(frmt.fillFormat(22, sc18_2) === " 123456789123456789.12")
-    assert(frmt.fillFormat(27, sc18_9) === " 123456789123456789.1234568")
+    assert(defaultFrmt.fillFormat(22, sc18_2) === " 123456789123456789.12")
+    assert(defaultFrmt.fillFormat(27, sc18_9) === " 123456789123456789.1234568")
   }
 
   /**
@@ -123,6 +131,64 @@ class ReportLikeTest extends FlatSpec {
     }
     val largeFrmt = new Frmt("", new LargeScale())
 
-    assert(largeFrmt.fillFormat(160, sc30_130) == " 123456789012345678901234567890.01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234568")
+    assert(largeFrmt.fillFormat(160, sc30_130) === " 123456789012345678901234567890.01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234568")
+  }
+
+  /**
+   * test: f82c5cbc-2f8b-4c81-9732-36e85807b754
+   */
+  it should "verify rounding mode HALF_UP 1/2" in {
+    class RoundingScale extends ReportConfiguration {
+      override val minScale = 0
+      override val maxScale = 0
+    }
+    val frmt = new Frmt("", new RoundingScale())
+
+    // https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
+    val valrefs: List[(scala.math.BigDecimal, String)] = List(
+      (BigDecimal( "5.5"), " 6"),
+      (BigDecimal( "2.5"), " 3"),
+      (BigDecimal( "1.6"), " 2"),
+      (BigDecimal( "1.1"), " 1"),
+      (BigDecimal( "1.0"), " 1"),
+      (BigDecimal("-1.0"), "-1"),
+      (BigDecimal("-1.1"), "-1"),
+      (BigDecimal("-1.6"), "-2"),
+      (BigDecimal("-2.5"), "-3"),
+      (BigDecimal("-5.5"), "-6"),
+    )
+
+    valrefs.foreach({case (value, ref) =>
+      assert(frmt.fillFormat(2, value) === ref)
+    })
+  }
+
+  /**
+   * test: bfa20914-bd4a-431e-879b-1d3abf2b9df3
+   */
+  it should "verify rounding mode HALF_UP 2/2" in {
+    class DecimalRoundingScale extends ReportConfiguration {
+      override val minScale = 2
+      override val maxScale = 2
+    }
+    val frmt = new Frmt("", new DecimalRoundingScale())
+
+    // https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
+    val valrefs: List[(scala.math.BigDecimal, String)] = List(
+      (BigDecimal( "0.055"), " 0.06"),
+      (BigDecimal( "0.025"), " 0.03"),
+      (BigDecimal( "0.016"), " 0.02"),
+      (BigDecimal( "0.011"), " 0.01"),
+      (BigDecimal( "0.010"), " 0.01"),
+      (BigDecimal("-0.010"), "-0.01"),
+      (BigDecimal("-0.011"), "-0.01"),
+      (BigDecimal("-0.016"), "-0.02"),
+      (BigDecimal("-0.025"), "-0.03"),
+      (BigDecimal("-0.055"), "-0.06"),
+    )
+
+    valrefs.foreach({case (value, ref) =>
+      assert(frmt.fillFormat(5, value) === ref)
+    })
   }
 }

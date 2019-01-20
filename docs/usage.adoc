@@ -193,6 +193,7 @@ Valid options are: `txt` and `json`
 ===== Configuring used output scale of reports
 
 Report output scale (e.g. count of decimals) can be set either globally or based on report type.
+When values are truncated based on max scale setting, used rounding mode is HALF_UP.
 
 Example of global scale settings:
 ....
