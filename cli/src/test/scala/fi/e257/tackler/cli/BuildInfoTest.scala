@@ -23,7 +23,7 @@ class BuildInfoTest extends FlatSpec {
   behavior of "BuildInfo"
 
   it should "builtAtString" in {
-    assert(BuildInfo.builtAtString.startsWith("2019"))
+    assert(BuildInfo.builtAtString.startsWith("20"))
   }
 
   it should "scalaVersion" in {

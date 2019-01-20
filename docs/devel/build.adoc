@@ -8,6 +8,20 @@ Tackler build is done by link:http://www.scala-sbt.org/[sbt].
  sbt clean test
 
 
+=== Running tests
+
+Some of the tests generate lots of output,
+especially `cli/test` (test `fi.e257.tackler.cli.TacklerCliTest`).
+It might be helpful to run tests selectively, especially in case of errors:
+
+Start `sbt` and run on sbt shell:
+....
+> apiJVM/test
+> core/test
+> cli/test
+....
+
+
 == Generating binaries
 
  sbt cli/assembly
