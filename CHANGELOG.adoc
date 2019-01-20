@@ -15,7 +15,7 @@ New features in this release are:
 
 * Configuration settings `reporting.scale` and `reports.<report>.scale`
   for report output scale. Defaults are not changed (min=2, max=7). See:
-** link:./docs/usage.doc[Usage Guide]
+** link:./docs/usage.adoc[Usage Guide]
 ** link:./docs/tackler.conf[tackler.conf]
 ** link:./docs/tep/tep-1006.adoc[TEP-1006: Configuration settings for report output scale]
 
