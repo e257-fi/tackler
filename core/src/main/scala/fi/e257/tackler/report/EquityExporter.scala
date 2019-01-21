@@ -16,8 +16,9 @@
  */
 package fi.e257.tackler.report
 import cats.implicits._
+import fi.e257.tackler.api.TxnTS
 import fi.e257.tackler.core._
-import fi.e257.tackler.model.{TxnData, TxnTS, Txns}
+import fi.e257.tackler.model.{TxnData, Txns}
 
 class EquityExporter(val settings: Settings) extends ExporterLike {
   private val mySettings = settings.Exports.Equity

@@ -18,8 +18,7 @@ package fi.e257.tackler.report
 
 import io.circe.Json
 import io.circe.syntax._
-
-import fi.e257.tackler.api.{RegisterPosting, RegisterReport, RegisterTxn}
+import fi.e257.tackler.api.{RegisterPosting, RegisterReport, RegisterTxn, TxnTS}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{RegisterEntry, _}
 
