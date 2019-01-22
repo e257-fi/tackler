@@ -13,6 +13,8 @@ TEP Template: link:./tep-0001.adoc[TEP-0001]
 * link:./tep-1002.adoc[TEP-1002: Git Storage system]
 * link:./tep-1004.adoc[TEP-1004: JSON report output]
 * link:./tep-1005.adoc[TEP-1005: Txn filters]
+* link:./tep-1006.adoc[TEP-1006: CFG settings for report output scale]
+
 
 === TEPs in implementation phase
 
@@ -21,5 +23,3 @@ None at the moment
 === TEPs in planning phase
 
 * link:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
-
-

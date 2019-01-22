@@ -16,7 +16,13 @@ For example Txn (single Transaction) or Txns (sequence of Transactions).
 
 In case of tree-structures, child (singular) and childs (plural) is misspelled by purpose.
 
-Tackler data model classes and objects are defined in link:../../core/src/main/scala/fi/e257/tackler/model[core / model] package.
+Tackler data model classes and objects are defined in
+link:../../core/src/main/scala/fi/e257/tackler/model[core / model] package.
+
+Tackler data model classes which are used between server and client are located in
+link:../../api/src/main/scala/fi/e257/tackler/api/[tackler-api] package.  These API models
+are serialized over wire by Circe as JSON, and there are deserializers available
+as JavaScript and JVM for these models.
 
 
 ===== Date
