@@ -73,7 +73,7 @@ This directory contains link:https://github.com/sn127/utils[DirSuite] based inte
 ** link:./tests/parser[tests -> parser] Parser and input recognition tests (valid and non-valid input)
 ** link:./tests/core[tests -> core] Tests for core components and features
 ** link:./tests/reporting[tests -> reporting] Tests to validate reporting
-** link:./tests/reset-ref.sh[tests -> reset-ref.sh] Tool to reset reference vectors with current output
+** link:./tests/reset-refs.sh[tests -> reset-refs.sh] Tool to reset reference vectors with current output
 
 === API documents
 
