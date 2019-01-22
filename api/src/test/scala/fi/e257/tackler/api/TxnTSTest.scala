@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package fi.e257.tackler.api
 
 import java.time.ZonedDateTime
 
-import org.scalatest.FlatSpec
+import org.scalatest.{FlatSpec, FunSpec}
 
 class TxnTSTest extends FlatSpec {
 
@@ -75,5 +75,115 @@ class TxnTSTest extends FlatSpec {
 
     assert(TxnTS.isoWeekDate(txt2ts("2017-01-02T00:00:00+02:00")) ===  "2017-W01-1+02:00")
     assert(TxnTS.isoWeekDate(txt2ts("2017-01-02T00:00:00-02:00")) ===  "2017-W01-1-02:00")
+  }
+}
+
+class TxnTsShard extends FunSpec {
+
+  def txt2ts(txtTS: String): ZonedDateTime = {
+    ZonedDateTime.parse(txtTS,
+      java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+  }
+
+  describe("byDate must") {
+    it ("Use UTC for sharding") {
+      assert(TxnTS.Shard.byDate(txt2ts("2017-01-01T00:00:00Z"))      ===  "2017/01/01")
+
+      // east to UTC
+      assert(TxnTS.Shard.byDate(txt2ts("2017-01-01T00:00:00+02:00")) ===  "2016/12/31")
+      assert(TxnTS.Shard.byDate(txt2ts("2017-01-01T01:59:59+02:00")) ===  "2016/12/31")
+      assert(TxnTS.Shard.byDate(txt2ts("2017-01-01T02:00:00+02:00")) ===  "2017/01/01")
+
+      // west to UTC
+      assert(TxnTS.Shard.byDate(txt2ts("2016-12-31T21:59:59-02:00")) ===  "2016/12/31")
+      assert(TxnTS.Shard.byDate(txt2ts("2016-12-31T22:00:00-02:00")) ===  "2017/01/01")
+      assert(TxnTS.Shard.byDate(txt2ts("2017-01-01T00:00:00-02:00")) ===  "2017/01/01")
+    }
+  }
+
+
+  describe("byMonth must") {
+    it ("Use UTC for sharding") {
+      assert(TxnTS.Shard.byMonth(txt2ts("2017-01-01T00:00:00Z"))      ===  "2017/01")
+
+      // east to UTC
+      assert(TxnTS.Shard.byMonth(txt2ts("2017-01-01T00:00:00+02:00")) ===  "2016/12")
+      assert(TxnTS.Shard.byMonth(txt2ts("2017-01-01T01:59:59+02:00")) ===  "2016/12")
+      assert(TxnTS.Shard.byMonth(txt2ts("2017-01-01T02:00:00+02:00")) ===  "2017/01")
+
+      // west to UTC
+      assert(TxnTS.Shard.byMonth(txt2ts("2016-12-31T21:59:59-02:00")) ===  "2016/12")
+      assert(TxnTS.Shard.byMonth(txt2ts("2016-12-31T22:00:00-02:00")) ===  "2017/01")
+      assert(TxnTS.Shard.byMonth(txt2ts("2017-01-01T00:00:00-02:00")) ===  "2017/01")
+    }
+  }
+
+  describe("byYear must") {
+    it ("Use UTC for sharding") {
+      assert(TxnTS.Shard.byYear(txt2ts("2017-01-01T00:00:00Z"))      ===  "2017")
+
+      // east to UTC
+      assert(TxnTS.Shard.byYear(txt2ts("2017-01-01T00:00:00+02:00")) ===  "2016")
+      assert(TxnTS.Shard.byYear(txt2ts("2017-01-01T01:59:59+02:00")) ===  "2016")
+      assert(TxnTS.Shard.byYear(txt2ts("2017-01-01T02:00:00+02:00")) ===  "2017")
+
+      // west to UTC
+      assert(TxnTS.Shard.byYear(txt2ts("2016-12-31T21:59:59-02:00")) ===  "2016")
+      assert(TxnTS.Shard.byYear(txt2ts("2016-12-31T22:00:00-02:00")) ===  "2017")
+      assert(TxnTS.Shard.byYear(txt2ts("2017-01-01T00:00:00-02:00")) ===  "2017")
+    }
+  }
+
+
+  describe("byWeek must") {
+    it ("Handle tricky years (2010, 2017, ...)") {
+      assert(TxnTS.Shard.byWeek(txt2ts("2010-01-03T00:00:00+00:00")) === "2009/W53")
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-01T00:00:00+00:00")) === "2016/W52")
+    }
+
+    it ("Start week on Monday") {
+      assert(TxnTS.Shard.byWeek(txt2ts("2010-01-04T00:00:00+00:00")) === "2010/W01")
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-02T00:00:00+00:00")) === "2017/W01")
+    }
+
+    it ("Use UTC for sharding") {
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-02T00:00:00Z"))      ===  "2017/W01")
+
+      // east to UTC
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-02T00:00:00+02:00")) ===  "2016/W52")
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-02T01:59:59+02:00")) ===  "2016/W52")
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-02T02:00:00+02:00")) ===  "2017/W01")
+
+      // west to UTC
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-01T21:59:59-02:00")) ===  "2016/W52")
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-01T22:00:00-02:00")) ===  "2017/W01")
+      assert(TxnTS.Shard.byWeek(txt2ts("2017-01-02T00:00:00-02:00")) ===  "2017/W01")
+    }
+  }
+
+  describe("byWeekDate must") {
+    it ("Handle tricky years  (2010, 2017, ...)") {
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2010-01-03T00:00:00+00:00")) === "2009/W53/7")
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-01T00:00:00+00:00")) === "2016/W52/7")
+    }
+
+    it ("Start week on Monday") {
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2010-01-04T00:00:00+00:00")) === "2010/W01/1")
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-02T00:00:00+00:00")) === "2017/W01/1")
+    }
+
+    it ("Use UTC for sharding") {
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-02T00:00:00Z"))      ===  "2017/W01/1")
+
+      // east to UTC
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-02T00:00:00+02:00")) ===  "2016/W52/7")
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-02T01:59:59+02:00")) ===  "2016/W52/7")
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-02T02:00:00+02:00")) ===  "2017/W01/1")
+
+      // west to UTC
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-01T21:59:59-02:00")) ===  "2016/W52/7")
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-01T22:00:00-02:00")) ===  "2017/W01/1")
+      assert(TxnTS.Shard.byWeekDate(txt2ts("2017-01-02T00:00:00-02:00")) ===  "2017/W01/1")
+    }
   }
 }
