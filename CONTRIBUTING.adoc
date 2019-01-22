@@ -6,8 +6,15 @@ Contributions to the project are most welcome!
 == Open and planned tasks
 
 At the moment project todo items are maintained in link:../todo/[todo files].
-Before starting working on something, please first check with Gitlab issue
+Before starting working on something, please first check by opening Gitlab issue
 if your plan is feasible and viable from project's perspective.
+
+=== Tackler Enhancements Proposals
+
+Bigger changes to Tackler are done via Tackler Enhancements Proposals.
+
+These are tracked on link:./docs/tep/readme.adoc[TEP Index]. There is template
+for new TEP here: link:./docs/tep/tep-0001.adoc[TEP template]
 
 
 == How to build and test
@@ -28,6 +35,12 @@ if your plan is feasible and viable from project's perspective.
 +
     sbt clean coverageOn test coverageReport
     sbt coverageAggregate
+
+== Documentation for Tackler developers
+
+link:./docs/devel/readme.adoc[Developer's Guide] for Tackler located under
+link:./docs/devel/[docs -> devel].
+
 
 == Explore code
 
@@ -52,9 +65,9 @@ link:./cli[cli]::
 * link:./cli/src/main/scala/fi/e257/tackler/cli/[cli -> scala -> cli] Command Line Interface code
 +
 link:./tests[tests]::
-link:https://github.com/sn127/utils[DirSuite] based integration tests for Tackler.
+This directory contains link:https://github.com/sn127/utils[DirSuite] based integration tests for Tackler.
 +
-** link:./tests/tests.yaml[tests -> tests.yaml] List of all tests and tested features
+** link:./tests/tests.adoc[tests -> tests.adoc] General overview of tests and Tackler Test Tracking Database (T3DB)
 ** link:./tests/accumulator[tests -> accumulator] Tests for validating calculator and Accumulator operations
 ** link:./tests/cli[tests -> cli] Tests for Command Line Interface verification
 ** link:./tests/parser[tests -> parser] Parser and input recognition tests (valid and non-valid input)
@@ -64,7 +77,11 @@ link:https://github.com/sn127/utils[DirSuite] based integration tests for Tackle
 
 === API documents
 
-Also see link:docs/devel/readme.adoc[developer's documentation] and link:./docs/server-api.adoc[Server API] and link:./docs/client-api.adoc[Client API].
+For API documents, see:
+
+ * link:./docs/devel/readme.adoc[Developer's Guide]
+ * link:./docs/server-api.adoc[Server API]
+ * link:./docs/client-api.adoc[Client API].
 
 == Developer Certificate of Origin
 

@@ -109,8 +109,13 @@ Changes to identity export
 
 == Documentation
 
+* [ ] link:./readme.adoc[]: Update TEP index
 * [ ] link:../../README.adoc[]: is it a new noteworthy feature?
 * [ ] link:../../CHANGELOG[]: add new item
+* [ ] Does it warrant own T3DB file?
+** [ ] update link:../../tests/tests.adoc[]
+** [ ] update link:../../tests/check-tests.sh[]
+** [ ] Add new T3DB file link:../../tests/tests-XXXX.yml[]
 * [ ] User docs
 ** [ ] user manual
 *** [ ] cli-arguments

@@ -18,8 +18,7 @@ package fi.e257.tackler.model
 import java.time.ZonedDateTime
 
 import cats.implicits._
-
-import fi.e257.tackler.api.TxnHeader
+import fi.e257.tackler.api.{TxnHeader, TxnTS}
 import fi.e257.tackler.core.TxnException
 
 object OrderByTxn extends Ordering[Transaction] {

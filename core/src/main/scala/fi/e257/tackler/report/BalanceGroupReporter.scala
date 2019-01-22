@@ -18,10 +18,9 @@ package fi.e257.tackler.report
 
 import io.circe.Json
 import io.circe.syntax._
-
-import fi.e257.tackler.api.{BalanceGroupReport, Metadata}
+import fi.e257.tackler.api.{BalanceGroupReport, Metadata, TxnTS}
 import fi.e257.tackler.core._
-import fi.e257.tackler.model.{Transaction, TxnData, TxnTS}
+import fi.e257.tackler.model.{Transaction, TxnData}
 
 
 class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends BalanceReporterLike(mySettings) {
