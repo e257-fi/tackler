@@ -17,7 +17,8 @@ New features in this release are:
 
 ==== Fixes
 
-None
+Force UTF-8 always on console, regardless of console settings.
+This is needed for Windows/MinGW/MSYS2.
 
 
 ==== Development

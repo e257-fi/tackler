@@ -16,11 +16,11 @@
  */
 package fi.e257.tackler.report
 import java.io.{BufferedWriter, OutputStreamWriter}
+import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, Paths}
 
 import org.slf4j.{Logger, LoggerFactory}
 import resource._
-
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.TxnData
 
@@ -53,7 +53,8 @@ final case class Reports(settings: Settings) {
      * Do we have console output?
      */
     val consoles = if (settings.Reporting.console) {
-      List(new BufferedWriter(new OutputStreamWriter(Console.out)))
+      List(new BufferedWriter(
+        new OutputStreamWriter(Console.out, StandardCharsets.UTF_8)))
     } else {
       Nil
     }
