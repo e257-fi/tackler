@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  */
 package fi.e257.tackler.api
 
-import java.time.ZonedDateTime
+import java.time.{ZoneId, ZonedDateTime}
 import java.time.format.{DateTimeFormatter, DateTimeFormatterBuilder, SignStyle}
 import java.time.temporal.ChronoField.DAY_OF_WEEK
 import java.time.temporal.IsoFields
@@ -60,6 +60,16 @@ object TxnTS {
   }
 
   /**
+   * ISO-8601 month with offset.
+   *
+   * @param ts timestamp
+   * @return ISO-8601 date: 2016-12-17T12:31:12+03:00 => 2016-12+03:00
+   */
+  def isoMonth(ts: ZonedDateTime): String = {
+    ts.format(DateTimeFormatter.ofPattern("yyyy'-'MMXXX"))
+  }
+
+  /**
    * ISO-8601 year with offset.
    *
    * @param ts timestamp
@@ -67,16 +77,6 @@ object TxnTS {
    */
   def isoYear(ts: ZonedDateTime): String = {
     ts.format(DateTimeFormatter.ofPattern("yyyyXXX"))
-  }
-
-  /**
-   * ISO-8601 mont with offset.
-   *
-   * @param ts timestamp
-   * @return ISO-8601 date: 2016-12-17T12:31:12+03:00 => 2016-12+03:00
-   */
-  def isoMonth(ts: ZonedDateTime): String = {
-    ts.format(DateTimeFormatter.ofPattern("yyyy'-'MMXXX"))
   }
 
   /**
@@ -95,5 +95,89 @@ object TxnTS {
    */
   def isoWeekDate(ts: ZonedDateTime): String = {
     ts.format(frmtISOWeekDate)
+  }
+
+  object Shard {
+    private def toUTC(ts: ZonedDateTime): ZonedDateTime = ts.withZoneSameInstant(ZoneId.of("UTC"))
+    /**
+     * Format of ISO-8601 week based shard
+     *
+     * Following is localized week date, e.g.(LANG=en_US.UTF-8) causes weeks to start on sunday=1
+     *    val frmtISOWeek = DateTimeFormatter.ofPattern("YYYY'/W'ww")
+     *
+     * Following is with timezone
+     *    val frmtISOWeek = DateTimeFormatter.ISO_WEEK_DATE
+     *
+     * So let's build it explicitly
+     */
+    private val shardISOWeekFormat = new DateTimeFormatterBuilder()
+      .appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+      .appendLiteral("/W")
+      .appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+      .toFormatter
+
+    /**
+     * Format of ISO-8601 week date based shard
+     *
+     * This is actual date (2009/W53/5) vs. week day '5'
+     */
+    private val shardISOWeekDayFormat = new DateTimeFormatterBuilder()
+      .appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
+      .appendLiteral("/W")
+      .appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2)
+      .appendLiteral('/')
+      .appendValue(DAY_OF_WEEK, 1)
+      .toFormatter
+
+
+    /**
+     * Shard TS based on date (e.g. 2010-01-01 => 2010/01/01)
+     * Sharding is done on UTC with '/' as separator.
+     *
+     * @return date shard without leading or trailing separator
+     */
+    def byDate(ts: ZonedDateTime): String = {
+      toUTC(ts).format(DateTimeFormatter.ofPattern("yyyy'/'MM'/'dd"))
+    }
+
+    /**
+     * Shard TS based on month (e.g. 2010-01-01 => 2010/01)
+     * Sharding is done on UTC with '/' as separator.
+     *
+     * @return month shard without leading or trailing separator
+     */
+    def byMonth(ts: ZonedDateTime): String = {
+      toUTC(ts).format(DateTimeFormatter.ofPattern("yyyy'/'MM"))
+    }
+
+    /**
+     * Shard TS based on year (e.g. 2010-01-01 => 2010)
+     * Sharding is done on UTC with '/' as separator.
+     *
+     * @return year shard without leading or trailing separator
+     */
+    def byYear(ts: ZonedDateTime): String = {
+      toUTC(ts).format(DateTimeFormatter.ofPattern("yyyy"))
+    }
+
+    /**
+     * Shard TS based on ISO-8601 week (e.g. 2010-01-01 => 2009/W53)
+     * Sharding is done on UTC with '/' as separator.
+     *
+     * @return ISO-8601 week shard without leading or trailing separator
+     */
+    def byWeek(ts: ZonedDateTime): String = {
+      toUTC(ts).format(shardISOWeekFormat)
+    }
+
+    /**
+     * Shard TS based on ISO-8601 week date (e.g. 2010-01-01 => 2009/W53/5)
+     * Sharding is done on UTC with '/' as separator.
+     *
+     * @return ISO-8601 week date shard without leading or trailing separator
+     */
+    def byWeekDate(ts: ZonedDateTime): String = {
+      toUTC(ts).format(shardISOWeekDayFormat)
+    }
   }
 }
