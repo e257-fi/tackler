@@ -132,9 +132,12 @@ REGISTER
 2017-04-23Z first demo transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
+----------------------------------------------------------------------------------
 2017-04-23Z second demo transaction
             Assets:Cash                                   -1.00              -3.00
             Expenses:Lemonade                              1.00               1.00
+----------------------------------------------------------------------------------
+
 
 Total processing time: 3019, parse: 641, reporting: 78
 ....
@@ -172,6 +175,7 @@ REGISTER
 2017-04-23Z first demo transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
+----------------------------------------------------------------------------------
 
 
 Total processing time: 2879, parse: 600, reporting: 73

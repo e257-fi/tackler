@@ -13,6 +13,8 @@ Current published release is:
 New features in this release are:
 
 * tackler-api: TxnTS based sharders (date, month, year, iso-week, iso-week-date)
+* Reports
+** Register report: Add separator between txn entries
 
 
 ==== Fixes

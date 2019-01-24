@@ -42,7 +42,14 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
       })
 
     if (txtRegPostings.nonEmpty) {
-      List(txtRegTxnHeader + txtRegPostings.mkString("\n"))
+      val maxLength = txtRegPostings
+        .foldLeft(0)({ case (l, s) =>
+          if (l < s.length) s.length
+          else l
+        })
+
+      val sep = "-" * maxLength
+      List(txtRegTxnHeader + txtRegPostings.mkString("\n") + "\n" + sep)
     } else {
       Nil
     }
