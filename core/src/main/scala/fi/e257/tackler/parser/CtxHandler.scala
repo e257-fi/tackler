@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2017-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,8 +90,8 @@ abstract class CtxHandler {
       .map(_.getText)
       .mkString(":")
 
-    if (settings.accounts_strict) {
-      settings.accounts_coa.find({ case (key, _) => key === account }) match {
+    if (settings.Accounts.strict) {
+      settings.Accounts.coa.find({ case (key, _) => key === account }) match {
         case None =>
           throw new AccountException("Account not found: [" + account + "]")
         case Some((_, value)) =>
@@ -117,6 +117,10 @@ abstract class CtxHandler {
       Commodity(u.unit().ID().getText)
     })
 
+    /*
+     * if txnCommodity (e.g. closing position) is not set, then use
+     * posting commodity as txnCommodity.
+     */
     val txnCommodity = Option(postingCtx.opt_unit()).flatMap(u => {
 
       Option(u.opt_position()).fold(Option(Commodity(u.unit().ID().getText))){pos =>
@@ -144,6 +148,27 @@ abstract class CtxHandler {
   }
 
   /**
+   * Check commodity if it's listed and in case of empty commodity,
+   * if empty commodities are allowed.
+   *
+   * @param commodity optional commodity
+   */
+  protected def checkCommodity(commodity: Option[Commodity]): Unit = {
+    commodity match {
+      case Some(c) => {
+        if (!settings.Accounts.commodities.exists(_ === c.name)) {
+          throw new CommodityException("Commodity not found: [" + c.name + "]")
+        }
+      }
+      case None => {
+        if (settings.Accounts.permit_empty_commodity === false) {
+          throw new CommodityException("Empty commodities are not allowed")
+        }
+      }
+    }
+  }
+
+  /**
    * Handle one Posting (posting -rule).
    *
    * @param postingCtx posting productions
@@ -151,8 +176,13 @@ abstract class CtxHandler {
    */
   protected def handleRawPosting(postingCtx: PostingContext): Posting = {
     val foo = handleClosingPosition(postingCtx)
-    val acctn = handleAccount(postingCtx.account(), foo._3)
 
+    if (settings.Accounts.strict) {
+      checkCommodity(foo._3)
+      checkCommodity(foo._4)
+    }
+
+    val acctn = handleAccount(postingCtx.account(), foo._3)
     val comment = Option(postingCtx.opt_comment()).map(c => c.comment().text().getText)
     // todo: fix this silliness, see other todo on Posting
     Posting(acctn, foo._1, foo._2, foo._4, comment)

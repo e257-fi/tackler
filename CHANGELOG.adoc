@@ -12,9 +12,12 @@ Current published release is:
 
 New features in this release are:
 
-* tackler-api: TxnTS based sharders (date, month, year, iso-week, iso-week-date)
+* Strict validation of commodities and currencies. This is turned on by default,
+  if `accounts.strict = true`.  See link:./docs/accounts.conf[accounts.conf]
+  for how to configure this.
 * Reports
 ** Register report: Add separator between txn entries
+* tackler-api: TxnTS based sharders (date, month, year, iso-week, iso-week-date)
 
 
 ==== Fixes

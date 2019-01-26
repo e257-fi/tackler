@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,14 @@ object CfgKeys {
   val input_fs_dir: String = "input.fs.dir"
   val input_fs_glob: String = "input.fs.glob"
 
-  val accounts_strict: String = "accounts.strict"
-  val accounts_coa: String = "accounts.coa"
+  object Accounts {
+    val keybase: String = "accounts"
+
+    val strict: String      = keybase + "." + "strict"
+    val coa: String         = keybase + "." + "coa"
+    val commodities: String = keybase + "." + "commodities"
+    val permit_empty_commodity: String = keybase + "." + "permit-empty-commodity"
+  }
 
   val reporting: String = "reporting"
 
@@ -208,10 +214,16 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   val input_fs_glob: String = cfg.getString(CfgKeys.input_fs_glob)
 
 
-  val accounts_strict: Boolean = cfg.getBoolean(CfgKeys.accounts_strict)
+  object Accounts {
+    val strict: Boolean = cfg.getBoolean(CfgKeys.Accounts.strict)
 
-  val accounts_coa: Map[String, AccountTreeNode] = cfg.getStringList(CfgKeys.accounts_coa).asScala
-    .toSet[String].map(acc => (acc, AccountTreeNode(acc, None))).toMap
+    val coa: Map[String, AccountTreeNode] = cfg.getStringList(CfgKeys.Accounts.coa).asScala
+      .toSet[String].map(acc => (acc, AccountTreeNode(acc, None))).toMap
+
+    val commodities: Set[String] = cfg.getStringList(CfgKeys.Accounts.commodities).asScala.toSet[String]
+
+    val permit_empty_commodity: Boolean = cfg.getBoolean(CfgKeys.Accounts.permit_empty_commodity)
+  }
 
   /**
    * Reporting

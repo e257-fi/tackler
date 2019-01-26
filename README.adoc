@@ -23,7 +23,7 @@ based double-entry accounting].
 ** Can use plain filesystem or link:docs/git-storage.adoc[GIT repository] as data storage
 ** Natively supports splitting journal data to multiple files (shards)
 * Clean and simple link:docs/journal.adoc[journal format]
-* Strict account name validation with link:./docs/accounts.conf[Chart of Accounts]
+* Strict account and commodity name validation with link:./docs/accounts.conf[Chart of Accounts]
 * Multiple report and export types:
 ** link:docs/report-balance.adoc[Balance], link:docs/report-balance-group.adoc[Balance Groups] and link:docs/report-register.adoc[Register] Reports
 ** link:docs/export-equity.adoc[Equity] and link:docs/export-identity.adoc[Identity] Exports
@@ -184,7 +184,7 @@ See link:./THANKS.adoc[THANKS] for full list of credits.
 == License
 
 ....
-Copyright 2016-2018 E257.FI Contributors
+Copyright 2016-2019 E257.FI Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
