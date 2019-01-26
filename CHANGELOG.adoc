@@ -33,7 +33,7 @@ Updated deps and tools:
  * Updated dependencies
  ** ...
  * build
- ** ...
+ ** wartremover: 2.4.0
 
 
 
