@@ -21,11 +21,11 @@ import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
 import cats.implicits._
 
 import scala.collection.JavaConverters
-
 import fi.e257.tackler.api.TxnHeader
 import fi.e257.tackler.core.{AccountException, CommodityException, Settings}
 import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transaction, Txns}
 import fi.e257.tackler.parser.TxnParser._
+import org.slf4j.{Logger, LoggerFactory}
 
 /**
  * Handler utilities for ANTLR Parser Contexts.
@@ -35,6 +35,7 @@ import fi.e257.tackler.parser.TxnParser._
  */
 abstract class CtxHandler {
   val settings: Settings
+  private val log: Logger = LoggerFactory.getLogger(this.getClass)
 
   /**
    * Handle raw parser date productions,
@@ -93,7 +94,8 @@ abstract class CtxHandler {
     if (settings.Accounts.strict) {
       settings.Accounts.coa.find({ case (key, _) => key === account }) match {
         case None =>
-          throw new AccountException("Account not found: [" + account + "]")
+          val lineNro = accountCtx.start.getLine
+          throw new AccountException("Error on line: " + lineNro.toString + "; Account not found: [" + account + "]")
         case Some((_, value)) =>
           // enhance: check valid set of commodities from settings
           AccountTreeNode(value.account, commodity)
@@ -153,16 +155,16 @@ abstract class CtxHandler {
    *
    * @param commodity optional commodity
    */
-  protected def checkCommodity(commodity: Option[Commodity]): Unit = {
+  protected def checkCommodity(commodity: Option[Commodity], lineNro: Int): Unit = {
     commodity match {
       case Some(c) => {
         if (!settings.Accounts.commodities.exists(_ === c.name)) {
-          throw new CommodityException("Commodity not found: [" + c.name + "]")
+          throw new CommodityException("Error on line: " + lineNro.toString + "; Commodity not found: [" + c.name + "]")
         }
       }
       case None => {
         if (settings.Accounts.permit_empty_commodity === false) {
-          throw new CommodityException("Empty commodities are not allowed")
+          throw new CommodityException("Error on line: " + lineNro.toString + "; Empty commodities are not allowed")
         }
       }
     }
@@ -178,8 +180,9 @@ abstract class CtxHandler {
     val foo = handleClosingPosition(postingCtx)
 
     if (settings.Accounts.strict) {
-      checkCommodity(foo._3)
-      checkCommodity(foo._4)
+      val lineNro = postingCtx.start.getLine
+      checkCommodity(foo._3, lineNro)
+      checkCommodity(foo._4, lineNro)
     }
 
     val acctn = handleAccount(postingCtx.account(), foo._3)
@@ -211,7 +214,7 @@ abstract class CtxHandler {
     })
 
 
-    val uuid = Option(txnCtx.txn_meta()).map( meta => {
+    val uuid = Option(txnCtx.txn_meta()).map(meta => {
       val key = meta.txn_meta_key().UUID().getText
       require(key === "uuid") // IE if not
 
@@ -262,8 +265,16 @@ abstract class CtxHandler {
    */
   protected def handleTxns(txnsCtx: TxnsContext): Txns = {
     JavaConverters.asScalaIterator(txnsCtx.txn().iterator())
-      .map({ case (rawTxn) =>
-        handleTxn(rawTxn)
+      .map({ case (txnCtx) =>
+        try {
+          handleTxn(txnCtx)
+        } catch {
+          case ex: Exception => {
+            val lineNro = txnCtx.start.getLine
+            log.error("Error while processing Transaction on line {}", lineNro.toString)
+            throw ex
+          }
+        }
       }).toSeq
   }
 }

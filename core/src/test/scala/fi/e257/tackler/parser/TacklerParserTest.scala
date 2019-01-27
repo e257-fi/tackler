@@ -177,7 +177,7 @@ class TacklerParserTest extends FlatSpec {
                                | :a  1
                                | e
                                |
-                               |], msg: line 3:1 no viable alternative at input ' :'""".stripMargin)
+                               |], msg: on line: 3, at position: 1, msg: no viable alternative at input ' :'""".stripMargin)
 
   }
 

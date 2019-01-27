@@ -121,9 +121,16 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
 
     TxnData(None,
       paths.par.flatMap(inputPath => {
-      log.debug("txn: {}", inputPath.toString())
-      val txnsCtx = TacklerParser.txnsFile(inputPath)
-      handleTxns(txnsCtx)
+      log.debug("txn: {}", inputPath.toString)
+        try {
+          val txnsCtx = TacklerParser.txnsFile(inputPath)
+          handleTxns(txnsCtx)
+        } catch {
+          case ex: Exception => {
+            log.error("Error while processing file: {}", inputPath.toString)
+            throw ex
+          }
+        }
     }).seq.sorted(OrderByTxn))
   }
 
