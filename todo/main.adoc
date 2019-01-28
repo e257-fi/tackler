@@ -25,7 +25,6 @@
 
 Units and commodities: link:../docs/tep/tep-1001.adoc[TEP-1001]
 
- * [ ] chart of commodities + strict mode for commodities
  * [ ] conversions between units
 
 

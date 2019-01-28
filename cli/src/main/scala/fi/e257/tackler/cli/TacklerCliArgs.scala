@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -166,7 +166,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
     name=CfgKeys.input_git_ref, required = false, noshort = true)
 
   val accounts_strict: ScallopOption[String] = opt[String](
-    name=CfgKeys.accounts_strict, required = false, noshort = true)
+    name=CfgKeys.Accounts.strict, required = false, noshort = true)
 
   val console: ScallopOption[String] = opt[String](
     name=CfgKeys.reporting_console, required = false, noshort = true)

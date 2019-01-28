@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ public class TacklerErrorListener extends BaseErrorListener {
 
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-        throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " " + msg);
+        throw new ParseCancellationException(""
+                + "   Can not parse input\n"
+                + "   on line: " + line + ", at position: " + charPositionInLine + "\n"
+                + "   " + msg);
     }
 }

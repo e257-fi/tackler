@@ -12,6 +12,12 @@ Current published release is:
 
 New features in this release are:
 
+* Strict validation of commodities and currencies. This is turned on by default,
+  if `accounts.strict = true`.  See link:./docs/accounts.conf[accounts.conf]
+  for how to configure this.
+* Improve error messages in case of parse and logic errors (filename, lines, etc.)
+* Reports
+** Register report: Add separator between txn entries
 * tackler-api: TxnTS based sharders (date, month, year, iso-week, iso-week-date)
 
 
@@ -28,7 +34,7 @@ Updated deps and tools:
  * Updated dependencies
  ** ...
  * build
- ** ...
+ ** wartremover: 2.4.0
 
 
 

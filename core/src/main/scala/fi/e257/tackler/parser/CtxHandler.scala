@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2017-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
 import cats.implicits._
 
 import scala.collection.JavaConverters
-
 import fi.e257.tackler.api.TxnHeader
 import fi.e257.tackler.core.{AccountException, CommodityException, Settings}
 import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transaction, Txns}
 import fi.e257.tackler.parser.TxnParser._
+import org.slf4j.{Logger, LoggerFactory}
 
 /**
  * Handler utilities for ANTLR Parser Contexts.
@@ -35,6 +35,7 @@ import fi.e257.tackler.parser.TxnParser._
  */
 abstract class CtxHandler {
   val settings: Settings
+  private val log: Logger = LoggerFactory.getLogger(this.getClass)
 
   /**
    * Handle raw parser date productions,
@@ -90,10 +91,13 @@ abstract class CtxHandler {
       .map(_.getText)
       .mkString(":")
 
-    if (settings.accounts_strict) {
-      settings.accounts_coa.find({ case (key, _) => key === account }) match {
+    if (settings.Accounts.strict) {
+      settings.Accounts.coa.find({ case (key, _) => key === account }) match {
         case None =>
-          throw new AccountException("Account not found: [" + account + "]")
+          val lineNro = accountCtx.start.getLine
+          val msg = "Error on line: " + lineNro.toString + "; Account not found: [" + account + "]"
+          log.error(msg)
+          throw new AccountException(msg)
         case Some((_, value)) =>
           // enhance: check valid set of commodities from settings
           AccountTreeNode(value.account, commodity)
@@ -117,6 +121,10 @@ abstract class CtxHandler {
       Commodity(u.unit().ID().getText)
     })
 
+    /*
+     * if txnCommodity (e.g. closing position) is not set, then use
+     * posting commodity as txnCommodity.
+     */
     val txnCommodity = Option(postingCtx.opt_unit()).flatMap(u => {
 
       Option(u.opt_position()).fold(Option(Commodity(u.unit().ID().getText))){pos =>
@@ -144,6 +152,31 @@ abstract class CtxHandler {
   }
 
   /**
+   * Check commodity if it's listed and in case of empty commodity,
+   * if empty commodities are allowed.
+   *
+   * @param commodity optional commodity
+   */
+  protected def checkCommodity(commodity: Option[Commodity], lineNro: Int): Unit = {
+    commodity match {
+      case Some(c) => {
+        if (!settings.Accounts.commodities.exists(_ === c.name)) {
+          val msg = "Error on line: " + lineNro.toString + "; Commodity not found: [" + c.name + "]"
+          log.error(msg)
+          throw new CommodityException(msg)
+        }
+      }
+      case None => {
+        if (settings.Accounts.permit_empty_commodity === false) {
+          val msg = "Error on line: " + lineNro.toString + "; Empty commodities are not allowed"
+          log.error(msg)
+          throw new CommodityException(msg)
+        }
+      }
+    }
+  }
+
+  /**
    * Handle one Posting (posting -rule).
    *
    * @param postingCtx posting productions
@@ -151,8 +184,14 @@ abstract class CtxHandler {
    */
   protected def handleRawPosting(postingCtx: PostingContext): Posting = {
     val foo = handleClosingPosition(postingCtx)
-    val acctn = handleAccount(postingCtx.account(), foo._3)
 
+    if (settings.Accounts.strict) {
+      val lineNro = postingCtx.start.getLine
+      checkCommodity(foo._3, lineNro)
+      checkCommodity(foo._4, lineNro)
+    }
+
+    val acctn = handleAccount(postingCtx.account(), foo._3)
     val comment = Option(postingCtx.opt_comment()).map(c => c.comment().text().getText)
     // todo: fix this silliness, see other todo on Posting
     Posting(acctn, foo._1, foo._2, foo._4, comment)
@@ -181,7 +220,7 @@ abstract class CtxHandler {
     })
 
 
-    val uuid = Option(txnCtx.txn_meta()).map( meta => {
+    val uuid = Option(txnCtx.txn_meta()).map(meta => {
       val key = meta.txn_meta_key().UUID().getText
       require(key === "uuid") // IE if not
 
@@ -207,9 +246,11 @@ abstract class CtxHandler {
 
     // Check for mixed commodities
     if (posts.map(p => p.txnCommodity.map(c => c.name).getOrElse("")).distinct.size > 1) {
-      throw new CommodityException("" +
-        "Multiple different commodities are not allowed inside single transaction." +
-        uuid.map(u => "\n   txn uuid: " + u.toString).getOrElse(""))
+      val msg = "" +
+        "Different commodities without value positions are not allowed inside single transaction." +
+        uuid.map(u => "\n   txn uuid: " + u.toString).getOrElse("")
+      log.error(msg)
+      throw new CommodityException(msg)
     }
 
     val last_posting = Option(txnCtx.postings().last_posting()).map(lp => {
@@ -232,8 +273,16 @@ abstract class CtxHandler {
    */
   protected def handleTxns(txnsCtx: TxnsContext): Txns = {
     JavaConverters.asScalaIterator(txnsCtx.txn().iterator())
-      .map({ case (rawTxn) =>
-        handleTxn(rawTxn)
+      .map({ case (txnCtx) =>
+        try {
+          handleTxn(txnCtx)
+        } catch {
+          case ex: Exception => {
+            val lineNro = txnCtx.start.getLine
+            log.error("Error while processing Transaction on line {}", lineNro.toString)
+            throw ex
+          }
+        }
       }).toSeq
   }
 }

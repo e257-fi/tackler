@@ -45,7 +45,7 @@ Now you can run following command on that demo folder:
 
  java -jar ./tackler-cli.jar --accounts.strict=false
 
-This will produce balance and register reports without account name validation.
+This will produce balance and register reports without account name or commodity name validation.
 
 Output should be something like below:
 
@@ -72,9 +72,11 @@ REGISTER
 2017-06-01Z first demo transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
+----------------------------------------------------------------------------------
 2018-06-02Z second demo transaction
             Assets:Cash                                   -1.00              -3.00
             Expenses:Lemonade                              1.00               1.00
+----------------------------------------------------------------------------------
 
 
 Total processing time: 1284, parse: 464, reporting: 80
@@ -93,6 +95,8 @@ accounts {
 
   strict = true
 
+  permit-empty-commodity = true
+
   coa = [
     "Expenses:Ice_cream",
     "Expenses:Lemonade",
@@ -108,7 +112,7 @@ After that it's possible to run tackler with account name validation:
 
 If there is missing or mistyped account, that will cause an exception error.
 See link:./accounts.conf[example of accounts.conf] for full documentation
-of Chart of Accounts.
+of Chart of Accounts and commodity listing.
 
 
 == Recommend layout
@@ -130,9 +134,9 @@ More sensible setup would be:
 
 Where `YYYY` and `MM` stand for time based data shard with year and month slides.
 
-With this setup, configuration file link:./tackler.conf[tackler.conf] is located nex to the jar-file,
+With this setup, configuration file link:./tackler.conf[tackler.conf] is located next to the jar-file,
 so configuration is auto-discovered.  Chart of Accounts (link:./accounts.conf[accounts.conf]) contains
-accounts names and it is possible to do strict account name validation.
+accounts and commodity names and it is possible to do strict account and commodity name validation.
 
 Minimal `tackler.conf` for above setup could be:
 
@@ -169,17 +173,28 @@ These configuration variables, and command line switches are documented
 in link:./tackler.conf[tackler.conf].
 
 
-=== Chart of Accounts
+=== Chart of Accounts and commodities
 
-By default it is fatal error if there is an unknown account within
-transactions.  This can be turned off with:
+By default it is fatal error if there is an unknown account or commodity within
+transactions.  It's also fatal error if there is a posting without commodity
+and and `accounts.permit-empty-commodity` is `true`.
 
-`--accounts.strict=false`
+This can be turned off with:
+
+    --accounts.strict=false
 
 but then there is no safety net against typos with account names.
 
+Postings with empty/missing commodities can be allowed with configuration setting:
+
+....
+accounts {
+   permit-empty-commodity = true
+}
+....
+
 With production systems, it is highly recommended to provide valid
-Chart of Accounts and not to disable account name check.
+Chart of Accounts and list of valid commodities.
 
 Chart of accounts is defined either as part of main configuration or
 as separate configuration file. See link:./accounts.conf[accounts.conf] for example configuration.

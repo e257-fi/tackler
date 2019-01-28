@@ -37,7 +37,9 @@ to configuration file with `--cfg` argument.
 
    java tackler-cli.jar --cfg=/path/to/my/tackler.conf
 
-See tackler's link:./configuration.adoc[Configuration Manual] for how to configure tackler.
+See tackler's link:./configuration.adoc[Configuration Manual],
+link:./tackler.conf[tackler.conf] and link:./account.conf[account.conf]
+for how to configure tackler.
 
 
 === Input and output

@@ -1678,6 +1678,42 @@ features:
               descriptions:
                 - desc: "Parse-only: closing position with PnL ; comment"
 
+  - feature:
+      id: 8df48414-5837-4581-9bd1-4ace9a64c95a
+      parent: b6013748-102c-4632-ada1-5b3c8dcc3b42
+      subject: "Strict commodities"
+      tests:
+        errors:
+          - error:
+              id: 561ca500-ec5b-41b5-8466-eb82362a06ea
+              name: tests/commodity/ex/CommodityException-empty-postcomm.exec
+              desc: "Empty/missing posting commodity"
+          - error:
+              id: 429c3406-2b73-4b8b-8b62-bd27cd2bb351
+              name: tests/commodity/ex/CommodityException-unknown-postcomm.exec
+              desc: "Unknown posting commodity"
+          - error:
+              id: 40592a4d-54b4-4270-807f-8bd31b122a08
+              name: tests/commodity/ex/CommodityException-unknown-txncomm.exec
+              desc: "Unknown txn commodity"
+        operations:
+          - test:
+              refid: 04af8049-355d-4c6c-ac63-c153b0141c48
+              name: tests/commodity/ok/basic-02.exec
+              descriptions:
+                - desc: "permit empty commodity"
+          - test:
+              id: 779fdbd7-93f8-48da-9860-8ce7a5c66e6e
+              name: tests/commodity/ok/unknown-01.exec
+              descriptions:
+                - desc: "non-strict also applies to commodities"
+              references:
+                - ref: identity
+                - ref: equity
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+
 ### Units and Commodities END
 
 ###

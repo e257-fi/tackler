@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ object TacklerParser {
             "truncated inputStr(0, %d)".format(maxChars) + "=[" + inputText.substring(0, maxChars) + "]"
         } else {
           "[" + inputText + "]"
-        }) + ", msg: " + ex.getMessage
+        }) + ", msg:\n" + ex.getMessage
 
         log.info(msg)
         throw new TacklerParseException(msg, ex)
@@ -52,7 +52,10 @@ object TacklerParser {
       parseTxns(CharStreams.fromPath(inputPath, Charset.forName("UTF-8")))
     } catch {
       case ex: ParseCancellationException =>
-        val msg = "Txn Parse Error: [" + inputPath.toString + "] msg: " + ex.getMessage
+        val msg = "" +
+          "Txn Parse Error: \n" +
+          "   file: " + inputPath.toString + "\n" +
+          ex.getMessage
         log.info(msg)
         throw new TacklerParseException(msg, ex)
     }
@@ -96,6 +99,7 @@ object TacklerParser {
         // TODO: Try to get rid off this listener and see if bailerror
         // has enough information
         parser.addErrorListener(TacklerErrorListener.INSTANCE)
+        parser.setErrorHandler(new TacklerErrorHandler)
 
         // full now with full LL(*)
         parser.getInterpreter.setPredictionMode(PredictionMode.LL)

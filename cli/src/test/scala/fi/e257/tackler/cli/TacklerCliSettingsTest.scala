@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ class TacklerCliSettingsTest extends FlatSpec  with Matchers with Inside {
     assert(settings.basedir === absBasepath.path)
     assert(settings.getPathWithSettings(cliCfg.input_filename.getOrElse("")) ===
       (absBasepath / "filename.txn").path)
-    assert(settings.accounts_strict === false)
+    assert(settings.Accounts.strict === false)
   }
 
 

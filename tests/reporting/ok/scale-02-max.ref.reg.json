@@ -4,7 +4,7 @@
     {
       "txn" : {
         "timestamp" : "2019-01-19T00:00:00Z",
-        "description" : "max"
+        "description" : "max scale"
       },
       "postings" : [
         {
@@ -22,7 +22,7 @@
     {
       "txn" : {
         "timestamp" : "2019-01-19T00:00:00Z",
-        "description" : "min"
+        "description" : "min scale"
       },
       "postings" : [
         {
