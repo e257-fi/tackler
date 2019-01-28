@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,8 +68,12 @@ class TacklerParserTest extends FlatSpec {
     val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    assert(ex.getMessage.length === 1097)
-    assert(ex.getMessage.startsWith("Txn Parse Error: Invalid input: truncated inputStr(0, 1024)=[2017-01-01 ()) str  "), ex.getMessage)
+    assert(ex.getMessage
+      .trim
+      .startsWith(
+        """Txn Parse Error: Invalid input: truncated inputStr(0, 1024)=[2017-01-01 ()) str""".stripMargin),
+      ex.getMessage)
+    assert(ex.getMessage.length === 1176)
   }
 
   behavior of "Invalid (code)"
@@ -83,7 +87,12 @@ class TacklerParserTest extends FlatSpec {
     val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    assert(ex.getMessage === "Txn Parse Error: Invalid input: [2017-01-01 ()) str], msg: null")
+    assert(ex.getMessage ===
+      """Txn Parse Error: Invalid input: [2017-01-01 ()) str], msg:
+        |   Can not parse input
+        |   on line: 1
+        |   no viable alternative at input '2017-01-01'""".stripMargin)
+
   }
 
   behavior of "Invalid UUID"
@@ -110,7 +119,10 @@ class TacklerParserTest extends FlatSpec {
       | e   1
       | a  -1
       |
-      |], msg: null""".stripMargin)
+      |], msg:
+      |   Can not parse input
+      |   on line: 3
+      |   no viable alternative at input ' '""".stripMargin)
   }
 
   /**
@@ -154,7 +166,10 @@ class TacklerParserTest extends FlatSpec {
       | a::b  1
       | e
       |
-      |], msg: null""".stripMargin)
+      |], msg:
+      |   Can not parse input
+      |   on line: 3
+      |   no viable alternative at input 'a'""".stripMargin)
   }
 
   /**
@@ -172,12 +187,16 @@ class TacklerParserTest extends FlatSpec {
     val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    assert(ex.getMessage === """Txn Parse Error: Invalid input: [
-                               |2017-01-01 desc
-                               | :a  1
-                               | e
-                               |
-                               |], msg: on line: 3, at position: 1, msg: no viable alternative at input ' :'""".stripMargin)
+    assert(ex.getMessage ===
+      """Txn Parse Error: Invalid input: [
+        |2017-01-01 desc
+        | :a  1
+        | e
+        |
+        |], msg:
+        |   Can not parse input
+        |   on line: 3, at position: 1
+        |   no viable alternative at input ' :'""".stripMargin)
 
   }
 
@@ -187,6 +206,7 @@ class TacklerParserTest extends FlatSpec {
   it should "error with 'a:'" in {
     val txnStr =
       """
+        |
         |2017-01-01 desc
         | a:  1
         | e
@@ -196,12 +216,17 @@ class TacklerParserTest extends FlatSpec {
     val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    assert(ex.getMessage === """Txn Parse Error: Invalid input: [
-                               |2017-01-01 desc
-                               | a:  1
-                               | e
-                               |
-                               |], msg: null""".stripMargin)
+    assert(ex.getMessage ===
+      """Txn Parse Error: Invalid input: [
+        |
+        |2017-01-01 desc
+        | a:  1
+        | e
+        |
+        |], msg:
+        |   Can not parse input
+        |   on line: 4
+        |   no viable alternative at input 'a'""".stripMargin)
   }
 
 }

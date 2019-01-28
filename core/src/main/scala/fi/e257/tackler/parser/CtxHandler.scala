@@ -95,7 +95,9 @@ abstract class CtxHandler {
       settings.Accounts.coa.find({ case (key, _) => key === account }) match {
         case None =>
           val lineNro = accountCtx.start.getLine
-          throw new AccountException("Error on line: " + lineNro.toString + "; Account not found: [" + account + "]")
+          val msg = "Error on line: " + lineNro.toString + "; Account not found: [" + account + "]"
+          log.error(msg)
+          throw new AccountException(msg)
         case Some((_, value)) =>
           // enhance: check valid set of commodities from settings
           AccountTreeNode(value.account, commodity)
@@ -159,12 +161,16 @@ abstract class CtxHandler {
     commodity match {
       case Some(c) => {
         if (!settings.Accounts.commodities.exists(_ === c.name)) {
-          throw new CommodityException("Error on line: " + lineNro.toString + "; Commodity not found: [" + c.name + "]")
+          val msg = "Error on line: " + lineNro.toString + "; Commodity not found: [" + c.name + "]"
+          log.error(msg)
+          throw new CommodityException(msg)
         }
       }
       case None => {
         if (settings.Accounts.permit_empty_commodity === false) {
-          throw new CommodityException("Error on line: " + lineNro.toString + "; Empty commodities are not allowed")
+          val msg = "Error on line: " + lineNro.toString + "; Empty commodities are not allowed"
+          log.error(msg)
+          throw new CommodityException(msg)
         }
       }
     }
@@ -240,9 +246,11 @@ abstract class CtxHandler {
 
     // Check for mixed commodities
     if (posts.map(p => p.txnCommodity.map(c => c.name).getOrElse("")).distinct.size > 1) {
-      throw new CommodityException("" +
-        "Multiple different commodities are not allowed inside single transaction." +
-        uuid.map(u => "\n   txn uuid: " + u.toString).getOrElse(""))
+      val msg = "" +
+        "Different commodities without value positions are not allowed inside single transaction." +
+        uuid.map(u => "\n   txn uuid: " + u.toString).getOrElse("")
+      log.error(msg)
+      throw new CommodityException(msg)
     }
 
     val last_posting = Option(txnCtx.postings().last_posting()).map(lp => {
