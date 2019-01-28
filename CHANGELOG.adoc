@@ -2,13 +2,13 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.21.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.21.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.22.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.22.0"
 
 
 == Release history
 
-=== 0.22.0-SNAPSHOT
+=== 0.22.0
 
 New features in this release are:
 
@@ -31,8 +31,6 @@ This is needed for Windows/MinGW/MSYS2.
 
 Updated deps and tools:
 
- * Updated dependencies
- ** ...
  * build
  ** wartremover: 2.4.0
 
