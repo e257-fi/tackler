@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,13 @@ import fi.e257.tackler.parser.TacklerParseException
 import fi.sn127.utils.testing.Glob
 import fi.sn127.utils.testing.DirSuiteLike
 
-class ConsoleTest extends DirSuiteLike {
+
+/**
+ * Console
+ *
+ * CLI ok case is done with stdout and stderr validation
+ */
+class DirsuiteConsoleTest extends DirSuiteLike {
   val basedir = Paths.get("tests")
 
   override
@@ -64,59 +70,67 @@ class ConsoleTest extends DirSuiteLike {
   }
 }
 
-class TacklerCliTest extends DirSuiteLike {
+
+/**
+ * Run all failure tests from everywhere
+ */
+class DirsuiteAllExceptionsTest extends DirSuiteLike {
   val basedir = Paths.get("tests")
 
-  /**
-   * Run all failure tests from everywhere
-   */
   runDirSuiteTestCases(basedir, Glob("**/ex/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.FAILURE) {
       TacklerCli.runReturnValue(args)
     }
   }
+}
 
-  /**
-   * CLI Exceptions
-   */
+
+/**
+ * CLI Exceptions
+ *
+ * CLI ok cases are done with stdout and stderr validation
+ */
+class DirsuiteExceptionsTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
   runDirSuiteTestCases(basedir, Glob("cli/ex/NoSuchFileException-*.exec")) { args: Array[String] =>
-    assertThrows[NoSuchFileException]{
+    assertThrows[NoSuchFileException] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("cli/ex/TxnException-*.exec")) { args: Array[String] =>
-    assertThrows[TxnException]{
+    assertThrows[TxnException] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("cli/ex/AccountException-*.exec")) { args: Array[String] =>
-    assertThrows[AccountException]{
+    assertThrows[AccountException] {
       TacklerCli.runExceptions(args)
     }
   }
 
   ignoreDirSuiteTestCases(basedir, Glob("cli/ex/RequiredOptionNotFound-*.exec")) { args: Array[String] =>
-    assertThrows[RequiredOptionNotFound]{
+    assertThrows[RequiredOptionNotFound] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("cli/ex/ValidationFailure-*.exec")) { args: Array[String] =>
-    assertThrows[ValidationFailure]{
+    assertThrows[ValidationFailure] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("cli/ex/ExcessArguments-*.exec")) { args: Array[String] =>
-    assertThrows[ExcessArguments]{
+    assertThrows[ExcessArguments] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("cli/ex/UnknownOption-*.exec")) { args: Array[String] =>
-    assertThrows[UnknownOption]{
+    assertThrows[UnknownOption] {
       TacklerCli.runExceptions(args)
     }
   }
@@ -126,16 +140,17 @@ class TacklerCliTest extends DirSuiteLike {
       TacklerCli.runExceptions(args)
     }
   }
+}
 
-  /**
-   * cli ok case is done with stdout and stderr validation
-   */
 
-  /**
-   * Commodity
-   */
+/**
+ * Commodity
+ */
+class DirsuiteCommodityTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
   runDirSuiteTestCases(basedir, Glob("commodity/ex/CommodityException-*.exec")) { args: Array[String] =>
-    assertThrows[CommodityException]{
+    assertThrows[CommodityException] {
       TacklerCli.runExceptions(args)
     }
   }
@@ -145,31 +160,35 @@ class TacklerCliTest extends DirSuiteLike {
       TacklerCli.runReturnValue(args)
     }
   }
+}
 
 
-  /**
-   * Core
-   */
+/**
+ * Core
+ */
+class DirsuiteCoreTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
   runDirSuiteTestCases(basedir, Glob("core/ex/TxnException-*.exec")) { args: Array[String] =>
-    assertThrows[TxnException]{
+    assertThrows[TxnException] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("core/ex/NoSuchFileException-*.exec")) { args: Array[String] =>
-    assertThrows[NoSuchFileException]{
+    assertThrows[NoSuchFileException] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("core/ex/TacklerParseException-*.exec")) { args: Array[String] =>
-    assertThrows[TacklerParseException]{
+    assertThrows[TacklerParseException] {
       TacklerCli.runExceptions(args)
     }
   }
 
   runDirSuiteTestCases(basedir, Glob("core/ex/TacklerException-*.exec")) { args: Array[String] =>
-    assertThrows[TacklerException]{
+    assertThrows[TacklerException] {
       TacklerCli.runExceptions(args)
     }
   }
@@ -179,12 +198,17 @@ class TacklerCliTest extends DirSuiteLike {
       TacklerCli.runReturnValue(args)
     }
   }
+}
 
-  /**
-   * Parser.
-   */
+
+/**
+ * Parser
+ */
+class DirsuiteParserTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
   runDirSuiteTestCases(basedir, Glob("parser/ex/*.exec")) { args: Array[String] =>
-    assertThrows[TacklerParseException]{
+    assertThrows[TacklerParseException] {
       TacklerCli.runExceptions(args)
     }
   }
@@ -194,19 +218,29 @@ class TacklerCliTest extends DirSuiteLike {
       TacklerCli.runReturnValue(args)
     }
   }
+}
 
-  /**
-   * Accumulator.
-   */
+
+/**
+ * Accumulator
+ */
+class DirsuiteAccumulatorTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
   runDirSuiteTestCases(basedir, Glob("accumulator/ok/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.SUCCESS) {
       TacklerCli.runReturnValue(args)
     }
   }
+}
 
-  /**
-   * Reporting.
-   */
+
+/**
+ * Reporting
+ */
+class DirsuiteReportingTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
   runDirSuiteTestCases(basedir, Glob("reporting/ex/ReportException-*.exec")) { args: Array[String] =>
     assertThrows[ReportException]{
       TacklerCli.runExceptions(args)

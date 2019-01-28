@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -217,14 +217,14 @@ object TacklerCli {
       case ex: TacklerParseException =>
         Console.err.println("" +
           "Exception: \n" +
-          "  class: " + ex.getClass.toString + "\n" +
-          "  msg: " + ex.getMessage + "\n")
+          "   class: " + ex.getClass.toString + "\n" +
+          "   msg: " + ex.getMessage + "\n")
         FAILURE
       case ex: TacklerException =>
         Console.err.println("" +
           "Exception: \n" +
-          "  class: " + ex.getClass.toString + "\n" +
-          "  msg: " + ex.getMessage + "\n")
+          "   class: " + ex.getClass.toString + "\n" +
+          "   msg: " + ex.getMessage + "\n")
         FAILURE
     }
   }
