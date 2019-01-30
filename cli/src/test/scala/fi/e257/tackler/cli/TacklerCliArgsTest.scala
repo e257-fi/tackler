@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,164 +19,140 @@ package fi.e257.tackler.cli
 import java.nio.file.NoSuchFileException
 
 import org.rogach.scallop.exceptions.{UnknownOption, ValidationFailure}
-import org.scalatest.FlatSpec
+import org.scalatest.FunSpec
 
-class TacklerCliArgsTest extends FlatSpec {
+class TacklerCliArgsTest extends FunSpec {
 
-  behavior of "Tackler with cli-args"
+  describe("Tackler with cli-args") {
 
-  it should "use default config" in {
-    /**
-     * This is an implicit way to test the use of default config.
-     * Default config is:
-     *  - basedir=./
-     *  - input.fs.dir=txns
-     *
-     * Let's assert that these path components are used to build basedir,
-     * which obviously won't be found under cli/target/scala-2.12
-     * so we intercept and inspect NoSuchFileException
-     */
-    val ex = intercept[NoSuchFileException] {
-      TacklerCli.runExceptions(Array[String]())
+    it("use default config") {
+      /**
+       * This is an implicit way to test the use of default config.
+       * Default config is:
+       *  - basedir=./
+       *  - input.fs.dir=txns
+       *
+       * Let's assert that these path components are used to build basedir,
+       * which obviously won't be found under cli/target/scala-2.12
+       * so we intercept and inspect NoSuchFileException
+       */
+      val ex = intercept[NoSuchFileException] {
+        TacklerCli.runExceptions(Array[String]())
+      }
+      assert(ex.getMessage.endsWith("/txns"), ex.getMessage)
     }
-    assert(ex.getMessage.endsWith("/txns"), ex.getMessage)
-  }
 
-  it should "support --help" in {
-    assertThrows[org.rogach.scallop.exceptions.Help] {
-      TacklerCli.runExceptions(Array[String]("--help"))
+    it("support --help") {
+      assertThrows[org.rogach.scallop.exceptions.Help] {
+        TacklerCli.runExceptions(Array[String]("--help"))
+      }
     }
-  }
 
-  it should "support --version" in {
-    val lifeIsGood = try {
-      TacklerCli.runExceptions(Array[String]("--version"))
-      false
-      } catch  {
+    it("support --version") {
+      val lifeIsGood = try {
+        TacklerCli.runExceptions(Array[String]("--version"))
+        false
+      } catch {
         case org.rogach.scallop.exceptions.Version =>
           true
         case _: Exception =>
           false
+      }
+      assert(lifeIsGood)
     }
-    assert(lifeIsGood)
-  }
 
-  it should "check return result of --help" in {
-    assertResult(TacklerCli.FAILURE) {
-      TacklerCli.runReturnValue(Array[String]("--help"))
+    it("check return result of --help") {
+      assertResult(TacklerCli.FAILURE) {
+        TacklerCli.runReturnValue(Array[String]("--help"))
+      }
     }
-  }
 
-  it should "check return result of --version" in {
-    assertResult(TacklerCli.FAILURE) {
-      TacklerCli.runReturnValue(Array[String]("--version"))
+    it("check return result of --version") {
+      assertResult(TacklerCli.FAILURE) {
+        TacklerCli.runReturnValue(Array[String]("--version"))
+      }
     }
-  }
 
-  it should "reject unknown args" in {
-    assertThrows[UnknownOption] {
-      TacklerCli.runExceptions(Array[String]("--not-an-argument"))
-    }
-  }
-
-  /**
-   * test:uuid: a2ca374a-1323-413b-aaff-64bc3c8d4d30
-   */
-  it should "git: cli err: ref and commit" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.git.ref", "ref", "--input.git.commit", "id"))
+    it("reject unknown args") {
+      assertThrows[UnknownOption] {
+        TacklerCli.runExceptions(Array[String]("--not-an-argument"))
+      }
     }
   }
+  describe("git") {
 
-  /**
-   * test:uuid: 1822f1b2-f749-4f63-be44-fa29c58c4fe2
-   */
-  it should "git: cli err: input.file + git.ref" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.file", "filename", "--input.git.ref", "ref"))
+    /**
+     * test: a2ca374a-1323-413b-aaff-64bc3c8d4d30
+     */
+    it("err: git.ref + git.commit") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.git.ref", "ref", "--input.git.commit", "id"))
+      }
     }
   }
+  describe("input.file") {
 
-  /**
-   * test:uuid: 97bf542e-55b5-437f-9878-7f436f50c428
-   */
-  it should "git: cli err: input.file + git.commit" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.file", "filename", "--input.git.commit", "id"))
+    /**
+     * test: 1822f1b2-f749-4f63-be44-fa29c58c4fe2
+     */
+    it("err: git.ref") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.file", "filename", "--input.git.ref", "ref"))
+      }
+    }
+
+    /**
+     * test: 97bf542e-55b5-437f-9878-7f436f50c428
+     */
+    it("err: git.commit") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.file", "filename", "--input.git.commit", "id"))
+      }
+    }
+
+    /**
+     * test: 8afb22ac-8a52-4cba-9443-e6375e6fcf75
+     */
+    it("err: git.dir") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.file", "filename", "--input.git.dir", "path/to/dir"))
+      }
     }
   }
+  describe("fs.dir") {
 
-  /**
-   * test:uuid: 8afb22ac-8a52-4cba-9443-e6375e6fcf75
-   */
-  it should "git: cli err: input.file + git.dir" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.file", "filename", "--input.git.dir", "path/to/dir"))
+    /**
+     * test: 3eba26fe-821d-4d36-94cb-09427b1c004f
+     */
+    it("err: git.ref") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.fs.dir", "txns", "--input.git.ref", "ref"))
+      }
     }
-  }
 
-
-  /**
-   * test:uuid: 3eba26fe-821d-4d36-94cb-09427b1c004f
-   */
-  it should "git: cli err: fs.dir + git.ref" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.fs.dir", "txns", "--input.git.ref", "ref"))
+    /**
+     * test: 400bd1e9-6f7a-4e0c-913c-45401ee73181
+     */
+    it("err: git.commit") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.fs.dir", "txns", "--input.git.commit", "id"))
+      }
     }
-  }
 
-  /**
-   * test:uuid: 400bd1e9-6f7a-4e0c-913c-45401ee73181
-   */
-  it should "git: cli err: fs.dir + git.commit" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.fs.dir", "txns", "--input.git.commit", "id"))
-    }
-  }
-
-  /**
-   * test:uuid: f74a2252-d826-4176-945a-8895d4c7f1f7
-   */
-  it should "git: cli err: fs.dir + git.dir" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.fs.dir", "txns", "--input.git.dir", "path/to/dir"))
-    }
-  }
-
-  /**
-   * test:uuid: 7d4984c7-633f-4403-a2b7-5ea0cd4f07e8
-   */
-  it should "git: cli err: fs.glob + git.ref" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.fs.glob", "glob", "--input.git.ref", "ref"))
-    }
-  }
-
-  /**
-   * test:uuid: 6ec6431e-a443-4633-8f26-df3218a8657c
-   */
-  it should "git: cli err: fs.glob + git.commit" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.fs.glob", "glob", "--input.git.commit", "id"))
-    }
-  }
-
-  /**
-   * test:uuid: f150df09-dd9b-4240-9191-df1029c698e9
-   */
-  it should "git: cli err: fs.glob + git.dir" in {
-    assertThrows[ValidationFailure] {
-      TacklerCli.runExceptions(
-        Array[String]("--input.fs.glob", "glob", "--input.git.dir", "path/to/dir"))
+    /**
+     * test: f74a2252-d826-4176-945a-8895d4c7f1f7
+     */
+    it("err: git.dir") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.fs.dir", "txns", "--input.git.dir", "path/to/dir"))
+      }
     }
   }
 }
