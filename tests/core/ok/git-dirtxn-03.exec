@@ -1,0 +1,4 @@
+# format: exec
+# test: f25e0542-ef74-4131-99eb-e76a5b04b263
+# test effect of git.dir setting (CLI)
+exec:--cfg;tests/core/git-dir.conf;--input.git.dir;git-txns/2019;--output;out.git-dirtxn-03;

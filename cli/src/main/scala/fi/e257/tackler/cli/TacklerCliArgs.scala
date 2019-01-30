@@ -98,6 +98,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
       input_fs_dir,
       input_fs_glob,
       input_git_ref,
+      input_git_dir,
       accounts_strict,
       console))
 
@@ -165,6 +166,9 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
   val input_git_ref: ScallopOption[String] = opt[String](
     name=CfgKeys.input_git_ref, required = false, noshort = true)
 
+  val input_git_dir: ScallopOption[String] = opt[String](
+    name=CfgKeys.input_git_dir, required = false, noshort = true)
+
   val accounts_strict: ScallopOption[String] = opt[String](
     name=CfgKeys.Accounts.strict, required = false, noshort = true)
 
@@ -187,9 +191,9 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
   // Verify and sanity check cli args
   //
   // no git.commit and git.ref
-  // no (git.commit | git.ref) && input.file
-  // no (git.ref | git.commit) x (txn.dir | txn.glob)
-  private val gitArgs = List(input_git_ref, input_git_commit)
+  // no (git.commit | git.ref | git.dir) && input.file
+  // no (git.ref | git.commit | git.dir) x (fs.dir | fs.glob)
+  private val gitArgs = List(input_git_ref, input_git_commit, input_git_dir)
   conflicts(input_git_ref, List(input_git_commit))
   conflicts(input_fs_dir, gitArgs)
   conflicts(input_fs_glob, gitArgs)

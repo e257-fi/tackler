@@ -1283,21 +1283,33 @@ features:
               name: TacklerCliArgsTest
               desc: "git: cli err: input.file + git.commit"
           - error:
+              id: 8afb22ac-8a52-4cba-9443-e6375e6fcf75
+              name: TacklerCliArgsTest
+              desc: "git: cli err: input.file + git.dir"
+          - error:
               id: 3eba26fe-821d-4d36-94cb-09427b1c004f
               name: TacklerCliArgsTest
-              desc: "git: cli err: txn.dir + git.ref"
+              desc: "git: cli err: fs.dir + git.ref"
           - error:
               id: 400bd1e9-6f7a-4e0c-913c-45401ee73181
               name: TacklerCliArgsTest
-              desc: "git: cli err: txn.dir + git.commit"
+              desc: "git: cli err: fs.dir + git.commit"
+          - error:
+              id: f74a2252-d826-4176-945a-8895d4c7f1f7
+              name: TacklerCliArgsTest
+              desc: "git: cli err: fs.dir + git.dir"
           - error:
               id: 7d4984c7-633f-4403-a2b7-5ea0cd4f07e8
               name: TacklerCliArgsTest
-              desc: "git: cli err: txn.glob + git.ref"
+              desc: "git: cli err: fs.glob + git.ref"
           - error:
               id: 6ec6431e-a443-4633-8f26-df3218a8657c
               name: TacklerCliArgsTest
-              desc: "git: cli err: txn.glob + git.commit"
+              desc: "git: cli err: fs.glob + git.commit"
+          - error:
+              id: f150df09-dd9b-4240-9191-df1029c698e9
+              name: TacklerCliArgsTest
+              desc: "git: cli err: fs.glob + git.dir"
           - error:
               id: c233295d-08b9-49b5-b384-634fc8432e64
               name: tests/core/ex/TacklerException-git-err-commit-01.exec
@@ -1373,6 +1385,18 @@ features:
               id: eb74f8a7-8f70-413f-a431-15b0a5b09aad
               name: tests/core/ok/git-dirtxn-01.exec
               desc: "anomaly testing: directory which match txn filename"
+              references:
+                - ref: identity
+          - test:
+              id: f865d983-2f48-40f8-9010-d326a83e959e
+              name: tests/core/ok/git-dirtxn-02.exec
+              desc: "test effect of git.dir setting (cfg)"
+              references:
+                - ref: identity
+          - test:
+              id: f25e0542-ef74-4131-99eb-e76a5b04b263
+              name: tests/core/ok/git-dirtxn-03 .exec
+              desc: "test effect of git.dir setting (CLI)"
               references:
                 - ref: identity
           - test:

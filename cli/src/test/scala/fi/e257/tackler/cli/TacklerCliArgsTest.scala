@@ -109,6 +109,16 @@ class TacklerCliArgsTest extends FlatSpec {
     }
   }
 
+  /**
+   * test:uuid: 8afb22ac-8a52-4cba-9443-e6375e6fcf75
+   */
+  it should "git: cli err: input.file + git.dir" in {
+    assertThrows[ValidationFailure] {
+      TacklerCli.runExceptions(
+        Array[String]("--input.file", "filename", "--input.git.dir", "path/to/dir"))
+    }
+  }
+
 
   /**
    * test:uuid: 3eba26fe-821d-4d36-94cb-09427b1c004f
@@ -127,6 +137,16 @@ class TacklerCliArgsTest extends FlatSpec {
     assertThrows[ValidationFailure] {
       TacklerCli.runExceptions(
         Array[String]("--input.fs.dir", "txns", "--input.git.commit", "id"))
+    }
+  }
+
+  /**
+   * test:uuid: f74a2252-d826-4176-945a-8895d4c7f1f7
+   */
+  it should "git: cli err: fs.dir + git.dir" in {
+    assertThrows[ValidationFailure] {
+      TacklerCli.runExceptions(
+        Array[String]("--input.fs.dir", "txns", "--input.git.dir", "path/to/dir"))
     }
   }
 
@@ -150,4 +170,13 @@ class TacklerCliArgsTest extends FlatSpec {
     }
   }
 
+  /**
+   * test:uuid: f150df09-dd9b-4240-9191-df1029c698e9
+   */
+  it should "git: cli err: fs.glob + git.dir" in {
+    assertThrows[ValidationFailure] {
+      TacklerCli.runExceptions(
+        Array[String]("--input.fs.glob", "glob", "--input.git.dir", "path/to/dir"))
+    }
+  }
 }

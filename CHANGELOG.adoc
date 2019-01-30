@@ -12,6 +12,7 @@ Current published release is:
 
 New features in this release are:
 
+ * Add CLI option for: `input.git.dir`.
  * ...
 
 

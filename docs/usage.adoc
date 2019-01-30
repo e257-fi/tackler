@@ -117,6 +117,7 @@ Addition to configuration, Git reference or commit id can be given from command 
 
 * `--input.git.ref` is for git reference (e.g. branch name), HEAD of that branch will be used
 * `--input.git.commit` one single commit and tree defined by it will be used
+* `--input.git.dir` this is path of top level directory which contains txns inside repository
 
 These options are mutually exclusive with each other and with filesystem storage arguments (`input.fs.*`).
 
