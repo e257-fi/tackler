@@ -1,17 +1,14 @@
 Git storage:
-   commit:  a7938d9b61958d2cabea7503a7be89191d4fb31e
-   ref:     FIXED by commit
-   dir:     git-txns
+   commit:  15a786028157a6b01dddf31988c087e6a4543bde
+   ref:     dirtxn-02
+   dir:     git-txns/2018
    suffix:  .txn
-   message: commit-id-01: 2nd
-
-Filter:
-  Txn Description: "shard01"
+   message: dirtxn-02 targets
 
 REGISTER
 --------
-2017-02-01Z shard01
-            ;:uuid: 4dba67d9-0f47-4c8e-a3bc-f31d2bae2de4
+2018-01-01Z under 2018
+            ;:uuid: 38af4629-8ce6-43cb-99ac-53ca808b8eec
             a                                             10.00              10.00
             e                                            -10.00             -10.00
 ----------------------------------------------------------------------------------

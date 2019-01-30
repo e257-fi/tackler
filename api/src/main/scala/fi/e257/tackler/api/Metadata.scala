@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,11 +44,13 @@ object Metadata {
 /**
  * Metadata of used Git commit.
  *
- * @param ref if this transaction set was defined by git-ref.
- * @param commit this commitid (sha1) of used git tree
- * @param message commit's short message (one-line format)
+ * @param commit  is commit id (sha1) of used git tree
+ * @param ref     is set if source selection  was done by git reference
+ * @param dir     is path of top level directory which contains txns inside repository
+ * @param suffix  is used to select txn
+ * @param message is short message of commit (one-line format)
  */
-final case class GitInputReference(commit: String, ref: Option[String], message: String)
+final case class GitInputReference(commit: String, ref: Option[String], dir: String, suffix: String, message: String)
   extends MetadataItem {
 
   override def text(): String = {
@@ -56,6 +58,8 @@ final case class GitInputReference(commit: String, ref: Option[String], message:
       "Git storage:\n" +
       "   commit:  " + commit + "\n" +
       "   ref:     " + ref.getOrElse("FIXED by commit") + "\n" +
+      "   dir:     " + dir + "\n" +
+      "   suffix:  " + suffix + "\n" +
       "   message: " + message + "\n"
   }
 }

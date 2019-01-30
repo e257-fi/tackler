@@ -1,6 +1,8 @@
 Git storage:
    commit:  a7938d9b61958d2cabea7503a7be89191d4fb31e
    ref:     FIXED by commit
+   dir:     git-txns
+   suffix:  .txn
    message: commit-id-01: 2nd
 
 BALANCE

@@ -13,6 +13,7 @@ Current published release is:
 New features in this release are:
 
  * Add CLI option for: `input.git.dir`.
+ * Add values of `input.git.dir` and `input.git.suffix` to the Medadata
  * ...
 
 

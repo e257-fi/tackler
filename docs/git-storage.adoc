@@ -110,6 +110,8 @@ Txns size: 2
 Git storage:
    commit:  cf9a1c3f6b0d34f4d28800062ad7d6e16189ccce
    ref:     master
+   dir:     txns
+   suffix:  .txn
    message: second transaction
 
 BALANCE
@@ -125,6 +127,8 @@ BALANCE
 Git storage:
    commit:  cf9a1c3f6b0d34f4d28800062ad7d6e16189ccce
    ref:     master
+   dir:     txns
+   suffix:  .txn
    message: second transaction
 
 REGISTER
@@ -154,6 +158,8 @@ Txns size: 1
 Git storage:
    commit:  49551a0f3418486e576ce9076506fe94e2dbddf6
    ref:     FIXED by commit
+   dir:     txns
+   suffix:  .txn
    message: first transaction
 
 BALANCE
@@ -168,6 +174,8 @@ BALANCE
 Git storage:
    commit:  49551a0f3418486e576ce9076506fe94e2dbddf6
    ref:     FIXED by commit
+   dir:     txns
+   suffix:  .txn
    message: first transaction
 
 REGISTER

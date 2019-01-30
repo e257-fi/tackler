@@ -229,7 +229,13 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             throw new TacklerException(msg)
         }
 
-        log.info("git: using commit: " + commit.getName)
+        val gitdir = settings.input_git_dir
+        val suffix = settings.input_git_suffix
+
+        log.info("GIT: commit = " + commit.getName)
+        log.info("GIT: dir = " + gitdir)
+        log.info("GIT: suffix = " + suffix)
+
         val tree = commit.getTree
 
         // now try to find files
@@ -238,8 +244,8 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
           treeWalk.setRecursive(true)
 
           treeWalk.setFilter(AndTreeFilter.create(
-            PathFilter.create(settings.input_git_dir),
-            PathSuffixFilter.create(settings.input_git_suffix)))
+            PathFilter.create(gitdir),
+            PathSuffixFilter.create(suffix)))
 
           // Handle files
           val txns: Iterator[Seq[Transaction]] = for {
@@ -271,9 +277,11 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             }
           }
 
-          val meta = new GitInputReference(
+          val meta = GitInputReference(
             commit.getName,
             inputRef.left.toOption,
+            gitdir,
+            suffix,
             commit.getShortMessage
           )
 
