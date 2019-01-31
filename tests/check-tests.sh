@@ -17,21 +17,26 @@ exe_dir=$(dirname $(realpath $0))
 
 db_dir="$exe_dir"
 
+# good enough for know
+test_db00="$db_dir/tests.yml"
+test_db01="$db_dir/tests-1001.yml"
+test_db02="$db_dir/tests-1002.yml"
+test_db04="$db_dir/tests-1004.yml"
+test_db05="$db_dir/tests-1005.yml"
+test_db06="$db_dir/tests-1006.yml"
+
+
 echo "Check test DB YAML validity:"
-for test_db in "$db_dir/tests.yml" "$db_dir/tests-1005.yml" "$db_dir/tests-1006.yml"
+for test_db in "$test_db00" "$test_db01" "$test_db02" "$test_db04" "$test_db05" "$test_db06"
 do
 	$sh_pykwalify -v -s  "$exe_dir/tests-schema.yml" -d  "$test_db"
 
 grep ' id:' "$test_db" | sed 's/.*id: //' | sort | uniq -d
 done
 
-# good enough for know
-test_db01="$db_dir/tests.yml"
-test_db02="$db_dir/tests-1005.yml"
-test_db03="$db_dir/tests-1006.yml"
-grep ' refid:' $test_db01 $test_db02 $test_db03 | sed 's/.*refid: //' | while read refid; 
+grep ' refid:' $test_db00 $test_db01 $test_db02 $test_db04 $test_db05 $test_db06 | sed 's/.*refid: //' | while read refid; 
 do  
-	egrep -q -L '.* id: +'$refid' *$' "$test_db01" "$test_db02" "$test_db03" || echo $refid
+	egrep -q -L '.* id: +'$refid' *$' "$test_db00" "$test_db01" "$test_db02" "$test_db04" "$test_db05" "$test_db06" || echo $refid
 done
 
 echo "Check missing uuid:"
@@ -48,7 +53,7 @@ find "$exe_dir" -name '*.exec' |\
 	xargs grep 'test:uuid:' |\
 	sed 's/.*test:uuid: //' |\
 	while read uuid; do
-		echo "$(grep -c $uuid $test_db01 $test_db02): $uuid"
+		echo "$(grep -c $uuid $test_db00 $test_db01 $test_db02 $test_db04 $test_db05 $test_db06): $uuid"
 	done |\
 	grep '^0:' |\
 	sed 's/^0: //' > $lonelies
