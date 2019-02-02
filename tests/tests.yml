@@ -636,6 +636,36 @@ features:
                 - ref: register
                 - ref: equity
                 - ref: identity
+          - test:
+              id: 92780169-2419-4a88-8cf5-84994dbca782
+              name: tests/reporting/ok/big-02.exec
+              descriptions:
+                - desc: "operate with big numbers and small fractions at the same time"
+              references:
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+                - ref: equity
+                - ref: identity
+
+          - test:
+              id: e242f20d-4b96-4b9b-8eb3-2eb7b6e2dc6b
+              name: tests/reporting/ok/bal-zero.exec
+              descriptions:
+                - desc: "reported amount will be zero, when sub-account sums are not"
+                - desc: "register and equity should be empty, because no matching accounts"
+              references:
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+                - ref: equity
+                - ref: identity
 
   - feature:
       id: 9b2dd31d-2818-406b-a0e5-f44598432878
