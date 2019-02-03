@@ -14,7 +14,13 @@ features:
               id: 52a72e6e-0d5d-4620-af1c-c6edf0143d82
               name: ReportLikeTest
               descriptions:
-                - desc: "format normal values"
+                - desc: "format positive values"
+
+          - test:
+              id: 8fcfae80-7a06-49dc-b449-7cfb0cf49c2d
+              name: ReportLikeTest
+              descriptions:
+                - desc: "format negative values"
 
           - test:
               id: be4cec3b-b025-4dbd-9331-e78896843f04
