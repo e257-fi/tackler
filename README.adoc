@@ -15,7 +15,8 @@ based double-entry accounting].
 
 
 == Features
-* Tackler is link:docs/performance.adoc[fast]
+
+* Tackler has near perfect test coverage, link:tests/tests.adoc[all features are very extensively tested]
 * Support for link:docs/commodities.adoc[Commodities] and link:docs/currencies.adoc[Currencies]
 * Text and link:docs/json.adoc[JSON] output formats for reports
 ** link:docs/server-api.adoc[Server API] for embedding Tackler core
@@ -35,7 +36,6 @@ based double-entry accounting].
 * Has good performance with link:docs/performance.adoc[large transaction set]
 ** Tackler is link:perf/results/perf-hw00.adoc[tested up to one million (1E6)] transactions
 ** Tackler can parse and process link:perf/results/readme.adoc[56000 txn/s] on Quad Core system
-* Near 100% test coverage, link:tests/tests.adoc[all features are extensively tested]
 * Extensive documentation: link:docs/readme.adoc[Index of Docs]
 
 
