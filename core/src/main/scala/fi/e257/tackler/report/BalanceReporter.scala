@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,35 +25,91 @@ import fi.e257.tackler.model.{BalanceTreeNode, TxnData}
 
 abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(cfg) {
 
-  @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
-  protected def txtBalanceBody(balance: Balance): (Seq[String], String) = {
+  private def getBalanceBodyText(balance: Balance): (Seq[String], Seq[String]) = {
+    /**
+     * @param f select which balance sum type to use, account or accountTree
+     * @return max needed width of selected balance sum type
+     */
+    def getMaxSumLen()(f: (BalanceTreeNode => BigDecimal)): Int = {
+      balance.bal.map(b => ("% " + getScaleFormat(f(b))).format(f(b)).length).foldLeft(0)(math.max)
+    }
 
+    def getMaxDeltaLen(): Int = {
+      balance.deltas.map(d => {
+        ("% " + getScaleFormat(d._2)).format(d._2).length
+      }).foldLeft(0)(math.max)
+    }
+
+    /**
+     * All balance account commodities are present on deltas
+     * so this is also max length of all commodities
+     */
+    def getMaxCommodityLen(): Int = {
+      balance.deltas.map(d => {
+        d._1.map(c => c.name.length).getOrElse(0)
+      }).foldLeft(0)(math.max)
+    }
+
+    val maxAccSumLen = List(getMaxDeltaLen(), getMaxSumLen()(b => b.accountSum)).foldLeft(12)(math.max)
+    val maxSubAccSumLen = getMaxSumLen()(b => b.subAccTreeSum)
+
+    def getAccSumField(b: BalanceTreeNode): String = fillFormat(maxAccSumLen, b.accountSum)
+    def getAccTreeSumField(b: BalanceTreeNode): String = fillFormat(maxSubAccSumLen, b.subAccTreeSum)
+
+
+    val maxCommLen = getMaxCommodityLen()
+    val commFrmt = "%-" + "%d".format(maxCommLen) + "s"
+
+    /**
+     * filler between account sums (acc and accTree sums)
+     * Width of this filler is mandated by delta sum's max commodity length,
+     * because then AccTreesSum won't overlap with delta's commodity
+     */
+    val fillerField = {
+      if (maxCommLen > 0)
+        " " * (4 + maxCommLen)
+      else
+        " " * 3
+    }
+
+    def getCommodityField(b: BalanceTreeNode): String = {
+      if (maxCommLen > 0) {
+        b.acctn.commodity match {
+          case Some(c) => " " + commFrmt.format(c.name) + "  "
+          case None => " " + (" " * maxCommLen) + "  "
+        }
+      } else {
+        // always separate with two spaces
+        "  "
+      }
+    }
+
+    val body = balance.bal.map(b => {
+        " " * 9 +
+          getAccSumField(b) +
+          fillerField +
+          getAccTreeSumField(b) +
+          getCommodityField(b) + b.acctn.account
+      })
+
+    val footer = balance.deltas.toSeq.sortBy({ case (cOpt, _) =>
+      cOpt.map(c => c.name).getOrElse("")
+    }).map({ case (cOpt, v) =>
+      " " * 9 + fillFormat(maxAccSumLen, v) + cOpt.map(c => " " + c.name).getOrElse("")
+    })
+
+    (body, footer)
+  }
+
+  protected def addFooter(footer: Seq[String]) = {
+    List("=" * footer.map(_.length).foldLeft(0)(math.max)) ++ footer
+  }
+
+  protected def txtBalanceBody(balance: Balance): (Seq[String], Seq[String]) = {
     if (balance.isEmpty) {
-      (Seq.empty[String], "")
+      (Seq.empty[String], Seq.empty[String])
     } else {
-      val acclen = List(12,
-        //todo: balance: delta handling
-        ("%" + getScaleFormat(balance.deltas.head._2)).format(balance.deltas.head._2).length,
-        balance.bal.map(b => ("%" + getScaleFormat(b.accountSum)).format(b.accountSum).length).max).max
-
-      val subAcclen = balance.bal.map(b => ("%" + getScaleFormat(b.subAccTreeSum)).format(b.subAccTreeSum).length).max
-
-      val body = balance.bal
-        .map(b => {
-          " " * 9 +
-            fillFormat(acclen, b.accountSum) +
-            " " * 3 +
-            fillFormat(subAcclen, b.subAccTreeSum) +
-            " " + b.acctn.commodity.map(c => c.name + " ").getOrElse("") + b.acctn.account
-        })
-
-      val footer = balance.deltas.toSeq.sortBy({case (cOpt, _) =>
-        cOpt.map(c => c.name).getOrElse("")
-      }).map({case (cOpt, v) =>
-        " " * 9 + fillFormat(acclen, v) + cOpt.map(c => " " + c.name).getOrElse("")
-      }).mkString("\n")
-
-      (body, footer)
+      getBalanceBodyText(balance)
     }
   }
 
@@ -86,7 +142,6 @@ class BalanceReporter(val mySettings: BalanceSettings) extends  BalanceReporterL
 
   override val name = mySettings.outputname
 
-  @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
   protected def txtBalanceReport(bal: Balance): Seq[String] = {
 
     val (body, footer) = txtBalanceBody(bal)
@@ -99,7 +154,7 @@ class BalanceReporter(val mySettings: BalanceSettings) extends  BalanceReporterL
     if (body.isEmpty) {
       header
     } else {
-      header ++ body ++ List("=" * footer.split("\n").head.length) ++ List(footer)
+      header ++ body ++ addFooter(footer)
     }
   }
 

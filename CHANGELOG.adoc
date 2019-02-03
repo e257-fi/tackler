@@ -10,10 +10,11 @@ Current published release is:
 
 === 0.23.0-SNAPSHOT
 
-New features in this release are:
+New features and changes in this release are:
 
  * Add CLI option for: `input.git.dir`.
  * Add values of `input.git.dir` and `input.git.suffix` to the Medadata
+ * Reformat balance report for better clarity
  * ...
 
 
