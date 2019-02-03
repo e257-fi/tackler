@@ -116,11 +116,11 @@ Git storage:
 
 BALANCE
 -------
-                 0.00   -3.00 Assets
-                -3.00   -3.00 Assets:Cash
-                 0.00    3.00 Expenses
-                 2.00    2.00 Expenses:Ice_cream
-                 1.00    1.00 Expenses:Lemonade
+                 0.00   -3.00  Assets
+                -3.00   -3.00  Assets:Cash
+                 0.00    3.00  Expenses
+                 2.00    2.00  Expenses:Ice_cream
+                 1.00    1.00  Expenses:Lemonade
 =====================
                  0.00
 
@@ -164,10 +164,10 @@ Git storage:
 
 BALANCE
 -------
-                 0.00   -2.00 Assets
-                -2.00   -2.00 Assets:Cash
-                 0.00    2.00 Expenses
-                 2.00    2.00 Expenses:Ice_cream
+                 0.00   -2.00  Assets
+                -2.00   -2.00  Assets:Cash
+                 0.00    2.00  Expenses
+                 2.00    2.00  Expenses:Ice_cream
 =====================
                  0.00
 

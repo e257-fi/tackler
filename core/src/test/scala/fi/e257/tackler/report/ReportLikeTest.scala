@@ -75,10 +75,10 @@ class ReportLikeTest extends FunSpec {
   describe("fillFormat String") {
 
     it("DIR with small and big values") {
-      assert(defaultFrmt.getFillFormat(5, sc1) === "%5.2f")
-      assert(defaultFrmt.getFillFormat(5, sc3) === "%5.3f")
-      assert(defaultFrmt.getFillFormat(18, sc8_tr7) === "%18.7f")
-      assert(defaultFrmt.getFillFormat(26, sc18_9) === "%26.7f")
+      assert(defaultFrmt.getFillFormat(5, sc1) === "% 5.2f")
+      assert(defaultFrmt.getFillFormat(5, sc3) === "% 5.3f")
+      assert(defaultFrmt.getFillFormat(18, sc8_tr7) === "% 18.7f")
+      assert(defaultFrmt.getFillFormat(26, sc18_9) === "% 26.7f")
     }
 
   }
@@ -88,19 +88,36 @@ class ReportLikeTest extends FunSpec {
     /**
      * test: 52a72e6e-0d5d-4620-af1c-c6edf0143d82
      */
-    it("format normal values") {
+    it("format positive values") {
       assert(defaultFrmt.scaleFormat(sc0) === "1.00")
       assert(defaultFrmt.scaleFormat(sc6) === "1.123456")
       assert(defaultFrmt.scaleFormat(sc10_2) === "1234567890.12")
 
-      assert(defaultFrmt.fillFormat(1, sc0) === "1.00")
-      assert(defaultFrmt.fillFormat(4, sc0) === "1.00")
-      assert(defaultFrmt.fillFormat(5, sc0) === " 1.00")
+      assert(defaultFrmt.fillFormat(1, sc0) === " 1.00")
+      assert(defaultFrmt.fillFormat(4, sc0) === " 1.00")
+      assert(defaultFrmt.fillFormat(6, sc0) === "  1.00")
 
-      assert(defaultFrmt.fillFormat(9, sc6) === " 1.123456")
-      assert(defaultFrmt.fillFormat(14, sc10_2) === " 1234567890.12")
+      assert(defaultFrmt.fillFormat(10, sc6) === "  1.123456")
+      assert(defaultFrmt.fillFormat(15, sc10_2) === "  1234567890.12")
 
     }
+
+    /**
+     * test: 8fcfae80-7a06-49dc-b449-7cfb0cf49c2d
+     */
+    it("format negative values") {
+      assert(defaultFrmt.scaleFormat(-sc0) === "-1.00")
+      assert(defaultFrmt.scaleFormat(-sc6) === "-1.123456")
+      assert(defaultFrmt.scaleFormat(-sc10_2) === "-1234567890.12")
+
+      assert(defaultFrmt.fillFormat(1, -sc0) === "-1.00")
+      assert(defaultFrmt.fillFormat(5, -sc0) === "-1.00")
+      assert(defaultFrmt.fillFormat(6, -sc0) === " -1.00")
+
+      assert(defaultFrmt.fillFormat(10, -sc6) === " -1.123456")
+      assert(defaultFrmt.fillFormat(15, -sc10_2) === " -1234567890.12")
+    }
+
 
     /**
      * test: be4cec3b-b025-4dbd-9331-e78896843f04

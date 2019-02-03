@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
       title,
       "-" * title.length)
 
-    header ++ body ++ List("=" * footer.split("\n").head.length) ++ List(footer)
+    header ++ body ++ addFooter(footer)
   }
 
   protected def getBalanceGroups(txnData: TxnData): Seq[Balance] = {

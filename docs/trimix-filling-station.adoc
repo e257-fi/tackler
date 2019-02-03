@@ -71,10 +71,10 @@ cli/run --cfg ../tests/commodity/gb.conf --reporting.accounts ^Gas:.*:Tank.*
 Tank pressures
 --------------
 
-               272.00   272.00 bar·He Gas:He:Tank·102
-               298.00   298.00 bar·He Gas:He:Tank·103
-               298.00   298.00 bar·He Gas:He:Tank·104
-               193.00   193.00 bar·O2 Gas:O2:Tank·208
+               272.00           272.00 bar·He  Gas:He:Tank·102
+               298.00           298.00 bar·He  Gas:He:Tank·103
+               298.00           298.00 bar·He  Gas:He:Tank·104
+               193.00           193.00 bar·O2  Gas:O2:Tank·208
 ============================
                868.00 bar·He
                193.00 bar·O2
@@ -89,8 +89,8 @@ cli/run --cfg ../tests/commodity/gb.conf --reporting.accounts ^User:.*:.*
 Users Gas Balance
 -----------------
 
-                26.00   26.00 bar·He User:diverX:He
-                 5.00    5.00 bar·O2 User:diverX:O2
+                26.00           26.00 bar·He  User:diverX:He
+                 5.00            5.00 bar·O2  User:diverX:O2
 ============================
                 26.00 bar·He
                  5.00 bar·O2
@@ -115,10 +115,10 @@ cli/run --cfg ../tests/commodity/gb-billing.conf
 Outstanding payments
 --------------------
 
-                33.75   33.75 EUR Billing:diverX:Receivable
-                 0.00    0.00 bar·He User:diverX:He
-                 0.00    0.00 bar·O2 User:diverX:O2
-=========================
+                33.75           33.75 EUR     Billing:diverX:Receivable
+                 0.00            0.00 bar·He  User:diverX:He
+                 0.00            0.00 bar·O2  User:diverX:O2
+============================
                 33.75 EUR
                  0.00 bar·He
                  0.00 bar·O2
