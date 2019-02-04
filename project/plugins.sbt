@@ -13,7 +13,7 @@ addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.9")
 // QA tools
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.1")
 addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.2.4")
-addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.4.0")
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.4.1")
 
 // Publishing
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.3")

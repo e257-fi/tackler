@@ -28,9 +28,9 @@ None
 Updated deps and tools:
 
  * Updated dependencies
- ** ...
+ ** cats: 1.6.0
  * build
- ** ...
+ ** sbt-wartremover: 2.4.1
 
 
 
