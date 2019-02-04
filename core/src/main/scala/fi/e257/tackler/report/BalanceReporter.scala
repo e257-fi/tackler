@@ -26,9 +26,10 @@ import fi.e257.tackler.model.{BalanceTreeNode, TxnData}
 abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(cfg) {
 
   private def getBalanceBodyText(balance: Balance): (Seq[String], Seq[String]) = {
-    /**
-     * @param f select which balance sum type to use, account or accountTree
-     * @return max needed width of selected balance sum type
+
+    /*
+     * param f, select which balance sum type to use, account or accountTree
+     * return max needed width of selected balance sum type
      */
     def getMaxSumLen()(f: (BalanceTreeNode => BigDecimal)): Int = {
       balance.bal.map(b => ("% " + getScaleFormat(f(b))).format(f(b)).length).foldLeft(0)(math.max)
@@ -40,7 +41,7 @@ abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(
       }).foldLeft(0)(math.max)
     }
 
-    /**
+    /*
      * All balance account commodities are present on deltas
      * so this is also max length of all commodities
      */
@@ -60,7 +61,7 @@ abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(
     val maxCommLen = getMaxCommodityLen()
     val commFrmt = "%-" + "%d".format(maxCommLen) + "s"
 
-    /**
+    /*
      * filler between account sums (acc and accTree sums)
      * Width of this filler is mandated by delta sum's max commodity length,
      * because then AccTreesSum won't overlap with delta's commodity
