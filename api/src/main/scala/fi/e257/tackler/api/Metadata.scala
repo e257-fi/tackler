@@ -56,11 +56,11 @@ final case class GitInputReference(commit: String, ref: Option[String], dir: Str
   override def text(): String = {
     "" +
       "Git storage:\n" +
-      "   commit:  " + commit + "\n" +
-      "   ref:     " + ref.getOrElse("FIXED by commit") + "\n" +
-      "   dir:     " + dir + "\n" +
-      "   suffix:  " + suffix + "\n" +
-      "   message: " + message + "\n"
+      "  commit:  " + commit + "\n" +
+      "  ref:     " + ref.getOrElse("FIXED by commit") + "\n" +
+      "  dir:     " + dir + "\n" +
+      "  suffix:  " + suffix + "\n" +
+      "  message: " + message + "\n"
   }
 }
 
