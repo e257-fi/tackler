@@ -15,12 +15,13 @@
  *
  */
 package fi.e257.tackler.cli
+import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, NoSuchFileException, Path, Paths}
+import java.util.Base64
 
 import better.files._
 import org.slf4j.{Logger, LoggerFactory}
 import io.circe.parser.decode
-
 import fi.e257.tackler.api.TxnFilterDefinition
 import fi.e257.tackler.core.{FilesystemStorageType, GitStorageType, Settings, TacklerException, TxnException}
 import fi.e257.tackler.model.TxnData
@@ -149,10 +150,15 @@ object TacklerCli {
     val txnData = cliCfg.api_filter_def.toOption.fold({
       // cli: api-filter-def: NO
       txnDataAll
-    }) { filterJsonStr =>
+    }) { filterStr =>
       // cli: api-filter-def: YES
 
-      val jsonDecodeResult = decode[TxnFilterDefinition](filterJsonStr)
+      val jsonDecodeResult = if (filterStr.startsWith("base64:")) {
+        val filterJsonStr = new String(Base64.getDecoder.decode(filterStr.substring("base64:".length)), StandardCharsets.UTF_8)
+        decode[TxnFilterDefinition](filterJsonStr)
+      } else {
+        decode[TxnFilterDefinition](filterStr)
+      }
 
       if (jsonDecodeResult.isLeft) {
         val err = jsonDecodeResult.left.get

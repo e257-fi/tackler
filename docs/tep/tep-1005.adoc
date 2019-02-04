@@ -18,6 +18,7 @@ No journal file changes.
 There will be command line option to feed filter definition to the engine for testing purposes.
 
 * [x] `--api-filter-def` Filter definition as json
+** [x] Filter definition can be ascii armored as base64 string on command line
 
 
 == CONF changes

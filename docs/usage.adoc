@@ -152,6 +152,17 @@ That filter is defined as (on single line):
 
 See link:./txn-filters.adoc[Transaction Filters] for more information.
 
+====== Transaction Filters and ascii armor
+
+
+It is possible to wrap transaction filter definition into base64 string, so that it won't infer with
+shell.  Base64 encoded filter definition must be prefixed with `base64:` string in that case.
+
+For example above "ice-cream" filter defined as base64 string (`base64 --wrap=0`):
+----
+--api-filter-def base64:eyAidHhuRmlsdGVyIjogeyAiVHhuRmlsdGVyVHhuRGVzY3JpcHRpb24iOiB7ICJyZWdleCI6ICIuKmljZS1jcmVhbS4qIiB9IH0gfQo=
+----
+
 
 ==== Reporting
 

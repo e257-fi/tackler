@@ -15,7 +15,8 @@ New features and changes in this release are:
  * Add CLI option for: `input.git.dir`.
  * Add values of `input.git.dir` and `input.git.suffix` to the Medadata
  * Reformat balance report for better clarity
- * ...
+ * Base64 ascii armor for Txn Filters defined by `--api-filter-def` CLI option
+ ** See link:./docs/usage.adoc[Usage Guide] and Txn Filters
 
 
 ==== Fixes

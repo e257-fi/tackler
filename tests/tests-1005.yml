@@ -411,6 +411,15 @@ features:
                 - ref: balance
                 - ref: balance-group
                 - ref: register
+          - test:
+              id: 8bbe1d2a-8548-49cf-9d8b-942242b882bd
+              name: tests/cli/ok/filters-02.exec
+              descriptions:
+                - desc: "Filter definition can be defined as base64"
+              references:
+                - ref: balance
+                - ref: balance-group
+                - ref: register
   - feature:
       id: c9c2c645-79a3-4594-ab75-350bea400f66
       parent: ab7695f6-9fba-4f5d-9d55-ea2c502b4ea4
