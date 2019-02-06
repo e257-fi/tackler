@@ -48,21 +48,21 @@ for how to configure tackler.
 relative to the basedir.
 
 
-==== Input
+=== Input
 
 There are two different ways to provide transaction data to Tackler.
 
 Input can be either single file or  directory structure,
 which contains accounting data in separate files.
 
-===== Single input file
+==== Single input file
 
   --input.file path/to/txn-file
 
 path can be absolute or relative path to the basedir.
 
 
-===== Multiple `txn` -files and sharding
+==== Multiple `txn` -files and sharding
 
 * `--input.fs.dir`: directory which holds `txn` -files (absolute or relative path to basedir).
 * `--input.fs.glob`: glob to find `txn` -files under txn.dir
@@ -109,7 +109,7 @@ It's recommended to select some data shard scheme with production systems.
 Regardless of used sharding scheme, it is possible to group txns with different
 `group-by` operators.
 
-===== Git storage
+==== Git storage
 
 Please see link:git-storage.adoc[git storage] for full information about git based storage.
 
@@ -122,45 +122,153 @@ Addition to configuration, Git reference or commit id can be given from command 
 These options are mutually exclusive with each other and with filesystem storage arguments (`input.fs.*`).
 
 
-===== Transaction Filtering
+=== Transaction Filtering
 
-There is an option to filter transactions based on attributes of single transaction.
-See link:./txn-filters.adoc[Transaction Filters] for general information about these filters.
+Tackler has an option to filter transactions based on attributes of single transaction.
 
-At the momemnt this interface is mostly meant to be used by
-link:./client-api.adoc[Client] and link:./server-api.adoc[Server] API, but it can be also used with
-tacker cli.
+If transaction is filtered away by txn filter, it will disappear from all calculations and statistics.
+The effect is same as if transaction didn't exist in first place.  Transactions can be filtered based on
+various attributes of single transaction, and different filters can be combined logically together.
 
-There is a command line option to provide filter definition by `--api-filter-def`,
-which will take transcation filter definition as JSON:
+For full list of available filters and their syntax, see link:./txn-filters.adoc[Transaction Filters]
+document.
+
+
+Transaction filter can be defined by providing filter definition as JSON with `--api-filter-def` option,
+either as plain JSON or base64 encoded.
 
 Belows is an example of filter to find all transactions where there is "ice-cream"
-on description field for transaction.
+on transaction's description field.
 
-Filter is defined as below (on single line):
 ----
 --api-filter-def '{ "txnFilter": { "TxnFilterTxnDescription": { "regex": ".*ice-cream.*" } } }'
 ----
 
+Same filter defined as base64 string (with `base64 --wrap=0`):
+----
+--api-filter-def base64:eyAidHhuRmlsdGVyIjogeyAiVHhuRmlsdGVyVHhuRGVzY3JpcHRpb24iOiB7ICJyZWdleCI6ICIuKmljZS1jcmVhbS4qIiB9IH0gfQo=
+----
+
+If txn filter is defined as base64 string, then there must be `base64:` at the begin of string.
+
 Second example is more complex combination of filters to find all transactions which have
 code as starting "#" and description starts as "txn-".
 
-That filter is defined as (on single line):
 ----
 --api-filter-def '{ "txnFilter": { "TxnFilterAND" : { "txnFilters" : [ { "TxnFilterTxnCode": { "regex": "#.*" } },  { "TxnFilterTxnDescription": { "regex": "txn-.*" } } ] } } }'
 ----
 
-See link:./txn-filters.adoc[Transaction Filters] for more information.
-
-====== Transaction Filters and ascii armor
+See link:./txn-filters.adoc[Transaction Filters] for list of all available filters and their syntax.
 
 
-It is possible to wrap transaction filter definition into base64 string, so that it won't infer with
-shell.  Base64 encoded filter definition must be prefixed with `base64:` string in that case.
+==== Using Transaction Filters with shell scripting
 
-For example above "ice-cream" filter defined as base64 string (`base64 --wrap=0`):
+
+Transaction filters can be easily combined and created by shell scripts. When stored in `base64` ascii armor
+format, those filters also easy to handle in shell scripts.
+
+By combining these two features, it's easy to extend Tackler's functionality with simple and powerful constructs.
+
+
+===== Filter for time span
+
+Below is an example of bash-based shell function which creates transaction filter for time span :
+....
+time_span_filter () {
+    local begin=$1
+    local end=$2
+
+    flt=$(cat << EOF | base64 --wrap=0
+{
+    "txnFilter" : {
+        "TxnFilterAND" : {
+            "txnFilters" : [
+                {
+                    "TxnFilterTxnTSBegin" : {
+                        "begin" : "$begin"
+                    }
+                },
+                {
+                    "TxnFilterTxnTSEnd" : {
+                        "end" : "$end"
+                    }
+                }
+            ]
+        }
+    }
+}
+EOF
+)
+    echo "base64:$flt"
+}
+....
+
+====== Examples
+
+Get reports for all transactions between 2019-01-15 10:00 and 15:30 on TZ=02:00
+
+....
+tackler-cli.jar --api-filter-def $(time_span_filter 2019-01-15TT10:00:00+02:00  2019-01-15T15:30:00+02:00)
+
+Filter:
+  AND
+    Txn TS: begin 2019-01-15T10:00:00+02:00
+    Txn TS: end   2019-01-15T15:30:00+02:00
+....
+
+
+===== Filter for time window
+
+Below is definition of time based windowing filter using above `time_span_filter`.
+This utilizes natural language support of `date`-command and above defined `time_span_filter`.
+
+....
+time_window_filter () {
+    local ts1=$(TZ=Z date --date=$1 --iso-8601=s)
+    local ts2=$(TZ=Z date --date="$ts1 $2" --iso-8601=s)
+
+    local begin=$(echo -e "$ts1\n$ts2" | sort -n | head -n1)
+    local end=$(echo   -e "$ts1\n$ts2" | sort -n | tail -n1)
+
+    time_span_filter "$begin" "$end"
+}
+....
+
+====== Examples
+
+Transaction data from last 5 years:
+
 ----
---api-filter-def base64:eyAidHhuRmlsdGVyIjogeyAiVHhuRmlsdGVyVHhuRGVzY3JpcHRpb24iOiB7ICJyZWdleCI6ICIuKmljZS1jcmVhbS4qIiB9IH0gfQo=
+tackler-cli.jar --api-filter-def $(get_window_filter "2019-01-01" "-5 years")
+Filter:
+  AND
+    Txn TS: begin 2014-01-01T00:00:00Z
+    Txn TS: end   2019-01-01T00:00:00Z
+...
+----
+
+Transaction data from last 30 days:
+
+----
+tackler-cli.jar --api-filter-def $(get_window_filter "2019-01-15" "-30 days")
+
+Filter:
+  AND
+    Txn TS: begin 2018-12-16T00:00:00Z
+    Txn TS: end   2019-01-15T00:00:00Z
+...
+----
+
+Transaction data for Q1/2018:
+
+----
+tackler-cli.jar --api-filter-def $(get_window_filter "2018-01-01" "+3 months")
+
+Filter:
+  AND
+    Txn TS: begin 2018-01-01T00:00:00Z
+    Txn TS: end   2018-04-01T00:00:00Z
+...
 ----
 
 

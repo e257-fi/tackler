@@ -114,7 +114,8 @@ Transaction property filters select transactions based on properties of single t
 Timestamp Begin filter selects transactions which timestamp is
 on specified time or after it.
 
-Time is expressed as ISO 8601 string, e.g. `2018-01-01T10:11:22.345+02:00`.
+Time is expressed in ISO 8601 format with zone, e.g. 
+`2018-01-01T10:11:22.345+02:00` or `2018-01-01T08:11:22.345Z`.
 
 ----
 {
@@ -130,12 +131,13 @@ Time is expressed as ISO 8601 string, e.g. `2018-01-01T10:11:22.345+02:00`.
 Timestamp End filter selects transactions which timestamp is
 before specified time.
 
-Time is expressed in ISO 8601 format, e.g. `2018-01-01T10:11:22.345+02:00`.
+Time is expressed in ISO 8601 format with zone, e.g. 
+`2018-01-01T10:11:22.345+02:00` or `2018-01-01T08:11:22.345Z`.
 
 ----
 {
   "TxnFilterTxnTSEnd" : {
-    "begin" : "ISO 8601 timestamp"
+    "end" : "ISO 8601 timestamp"
   }
 }
 ----
