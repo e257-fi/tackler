@@ -15,6 +15,7 @@
  *
  */
 package fi.e257.tackler.cli
+import java.io.{BufferedWriter, OutputStreamWriter}
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, NoSuchFileException, Path, Paths}
 import java.util.Base64
@@ -171,7 +172,10 @@ object TacklerCli {
     }
 
     if (txnData.txns.isEmpty) {
-      throw new TxnException("Empty transaction set")
+      val msg = txnData.metadata.fold("")(md => {
+        "\n\n" + md.text()
+      })
+      throw new TxnException("Empty transaction set" + msg)
     }
     val tsParseEnd = System.currentTimeMillis()
 
@@ -200,6 +204,18 @@ object TacklerCli {
    * @return Zero on success, non-zero in case of error.
    */
   def runReturnValue(args: Array[String]): Int = {
+    def reportFailure(msg: String) : Int = {
+      val con = new BufferedWriter(
+        new OutputStreamWriter(Console.err, StandardCharsets.UTF_8))
+
+      con.write(msg)
+      con.write("\n")
+      con.flush()
+      con.write("Error while running Tackler, see above for reason.\n")
+      con.flush()
+      FAILURE
+    }
+
     try {
       runExceptions(args)
       SUCCESS
@@ -207,31 +223,37 @@ object TacklerCli {
       case org.rogach.scallop.exceptions.Help("") =>
         // do not report success
         FAILURE
+
       case org.rogach.scallop.exceptions.Version =>
         // do not report success
         Console.out.println("Version: " + BuildInfo.version + " [" + BuildInfo.builtAtString + "]")
         FAILURE
+
       case _: org.rogach.scallop.exceptions.ScallopException =>
         // Error message is already printed by CliArgs
         FAILURE
+
       case ex: NoSuchFileException =>
-        Console.err.println("Error: File not found: " + ex.getMessage)
-        FAILURE
+        val msg="Error: File not found: " + ex.getMessage
+        reportFailure(msg)
+
       case ex: java.util.regex.PatternSyntaxException =>
-        Console.err.println("Error: regexp syntax error: " + ex.getMessage)
-        FAILURE
+        val msg = "Error: regexp syntax error: " + ex.getMessage
+        reportFailure(msg)
+
       case ex: TacklerParseException =>
-        Console.err.println("" +
+        val msg = "" +
           "Exception: \n" +
           "   class: " + ex.getClass.toString + "\n" +
-          "   msg: " + ex.getMessage + "\n")
-        FAILURE
+          "   msg: " + ex.getMessage + "\n"
+        reportFailure(msg)
+
       case ex: TacklerException =>
-        Console.err.println("" +
+        val msg = "" +
           "Exception: \n" +
           "   class: " + ex.getClass.toString + "\n" +
-          "   msg: " + ex.getMessage + "\n")
-        FAILURE
+          "   msg: " + ex.getMessage + "\n"
+        reportFailure(msg)
     }
   }
 
