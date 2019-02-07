@@ -25,8 +25,8 @@ import resource._
 
 import fi.e257.tackler.core.{AccountException, CommodityException, GroupByException, ReportException, TacklerException, TxnException}
 import fi.e257.tackler.parser.TacklerParseException
-import fi.sn127.utils.testing.Glob
-import fi.sn127.utils.testing.DirSuiteLike
+import fi.e257.testing.Glob
+import fi.e257.testing.DirSuiteLike
 
 
 /**

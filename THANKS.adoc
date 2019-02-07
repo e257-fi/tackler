@@ -22,7 +22,7 @@ Code samples and examples:
 
 Tests:
 
- * link:https://github.com/sn127/dirsuite[DirSuite]
+ * link:https://gitlab.com/e257/testing/dirsuite[DirSuite]
  * link:http://www.scalatest.org/[ScalaTest]
 
 Build-tools (used to build Tackler):

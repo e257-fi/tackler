@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ object Dependencies {
   val scalatestVersion = "3.0.5"
   val scallopVersion = "3.1.5"
   val configVersion = "1.3.3"
-  val dirsuiteVersion = "0.7.0"
+  val dirsuiteVersion = "0.21.0"
   val jgitVersion = "5.2.1.201812262042-r"
   val logbackVersion = "1.2.3"
   val scalaArmVersion = "2.0"
@@ -53,7 +53,7 @@ object Dependencies {
 
   val scalatest = "org.scalatest" %% "scalatest" % scalatestVersion
   val scallop = "org.rogach" %% "scallop" % scallopVersion
-  val dirsuite = "fi.sn127" %% "dirsuite" % dirsuiteVersion
+  val dirsuite = "fi.e257.testing" %% "dirsuite" % dirsuiteVersion
   val scalaArm = "com.jsuereth" %% "scala-arm" % scalaArmVersion
 
   /* lib: java */

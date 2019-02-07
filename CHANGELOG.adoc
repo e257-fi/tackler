@@ -32,6 +32,8 @@ Updated deps and tools:
  ** cats: 1.6.0
  * build
  ** sbt-wartremover: 2.4.1
+ * tests
+ ** dirsuite: 0.21.0
 
 
 
