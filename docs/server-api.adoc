@@ -87,5 +87,8 @@ reports.
 Tackler's CLI contains examples (`git2Txns` and `paths2Txns`) how to use FS or Git storage:
 link:../cli/src/main/scala/fi/e257/tackler/cli/TacklerCli.scala[cli -> main -> TacklerCli]
 
-Complete test case is located here:
+Test cases for GIT input are located here:
+link:../core/src/test/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala[core -> test -> parser -> TacklerTxnsGitTest]
+
+Complete test cases for Report API are located here:
 link:../core/src/test/scala/fi/e257/tackler/report/ReportApiTest.scala[core -> test -> report -> ReportApiTest]
