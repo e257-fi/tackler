@@ -16,9 +16,9 @@
  */
 package fi.e257.tackler.tools.generator
 
-import java.io.{File => JFile}
 import java.time.format.DateTimeFormatter
 import java.time.{Duration, ZoneId, ZonedDateTime}
+import java.util.UUID
 
 import better.files._
 
@@ -38,7 +38,7 @@ object Generator {
 
 
     val basedir = cliCfg.basedir.getOrElse("./data")
-    val txnsDir = File(basedir, s"perf-$countStr" )
+    val txnsDir = File(basedir, s"txns-$countStr" )
 
     val startTS = ZonedDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneId.of("Z"))
     val endTS = ZonedDateTime.of(2017, 1, 1, 0, 0, 0, 0, ZoneId.of("Z"))
@@ -47,7 +47,7 @@ object Generator {
 
     if (cliCfg.single_file.getOrElse(false)) {
       File(basedir).createDirectories()
-      val txnFile = File(basedir, "perf-" + countStr + ".txn")
+      val txnFile = File(basedir, "txns-" + countStr + ".txn")
       txnFile.createIfNotExists().overwrite("")
     }
 
@@ -70,10 +70,15 @@ object Generator {
         case (tsStr, valSpace) =>
 
           val txn = tsStr + " " + s"(#%07d)".format(i) + " " + s"txn-%d".format(i) + "\n" +
+            (if (cliCfg.compatible.getOrElse(false)) {
+              ""
+            } else {
+              " ;:uuid: " + UUID.randomUUID().toString + "\n"
+            }) +
             s""" $expensesAcc$valSpace$d.0000001
                | $assetsAcc
                |
-           |""".stripMargin
+               |""".stripMargin
 
           if (cliCfg.single_file.getOrElse(false)) {
             val txnFile = File(basedir, "perf-" + countStr + ".txn")
@@ -91,8 +96,12 @@ object Generator {
       }
     }
 
-    val coaConf = accounts.flatten.sorted.distinct.mkString("accounts.coa = [\n\"", "\",\n\"", "\"\n]\n")
-    val coaFile = File(basedir, s"perf-$countStr-coa.conf")
+    val coaConf = accounts.flatten.sorted.distinct.mkString(
+        "accounts {\n\n  permit-empty-commodity = true\n\n  coa = [\n    \"",
+        "\",\n    \"",
+        "\"\n  ]\n}\n")
+
+    val coaFile = File(basedir, s"txns-$countStr-accounts.conf")
     coaFile.overwrite(coaConf)
   }
 

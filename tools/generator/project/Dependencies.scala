@@ -20,7 +20,7 @@ object Dependencies {
   /*
    * Versions
    */
-  val betterFilesVersion = "3.6.0"
+  val betterFilesVersion = "3.7.0"
   val scallopVersion = "3.1.5"
 
   /*
