@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-# vim: tabstop=4 shiftwidth=4 smarttab expandtab softtabstop=4 autoindent
+# vim: tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab autoindent
 #
-# Copyright 2016-2018 E257.FI Contributors
+# Copyright 2016-2019 E257.FI Contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,14 +23,15 @@ import yaml
 import argparse
 import sys
 
-versions = ["0.4.1", "0.5.0", "0.6.0", "0.7.0", "0.8.0", "0.9.0", "0.10.0"]
+versions = ["0.4.1", "0.5.0", "0.6.0", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.23.0-SNAPSHOT" ]
+#versions = ["0.23.0-SNAPSHOT"]
 
 
 def plot_def(hw, testset):
     return """
     #
     #
-    set term svg dashed size 2400,800 dynamic background "0xFFFFFF"
+    set term svg dashed size 2400,1600 dynamic background "0xFFFFFF"
     set output "perf-%s-%s.svg"
     set size 1.0,1.0
     set origin 0.0,0.0
@@ -58,11 +59,18 @@ def plot_line_def():
     '-' using 1:2:xtic(1) t "register (json, flt)"       with linespoints pt 7 lc rgbcolor "0x880000" lw 2 dt 3
     """
 
+def storage_plot_line_def():
+    return """
+    plot \
+    '-' using 1:2:xtic(1) t "FS (balance, txt)"    with linespoints pt 9 lc rgbcolor "0xFF0000" lw 2 dt 1, \
+    '-' using 1:2:xtic(1) t "GIT  (balance, txt)"  with linespoints pt 7 lc rgbcolor "0x0000FF" lw 2 dt 1
+    """
+
 
 def plot_time(testset):
     p_hdr = """
-    set size 0.33,1.0
-    set origin 0,0
+    set size 0.33,0.5
+    set origin 0,0.5
     set grid
     set title "Test set: %s"
     set key top left
@@ -76,8 +84,8 @@ def plot_time(testset):
 
 def plot_mem(testset):
     p_hdr = """
-    set size 0.33,1.0
-    set origin 0.33,0
+    set size 0.33,0.5
+    set origin 0.33,0.5
     set grid
     set title "Test set: %s"
     set key top left
@@ -91,8 +99,8 @@ def plot_mem(testset):
 
 def plot_cpu(testset):
     p_hdr = """
-    set size 0.3,1.0
-    set origin 0.66,0
+    set size 0.33,0.5
+    set origin 0.66,0.5
     set grid
     set title "Test set: %s"
     set key top left
@@ -102,6 +110,53 @@ def plot_cpu(testset):
     """ % (testset)
 
     return p_hdr + plot_line_def()
+
+###
+### GIT vs. FS
+###
+def storage_plot_time(testset):
+    p_hdr = """
+    set size 0.33,0.5
+    set origin 0,0
+    set grid
+    set title "Storage: set: %s"
+    set key top left
+    set ylabel "Time (s)"
+    set xrange  [*:*]
+    set yrange [*:*]
+    """ % (testset)
+
+    return p_hdr + storage_plot_line_def()
+
+
+def storage_plot_mem(testset):
+    p_hdr = """
+    set size 0.33,0.5
+    set origin 0.33,0
+    set grid
+    set title "Storage: set: %s"
+    set key top left
+    set ylabel "Memory (M)"
+    set xrange  [*:*]
+    set yrange [*:*]
+    """ % (testset)
+
+    return p_hdr + storage_plot_line_def()
+
+
+def storage_plot_cpu(testset):
+    p_hdr = """
+    set size 0.33,0.5
+    set origin 0.66,0
+    set grid
+    set title "Storage: test set: %s"
+    set key top left
+    set ylabel "CPU %%"
+    set xrange  [*:*]
+    set yrange [*:*]
+    """ % (testset)
+
+    return p_hdr + storage_plot_line_def()
 
 
 def values_average(values):
@@ -159,6 +214,48 @@ def values_to_plot(data, key, value_getter, v_func):
     return result_str
 
 
+def storage_values_to_plot(data, key, value_getter, v_func):
+    # find result set (times, mem, cpu), based on key triplet (report, format, filter)
+    def find_result():
+        for run in runs:
+            r = run.get("run")
+            if  r.get("storage") == storage and \
+                r.get("report") == rpt and \
+                    r.get("formats") == frmt and \
+                    (len(r.get("filter")) != 0) == flt:
+                return r
+
+    # get wanted value with value_getter, convert value with v_func and add it to the plot
+    def value_to_plot(last):
+        try:
+            result = find_result()
+            value = values_average(value_getter(result.get("result"), key))
+            return gnuplot_version(v, last) + "  " + "{:.2f}".format(v_func(value)) + "\n"
+        except AttributeError:
+            return ""
+
+    result_str = ""
+    for storage in ["fs", "git"]:
+        for flt in [False]:
+            for frmt in ["txt"]:
+                for rpt in ["balance"]:
+                    for v in versions:
+                        version_data = data.get(v)
+                        if version_data:
+                            runs = data.get(v).get("runs")
+                            result_str += value_to_plot(False)
+
+                    # duplicate last data point, so resulting plot with straight line will be easier to read
+                    # than single dot at the right most end of plot.
+                    # There could be some option / different plot style with gnuplot, but let's go with that now
+                    runs = data.get(versions[-1]).get("runs")
+                    result_str += value_to_plot(True)
+                    result_str += "e\n"
+
+    return result_str
+
+
+
 def main():
     argp = argparse.ArgumentParser(description="tackler perf data plotter")
 
@@ -190,6 +287,21 @@ def main():
 
     print(plot_cpu(args.set))
     print(values_to_plot(data, "cpu",
+                         lambda z, key: z.get(key),
+                         lambda x: x))
+
+    print(storage_plot_time(args.set))
+    print(storage_values_to_plot(data, "real",
+                         lambda z, key: z.get("times").get(key),
+                         lambda x: x))
+
+    print(storage_plot_mem(args.set))
+    print(storage_values_to_plot(data, "mem",
+                         lambda z, key: z.get(key),
+                         lambda x: x / 1024))
+
+    print(storage_plot_cpu(args.set))
+    print(storage_values_to_plot(data, "cpu",
                          lambda z, key: z.get(key),
                          lambda x: x))
 

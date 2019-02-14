@@ -6,7 +6,7 @@ reports="balance balance-group register"
 #reports="balance"
 
 sets="1E3 1E4 1E5 1E6"
-#sets="1E5"
+#sets="1E4"
 
 
 #versions="0.4.1 0.5.0 0.6.0 0.7.0 0.8.0 0.9.0 0.10.0"
@@ -22,7 +22,11 @@ for v in $versions; do
 for s in $sets; do
 for r in $reports; do
 
-for frmt in txt json "txt json"; do
+### test with "txt+json" target has to be reconsidered (it's not plotted anywhere atm)
+### and it's testing more actual I/O than anything else
+### for frmt in txt json "txt json"; do
+
+for frmt in txt json; do
 #for frmt in txt; do
 
 for filter in "" "$fltStr"; do

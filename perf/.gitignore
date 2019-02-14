@@ -4,4 +4,7 @@
 /results/hwXX/
 /results/*/*-SNAPSHOT-*
 /results/*/*.png
+/*.svg
+/bin/*.svg
 /*.png
+/bin/*.png
