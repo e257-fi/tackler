@@ -1,0 +1,64 @@
+= Technical notes about GIT
+
+
+`Repository implements AutoCloseable`
+
+----
+ The thread-safety of a {@link org.eclipse.jgit.lib.Repository} very much
+ depends on the concrete implementation.
+
+ * <li>{@code FileRepository} is thread-safe.
+----
+
+`RevWalk implements Iterable<RevCommit>, AutoCloseable`
+
+----
+ * RevWalk instances are not thread-safe. Applications must either restrict
+ * usage of a RevWalk instance to a single thread, or implement their own
+ * synchronization at a higher level.
+----
+
+`RevTree extends RevObject`
+
+`RevObject extends ObjectIdOwnerMap.Entry`
+
+
+`TreeWalk implements AutoCloseable, AttributesProvider`
+
+----
+ * Walks one or more {@link org.eclipse.jgit.treewalk.AbstractTreeIterator}s in
+ * parallel.
+ * <p>
+ * This class can perform n-way differences across as many trees as necessary.
+ * <p>
+ * Each tree added must have the same root as existing trees in the walk.
+ * <p>
+ * A TreeWalk instance can only be used once to generate results. Running a
+ * second time requires creating a new TreeWalk instance, or invoking
+ * {@link #reset()} and adding new trees before starting again. Resetting an
+ * existing instance may be faster for some applications as some internal
+ * buffers may be recycled.
+ * <p>
+ * TreeWalk instances are not thread-safe. Applications must either restrict
+ * usage of a TreeWalk instance to a single thread, or implement their own
+ * synchronization at a higher level.
+ * <p>
+ * Multiple simultaneous TreeWalk instances per
+ * {@link org.eclipse.jgit.lib.Repository} are permitted, even from concurrent
+ * threads.
+----
+
+
+`abstract ObjectStream openStream()`
+----
+	 * Obtain an input stream to read this object's data.
+	 *
+	 * @return a stream of this object's data. Caller must close the stream when
+	 *         through with it. The returned stream is buffered with a
+	 *         reasonable buffer size.
+----
+
+`class ObjectStream extends InputStream `
+
+`InputStream implements Closeable {`
+
