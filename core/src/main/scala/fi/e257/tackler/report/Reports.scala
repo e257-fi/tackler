@@ -15,14 +15,15 @@
  *
  */
 package fi.e257.tackler.report
+
 import java.io.{BufferedWriter, OutputStreamWriter}
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Path, Paths}
 
-import org.slf4j.{Logger, LoggerFactory}
-import resource._
+import better.files._
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.TxnData
+import org.slf4j.{Logger, LoggerFactory}
 
 final case class Reports(settings: Settings) {
 
@@ -122,12 +123,10 @@ final case class Reports(settings: Settings) {
     outputBase.fold {
       log.warn("Report exporting: no output file is defined!")
     } { outputPath =>
-      for {
-        ostream <- managed(Files.newOutputStream(Paths.get(outputPath.toString + "." + name + ".txn")))
-      } {
+      using(Files.newOutputStream(Paths.get(outputPath.toString + "." + name + ".txn")))(ostream => {
         val strm: Writer = new BufferedWriter(new OutputStreamWriter(ostream, "UTF-8"))
         exporter.writeExport(strm, txnData.txns)
-      }
+      })
     }
   }
 

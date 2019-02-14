@@ -17,7 +17,7 @@ New features and changes in this release are:
  * Reformat balance report for better clarity
  * Base64 ascii armor for Txn Filters defined by `--api-filter-def` CLI option
  ** See link:./docs/usage.adoc[Usage Guide] and Txn Filters
-
+ * Scala-ARM has been replaced with better-files resource mgmt functionality
 
 ==== Fixes
 
@@ -30,6 +30,7 @@ Updated deps and tools:
 
  * Updated dependencies
  ** cats: 1.6.0
+ ** scala-arm: removed
  * build
  ** sbt-wartremover: 2.4.1
  * tests

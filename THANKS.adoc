@@ -12,7 +12,6 @@ Components (used with Tackler):
  * link:https://circe.github.io/circe/[circe]
  * link:http://www.eclipse.org/jgit/[jgit]
  * link:https://logback.qos.ch/[Logback Project]
- * link:https://github.com/jsuereth/scala-arm[Scala-ARM (automatic resource mgmt)]
  * link:https://github.com/scallop/scallop[Scallop]
  * link:https://github.com/typesafehub/config[Typesafe Config]
 

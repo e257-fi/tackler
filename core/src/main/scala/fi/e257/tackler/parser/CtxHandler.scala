@@ -27,6 +27,8 @@ import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transa
 import fi.e257.tackler.parser.TxnParser._
 import org.slf4j.{Logger, LoggerFactory}
 
+import scala.util.control.NonFatal
+
 /**
  * Handler utilities for ANTLR Parser Contexts.
  *
@@ -277,7 +279,7 @@ abstract class CtxHandler {
         try {
           handleTxn(txnCtx)
         } catch {
-          case ex: Exception => {
+          case NonFatal(ex) => {
             val lineNro = txnCtx.start.getLine
             log.error("Error while processing Transaction on line {}", lineNro.toString)
             throw ex

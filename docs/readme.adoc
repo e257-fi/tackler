@@ -51,5 +51,4 @@ Tackler Enhancement Proposals (TEP) are listed on link:./tep/readme.adoc[TEP Ind
 * link:./licenses/JGIT-COOKBOOK-LICENSE.txt[jgit-Cookbook]
 * link:./licenses/LOGBACK-LICENSE.txt[Logback]
 * link:./licenses/SLF4J-LICENSE.txt[SLF4J]
-* link:./licenses/SCALA-ARM-LICENSE.txt[Scala-ARM]
 * link:./licenses/SCALLOP-LICENSE.txt[Scallop]

@@ -24,18 +24,19 @@
 package fi.e257.tackler.parser
 import java.nio.file.Path
 
-import better.files.File
+import better.files._
 import cats.implicits._
+import fi.e257.tackler.api.{GitInputReference, Metadata}
+import fi.e257.tackler.core.{Settings, TacklerException}
+import fi.e257.tackler.model.{OrderByTxn, TxnData, Txns}
 import org.eclipse.jgit.lib.{FileMode, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.{RevCommit, RevWalk}
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.treewalk.TreeWalk
 import org.eclipse.jgit.treewalk.filter.{AndTreeFilter, PathFilter, PathSuffixFilter}
 import org.slf4j.{Logger, LoggerFactory}
-import resource.{makeManagedResource, managed, _}
-import fi.e257.tackler.api.{GitInputReference, Metadata}
-import fi.e257.tackler.core.{Settings, TacklerException}
-import fi.e257.tackler.model.{OrderByTxn, TxnData, Txns}
+
+import scala.util.control.NonFatal
 
 /**
  * Helper methods for [[TacklerTxns]] and Txns Input handling.
@@ -133,8 +134,13 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
     }).seq.sorted(OrderByTxn))
   }
 
-  private def getCommitId(repository: Repository, inputRef: TacklerTxns.GitInputSelector): ObjectId = {
-    inputRef match {
+  /**
+   * Get commit id based on input ref
+   *
+   * @return git commit id (as ObjectId)
+   */
+  private def getCommitId(repository: Repository, inputSelector: TacklerTxns.GitInputSelector): ObjectId = {
+    inputSelector match {
       case Left(refStr) => {
         log.info("GIT: reference = {}", refStr)
 
@@ -168,19 +174,19 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
   /**
    * Get Git repository as managed resource.
    * Repository must be bare.
+   * Caller must close repository after use
    *
    * @param gitdir path/to/repo.git
-   * @return repository as managed resource
+   * @return repository
    */
-  private def getRepo(gitdir: File): ManagedResource[Repository] = {
+  private def getRepo(gitdir: File): Repository = {
     log.info("GIT: repo = {}", gitdir.toString())
     try {
-      val repo = (new FileRepositoryBuilder)
+      (new FileRepositoryBuilder)
         .setGitDir(gitdir.toJava)
         .setMustExist(true)
         .setBare()
         .build()
-      managed(repo)
     } catch {
       case e: org.eclipse.jgit.errors.RepositoryNotFoundException => {
         val msg = "GIT: Repository not found\n" +
@@ -206,24 +212,20 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
    * @param inputRef Left(ref) or Right(commitId)
    * @return TxnData
    */
-  @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
+  @SuppressWarnings(Array(
+    "org.wartremover.warts.TraversableOps",
+    "org.wartremover.warts.Equals"))
   def git2Txns(inputRef: TacklerTxns.GitInputSelector): TxnData = {
 
-    val tmpResult = getRepo(settings.input_git_repository).map(repository => {
+    using(getRepo(settings.input_git_repository))(repository => {
 
       val gitdir = settings.input_git_dir
       val suffix = settings.input_git_suffix
 
       val commitId = getCommitId(repository, inputRef)
 
-      // with managed(new RevWalk(repository))
-      // [error]  ambiguous implicit values:
-      // [error]    both method reflectiveDisposableResource ...
-      // [error]    and method reflectiveCloseableResource ...
-      // Let's use makeMangedResource
-      val revWalkM = makeManagedResource(new RevWalk(repository))(_.dispose())(List.empty[Class[Throwable]])
-      val revWalkResult = revWalkM.map(revWalk => {
-        // a RevWalk allows to walk over commits based on some filtering that is defined
+      using(new RevWalk(repository))(revWalk => {
+        // a RevWalk allows to walk over commits based on defined filtering
 
         val commit: RevCommit = try {
           revWalk.parseCommit(commitId)
@@ -241,7 +243,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
         val tree = commit.getTree
 
         // now try to find files
-        managed(new TreeWalk(repository)).map(treeWalk => {
+        using(new TreeWalk(repository))(treeWalk => {
           treeWalk.addTree(tree)
           treeWalk.setRecursive(true)
 
@@ -250,7 +252,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             PathSuffixFilter.create(suffix)))
 
           // Handle files
-          (for {
+          val txns = (for {
             _ <- Iterator.continually(treeWalk.next()).takeWhile(p => p === true)
           } yield {
             val objectId = treeWalk.getObjectId(0)
@@ -265,17 +267,6 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
               throw new TacklerException(msg)
             }
           }).toSeq
-        }).either.either match {
-          case Right(foids) => (commit, foids)
-          case Left(ex) => throw ex.head
-        }
-      }).either
-
-      revWalkResult.either match {
-        case Right(result) => {
-          val commit = result._1
-
-          val txns = result._2
 
           val meta = GitInputReference(
             commit.getName,
@@ -286,37 +277,29 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
           )
 
           TxnData(Some(Metadata(Seq(meta))), txns.flatten.sorted(OrderByTxn))
-        }
-        case Left(ex) => {
-          throw ex.head
-        }
-      }
-    }).either
-
-    tmpResult.either match {
-      case Right(t) => t
-      case Left(ex) => throw ex.head
-    }
+        })
+      })
+    })
   }
 
   @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
   private def gitObject2Txns(repository: Repository, objectId: ObjectId): Txns = {
 
-    val loader = repository.open(objectId)
+    log.debug("txn: git: object id: {}", objectId.getName)
 
-    log.debug("txn: git: object id: " + objectId.getName)
+    val loader = repository.open(objectId, org.eclipse.jgit.lib.Constants.OBJ_BLOB)
 
-    managed(loader.openStream).map(stream => {
-      handleTxns(TacklerParser.txnsStream(stream))
-    }).either
-      .either match {
-      case Right(txns) => txns
-      case Left(ex) => {
-        // todo: handle error, parse error msg, commit id, etc.
-        log.error("Error git: object id: " + objectId.getName)
-        throw ex.head
+    using(loader.openStream())(stream => {
+      try {
+        handleTxns(TacklerParser.txnsStream(stream))
+      } catch {
+        case NonFatal(ex) => {
+          // todo: handle error, parse error msg, commit id, etc.
+          log.error("Error git: object id: " + objectId.getName)
+          throw ex
+        }
       }
-    }
+    })
   }
   /**
    * Parse and converts input string to Txns

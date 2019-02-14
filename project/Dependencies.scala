@@ -31,7 +31,6 @@ object Dependencies {
   val dirsuiteVersion = "0.21.0"
   val jgitVersion = "5.2.1.201812262042-r"
   val logbackVersion = "1.2.3"
-  val scalaArmVersion = "2.0"
 
 
   /*
@@ -54,7 +53,6 @@ object Dependencies {
   val scalatest = "org.scalatest" %% "scalatest" % scalatestVersion
   val scallop = "org.rogach" %% "scallop" % scallopVersion
   val dirsuite = "fi.e257.testing" %% "dirsuite" % dirsuiteVersion
-  val scalaArm = "com.jsuereth" %% "scala-arm" % scalaArmVersion
 
   /* lib: java */
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % jgitVersion

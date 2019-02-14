@@ -19,14 +19,11 @@ package fi.e257.tackler.cli
 import java.nio.file.{Files, NoSuchFileException, Path, Paths}
 import java.util.regex.PatternSyntaxException
 
-import better.files.File
-import org.rogach.scallop.exceptions.{ExcessArguments, RequiredOptionNotFound, UnknownOption, ValidationFailure}
-import resource._
-
+import better.files._
 import fi.e257.tackler.core.{AccountException, CommodityException, GroupByException, ReportException, TacklerException, TxnException}
 import fi.e257.tackler.parser.TacklerParseException
-import fi.e257.testing.Glob
-import fi.e257.testing.DirSuiteLike
+import fi.e257.testing.{DirSuiteLike, Glob}
+import org.rogach.scallop.exceptions.{ExcessArguments, RequiredOptionNotFound, UnknownOption, ValidationFailure}
 
 
 /**
@@ -54,18 +51,17 @@ class DirsuiteConsoleTest extends DirSuiteLike {
   runDirSuiteTestCases(basedir, Glob("cli/ok/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.SUCCESS) {
 
-      val rv = for {
-        stdout <- managed(Files.newOutputStream(Paths.get(args(0))))
-        stderr <- managed(Files.newOutputStream(Paths.get(args(1))))
-      } yield {
-        Console.withOut(stdout) {
-          Console.withErr(stderr) {
-            TacklerCli.runReturnValue(args.drop(2))
+      using(Files.newOutputStream(Paths.get(args(0))))(stdout => {
+        using(Files.newOutputStream(Paths.get(args(1))))(stderr => {
+
+          Console.withOut(stdout) {
+            Console.withErr(stderr) {
+              TacklerCli.runReturnValue(args.drop(2))
+            }
           }
-        }
-      }
-      // funky map(u=>u): https://github.com/jsuereth/scala-arm/issues/49
-      rv.map(u => u).opt.getOrElse(TacklerCli.FAILURE)
+
+        })
+      })
     }
   }
 }
