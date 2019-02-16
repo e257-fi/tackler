@@ -165,6 +165,6 @@ Various error cases:
 Should not affect performance.
 
 
-=== Test coverage tracking
+=== Feature and Test case tracking
 
 link:../../tests/tests-1006.yml[TEP-1006 test cases]

@@ -1,10 +1,11 @@
-= Git Storage
+= Git Storage Guide
 
-Using link:https://git-scm.com/[GIT] repository as storage system with Tackler.
+How to use link:https://git-scm.com/[GIT] repository as storage backend with Tackler.
 
-Tackler has integrated support for git as storage system. Git support is provided
-by link:http://www.eclipse.org/jgit/[JGit], which is pure java library implementing
-the Git version control system.
+Tackler has integrated support for git as storage backend.  Tackler will include version metadata
+directly to the generated reports. This provides one part of immutable audit trail of used transaction data,
+if that is needed or mandated by regulations. See also link:./tep/tep-1007.adoc[Txn Set Checksum] if there is
+need for strong audit trail of used account data.
 
 Tackler supports use of multiple branches, and transactions sets can be referenced by standard git ways:
 
@@ -12,13 +13,22 @@ Tackler supports use of multiple branches, and transactions sets can be referenc
 * by link:https://git-scm.com/docs/gitglossary#def_symref[symbolic refs] (`HEAD`, `master`, `Y2016`)
 * directly by link:https://git-scm.com/docs/gitglossary#def_object_name[commit ids] (short `a7938d9b` or long form `a7938d9b61958d2cabea7503a7be89191d4fb31e` are supported).
 
-Git storage is used as link:https://git-scm.com/docs/gitglossary#def_bare_repository[bare repository]. This has multiple advantages:
+Git storage backend can use git repository as
+link:https://git-scm.com/docs/gitglossary#def_bare_repository[bare repository] or as `.git`-directory inside cloned
+working copy.  This means that Tackler is always using committed, clean internal state of git repository.
 
-* Transaction data can be read directly from link:https://git-scm.com/docs/gitglossary#def_pack[pack files]
+This has multiple advantages:
+
+* Transaction data can be read directly from link:https://git-scm.com/docs/gitglossary#def_pack[pack files] with bare repositories
 * Transaction data can be easily manipulated by server systems
 * Transaction data is always in "clean state" from git perspective and it is extremely well defined with recorded commit ids
 
-Git storage is also tested with set of one million (1E6) transactions.
+Git storage backend is performance tested up to one million (1E6) transactions and its performance is on par or better
+with filesystem based storage backend.
+
+Tackler's Git support is provided by link:http://www.eclipse.org/jgit/[JGit]. JGit is pure java implementation of
+the Git version control system.
+
 
 == Why to use git as transaction data storage?
 

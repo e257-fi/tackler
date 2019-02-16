@@ -1,11 +1,10 @@
-#features:
+features:
+  - feature:
+      id: 6278f9b8-3f98-4926-aa21-d660e03a34e0
+      subject: "Txn Set Checksum"
+
 #  - feature:
 #      id:
-#      subject:
-#
-#  - feature:
-#      id:
-#      parent:
 #      subject:
 #      tests:
 #        errors:
@@ -48,3 +47,4 @@
 #                - ref: balance
 #                - ref: balance-group
 #                - ref: register
+

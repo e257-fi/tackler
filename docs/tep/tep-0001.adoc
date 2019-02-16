@@ -159,6 +159,11 @@ Is there need to run or create new perf tests?
 
 * [ ] perf test
 
+=== Feature and Test case tracking
+
+link:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
+
+
 === Metadata template for test coverage tracking
 
 ....

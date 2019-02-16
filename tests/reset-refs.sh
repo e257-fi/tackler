@@ -1,5 +1,5 @@
 #!/bin/bash
-# vim: tabstop=4 shiftwidth=4 smarttab expandtab softtabstop=4 autoindent
+# vim: tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab autoindent
 
 test_dir=$(dirname $0)
 

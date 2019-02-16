@@ -1,0 +1,260 @@
+= TEP-1007: Txn Set Checksum
+
+Transaction set checksum (txn set checksum) is secure and cryptographically strong checksum of presence
+of transactions which are used to do accounting calculations.
+
+Txn set checksum is based on UUID of Txn, and it is SHA-256 sum of those UUIDs.
+Checksum is calculated so that it is to verify with external tools. See link:../journal.adoc[Journal Format]
+and description of Transaction metadata.
+
+Used algorithm to calculate txn set checksum is following:
+
+* Txn's UUIDs are collected as canonical 8-4-4-4-12 lower case hexadecimal strings.
+* Sorted list of UUID stings is fed to SHA-256 so that each UUID is terminated
+  with single newline (ASCII `0x0A`).
+* Resulting SHA-256 hash is txn set checksum
+
+See link:../../contrib[contrib] for example script (link:../../contrib/txn-set-checksum.sh[txn-set-checksum.sh])
+how to calculate that with standard UNIX command line tools.
+
+
+== Assumptions and Restrictions
+
+Each transaction must have unique UUID. Presence of UUID is enforced, but uniqueness of UUIDs is not.
+
+If there is any doubt of quality of used UUIDs, then external tool should be used to verify UUIDs.
+See link:../../contrib[contrib] for examples.
+
+Txn set checksum verifies that same set of transactions (UUIDs) is used for calculations,
+but it does *not* verify actual content of used transactions.  If and when content verification is needed,
+then link:../git-storage.adoc[Tackler's git storage backend] could be used for that.  In that case,
+content verification is done by combining reported git's `commit id` and `txn set checksum`.
+Together `commit id` and `txn set checksum` creates tamper proof verification of used transaction data.
+
+To re-verify previous tackler report, it is possible to use git commit id (from old report) as an input reference.
+See link:../usage.doc[Usage Guide] and link:../git-storage.doc[Git Storage Guide] for further info.
+
+
+== Journal file format
+
+No changes to journal format are needed.
+
+
+== CLI changes
+
+No changes to CLI args are needed.
+
+
+== CONF changes
+
+New configuration setting for `core`:
+
+* [ ] boolean: `txn-set-checksum`
+
+If `txn-set-checksum` is true, then all transactions must have valid `:uuid:`-metadata field.
+See link:../journal.adoc[Journal Format] for further info.
+
+
+== Machinery
+
+Following changes are needed
+
+* [ ] enforce uuid
+** [ ] Verify presence of UUID at parse time
+** [ ] Hard error if UUID is missing  during checksum calculation +
+       This is either internal error or logic error within usage of link:../server-api.adoc[Server API]
+* [ ] calculate txn set checksum
+* [ ] ...
+
+
+
+=== POC implementation
+
+Txn checksum with external tools
+
+----
+(
+    find "$1"  -type f -name '*.txn' | \
+    xargs -n100 grep -h ';:uuid:'
+) | \
+    sed -E 's/[[:space:]]+;:uuid:[[:space:]]+([a-fA-F0-9-]+)[[:space:]]*/\1/' | \
+    tr 'A-F' 'a-f' | \
+    sort | \
+    sha256sum
+----
+
+----
+          val txns = rawTxns.flatten.sorted(OrderByTxn)
+
+          val txnHash = txns.map(_.header.uuid match {
+              case Some(uuid) => uuid.toString
+              case None => throw new TacklerException("missing uuid")
+            })
+            .sorted
+            .foldLeft(MessageDigest.getInstance("SHA-256"))({
+              case (hash, uuid) => {
+                hash.update((uuid + "\n").getBytes("UTF-8"))
+                hash
+              }
+            }).digest()
+
+          def hex2str(hash: Array[Byte]) = {
+            hash.map(b => "%02x".format(0xff & b)).mkString
+          }
+----
+
+
+=== API changes
+
+Api changes to server or client interfaces.
+
+
+==== Server API changes
+
+Changes to server API
+
+* [ ] Txn set checksum data and mechanism to TxnData
+
+
+==== Client API changes
+
+Changes to client API or JSON model
+
+* [ ] Txn set checksum to ReportTypes / Metadata / client interface
+
+
+=== New dependencies
+
+No new dependencies
+
+
+== Reporting
+
+Changes to reports or reporting
+
+
+=== Balance report
+
+Changes to balance report
+
+* [ ] report txn set checksum
+** [ ] text
+** [ ] json
+
+=== Balance Group report
+
+Changes to balance group report
+
+* [ ] report txn set checksum
+** [ ] text
+** [ ] json
+
+
+=== Register report
+
+Changes to register report
+
+* [ ] report txn set checksum
+** [ ] text
+** [ ] json
+
+
+== Exporting
+
+Changes to exports or exporting
+
+=== Equity export
+
+Changes to equity export
+
+* [ ] report txn set checksum ???
+
+
+=== Identity export
+
+Changes to identity export
+
+* [ ] no changes
+
+
+== Documentation
+
+* [x] link:./readme.adoc[]: Update TEP index
+* [ ] link:../../README.adoc[]: is it a new noteworthy feature?
+* [ ] link:../../CHANGELOG[]: add new item
+* [x] Does it warrant own T3DB file?
+** [x] update link:../../tests/tests.adoc[]
+** [x] update link:../../tests/check-tests.sh[]
+** [x] Add new T3DB file link:../../tests/tests-1007.yml[]
+* [ ] User docs
+** [ ] user manual
+** [x] tackler.conf
+*** [x] `txn-set-checksum`
+** [ ] examples
+* [ ] Developer docs
+** [ ] API changes
+*** [ ] Server API changes
+*** [ ] Client API changes
+
+
+== Future plans and Postponed (PP) features
+
+There are several possibilities to enhance txn set checksum:
+
+* External listing which includes all used transaction UUIDs
+* There could be a separate, actual content checksum which is calculated over some normalization of Txn data.
+
+
+=== Postponed (PP) features
+
+Anything which wasn't implemented?
+
+
+== Tests
+
+Normal, ok-case tests to validate functionality:
+
+* [ ] test basic txn set checksum
+* [ ] reports
+** [ ] { balance, balance-group, register } x { text, json }
+* [ ] exports
+** [ ] test equity
+* [ ] test that upper case UUIDs result same txn-set-checksum as lower case UUIDs
+* [ ] test that filtered Txns has correct (new) txn set checksum
+** [ ] feed generated equity back (e.g. check validity)
+* [ ] ...
+
+
+=== Errors
+
+Various error cases:
+
+* [ ] e: `txn-set-checksum = true`, but missing uuid
+** [ ] e: at parsing time / txn creation
+** [ ] e: checksum calculation
+* [ ] e: check that git storage reports txn path in case of error
+* [ ] e: Check that invalid UUID is detected and rejected/errored
+** [ ] e: `java.util.UUID.fromString` is not very smart
+----
+// valid
+scala> java.util.UUID.fromString("69439222-4d8b-4d0e-8204-50e2a0c8b664")
+res1: java.util.UUID = 69439222-4d8b-4d0e-8204-50e2a0c8b664
+
+// invalid
+scala> java.util.UUID.fromString("694aaaaa39222-4d8b-4d0e-8204-50e2a0c8b664")
+res2: java.util.UUID = aaa39222-4d8b-4d0e-8204-50e2a0c8b664
+----
+
+
+=== Perf
+
+Add new perf test target for txn set checksum
+
+* [ ] perf test of txn set checksum
+** [ ] with txn set checksum
+** [ ] without txn set checksum
+
+
+=== Feature and Test case tracking
+
+link:../../tests/tests-1007.yml[TEP-1007 T3DB]

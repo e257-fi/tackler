@@ -1,6 +1,6 @@
-= TEP-1002: Git backend
+= TEP-1002: Git Storage Backend
 
-Add git as backend for transaction data store.
+Add git as backend for transaction data storage.
 
 
 == Journal file format
