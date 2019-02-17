@@ -2,6 +2,7 @@ Txns size: 1
 Filter:
   Txn Description: "ab.*"
 
+
 BALANCE
 -------
               -300.00   -300.00  a
@@ -13,6 +14,7 @@ BALANCE
 
 Filter:
   Txn Description: "ab.*"
+
 
 BALANCE GROUPS
 --------------
@@ -27,6 +29,7 @@ BALANCE GROUPS
 
 Filter:
   Txn Description: "ab.*"
+
 
 REGISTER
 --------

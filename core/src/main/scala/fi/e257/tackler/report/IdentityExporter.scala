@@ -17,12 +17,12 @@
 package fi.e257.tackler.report
 
 import fi.e257.tackler.core.Settings
-import fi.e257.tackler.model.Txns
+import fi.e257.tackler.model.TxnData
 
 class IdentityExporter(val settings: Settings) extends ExporterLike {
 
-  def writeExport(writer: Writer, txns: Txns): Unit = {
-    txns.foreach(txn => {
+  def writeExport(writer: Writer, txnData: TxnData): Unit = {
+    txnData.txns.foreach(txn => {
       doRowOutput(writer, List(txn.toString))
     })
   }

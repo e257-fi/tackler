@@ -22,7 +22,7 @@ import cats.implicits._
 
 import scala.collection.JavaConverters
 import fi.e257.tackler.api.TxnHeader
-import fi.e257.tackler.core.{AccountException, CommodityException, Settings}
+import fi.e257.tackler.core.{AccountException, CfgKeys, CommodityException, Settings, TxnException}
 import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transaction, Txns}
 import fi.e257.tackler.parser.TxnParser._
 import org.slf4j.{Logger, LoggerFactory}
@@ -228,6 +228,13 @@ abstract class CtxHandler {
 
       java.util.UUID.fromString(meta.text().getText.trim)
     })
+
+    if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {
+      val msg = "" +
+        "There is txn without UUID and '" + CfgKeys.Auditing.txnSetChecksum + "' is turned on. This is a fatal error."
+      log.error(msg)
+      throw new TxnException(msg)
+    }
 
     // txnCtx.txn_comment is never null, even when there aren't any comments
     // (in that case it will be an empty list)

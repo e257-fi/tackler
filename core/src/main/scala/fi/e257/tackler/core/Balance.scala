@@ -17,8 +17,7 @@
 package fi.e257.tackler.core
 
 import cats.implicits._
-
-import fi.e257.tackler.api.Metadata
+import fi.e257.tackler.api.{Metadata, AccountSelectorChecksum}
 import fi.e257.tackler.model._
 
 
@@ -162,7 +161,17 @@ object Balance {
     bal.sorted(OrderByPost)
   }
 
-  def apply(title: String, txnData: TxnData, accounts: Filtering[BalanceTreeNode]): Balance = {
+  def auditMetadata(metadata: Option[Metadata], accounts: AccountSelector): Option[Metadata] = {
+    metadata.map(md => {
+       if (md.txnSetChecksum.isDefined) {
+        md ++ Seq(AccountSelectorChecksum(accounts.checksum()))
+      } else {
+        md
+      }
+    })
+  }
+
+  def apply(title: String, txnData: TxnData, accounts: BalanceAccountSelector): Balance = {
     val bal = balance(txnData.txns)
 
     val fbal = bal.filter(accounts.predicate)
@@ -178,7 +187,7 @@ object Balance {
           }
         })
 
-      new Balance(title, fbal, deltas, txnData.metadata)
+      new Balance(title, fbal, deltas, auditMetadata(txnData.metadata, accounts))
     } else {
       new Balance(title, Seq.empty[BalanceTreeNode],
         Map.empty[Option[Commodity], BigDecimal], None)

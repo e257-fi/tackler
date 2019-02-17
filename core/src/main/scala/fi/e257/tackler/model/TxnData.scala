@@ -16,7 +16,8 @@
  */
 package fi.e257.tackler.model
 
-import fi.e257.tackler.api.{Metadata, MetadataItem, TxnFilterMetadata, TxnFilterDefinition}
+import fi.e257.tackler.api.{Checksum, Metadata, MetadataItem, TxnFilterDefinition, TxnFilterMetadata, TxnSetChecksum}
+import fi.e257.tackler.core.{Hash, Settings, TacklerException}
 import fi.e257.tackler.filter._
 
 /**
@@ -25,7 +26,7 @@ import fi.e257.tackler.filter._
  * @param metadata optional metadata about these transactions
  * @param txns     transactions
  */
-final case class TxnData(metadata: Option[Metadata], txns: Txns) {
+class TxnData private (val metadata: Option[Metadata], val txns: Txns) {
 
   /**
    * Filter this TxnData based on provided transaction filter.
@@ -39,14 +40,62 @@ final case class TxnData(metadata: Option[Metadata], txns: Txns) {
    */
   def filter(txnFilter: TxnFilterDefinition): TxnData = {
 
+    val hashName = metadata.fold[Option[String]](None) { md =>
+        md.txnSetChecksum.fold[Option[String]](None) {
+          tsc => Some(tsc.hash.algorithm)
+        }
+    }
+
     val filterInfo = Seq(TxnFilterMetadata(txnFilter))
     val mdis: Seq[MetadataItem] = metadata.map(_.metadataItems).getOrElse(Nil) ++ filterInfo
 
-    TxnData(
-      Option(Metadata(mdis)),
-      txns.filter(txn => {
-        txnFilter.filter(txn)
-      })
+    val newtxns = txns.filter(txnFilter.filter)
+
+    val newMD: Option[Metadata] = hashName.map(name => {
+      Some(
+        Metadata(
+          Some(TxnSetChecksum(TxnData.calcTxnSetChecksum(newtxns, Hash(name)))),
+          mdis))
+    }).getOrElse(TxnData.getNewMetadata(mdis))
+
+    new TxnData(newMD, newtxns)
+  }
+}
+
+object TxnData {
+  private def calcTxnSetChecksum(txns: Txns, hash: Hash): Checksum = {
+    hash.checksum(
+      txns
+        .map(_.header.uuid match {
+          case Some(uuid) => uuid.toString
+          case None => throw new TacklerException("Missing txn uuid while calculating txn set checksum")
+        })
+        .sorted,
+      "\n"
     )
+  }
+
+  private def getNewMetadata(mdis: Seq[MetadataItem]) = {
+    if (mdis.isEmpty) {
+      None
+    } else {
+      Some(Metadata(None, mdis))
+    }
+  }
+
+  def apply(mdis: Seq[MetadataItem], txns: Txns, settingsOpt: Option[Settings]): TxnData = {
+
+    val newMD = settingsOpt.map(settings => {
+      if (settings.Auditing.txnSetChecksum) {
+        Some(
+          Metadata(
+            Some(TxnSetChecksum(calcTxnSetChecksum(txns, settings.Auditing.hash))),
+            mdis))
+      } else {
+        getNewMetadata(mdis)
+      }
+    }).getOrElse(getNewMetadata(mdis))
+
+    new TxnData(newMD, txns)
   }
 }

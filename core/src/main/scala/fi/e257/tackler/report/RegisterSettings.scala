@@ -21,6 +21,8 @@ import fi.e257.tackler.core.Settings
 class RegisterSettings(settings: Settings, myTitle: Option[String], myAccounts: Option[List[String]])
   extends ReportConfiguration {
 
+  val hash = settings.Auditing.hash
+
   override val minScale = settings.Reports.Register.minScale
   override val maxScale = settings.Reports.Register.maxScale
 

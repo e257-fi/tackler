@@ -1,24 +1,38 @@
 = TEP-1007: Txn Set Checksum
 
-Transaction set checksum (txn set checksum) is secure and cryptographically strong checksum of presence
-of transactions which are used to do accounting calculations.
+Txn set checksum and report account selector checksum are verification and auditing tools to ensure
+that generated reports are using correct and known inputs.
 
-Txn set checksum is based on UUID of Txn, and it is SHA-256 sum of those UUIDs.
-Checksum is calculated so that it is to verify with external tools. See link:../journal.adoc[Journal Format]
-and description of Transaction metadata.
+Tackler supports hash functions provided by Java platform, most notably `SHA-256` ... `SHA-512`, and `SHA-3` hashes
+on Java 11+.
 
-Used algorithm to calculate txn set checksum is following:
+See `MessageDigest` on:
+
+* link:https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest[JDK 8: MessageDigest]
+* link:https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-3A80CC46-91E1-4E47-AC51-CB7B782CEA7D[JDK 11: JDK Providers Documentation (SUN) -> MessageDigest]
+
+
+== Transaction set checksum
+
+Transaction set checksum (txn set checksum) is secure and cryptographically strong hash 
+and proof of presence of transactions which are used to do accounting calculations.
+
+Txn set checksum is based on UUID of Txn, and it is hash function's result of those UUIDs.
+Hash is calculated so that it is possible to verify it easily with external tools.
+See link:../journal.adoc[Journal Format] and description of Transaction metadata.
+
+Txn set checksum is calculated based on following algorithm:
 
 * Txn's UUIDs are collected as canonical 8-4-4-4-12 lower case hexadecimal strings.
-* Sorted list of UUID stings is fed to SHA-256 so that each UUID is terminated
-  with single newline (ASCII `0x0A`).
-* Resulting SHA-256 hash is txn set checksum
+* Sorted list of UUID stings is fed to hash function so that each UUID is terminated
+  with single newline (`'\n'`, ASCII `0x0A`) character.
+* Resulting hash function hash is Txn Set Checksum
 
 See link:../../contrib[contrib] for example script (link:../../contrib/txn-set-checksum.sh[txn-set-checksum.sh])
 how to calculate that with standard UNIX command line tools.
 
 
-== Assumptions and Restrictions
+=== Assumptions and Restrictions
 
 Each transaction must have unique UUID. Presence of UUID is enforced, but uniqueness of UUIDs is not.
 
@@ -35,6 +49,23 @@ To re-verify previous tackler report, it is possible to use git commit id (from 
 See link:../usage.doc[Usage Guide] and link:../git-storage.doc[Git Storage Guide] for further info.
 
 
+== Report account selector checksum
+
+Report account selectors `core.reporting.accounts` and `core.reports.<report-type>.accounts` are used
+to select which accounts are included into reports. Selected accounts affect calculated and reported totals.
+
+Report account selector checksum is secure and cryptographically strong hash of account selector, e.g.
+it can be used as fingerprint of used account selector.
+
+Account selector checksum is calculated based on following algorithm:
+
+* Report specific account name and regex (selectors) are trimmed
+* Sorted list of account selectors is fed to hash function (e.g. SHA-256)
+  so that each selector with single newline (`'\n'`, ASCII `0x0A`) character.
+* Resulting hash is Account Selector Checksum
+
+
+
 == Journal file format
 
 No changes to journal format are needed.
@@ -47,9 +78,11 @@ No changes to CLI args are needed.
 
 == CONF changes
 
-New configuration setting for `core`:
+New configuration group for `core`:
 
-* [ ] boolean: `txn-set-checksum`
+* [ ] group: 'auditing'
+* [ ] String: `hash` link:https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest[JavaSE Tech notes, Security]
+** [ ] boolean: `txn-set-checksum`
 
 If `txn-set-checksum` is true, then all transactions must have valid `:uuid:`-metadata field.
 See link:../journal.adoc[Journal Format] for further info.
@@ -61,7 +94,7 @@ Following changes are needed
 
 * [ ] enforce uuid
 ** [ ] Verify presence of UUID at parse time
-** [ ] Hard error if UUID is missing  during checksum calculation +
+** [ ] Hard error if UUID is missing  during txn set checksum calculation +
        This is either internal error or logic error within usage of link:../server-api.adoc[Server API]
 * [ ] calculate txn set checksum
 * [ ] ...
@@ -70,7 +103,7 @@ Following changes are needed
 
 === POC implementation
 
-Txn checksum with external tools
+Txn set checksum with external tools
 
 ----
 (
@@ -114,13 +147,15 @@ Api changes to server or client interfaces.
 Changes to server API
 
 * [ ] Txn set checksum data and mechanism to TxnData
+* [ ] Report account selector checksum
 
 
 ==== Client API changes
 
 Changes to client API or JSON model
 
-* [ ] Txn set checksum to ReportTypes / Metadata / client interface
+* [ ] Txn set checksum to Metadata
+* [ ] Report account selector checksum to Metadata
 
 
 === New dependencies
@@ -137,15 +172,22 @@ Changes to reports or reporting
 
 Changes to balance report
 
-* [ ] report txn set checksum
+* [ ] txn set checksum
 ** [ ] text
 ** [ ] json
+* [ ] account selector checksum
+** [ ] text
+** [ ] json
+
 
 === Balance Group report
 
 Changes to balance group report
 
-* [ ] report txn set checksum
+* [ ] txn set checksum
+** [ ] text
+** [ ] json
+* [ ] account selector checksum
 ** [ ] text
 ** [ ] json
 
@@ -154,7 +196,10 @@ Changes to balance group report
 
 Changes to register report
 
-* [ ] report txn set checksum
+* [ ] txn set checksum
+** [ ] text
+** [ ] json
+* [ ] account selector checksum
 ** [ ] text
 ** [ ] json
 
@@ -167,7 +212,12 @@ Changes to exports or exporting
 
 Changes to equity export
 
-* [ ] report txn set checksum ???
+* [ ] Audit / verification material to equity export?
+** [ ] General metadata (e.g. Git metadata)
+** [ ] txn set checksum
+** [ ] account selector checksum
+*** [ ] Empty selector, e.g. "select all"
+*** [ ] Active selector
 
 
 === Identity export
@@ -189,7 +239,8 @@ Changes to identity export
 * [ ] User docs
 ** [ ] user manual
 ** [x] tackler.conf
-*** [x] `txn-set-checksum`
+*** [ ] `hash`
+*** [ ] `txn-set-checksum`
 ** [ ] examples
 * [ ] Developer docs
 ** [ ] API changes
@@ -201,8 +252,10 @@ Changes to identity export
 
 There are several possibilities to enhance txn set checksum:
 
+* Support SHA-3, this should be possible by changing JDK version: http://openjdk.java.net/jeps/287
+** Make this configurable
 * External listing which includes all used transaction UUIDs
-* There could be a separate, actual content checksum which is calculated over some normalization of Txn data.
+* There could be a separate, actual content hash which is calculated over some normalization of Txn data.
 
 
 === Postponed (PP) features
@@ -215,14 +268,25 @@ Anything which wasn't implemented?
 Normal, ok-case tests to validate functionality:
 
 * [ ] test basic txn set checksum
+** [ ] test audit staff alone, without git
 * [ ] reports
 ** [ ] { balance, balance-group, register } x { text, json }
+* [ ] Account selector checksum
+** [ ] { balance, balance-group, register } x { text, json }
+** [ ] { balance, balance-group, register, equity } x { text }
 * [ ] exports
 ** [ ] test equity
+*** [ ] test case with all metadata (txn-set-checksum, git-storage, filters, account-selector-hash)
+*** [ ] feed generated equity back (e.g. check validity)
 * [ ] test that upper case UUIDs result same txn-set-checksum as lower case UUIDs
 * [ ] test that filtered Txns has correct (new) txn set checksum
-** [ ] feed generated equity back (e.g. check validity)
+* [ ] test case with all metadata (txn-set-checksum, git-storage, filters, account-selector-hash)
 * [ ] ...
+
+//-
+
+* [ ] Verify accepted hash algorithms
+* [ ] Chech results for empty filters / all pass
 
 
 === Errors
@@ -231,10 +295,13 @@ Various error cases:
 
 * [ ] e: `txn-set-checksum = true`, but missing uuid
 ** [ ] e: at parsing time / txn creation
-** [ ] e: checksum calculation
+** [ ] e: at hash calculation time
 * [ ] e: check that git storage reports txn path in case of error
 * [ ] e: Check that invalid UUID is detected and rejected/errored
-** [ ] e: `java.util.UUID.fromString` is not very smart
+** [ ] e: `java.util.UUID.fromString` is not very smart +
+link:https://bugs.openjdk.java.net/browse/JDK-8159339[] +
+link:https://bugs.openjdk.java.net/browse/JDK-8165199[] +
+link:https://bugs.openjdk.java.net/browse/JDK-8216407[] +
 ----
 // valid
 scala> java.util.UUID.fromString("69439222-4d8b-4d0e-8204-50e2a0c8b664")
@@ -244,7 +311,7 @@ res1: java.util.UUID = 69439222-4d8b-4d0e-8204-50e2a0c8b664
 scala> java.util.UUID.fromString("694aaaaa39222-4d8b-4d0e-8204-50e2a0c8b664")
 res2: java.util.UUID = aaa39222-4d8b-4d0e-8204-50e2a0c8b664
 ----
-
+* [ ] e: invalid hash type
 
 === Perf
 

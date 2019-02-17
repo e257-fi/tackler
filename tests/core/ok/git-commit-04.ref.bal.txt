@@ -5,6 +5,7 @@ Git storage:
   suffix:  .txn
   message: commit-id-01: 2nd
 
+
 BALANCE
 -------
                110.00    110.00  a

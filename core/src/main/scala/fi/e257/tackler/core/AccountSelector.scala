@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,36 @@ package fi.e257.tackler.core
 import java.util.regex.Pattern
 
 import cats.implicits._
+import fi.e257.tackler.api.Checksum
+import fi.e257.tackler.model.{AccumulatorPosting, BalanceTreeNode}
 
-import fi.e257.tackler.model.{BalanceTreeNode, AccumulatorPosting}
 
+trait AccountSelector {
+  val hash: Hash
+  def checksum(): Checksum
+}
+
+abstract class RegexAccountSelector(patterns: Seq[String]) extends AccountSelector {
+  private val trimmedPatterns = patterns.map(_.trim)
+
+  protected val regexs = trimmedPatterns.map(name => {Pattern.compile(name)})
+
+  protected val cs = hash.checksum(trimmedPatterns.sorted, "\n")
+
+  override def checksum(): Checksum = cs
+}
+
+trait BalanceAccountSelector extends AccountSelector with Filtering[BalanceTreeNode]
 
 /**
  * Select all Accounts on Balance Report.
  */
-object AllBalanceAccounts extends Filtering[BalanceTreeNode] {
+class AllBalanceAccounts(val hash: Hash) extends BalanceAccountSelector {
   override def predicate(x: BalanceTreeNode): Boolean = true
+
+  override def checksum(): Checksum = {
+    Checksum("None", "select all")
+  }
 }
 
 /**
@@ -36,8 +57,7 @@ object AllBalanceAccounts extends Filtering[BalanceTreeNode] {
  *
  * @param patterns list of account name regexs
  */
-class BalanceFilterByAccount(val patterns: Seq[String]) extends Filtering[BalanceTreeNode]{
-  private val regexs = patterns.map(name => {Pattern.compile(name)})
+class BalanceFilterByAccount(patterns: Seq[String], val hash: Hash) extends RegexAccountSelector(patterns) with BalanceAccountSelector {
 
   override def predicate(x: BalanceTreeNode): Boolean = {
     regexs.exists(_.matcher(x.acctn.account).matches())
@@ -48,9 +68,13 @@ class BalanceFilterByAccount(val patterns: Seq[String]) extends Filtering[Balanc
  * Filter Accounts on Balance Report based on amount
  * e.g. select all accounts which have non-zero posting amount
  */
-class BalanceFilterNonZero() extends Filtering[BalanceTreeNode]{
+class BalanceFilterNonZero(val hash: Hash) extends BalanceAccountSelector {
   override def predicate(x: BalanceTreeNode): Boolean = {
     x.accountSum =!= 0
+  }
+
+  override def checksum(): Checksum = {
+    Checksum("None", "select all non-zero")
   }
 }
 
@@ -60,17 +84,24 @@ class BalanceFilterNonZero() extends Filtering[BalanceTreeNode]{
  *
  * @param patterns list of account name regexs
  */
-class BalanceFilterNonZeroByAccount(patterns: Seq[String]) extends BalanceFilterByAccount(patterns) {
+class BalanceFilterNonZeroByAccount(patterns: Seq[String], digest: Hash) extends BalanceFilterByAccount(patterns, digest) {
   override def predicate(x: BalanceTreeNode): Boolean = {
     super.predicate(x) && x.accountSum =!= 0
   }
 }
 
+
+trait RegisterAccountSelector extends AccountSelector with Filtering[AccumulatorPosting]
+
 /**
  * Select all RegisterPostings (e.g. Account rows).
  */
-object AllRegisterPostings extends Filtering[AccumulatorPosting] {
+class AllRegisterPostings(val hash: Hash)  extends RegisterAccountSelector {
   override def predicate(x: AccumulatorPosting): Boolean = true
+
+  override def checksum(): Checksum = {
+    Checksum("None", "select all")
+  }
 }
 
 /**
@@ -80,9 +111,7 @@ object AllRegisterPostings extends Filtering[AccumulatorPosting] {
  *
  * @param patterns list of account name regexs
  */
-final case class RegisterFilterByAccount(patterns: Seq[String]) extends Filtering[AccumulatorPosting]{
-  private val regexs= patterns.map(name => {Pattern.compile(name)})
-
+class RegisterFilterByAccount(patterns: Seq[String], val hash: Hash) extends RegexAccountSelector(patterns) with RegisterAccountSelector {
   override def predicate(x: AccumulatorPosting): Boolean = {
     regexs.exists(_.matcher(x.post.acctn.account).matches())
   }

@@ -18,25 +18,25 @@ package fi.e257.tackler.report
 import cats.implicits._
 import fi.e257.tackler.api.TxnTS
 import fi.e257.tackler.core._
-import fi.e257.tackler.model.{TxnData, Txns}
+import fi.e257.tackler.model.TxnData
 
 class EquityExporter(val settings: Settings) extends ExporterLike {
   private val mySettings = settings.Exports.Equity
 
   @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
-  def txnEquity(txns: Txns): Seq[String] = {
+  def txnEquity(txnData: TxnData): Seq[String] = {
 
     val bf = if (mySettings.accounts.isEmpty) {
-      new BalanceFilterNonZero()
+      new BalanceFilterNonZero(settings.Auditing.hash)
     } else {
-      new BalanceFilterNonZeroByAccount(mySettings.accounts)
+      new BalanceFilterNonZeroByAccount(mySettings.accounts, settings.Auditing.hash)
     }
-    val bal = Balance("", TxnData(None, txns), bf)
+    val bal = Balance("", txnData, bf)
 
     if (bal.isEmpty) {
       Nil
     } else {
-      val lastTxn = txns.last
+      val lastTxn = txnData.txns.last
       val eqTxnHeader = TxnTS.isoZonedTS(lastTxn.header.timestamp) + " " + lastTxn.header.uuid.map(u => "Equity: last txn (uuid): " + u.toString).getOrElse("Equity")
 
       bal.bal.groupBy(b => b.acctn.commStr).flatMap({ case (_, bs) =>
@@ -47,6 +47,7 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
         }
 
         List(eqTxnHeader) ++
+          bal.metadata.map(md => md.mkString(" ; ", "\n ; ", "")).toList ++
           bs.map(acc => {
             " " + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
           }) ++ eqBalRow ++ List("")
@@ -55,9 +56,9 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
     }
   }
 
-  def writeExport(writer: Writer, txns: Txns): Unit = {
+  def writeExport(writer: Writer, txnData: TxnData): Unit = {
 
-    val txtEqReport = txnEquity(txns)
+    val txtEqReport = txnEquity(txnData)
     doRowOutput(writer, txtEqReport)
   }
 }

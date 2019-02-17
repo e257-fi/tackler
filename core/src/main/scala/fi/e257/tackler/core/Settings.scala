@@ -35,6 +35,15 @@ object CfgKeys {
 
   val basedir: String = "basedir"
 
+  object Auditing {
+    val keybase: String = "auditing"
+
+    val hash: String = keybase + "." + "hash"
+
+    val txnSetChecksum: String = keybase + "." + "txn-set-checksum"
+  }
+
+
   val input_storage: String = "input.storage"
 
   val input_git_repository: String = "input.git.repository"
@@ -198,6 +207,12 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   val basedir: Path = optPath.fold(
     File(cfg.getString(CfgKeys.basedir)).path
   )(path => getPathWithAnchor(cfg.getString(CfgKeys.basedir), path))
+
+  object Auditing {
+    val hash: Hash = Hash(cfg.getString(CfgKeys.Auditing.hash))
+
+    val txnSetChecksum: Boolean = cfg.getBoolean(CfgKeys.Auditing.txnSetChecksum)
+  }
 
   val input_storage: StorageType = StorageType(cfg.getString(CfgKeys.input_storage))
 

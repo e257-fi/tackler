@@ -115,9 +115,9 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
 
   protected def getFilters() = {
     if (mySettings.accounts.isEmpty) {
-      AllRegisterPostings
+      new AllRegisterPostings(mySettings.hash)
     } else {
-      RegisterFilterByAccount(mySettings.accounts)
+      new RegisterFilterByAccount(mySettings.accounts, mySettings.hash)
     }
   }
 

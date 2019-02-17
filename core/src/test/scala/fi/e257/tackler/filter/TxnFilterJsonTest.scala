@@ -149,6 +149,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
       |      Posting Comment: "posting.comment"
       |    NOT
       |      Txn Description: "not-me-not"
+      |
       |""".stripMargin
 
   val tt = new TacklerTxns(Settings())
@@ -200,7 +201,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
     it("decode from JSON and then encode to text") {
       val txnFilterRoot = decode[TxnFilterDefinition](filterJsonStr)
 
-      assert(filterTextStr === txnFilterRoot.right.get.text(""))
+      assert(filterTextStr === txnFilterRoot.right.get.text("").mkString("", "\n", "\n\n"))
     }
 
     /**
@@ -292,7 +293,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
   }
 
   describe("Encode Filter and it's metadata") {
-    val txnData = TxnData(None, Seq.empty)
+    val txnData = TxnData(Seq.empty, Seq.empty, None)
 
     val txnFilter = TxnFilterDefinition(
       TxnFilterAND(List[TxnFilter](
@@ -330,7 +331,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
      * test: f3213817-fe0c-4bec-b6be-b3396bad8114
      */
     it("encode filter to TEXT") {
-      assert(filterTextStr === txnFilter.text(""))
+      assert(filterTextStr === txnFilter.text("").mkString("", "\n", "\n\n"))
     }
 
     /**
@@ -339,6 +340,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
     it("encode metadata as JSON") {
       val metadataJson =
         """{
+          |  "txnSetChecksum" : null,
           |  "metadataItems" : [
           |    {
           |      "TxnFilterMetadata" : {

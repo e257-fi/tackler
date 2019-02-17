@@ -21,6 +21,8 @@ import fi.e257.tackler.core.{GroupBy, Settings}
 class BalanceGroupSettings(settings: Settings, myTitle: Option[String], myAccounts: Option[List[String]], myGroupBy: Option[GroupBy])
   extends ReportConfiguration {
 
+  val hash = settings.Auditing.hash
+
   override val minScale = settings.Reports.BalanceGroup.minScale
   override val maxScale = settings.Reports.BalanceGroup.maxScale
 

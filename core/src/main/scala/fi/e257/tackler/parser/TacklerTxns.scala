@@ -26,7 +26,7 @@ import java.nio.file.Path
 
 import better.files._
 import cats.implicits._
-import fi.e257.tackler.api.{GitInputReference, Metadata}
+import fi.e257.tackler.api.{GitInputReference, MetadataItem}
 import fi.e257.tackler.core.{Settings, TacklerException}
 import fi.e257.tackler.model.{OrderByTxn, TxnData, Txns}
 import org.eclipse.jgit.lib.{FileMode, ObjectId, Repository}
@@ -119,9 +119,9 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
    */
   def paths2Txns(paths: Seq[Path]): TxnData = {
 
-    TxnData(None,
+    TxnData(Seq.empty[MetadataItem],
       paths.par.flatMap(inputPath => {
-      log.debug("txn: {}", inputPath.toString)
+        log.debug("txn: {}", inputPath.toString)
         try {
           val txnsCtx = TacklerParser.txnsFile(inputPath)
           handleTxns(txnsCtx)
@@ -131,7 +131,9 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             throw ex
           }
         }
-    }).seq.sorted(OrderByTxn))
+      }).seq.sorted(OrderByTxn),
+      Some(settings)
+    )
   }
 
   /**
@@ -252,7 +254,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             PathSuffixFilter.create(suffix)))
 
           // Handle files
-          val txns = (for {
+          val rawTxns = (for {
             _ <- Iterator.continually(treeWalk.next()).takeWhile(p => p === true)
           } yield {
             val objectId = treeWalk.getObjectId(0)
@@ -276,13 +278,12 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             commit.getShortMessage
           )
 
-          TxnData(Some(Metadata(Seq(meta))), txns.flatten.sorted(OrderByTxn))
+          TxnData(Seq(meta), rawTxns.flatten.sorted(OrderByTxn), Some(settings))
         })
       })
     })
   }
 
-  @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
   private def gitObject2Txns(repository: Repository, objectId: ObjectId): Txns = {
 
     log.debug("txn: git: object id: {}", objectId.getName)
@@ -314,6 +315,6 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
   def string2Txns(input: String): TxnData = {
 
     val txnsCtx = TacklerParser.txnsText(input)
-    TxnData(None, handleTxns(txnsCtx).sorted(OrderByTxn))
+    TxnData(Seq.empty[MetadataItem], handleTxns(txnsCtx).sorted(OrderByTxn), Some(settings))
   }
 }

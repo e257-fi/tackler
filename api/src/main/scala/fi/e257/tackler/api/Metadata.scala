@@ -20,20 +20,63 @@ import io.circe._
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 sealed trait MetadataItem {
-  def text(): String
+  def text(): Seq[String]
 }
 object MetadataItem {
   @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
-  implicit val decodeBalanceItem: Decoder[MetadataItem] = deriveDecoder[MetadataItem]
+  implicit val decodeMetadataItem: Decoder[MetadataItem] = deriveDecoder[MetadataItem]
 
   @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
-  implicit val encodeBalanceItem: Encoder[MetadataItem] = deriveEncoder[MetadataItem]
+  implicit val encodeMetadataItem: Encoder[MetadataItem] = deriveEncoder[MetadataItem]
 }
 
-final case class Metadata(metadataItems: Seq[MetadataItem]) {
+final case class Checksum(algorithm: String, value: String)
+
+object Checksum {
+  @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
+  implicit val decodeHash: Decoder[Checksum] = deriveDecoder[Checksum]
+
+  @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
+  implicit val encodeHash: Encoder[Checksum] = deriveEncoder[Checksum]
+}
+
+final case class TxnSetChecksum(hash: Checksum) extends MetadataItem {
+  override def text(): Seq[String] = {
+    Seq(
+      "Txn set checksum:",
+      "  " + hash.algorithm + ": " + hash.value)
+  }
+}
+
+
+object TxnSetChecksum {
+  @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
+  implicit val decodeTxnSetChecksumMetadata: Decoder[TxnSetChecksum] = deriveDecoder[TxnSetChecksum]
+
+  @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
+  implicit val encodeTxnSetChecksumMetadata: Encoder[TxnSetChecksum] = deriveEncoder[TxnSetChecksum]
+}
+
+final case class AccountSelectorChecksum(hash: Checksum) extends MetadataItem {
+  override def text(): Seq[String] = {
+    Seq(
+      "Account selector checksum:",
+      "  " + hash.algorithm + ": " + hash.value)
+  }
+}
+
+final case class Metadata(txnSetChecksum: Option[TxnSetChecksum], metadataItems: Seq[MetadataItem]) {
+
+  def mkString(start: String, sep: String, end: String): String = {
+    (txnSetChecksum.fold(Seq.empty[String]){_.text() ++ Seq("")} ++ metadataItems.flatMap(_.text() ++ Seq(""))).mkString(start, sep, end)
+  }
 
   def text(): String = {
-    metadataItems.map(_.text()).mkString("\n")
+    mkString("", "\n", "\n")
+  }
+
+  def ++(mdis: Seq[MetadataItem]): Metadata = {
+    Metadata(txnSetChecksum, metadataItems ++ mdis)
   }
 }
 object Metadata {
@@ -53,17 +96,18 @@ object Metadata {
 final case class GitInputReference(commit: String, ref: Option[String], dir: String, suffix: String, message: String)
   extends MetadataItem {
 
-  override def text(): String = {
-    "" +
-      "Git storage:\n" +
-      "  commit:  " + commit + "\n" +
-      "  ref:     " + ref.getOrElse("FIXED by commit") + "\n" +
-      "  dir:     " + dir + "\n" +
-      "  suffix:  " + suffix + "\n" +
-      "  message: " + message + "\n"
+  override def text(): Seq[String] = {
+    Seq(
+      "Git storage:",
+      "  commit:  " + commit,
+      "  ref:     " + ref.getOrElse("FIXED by commit"),
+      "  dir:     " + dir,
+      "  suffix:  " + suffix,
+      "  message: " + message,
+    )
   }
 }
 
 final case class TxnFilterMetadata(txnFilterDef: TxnFilterDefinition) extends MetadataItem {
-  override def text(): String = txnFilterDef.text("")
+  override def text(): Seq[String] = txnFilterDef.text("")
 }
