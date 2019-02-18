@@ -22,18 +22,30 @@ import java.util.UUID
 
 import better.files._
 
+import scala.util.control.NonFatal
+
 object Generator {
+  val SUCCESS: Int = 0
+  val FAILURE: Int = 127
+
+  def nameUUID(name: String): String = {
+    // no real RFC-4122 namespace, this is ok for this purpose
+    UUID.nameUUIDFromBytes(name.getBytes("UTF-8")).toString
+  }
+
   def run(args: Array[String]): Unit = {
 
     val cliCfg = new GeneratorCLIArgs(args)
 
-    val countStr = cliCfg.count.getOrElse("1E3")
+    val countStr = cliCfg.count.getOrElse("none")
     val count =   countStr match {
+      case "1E1" => 10
+      case "1E2" => 100
       case "1E3" => 1000
       case "1E4" => 10000
       case "1E5" => 100000
       case "1E6" => 1000000
-      case _ => throw new RuntimeException("Unknown count, should be [1E3, 1E4, 1E5, 1E6] it was: " + countStr)
+      case _ => throw new RuntimeException("Unknown count, should be [1E1, 1E2, 1E3, 1E4, 1E5, 1E6] it was: " + countStr)
     }
 
 
@@ -41,7 +53,7 @@ object Generator {
     val txnsDir = File(basedir, s"txns-$countStr" )
 
     val startTS = ZonedDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneId.of("Z"))
-    val endTS = ZonedDateTime.of(2017, 1, 1, 0, 0, 0, 0, ZoneId.of("Z"))
+    val endTS = ZonedDateTime.of(2016, 12, 31, 23, 59, 59, 0, ZoneId.of("Z"))
     val duration = Duration.between(startTS, endTS)
     val step = duration.getSeconds / count
 
@@ -69,11 +81,14 @@ object Generator {
       compatStr match {
         case (tsStr, valSpace) =>
 
-          val txn = tsStr + " " + s"(#%07d)".format(i) + " " + s"txn-%d".format(i) + "\n" +
+          val code = s"(#%07d)".format(i)
+          val txn = tsStr + " " + code + " " + countStr + s" txn-%d".format(i) + "\n" +
             (if (cliCfg.compatible.getOrElse(false)) {
               ""
             } else {
-              " ;:uuid: " + UUID.randomUUID().toString + "\n"
+              // Generate UUID so that each set has own predictable set of UUIDs.
+              // e.g. uuid differs between sets (1E2 vs. 1E3) for txn-1, txn-2 etc.
+              " ;:uuid: " + nameUUID(countStr + code) + "\n"
             }) +
             s""" $expensesAcc$valSpace$d.0000001
                | $assetsAcc
@@ -105,8 +120,27 @@ object Generator {
     coaFile.overwrite(coaConf)
   }
 
+  def runReturnValue(args: Array[String]): Int = {
+    try {
+      run(args)
+      SUCCESS
+    } catch {
+      case org.rogach.scallop.exceptions.Help("") =>
+        // do not report success
+        FAILURE
+
+      case ex: org.rogach.scallop.exceptions.ScallopException =>
+        // Already printed by scallop
+        FAILURE
+
+      case NonFatal(ex) =>
+        Console.err.println(ex.getMessage)
+        FAILURE
+    }
+  }
+
   def main(args: Array[String]): Unit = {
-    run(args)
-    System.exit(0)
+
+    System.exit(runReturnValue(args))
   }
 }

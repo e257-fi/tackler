@@ -51,8 +51,8 @@ class GeneratorCLIArgs(args: Seq[String]) extends ScallopConf(args) {
     descr = """if this is given, then single txn-file is generated""")
 
   val count: ScallopOption[String] = opt[String](
-    noshort = true, required = false,
-    descr = """how many txns to generate: [1E3, 1E4, 1E5, 1E6]""".stripMargin)
+    noshort = true, required = true,
+    descr = """how many txns to generate: [1E1, 1E2, 1E3, 1E4, 1E5, 1E6]""".stripMargin)
 
   verify()
 }

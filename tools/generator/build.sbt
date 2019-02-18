@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
     inThisBuild(List(
       organization := "fi.e257",
       scalaVersion := "2.12.8",
-      version      := "0.4.0"
+      version      := "0.4.1"
     )),
     name := "generator",
     assemblyJarName in assembly := name.value + "-" + version.value + ".jar",
