@@ -132,6 +132,11 @@ object TacklerCli {
 
     val output: Option[Path] = cliCfg.output.toOption.map(o => settings.getPathWithSettings(o))
 
+    if (settings.Auditing.txnSetChecksum) {
+      log.info("Auditing (txn-set-checksum) is on")
+      log.info("Used hash algorithm is {}", settings.Auditing.hash.algorithm)
+    }
+
     val tt = new TacklerTxns(settings)
 
     val tsParseStart = System.currentTimeMillis()
@@ -172,9 +177,12 @@ object TacklerCli {
     }
 
     if (txnData.txns.isEmpty) {
-      val msg = txnData.metadata.fold("")(md => {
-        "\n\n" + md.text()
-      })
+      val txnDataStr = txnData.toString
+      val msg = if (txnDataStr.isEmpty) {
+        ""
+      } else {
+        "\n\n" + txnDataStr
+      }
       throw new TxnException("Empty transaction set" + msg)
     }
     val tsParseEnd = System.currentTimeMillis()

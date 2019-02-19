@@ -259,12 +259,25 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
           } yield {
             val objectId = treeWalk.getObjectId(0)
             if (FileMode.REGULAR_FILE.equals(treeWalk.getFileMode(0))) {
-              gitObject2Txns(repository, objectId)
+              try {
+                gitObject2Txns(repository, objectId)
+              } catch {
+                case NonFatal(ex) => {
+                  val msg = "" +
+                    "Error while processing git object" + "\n" +
+                    "   commit id: " + commit.getName + "\n" +
+                    "   object id: " + objectId.getName + "\n" +
+                    "   path: " + treeWalk.getPathString + "\n" +
+                    "   msg : " + ex.getMessage
+                  log.error(msg)
+                  throw new TacklerException(msg)
+                }
+              }
             } else {
               val msg = "Found matching object, but it is not regular file\n" +
                 "   commit id: " + commit.getName + "\n" +
                 "   object id: " + objectId.getName + "\n" +
-                "   path: [" + treeWalk.getPathString + "]"
+                "   path: " + treeWalk.getPathString
               log.error(msg)
               throw new TacklerException(msg)
             }
@@ -286,22 +299,15 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
 
   private def gitObject2Txns(repository: Repository, objectId: ObjectId): Txns = {
 
-    log.debug("txn: git: object id: {}", objectId.getName)
+    log.debug("GIT: handle object id: {}", objectId.getName)
 
     val loader = repository.open(objectId, org.eclipse.jgit.lib.Constants.OBJ_BLOB)
 
     using(loader.openStream())(stream => {
-      try {
-        handleTxns(TacklerParser.txnsStream(stream))
-      } catch {
-        case NonFatal(ex) => {
-          // todo: handle error, parse error msg, commit id, etc.
-          log.error("Error git: object id: " + objectId.getName)
-          throw ex
-        }
-      }
+      handleTxns(TacklerParser.txnsStream(stream))
     })
   }
+
   /**
    * Parse and converts input string to Txns
    * Throws an exception in case of error.

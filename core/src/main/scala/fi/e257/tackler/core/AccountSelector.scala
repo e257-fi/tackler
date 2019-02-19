@@ -29,11 +29,10 @@ trait AccountSelector {
 }
 
 abstract class RegexAccountSelector(patterns: Seq[String]) extends AccountSelector {
-  private val trimmedPatterns = patterns.map(_.trim)
 
-  protected val regexs = trimmedPatterns.map(name => {Pattern.compile(name)})
+  protected val regexs = patterns.map(name => {Pattern.compile(name)})
 
-  protected val cs = hash.checksum(trimmedPatterns.sorted, "\n")
+  protected val cs = hash.checksum(patterns.sorted, "\n")
 
   override def checksum(): Checksum = cs
 }

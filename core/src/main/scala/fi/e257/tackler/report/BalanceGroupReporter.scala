@@ -76,7 +76,7 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
       }
     }
 
-    (Balance.auditMetadata(txnData.metadata, balanceFilter),
+    (txnData.getMetadata(balanceFilter),
       Accumulator.balanceGroups(txnData, groupOp, balanceFilter))
   }
 

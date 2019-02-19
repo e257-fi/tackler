@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import io.circe.java8.time.decodeZonedDateTime
 import io.circe.java8.time.encodeZonedDateTime
 
 sealed trait TxnFilter {
-  def text(indent: String): Seq[String] = Seq(indent)
+  def text(indent: String): Seq[String]
 }
 object TxnFilter {
   @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
@@ -64,12 +64,16 @@ object TxnFilterDefinition {
 /**
  * Deselects all transactions.
  */
-final class TxnFilterNone() extends TxnFilter
+final case class TxnFilterNone() extends TxnFilter {
+  override def text(indent: String): Seq[String] = Seq(indent + "None pass")
+}
 
 /**
  * Selects all transactions.
  */
-final class TxnFilterAll() extends TxnFilter
+final case class TxnFilterAll() extends TxnFilter {
+  override def text(indent: String): Seq[String] = Seq(indent + "All pass")
+}
 
 
 sealed trait TxnFilters extends TxnFilter {

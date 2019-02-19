@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import fi.e257.tackler.model.Transaction
 class TxnFilterTest extends FlatSpec {
 
 
-  val txnFilterFalse = new TxnFilterNone()
-  val txnFilterTrue = new TxnFilterAll()
+  val txnFilterFalse = TxnFilterNone()
+  val txnFilterTrue = TxnFilterAll()
 
   val txn = Transaction(TxnHeader(ZonedDateTime.now(), None, None, None, None), Seq.empty)
 

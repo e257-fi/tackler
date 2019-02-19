@@ -1,0 +1,4 @@
+# format: exec
+# test:uuid:  
+# desc: each report has different account selector
+exec:--cfg;tests/audit/acc-selectors.conf;--output;out.audit-1E1-01;

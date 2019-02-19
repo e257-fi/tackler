@@ -40,11 +40,13 @@ object Checksum {
   implicit val encodeHash: Encoder[Checksum] = deriveEncoder[Checksum]
 }
 
-final case class TxnSetChecksum(hash: Checksum) extends MetadataItem {
+final case class TxnSetChecksum(size: Int, hash: Checksum) extends MetadataItem {
   override def text(): Seq[String] = {
     Seq(
       "Txn set checksum:",
-      "  " + hash.algorithm + ": " + hash.value)
+      "  " + hash.algorithm + ": " + hash.value,
+      "  " + "Set size: %d".format(size)
+    )
   }
 }
 
@@ -65,10 +67,10 @@ final case class AccountSelectorChecksum(hash: Checksum) extends MetadataItem {
   }
 }
 
-final case class Metadata(txnSetChecksum: Option[TxnSetChecksum], metadataItems: Seq[MetadataItem]) {
+final case class Metadata(metadataItems: Seq[MetadataItem]) {
 
   def mkString(start: String, sep: String, end: String): String = {
-    (txnSetChecksum.fold(Seq.empty[String]){_.text() ++ Seq("")} ++ metadataItems.flatMap(_.text() ++ Seq(""))).mkString(start, sep, end)
+    metadataItems.flatMap(_.text() ++ Seq("")).mkString(start, sep, end)
   }
 
   def text(): String = {
@@ -76,7 +78,7 @@ final case class Metadata(txnSetChecksum: Option[TxnSetChecksum], metadataItems:
   }
 
   def ++(mdis: Seq[MetadataItem]): Metadata = {
-    Metadata(txnSetChecksum, metadataItems ++ mdis)
+    Metadata(metadataItems ++ mdis)
   }
 }
 object Metadata {

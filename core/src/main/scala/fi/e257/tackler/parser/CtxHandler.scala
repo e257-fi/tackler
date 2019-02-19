@@ -231,7 +231,7 @@ abstract class CtxHandler {
 
     if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {
       val msg = "" +
-        "There is txn without UUID and '" + CfgKeys.Auditing.txnSetChecksum + "' is turned on. This is a fatal error."
+        "Configuration setting '" + CfgKeys.Auditing.txnSetChecksum + "' is activated and there is txn without UUID."
       log.error(msg)
       throw new TxnException(msg)
     }

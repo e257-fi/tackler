@@ -3,8 +3,8 @@
 Txn set checksum and report account selector checksum are verification and auditing tools to ensure
 that generated reports are using correct and known inputs.
 
-Tackler supports hash functions provided by Java platform, most notably `SHA-256` ... `SHA-512`, and `SHA-3` hashes
-on Java 11+.
+Tackler supports hash functions provided by Java platform, most notably `SHA-256` ... `SHA-512` algorithms on Java 8,
+and `SHA3-256` ... `SHA3-512` on Java 11+.
 
 See `MessageDigest` on:
 
@@ -34,10 +34,7 @@ how to calculate that with standard UNIX command line tools.
 
 === Assumptions and Restrictions
 
-Each transaction must have unique UUID. Presence of UUID is enforced, but uniqueness of UUIDs is not.
-
-If there is any doubt of quality of used UUIDs, then external tool should be used to verify UUIDs.
-See link:../../contrib[contrib] for examples.
+Each transaction must have unique UUID. Presence of UUID and uniqueness are enforced.
 
 Txn set checksum verifies that same set of transactions (UUIDs) is used for calculations,
 but it does *not* verify actual content of used transactions.  If and when content verification is needed,
@@ -269,11 +266,21 @@ Normal, ok-case tests to validate functionality:
 
 * [ ] test basic txn set checksum
 ** [ ] test audit staff alone, without git
+* [ ] test setting of different hash algorithm
 * [ ] reports
 ** [ ] { balance, balance-group, register } x { text, json }
 * [ ] Account selector checksum
-** [ ] { balance, balance-group, register } x { text, json }
-** [ ] { balance, balance-group, register, equity } x { text }
+** [ ] None
+*** [ ] { balance, balance-group, register } x { text, json }
+*** [ ] { balance, balance-group, register, equity } x { text }
+** [ ] All have same global selector
+*** [ ] { balance, balance-group, register } x { text, json }
+*** [ ] { balance, balance-group, register, equity } x { text }
+** [ ] Each report has own selector, global is set
+*** [ ] balance
+*** [ ] balane-group
+*** [ ] register
+*** [ ] equity
 * [ ] exports
 ** [ ] test equity
 *** [ ] test case with all metadata (txn-set-checksum, git-storage, filters, account-selector-hash)
@@ -281,12 +288,9 @@ Normal, ok-case tests to validate functionality:
 * [ ] test that upper case UUIDs result same txn-set-checksum as lower case UUIDs
 * [ ] test that filtered Txns has correct (new) txn set checksum
 * [ ] test case with all metadata (txn-set-checksum, git-storage, filters, account-selector-hash)
+* [ ] metadata in case that there are no matching accounts to be reported
+* [ ] Filter Txns multiple times, check correct metadata / txn-set-checksum
 * [ ] ...
-
-//-
-
-* [ ] Verify accepted hash algorithms
-* [ ] Chech results for empty filters / all pass
 
 
 === Errors
@@ -297,6 +301,9 @@ Various error cases:
 ** [ ] e: at parsing time / txn creation
 ** [ ] e: at hash calculation time
 * [ ] e: check that git storage reports txn path in case of error
+* [ ] e: Duplicate UUID
+** [ ] e: verify that duplicate UUID is detected
+** [ ] e: verify count of duplicates
 * [ ] e: Check that invalid UUID is detected and rejected/errored
 ** [ ] e: `java.util.UUID.fromString` is not very smart +
 link:https://bugs.openjdk.java.net/browse/JDK-8159339[] +

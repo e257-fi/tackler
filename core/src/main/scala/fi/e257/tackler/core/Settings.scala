@@ -177,7 +177,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
 
   val cfg: Config = optPath match {
     case Some(path) => {
-      log.info("loading configuration with cfg-file: " + path.toString)
+      log.info("Loading configuration file: " + path.toString)
 
       providedConfig
         .withFallback(ConfigFactory.parseFile(path.toFile).getConfig(cfgBasename))
@@ -209,7 +209,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   )(path => getPathWithAnchor(cfg.getString(CfgKeys.basedir), path))
 
   object Auditing {
-    val hash: Hash = Hash(cfg.getString(CfgKeys.Auditing.hash))
+    val hash: Hash = getHash(CfgKeys.Auditing.hash)
 
     val txnSetChecksum: Boolean = cfg.getBoolean(CfgKeys.Auditing.txnSetChecksum)
   }
@@ -377,4 +377,16 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   private def getPathWithAnchor(path: String, anchor: Path): Path = {
     File(File(anchor), path).path
   }
+
+  private def getHash(key: String): Hash = {
+    try {
+      Hash(cfg.getString(CfgKeys.Auditing.hash))
+    } catch {
+      case ex: java.security.NoSuchAlgorithmException =>
+      val msg = "Invalid algorithm for '" + key + "'. Error was: " + ex.getMessage
+      log.error(msg)
+      throw new ConfigurationException(msg)
+    }
+  }
+
 }

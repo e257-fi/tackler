@@ -1,0 +1,55 @@
+{
+  "metadata" : {
+    "metadataItems" : [
+      {
+        "TxnSetChecksum" : {
+          "size" : 1,
+          "hash" : {
+            "algorithm" : "SHA-256",
+            "value" : "79519f4ba982a7accfe0ed64545e60d3fa4adb883125d04ff0a8bb65343ac982"
+          }
+        }
+      },
+      {
+        "GitInputReference" : {
+          "commit" : "6cbc0cdab01fe60151b94277ec6291e65f66af4b",
+          "ref" : "txns-1E2",
+          "dir" : "txns/2016/01/11",
+          "suffix" : ".txn",
+          "message" : "txns-1E2: 2016/12"
+        }
+      },
+      {
+        "AccountSelectorChecksum" : {
+          "hash" : {
+            "algorithm" : "None",
+            "value" : "select all"
+          }
+        }
+      }
+    ]
+  },
+  "title" : "REGISTER",
+  "transactions" : [
+    {
+      "txn" : {
+        "timestamp" : "2016-01-11T23:31:09Z",
+        "code" : "#0000003",
+        "description" : "1E2 txn-3",
+        "uuid" : "6773febf-e487-3a4b-891b-097ec40a34ab"
+      },
+      "postings" : [
+        {
+          "account" : "a:ay2016:am01",
+          "amount" : "-11.0000001",
+          "runningTotal" : "-11.0000001"
+        },
+        {
+          "account" : "e:ey2016:em01:ed11",
+          "amount" : "11.0000001",
+          "runningTotal" : "11.0000001"
+        }
+      ]
+    }
+  ]
+}
