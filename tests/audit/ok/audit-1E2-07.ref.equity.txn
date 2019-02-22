@@ -1,0 +1,25 @@
+2016-12-31T23:58:20Z Equity: last txn (uuid): 28827cf2-2cb7-3524-b437-2faf26febda8
+ ; Txn set checksum:
+ ;   SHA-384: cbbef473e8ffb266c5674ce25fabd6ab73bcb61c74a347c2dedcc74061d5ed624f04ff3075e76cfdf34ef0abe99c61ee
+ ;   Set size: 3
+ ; 
+ ; Git storage:
+ ;   commit:  6cbc0cdab01fe60151b94277ec6291e65f66af4b
+ ;   ref:     txns-1E2
+ ;   dir:     txns
+ ;   suffix:  .txn
+ ;   message: txns-1E2: 2016/12
+ ; 
+ ; Filter:
+ ;   Txn Description: "1E2 txn-(1|17|100)"
+ ; 
+ ; Account selector checksum:
+ ;   SHA-384: 457467dc93df0e4209ea67ca5a878c2f8ad78de19b67bab8bae402dbaf2c625d090a9d8375f5e2d794d557a59f7ec4e3
+ ; 
+ a:ay2016:am01  -4.0000001
+ a:ay2016:am03  -3.0000001
+ a:ay2016:am12  -31.0000001
+ e:ey2016:em01:ed04  4.0000001
+ e:ey2016:em03:ed03  3.0000001
+ e:ey2016:em12:ed31  31.0000001
+

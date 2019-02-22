@@ -151,8 +151,8 @@ object Settings {
     File(cfgPath).verifiedExists(File.LinkOptions.follow) match {
       case Some(true) => new Settings(Some(cfgPath), initialConfig)
       case _ => {
-        log.error("Configuration file is not found or it is not readable: [" + cfgPath.toString + "]")
-        log.warn("Settings will NOT use configuration file, only provided and embedded configuration will be used")
+        log.error("CFG: Configuration file is not found or it is not readable: [" + cfgPath.toString + "]")
+        log.warn("CFG: Settings will NOT use configuration file, only provided and embedded configuration will be used")
         new Settings(None, initialConfig)
       }
     }
@@ -177,7 +177,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
 
   val cfg: Config = optPath match {
     case Some(path) => {
-      log.info("Loading configuration file: " + path.toString)
+      log.info("CFG: Loading configuration by file {}", path.toString)
 
       providedConfig
         .withFallback(ConfigFactory.parseFile(path.toFile).getConfig(cfgBasename))
@@ -185,7 +185,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
         .resolve()
     }
     case None => {
-      log.debug("Loading plain configuration")
+      log.info("CFG: Loading embedded, default configuration")
 
       providedConfig
         .withFallback(ConfigFactory.load().getConfig(cfgBasename))
@@ -320,7 +320,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
       val scale = cfg.getInt(k)
 
       if (scale < 0){
-        val msg = "scale can not be negative. CFG key: " + k
+        val msg = "CFG: scale can not be negative: conf-key: " + k
         log.error(msg)
         throw new ConfigurationException(msg)
       }
@@ -335,9 +335,9 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
     val maxScale = getScale(keyBase, maxScaleKey)
 
     if (maxScale < minScale) {
-      val msg = "max scale can not be smaller than min scale. CFG keys: " + CfgKeys.reporting + ", and/or keys: " + keyBase
+      val msg = "CFG: max scale can not be smaller than min scale. conf keys: " + CfgKeys.reporting + ", and/or keys: " + keyBase
       log.error(msg)
-      log.error("max scale: {}, min scale: {}", maxScale, minScale)
+      log.error("CFG: max scale: {}, min scale: {}", maxScale, minScale)
       throw new ConfigurationException(msg)
     }
 
@@ -383,10 +383,9 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
       Hash(cfg.getString(CfgKeys.Auditing.hash))
     } catch {
       case ex: java.security.NoSuchAlgorithmException =>
-      val msg = "Invalid algorithm for '" + key + "'. Error was: " + ex.getMessage
+      val msg = "CFG: Invalid algorithm for '" + key + "'. Error was: " + ex.getMessage
       log.error(msg)
       throw new ConfigurationException(msg)
     }
   }
-
 }

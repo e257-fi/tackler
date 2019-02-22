@@ -33,6 +33,15 @@ class TxnData private (val metadata: Option[Metadata], val txns: Txns, val algor
     metadata.fold("")(_.text())
   }
 
+  /**
+   * Enrich and get Metadata with Account Selector
+   *
+   * This will enrich metadata with account selector, if this TxnData
+   * instance had auditing activated.
+   *
+   * @param accounts AccountSelector of accounts to be included into report
+   * @return enriched or created metadata if any
+   */
   def getMetadata(accounts: AccountSelector): Option[Metadata] = {
     metadata.map(md => {
       if (algorithm.isDefined) {
@@ -41,6 +50,22 @@ class TxnData private (val metadata: Option[Metadata], val txns: Txns, val algor
         md
       }
     })
+  }
+
+
+  /**
+   * Get associated Txn Set Checksum if any
+   *
+   * @return some Txns Set Checksum or none
+   */
+  def getTxnSetChecksum(): Option[Checksum] = {
+
+    metadata.fold[Option[Checksum]](None)(md =>
+      md.metadataItems.flatMap(_ match {
+        case tsc: TxnSetChecksum => Seq[Checksum](tsc.hash)
+        case _ => Seq.empty[Checksum]
+      }).headOption
+    )
   }
 
   /**
@@ -106,15 +131,7 @@ object TxnData {
     hash.checksum(uuids, "\n")
   }
 
-  private def getNewMetadata(mdis: Seq[MetadataItem]) = {
-    if (mdis.isEmpty) {
-      None
-    } else {
-      Some(Metadata(mdis))
-    }
-  }
-
-  def apply(mdis: Seq[MetadataItem], txns: Txns, settingsOpt: Option[Settings]): TxnData = {
+  def apply(imdi: Option[InputMetadataItem], txns: Txns, settingsOpt: Option[Settings]): TxnData = {
 
     val auditHash = settingsOpt.fold[Option[Hash]](None)(settings => {
       if (settings.Auditing.txnSetChecksum) {
@@ -127,10 +144,10 @@ object TxnData {
     val newMD = auditHash match {
       case Some(hash) => {
         val tsc = Seq(TxnSetChecksum(txns.size, calcTxnSetChecksum(txns, hash)))
-        Some(Metadata(tsc ++ mdis))
+        Some(Metadata(tsc ++ imdi.toList))
       }
       case None =>
-        getNewMetadata(mdis)
+        imdi.map(item => Metadata(Seq(item)))
     }
 
     new TxnData(newMD, txns, auditHash.map(_.algorithm))

@@ -16,7 +16,6 @@
  */
 package fi.e257.tackler.core
 
-import fi.e257.tackler.api.MetadataItem
 import fi.e257.tackler.model._
 
 import scala.collection.mutable
@@ -29,8 +28,8 @@ object Accumulator {
       .sortBy(_._1)
       .par.map({case (groupBy, balGrpTxns) =>
         // This is single balance inside balance group,
-        // so there should not be txn-set-checksum for that sub-group of txns
-        Balance(groupBy, TxnData(Seq.empty[MetadataItem], balGrpTxns, None), balanceFilter)
+        // so there should be no audit or txn-set-checksum for that sub-group of txns
+        Balance(groupBy, TxnData(None, balGrpTxns, None), balanceFilter)
       })
       .filter(bal => !bal.isEmpty)
       .seq

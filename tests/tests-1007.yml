@@ -1,50 +1,206 @@
 features:
   - feature:
       id: 6278f9b8-3f98-4926-aa21-d660e03a34e0
-      subject: "Txn Set Checksum"
+      subject: "Assurance, Verification and Auditing"
 
-#  - feature:
-#      id:
-#      subject:
-#      tests:
-#        errors:
-#          - error:
-#              id:
-#              refid:
-#              name:
-#              desc:
-#              desciptions:
-#                - desc:
-#                - desc:
-#        reports:
-#          balance:
-#            - test:
-#                refid:
-#          balance-group:
-#            - test:
-#                refid:
-#          registry:
-#            - test:
-#                refid:
-#          identity:
-#            - test:
-#                refid:
-#          equity:
-#            - test:
-#                refid:
-#        operations:
-#          - test:
-#              id:
-#              refid:
-#              name:
-#              desc:
-#              descriptions:
-#                - desc:
-#                - desc:
-#              references:
-#                - ref: identity
-#                - ref: equity
-#                - ref: balance
-#                - ref: balance-group
-#                - ref: register
+  - feature:
+      id: ed1537a5-494c-4a86-b65c-d2a010297d17
+      parent: 6278f9b8-3f98-4926-aa21-d660e03a34e0
+      subject: "configuration settings for audit hash function"
+      tests:
+        errors:
+          - error:
+              id: 1edf6ced-8bfb-49e8-a307-c05cf7f6cc7e
+              name: SettingsTest
+              descriptions:
+                - desc: "rejects invalid algorithms"
 
+        operations:
+          - test:
+              id: 1b6876c4-3ef2-43f4-b14b-1bdaa56180fa
+              name: SettingsTest
+              descriptions:
+                - desc: "accepts valid jdk8 algorithms"
+
+  - feature:
+      id: cb44b81f-bb69-471f-bacf-e1acf4eaa4e4
+      parent: 6278f9b8-3f98-4926-aa21-d660e03a34e0
+      subject: "Txn Set and Account Selector checksum"
+      tests:
+        errors:
+          - error:
+              id: cc98b4da-aa26-44e1-ba76-ca702a99add6
+              name: TxnDataTest
+              descriptions:
+                - desc: "detects missing uuid from existing txns"
+
+          - error:
+              id: 0a31ea4f-cb4c-4b5a-8ea4-1786feeb32a4
+              name: TxnDataTest
+              descriptions:
+                - desc: "detects duplicate uuid from existing txns"
+
+          - error:
+              id: a6cfe3b6-feec-4422-afbf-faeca5baf752
+              name: TacklerTxnsGitTest
+              descriptions:
+                - desc: "GIT reports reasonable details in case of audit error"
+
+          - error:
+              id: 24f154c7-9681-497b-a28c-c90cfb0533a5
+              name:  tests/audit/ex/TacklerException-audit-01.exec
+              descriptions:
+                - desc: "missing UUID with txn-set-checksum"
+
+          - error:
+              id: 78f82210-7e9b-4741-9a0f-cc69636c70c4
+              name:  tests/audit/ex/TacklerException-audit-01.exec
+              descriptions:
+                - desc: "duplicate UUIDs with txn-set-checksum"
+
+        operations:
+          - test:
+              id: 0e76295f-aee6-47bc-ae6f-7fba5ce6d818
+              name: TxnDataTest
+              descriptions:
+                - desc: "Uppercase txn UUIDs resul same txn set checksum as lowercase"
+                - desc: "reports correct checksum after multiple filtering steps"
+
+          - test:
+              id: 93651962-6b61-4fd6-941a-339abd87ec73
+              name: tests/audit/ok/audit-1E1-01.exec
+              descriptions:
+                - desc: "each report has different account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: f8c0fe2b-f189-4338-b75e-3c8e68a8c7e2
+              name: tests/audit/ok/audit-1E1-02.exec
+              descriptions:
+                - desc: "use audit settings with FS input storage"
+                - desc: "each report has different account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: 4e8e1d79-bbb5-4e6f-9072-d7e3c5b8c7ea
+              name: tests/audit/ok/audit-1E2-01.exec
+              descriptions:
+                - desc: "metadata: subset by dir"
+                - desc: "no filters"
+                - desc: "all-pass account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: 2250f5f5-7eb4-456b-a693-3ea63c219584
+              name: tests/audit/ok/audit-1E2-02.exec
+              descriptions:
+                - desc: "metadata: subset by dir"
+                - desc: "no filters"
+                - desc: "regex account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: b2ea4102-40a2-46e5-aca3-398cf4849058
+              name: tests/audit/ok/audit-1E2-03.exec
+              descriptions:
+                - desc: "metadata: subset by filter (TxnData -> TxnData)"
+                - desc: "all-pass account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: 41a9479b-1907-44bb-88bc-48c3cbe8c00f
+              name: tests/audit/ok/audit-1E2-04.exec
+              descriptions:
+                - desc: "metadata: subset by filter (TxnData -> TxnData)"
+                - desc: "regex account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: 7a887956-a350-4663-9638-715bfa3c9040
+              name: tests/audit/ok/audit-1E2-05.exec
+              descriptions:
+                - desc: "metadata: subset by filter (TxnData -> TxnData)"
+                - desc: "non-matching regex account selector e.g. empty reports"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json
+
+          - test:
+              id: 224709cb-c96c-47f5-83e1-6e94c333e5c6
+              name: tests/audit/ok/audit-1E2-06.exec
+              descriptions:
+                - desc: "check validity equity with metadata"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: register
+                  formats: txt
+
+          - test:
+              id: 20ce2b43-e433-4edb-894a-48e955cdcd01
+              name: tests/audit/ok/audit-1E2-07.exec
+              descriptions:
+                - desc: "SHA-384: metadata: subset by filter, regex account selector"
+              references:
+                - ref: equity
+                  formats: txn
+                - ref: balance
+                  formats: txt, json
+                - ref: balance-group
+                  formats: txt, json
+                - ref: register
+                  formats: txt, json

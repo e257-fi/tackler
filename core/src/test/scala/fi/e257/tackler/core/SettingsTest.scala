@@ -204,11 +204,11 @@ class SettingsTest extends FunSpec {
   }
 
   /**
-   * feature: todo
+   * feature: ed1537a5-494c-4a86-b65c-d2a010297d17
    */
   describe("Hash function") {
     /**
-     * test: todo
+     * test: 1b6876c4-3ef2-43f4-b14b-1bdaa56180fa
      */
     it ("accepts valid jdk8 algorithms") {
       val hashes = List(
@@ -227,7 +227,7 @@ class SettingsTest extends FunSpec {
     }
 
     /**
-     * test: todo
+     * test: 1edf6ced-8bfb-49e8-a307-c05cf7f6cc7e
      */
     it ("rejects invalid algorithms") {
       val hashes = List(

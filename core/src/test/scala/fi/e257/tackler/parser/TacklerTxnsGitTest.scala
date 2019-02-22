@@ -18,7 +18,7 @@ package fi.e257.tackler.parser
 
 import com.typesafe.config.ConfigFactory
 import fi.e257.tackler.api.GitInputReference
-import fi.e257.tackler.core.Settings
+import fi.e257.tackler.core.{Settings, TacklerException}
 import org.scalatest.FunSpec
 
 class TacklerTxnsGitTest extends FunSpec{
@@ -93,6 +93,41 @@ class TacklerTxnsGitTest extends FunSpec{
         i += 1
       }
       assert(i === loops)
+    }
+
+    /**
+     * test: a6cfe3b6-feec-4422-afbf-faeca5baf752
+     */
+    it("reports reasonable details in case of audit error") {
+
+      val auditCfg = ConfigFactory.parseString(
+        """
+          |{
+          |  auditing {
+          |    hash = "SHA-256"
+          |    txn-set-checksum = on
+          |  }
+          |}
+        """.stripMargin)
+        .withFallback(cfg)
+        .resolve()
+
+      val auditSettings = Settings(auditCfg)
+
+      val tt = new TacklerTxns(auditSettings)
+
+      val errMsg =
+        """GIT: Error while processing git object
+          |   commit id: 6fd9d4d31910d9960470413823ec0b96dc2e70ac
+          |   object id: 521e3677b8fe81c193bea9b772be94331b266a9c
+          |   path: 2016/01/01/20160101T084702-1.txn
+          |   msg : Configuration setting 'auditing.txn-set-checksum' is activated and there is txn without UUID.""".stripMargin
+
+      val ex = intercept[TacklerException]({
+        tt.git2Txns(TacklerTxns.gitReference("txns-1E3"))
+      })
+
+      assert(ex.message === errMsg)
     }
   }
 }

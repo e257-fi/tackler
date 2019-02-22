@@ -26,7 +26,7 @@ import java.nio.file.Path
 
 import better.files._
 import cats.implicits._
-import fi.e257.tackler.api.{GitInputReference, MetadataItem}
+import fi.e257.tackler.api.GitInputReference
 import fi.e257.tackler.core.{Settings, TacklerException}
 import fi.e257.tackler.model.{OrderByTxn, TxnData, Txns}
 import org.eclipse.jgit.lib.{FileMode, ObjectId, Repository}
@@ -53,8 +53,8 @@ object TacklerTxns {
    * @return sequence of input txn pahts
    */
   def inputPaths(settings: Settings): Seq[Path] = {
-    log.info("Tackler Txns: FS: dir = {}", settings.input_fs_dir.toString)
-    log.info("Tackler Txns: FS: glob = {}", settings.input_fs_glob)
+    log.info("FS: dir = {}", settings.input_fs_dir.toString)
+    log.info("FS: glob = {}", settings.input_fs_glob)
 
     File(settings.input_fs_dir)
       .glob(settings.input_fs_glob)(visitOptions = File.VisitOptions.follow)
@@ -119,15 +119,18 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
    */
   def paths2Txns(paths: Seq[Path]): TxnData = {
 
-    TxnData(Seq.empty[MetadataItem],
+    TxnData(None,
       paths.par.flatMap(inputPath => {
-        log.debug("txn: {}", inputPath.toString)
         try {
+          log.trace("FS: handle file = {}", inputPath.toString)
           val txnsCtx = TacklerParser.txnsFile(inputPath)
           handleTxns(txnsCtx)
         } catch {
           case ex: Exception => {
-            log.error("Error while processing file: {}", inputPath.toString)
+            log.error(
+              "FS: Error while processing file" + "\n" +
+              "   path = " + inputPath.toString + "\n" +
+              "   msg: " + ex.getMessage)
             throw ex
           }
         }
@@ -148,7 +151,9 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
 
         val refOpt = Option(repository.findRef(refStr))
         val ref = refOpt.getOrElse({
-          throw new TacklerException("Git ref not found or it is invalid: [" + refStr + "]")
+          val msg = "GIT: ref not found or it is invalid: [" + refStr + "]"
+          log.error(msg)
+          throw new TacklerException(msg)
         })
         ref.getObjectId
       }
@@ -159,13 +164,13 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
           Option(repository.resolve(commitIdStr))
             .getOrElse({
               // test: uuid: 7cb6af2e-3061-4867-96e3-ee175b87a114
-              val msg = "Can not resolve given id: [" + commitIdStr + "]"
+              val msg = "GIT: Can not resolve given id: [" + commitIdStr + "]"
               log.error(msg)
               throw new TacklerException(msg)
             })
         } catch {
           case e: RuntimeException =>
-            val msg = "Can not resolve commit by given id: [" + commitIdStr + "], Message: [" + e.getMessage + "]"
+            val msg = "GIT: Can not resolve commit by given id: [" + commitIdStr + "], Message: [" + e.getMessage + "]"
             log.error(msg)
             throw new TacklerException(msg)
         }
@@ -233,7 +238,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
           revWalk.parseCommit(commitId)
         } catch {
           case e: org.eclipse.jgit.errors.MissingObjectException =>
-            val msg = "Can not find commit by given id: [" + commitId.getName + "], Message: [" + e.getMessage + "]"
+            val msg = "GIT: Can not find commit by given id: [" + commitId.getName + "], Message: [" + e.getMessage + "]"
             log.error(msg)
             throw new TacklerException(msg)
         }
@@ -263,8 +268,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
                 gitObject2Txns(repository, objectId)
               } catch {
                 case NonFatal(ex) => {
-                  val msg = "" +
-                    "Error while processing git object" + "\n" +
+                  val msg = "GIT: Error while processing git object" + "\n" +
                     "   commit id: " + commit.getName + "\n" +
                     "   object id: " + objectId.getName + "\n" +
                     "   path: " + treeWalk.getPathString + "\n" +
@@ -274,7 +278,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
                 }
               }
             } else {
-              val msg = "Found matching object, but it is not regular file\n" +
+              val msg = "GIT: Found matching object, but it is not regular file" + "\n" +
                 "   commit id: " + commit.getName + "\n" +
                 "   object id: " + objectId.getName + "\n" +
                 "   path: " + treeWalk.getPathString
@@ -291,7 +295,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             commit.getShortMessage
           )
 
-          TxnData(Seq(meta), rawTxns.flatten.sorted(OrderByTxn), Some(settings))
+          TxnData(Some(meta), rawTxns.flatten.sorted(OrderByTxn), Some(settings))
         })
       })
     })
@@ -299,7 +303,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
 
   private def gitObject2Txns(repository: Repository, objectId: ObjectId): Txns = {
 
-    log.debug("GIT: handle object id: {}", objectId.getName)
+    log.trace("GIT: handle object id = {}", objectId.getName)
 
     val loader = repository.open(objectId, org.eclipse.jgit.lib.Constants.OBJ_BLOB)
 
@@ -321,6 +325,6 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
   def string2Txns(input: String): TxnData = {
 
     val txnsCtx = TacklerParser.txnsText(input)
-    TxnData(Seq.empty[MetadataItem], handleTxns(txnsCtx).sorted(OrderByTxn), Some(settings))
+    TxnData(None, handleTxns(txnsCtx).sorted(OrderByTxn), Some(settings))
   }
 }

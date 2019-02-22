@@ -309,7 +309,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
   }
 
   describe("Encode Filter and it's metadata") {
-    val txnData = TxnData(Seq.empty, Seq.empty, None)
+    val txnData = TxnData(None, Seq.empty, None)
 
     val txnFilter = TxnFilterDefinition(
       TxnFilterAND(List[TxnFilter](
