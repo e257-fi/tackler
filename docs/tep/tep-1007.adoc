@@ -304,8 +304,8 @@ Various error cases:
 * [x] e: Duplicate UUID
 ** [x] e: verify that duplicate UUID is detected
 ** [x] e: verify count of duplicates
-* [ ] e: Check that invalid UUID is detected and rejected/errored
-** [ ] e: `java.util.UUID.fromString` is not very smart +
+* [x] e: Check that invalid UUID is detected and rejected/errored
+** [x] e: `java.util.UUID.fromString` is not very smart +
 link:https://bugs.openjdk.java.net/browse/JDK-8159339[] +
 link:https://bugs.openjdk.java.net/browse/JDK-8165199[] +
 link:https://bugs.openjdk.java.net/browse/JDK-8216407[] +

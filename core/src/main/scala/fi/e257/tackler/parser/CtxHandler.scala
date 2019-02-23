@@ -223,10 +223,7 @@ abstract class CtxHandler {
 
 
     val uuid = Option(txnCtx.txn_meta()).map(meta => {
-      val key = meta.txn_meta_key().UUID().getText
-      require(key === "uuid") // IE if not
-
-      java.util.UUID.fromString(meta.text().getText.trim)
+      java.util.UUID.fromString(meta.txn_meta_uuid().UUID_VALUE().getText.trim)
     })
 
     if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {

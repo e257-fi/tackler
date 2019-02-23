@@ -34,12 +34,12 @@ class TxnDataTest extends FunSpec {
 
   val strUUIDs =
     s"""2019-01-01 txn01
-       | ;:uuid: ${uuid01}
+       | ;:uuid:   ${uuid01}
        | e  1
        | a
        |
        |2019-02-01 txn02
-       | ;:uuid: ${uuid02}
+       | ;:uuid: ${"\t"}${uuid02}${"\t"}${" "}
        | e  1
        | a
        |

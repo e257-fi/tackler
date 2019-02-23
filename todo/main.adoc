@@ -17,9 +17,7 @@
 
 
 === ANTLR / parser
- 
- * [ ] Refactor meta:key (uuid) handling
- ** [ ] Parse/validate form of UUID on ANTLR level
+
 
 === Units and Commodities 
 

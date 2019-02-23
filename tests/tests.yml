@@ -421,7 +421,12 @@ features:
           - error:
               id: 56042ba1-89ca-48da-a55a-d6fea2946c59
               name: TacklerParserTest
-              desc: invalid uuid
+              desc: "invalid uuid 1"
+          - error:
+              id: 08e6dcf3-29b2-44d7-8fb0-af3fc6d74e0c
+              name: TacklerParserTest
+              desc: "invalid uuid 2"
+
         reports:
           registry:
             - test:
