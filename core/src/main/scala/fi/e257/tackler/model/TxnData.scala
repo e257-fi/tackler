@@ -80,7 +80,7 @@ class TxnData private (val metadata: Option[Metadata], val txns: Txns, val algor
    */
   def filter(txnFilter: TxnFilterDefinition): TxnData = {
 
-    val filterInfo = Seq(TxnFilterMetadata(txnFilter))
+    val filterInfo = Seq(TxnFilterDescription(txnFilter))
 
     val newTxns = txns.filter(txnFilter.filter)
 

@@ -20,7 +20,7 @@
         }
       },
       {
-        "TxnFilterMetadata" : {
+        "TxnFilterDescription" : {
           "txnFilterDef" : {
             "txnFilter" : {
               "TxnFilterTxnDescription" : {

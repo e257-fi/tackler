@@ -360,7 +360,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
         """{
           |  "metadataItems" : [
           |    {
-          |      "TxnFilterMetadata" : {
+          |      "TxnFilterDescription" : {
           |        "txnFilterDef" : {
           |          "txnFilter" : {
           |            "TxnFilterAND" : {

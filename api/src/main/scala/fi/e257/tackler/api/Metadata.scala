@@ -102,11 +102,11 @@ final case class AccountSelectorChecksum(hash: Checksum) extends MetadataItem {
 
 
 /**
- * Metadata of used Txn Filters
+ * Description of used Txn Filters
  *
  * @param txnFilterDef is Filter definition used to filter transactions
  */
-final case class TxnFilterMetadata(txnFilterDef: TxnFilterDefinition) extends MetadataItem {
+final case class TxnFilterDescription(txnFilterDef: TxnFilterDefinition) extends MetadataItem {
   override def text(): Seq[String] = txnFilterDef.text("")
 }
 
@@ -117,7 +117,7 @@ final case class TxnFilterMetadata(txnFilterDef: TxnFilterDefinition) extends Me
 sealed trait InputMetadataItem extends MetadataItem
 
 /**
- * Metadata of used Git commit.
+ * Reference information for Git txn input
  *
  * @param commit  is commit id (sha1) of used git tree
  * @param ref     is set if source selection  was done by git reference
