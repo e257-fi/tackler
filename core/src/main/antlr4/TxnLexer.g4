@@ -16,7 +16,9 @@
  */
 lexer grammar TxnLexer;
 
-UUID: 'uuid';
+UUID_NAME: 'uuid';
+
+UUID_VALUE: HEX HEX HEX HEX  HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX HEX HEX HEX HEX  HEX HEX HEX HEX;
 
 DATE: DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT;
 TS: DATE 'T' TIME;
@@ -60,6 +62,8 @@ NameStartChar
    | '\uF900'..'\uFDCF'
    | '\uFDF0'..'\uFFFD'
    ;
+
+fragment HEX: [a-fA-F0-9];
 
 fragment DIGIT: [0-9];
 

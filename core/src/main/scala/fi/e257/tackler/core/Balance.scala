@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package fi.e257.tackler.core
 
 import cats.implicits._
-
 import fi.e257.tackler.api.Metadata
 import fi.e257.tackler.model._
 
@@ -162,7 +161,7 @@ object Balance {
     bal.sorted(OrderByPost)
   }
 
-  def apply(title: String, txnData: TxnData, accounts: Filtering[BalanceTreeNode]): Balance = {
+  def apply(title: String, txnData: TxnData, accounts: BalanceAccountSelector): Balance = {
     val bal = balance(txnData.txns)
 
     val fbal = bal.filter(accounts.predicate)
@@ -178,10 +177,10 @@ object Balance {
           }
         })
 
-      new Balance(title, fbal, deltas, txnData.metadata)
+      new Balance(title, fbal, deltas, txnData.getMetadata(accounts))
     } else {
       new Balance(title, Seq.empty[BalanceTreeNode],
-        Map.empty[Option[Commodity], BigDecimal], None)
+        Map.empty[Option[Commodity], BigDecimal], txnData.getMetadata(accounts))
     }
   }
 }

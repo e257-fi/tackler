@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim: tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab autoindent
 #
 # This tool checks meta information of tests
 #
@@ -18,25 +19,34 @@ exe_dir=$(dirname $(realpath $0))
 db_dir="$exe_dir"
 
 # good enough for know
-test_db00="$db_dir/tests.yml"
-test_db01="$db_dir/tests-1001.yml"
-test_db02="$db_dir/tests-1002.yml"
-test_db04="$db_dir/tests-1004.yml"
-test_db05="$db_dir/tests-1005.yml"
-test_db06="$db_dir/tests-1006.yml"
+t3db_00="$db_dir/tests.yml"
+t3db_01="$db_dir/tests-1001.yml"
+t3db_02="$db_dir/tests-1002.yml"
+# t3db_03="$db_dir/tests-1003.yml" not implemented yet
+t3db_04="$db_dir/tests-1004.yml"
+t3db_05="$db_dir/tests-1005.yml"
+t3db_06="$db_dir/tests-1006.yml"
+t3db_07="$db_dir/tests-1007.yml"
 
+T3DBs="$t3db_00 $t3db_01 $t3db_02 $t3db_04 $t3db_05 $t3db_06 $t3db_07"
+
+get_t3db_content () {
+
+    egrep -v '^[[:space:]]*#' $T3DBs
+}
 
 echo "Check test DB YAML validity:"
-for test_db in "$test_db00" "$test_db01" "$test_db02" "$test_db04" "$test_db05" "$test_db06"
+for test_db in $T3DBs
 do
-	$sh_pykwalify -v -s  "$exe_dir/tests-schema.yml" -d  "$test_db"
-
-grep ' id:' "$test_db" | sed 's/.*id: //' | sort | uniq -d
+    $sh_pykwalify -v -s  "$exe_dir/tests-schema.yml" -d  "$test_db"
 done
 
-grep ' refid:' $test_db00 $test_db01 $test_db02 $test_db04 $test_db05 $test_db06 | sed 's/.*refid: //' | while read refid; 
+get_t3db_content | grep ' id:' | sed 's/.*id: //' | sort | uniq -d
+
+
+get_t3db_content | grep ' refid:' | sed 's/.*refid: //' | while read refid;
 do  
-	egrep -q -L '.* id: +'$refid' *$' "$test_db00" "$test_db01" "$test_db02" "$test_db04" "$test_db05" "$test_db06" || echo $refid
+    egrep -q -L '.* id: +'$refid' *$' $T3DBs || echo $refid
 done
 
 echo "Check missing uuid:"
@@ -50,13 +60,13 @@ lonelies=$(mktemp /tmp/exists-no-test-db.XXXXXX)
 trap "rm -f $lonelies" 0
 
 find "$exe_dir" -name '*.exec' |\
-	xargs grep 'test:uuid:' |\
-	sed 's/.*test:uuid: //' |\
-	while read uuid; do
-		echo "$(grep -c $uuid $test_db00 $test_db01 $test_db02 $test_db04 $test_db05 $test_db06): $uuid"
-	done |\
-	grep '^0:' |\
-	sed 's/^0: //' > $lonelies
+    xargs grep 'test:uuid:' |\
+    sed 's/.*test:uuid: //' |\
+    while read uuid; do
+        echo "$(grep -c $uuid $T3DBs): $uuid"
+    done |\
+    grep '^0:' |\
+    sed 's/^0: //' > $lonelies
 
 find . -name '*.exec' | xargs grep -f $lonelies -l
 
@@ -65,3 +75,4 @@ find "$exe_dir" -name '*.json' -exec "$exe_dir/json_lint.py" {} \;
 
 echo 
 echo "Silence is gold"
+

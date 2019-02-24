@@ -202,4 +202,48 @@ class SettingsTest extends FunSpec {
     }
 
   }
+
+  /**
+   * feature: ed1537a5-494c-4a86-b65c-d2a010297d17
+   */
+  describe("Hash function") {
+    /**
+     * test: 1b6876c4-3ef2-43f4-b14b-1bdaa56180fa
+     */
+    it ("accepts valid jdk8 algorithms") {
+      val hashes = List(
+        "MD5",
+        "SHA-1",
+        "SHA-224",
+        "SHA-256",
+        "SHA-384",
+        "SHA-512",
+      )
+      hashes.foreach(name => {
+        val cfg = ConfigFactory.parseString(s"""{ auditing { hash = "$name" } }""")
+        val s = Settings(cfg)
+        assert(s.Auditing.hash.algorithm === name)
+      })
+    }
+
+    /**
+     * test: 1edf6ced-8bfb-49e8-a307-c05cf7f6cc7e
+     */
+    it ("rejects invalid algorithms") {
+      val hashes = List(
+        "MD6",
+        "SHA2",
+        "SHA256",
+        "SHA-257",
+      )
+
+      hashes.foreach(name => {
+        val cfg = ConfigFactory.parseString(s"""{ auditing { hash = "$name" } }""")
+        assertThrows[ConfigurationException] {
+          val s = Settings(cfg)
+          assert(s.Auditing.hash.algorithm === name) // should never be here
+        }
+      })
+    }
+  }
 }

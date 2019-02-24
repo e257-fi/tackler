@@ -154,3 +154,9 @@ Example reports
 * link:../tests/commodity/ok/gas-blender-saldo.ref.bal.txt[Used gas by divers]
 * link:../tests/commodity/ok/gas-blender-mix-log.ref.reg.txt[Gas Blending entries (register)]
 * link:../tests/commodity/ok/gas-blender-billing.ref.bal.txt[Billing statement]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

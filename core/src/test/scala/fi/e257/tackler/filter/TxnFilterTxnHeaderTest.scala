@@ -76,6 +76,18 @@ class TxnFilterTxnHeaderTest extends TxnFilterSpec with FlatSpecLike {
   }
 
   /**
+   * test: 503bbb2b-a964-495c-98da-ba4409b41c84
+   */
+  it must "filter by txn description with whitespace regex at begin" in {
+    val txnFilter = TxnFilterTxnDescription(" *abc.*")
+
+    val txnData = txnsAll.filter(TxnFilterDefinition(txnFilter))
+
+    assert(txnData.txns.size === 1)
+    assert(checkUUID(txnData, uuidTxn01))
+  }
+
+  /**
    * test: 54c746cf-916f-4c24-8e53-d4306917a200
    */
   it must "filter by txn code" in {

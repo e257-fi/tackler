@@ -18,14 +18,20 @@ Exports in Tackler journal format (`equity` and `identity`) are not supported wi
 === Balance report
 
 * link:../tests/commodity/ok/basic-03.ref.bal.json[Balance with commodities]
-* link:../tests/core/ok/git-tag-01.ref.bal.json[Balance with Metadata]
+* link:../tests/audit/ok/audit-1E2-04.ref.bal.json[Balance with Metadata]
 
 === Balance Group report
 
 * link:../tests/commodity/ok/basic-03.ref.balgrp.json[Balance-group with Commodities]
-* link:../tests/core/ok/git-tag-01.ref.balgrp.json[Balange-group with Metadata]
+* link:../tests/audit/ok/audit-1E2-04.ref.balgrp.json[Balange-group with Metadata]
 
 === Register report
 
 * link:../tests/commodity/ok/basic-03.ref.reg.json[Register report with Commodities]
-* link:../tests/core/ok/git-tag-01.ref.reg.json[Register report with Metadata]
+* link:../tests/audit/ok/audit-1E2-04.ref.reg.json[Register report with Metadata]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

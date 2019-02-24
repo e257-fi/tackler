@@ -1,4 +1,4 @@
-= Journal format
+= Journal Format
 
 [cols="1,5a,3a", options="header"]
 |===
@@ -189,16 +189,20 @@ This is planned feature. See link:currencies.adoc[Currencies]
 | At the moment only supported metadata is `uuid` which is reserved for optional transaction's
 unique identifier (link:https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID]).
 
-By Tackler's design constraints input order of transactions is not important.
+Transactions must have UUIDs, if fully deterministic, stable
+and "distributed transaction producers"-safe sort order is needed for link:./report-register.adoc[register report]
+or link:./export-identity.adoc[identity export].
 
-Transactions are sorted by using txn-components in following order to find sort order
+Transaction UUID is mandatory if `txn-set-checksum` calculation is activated.
+See link:./tackler.conf[tackler.conf] and link:./tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+for further information.
+
+Transactions are sorted by using txn-components in following order to find sort order of txn set
 (in case of previous components have produced "same" sort order):
 
  timestamp, code, description, uuid
 
-Transactions must have UUIDs, if fully deterministic, stable
-and "distributed transaction producers"-safe sort order is needed.
-
+Input order of transactions is not important by Tackler's design constraints.
 
 | Posting metadata
 |
@@ -212,3 +216,9 @@ and "distributed transaction producers"-safe sort order is needed.
 Currently metadata is not supported with postings.
 
 |===
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

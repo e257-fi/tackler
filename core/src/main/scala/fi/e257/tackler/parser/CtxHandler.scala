@@ -22,7 +22,7 @@ import cats.implicits._
 
 import scala.collection.JavaConverters
 import fi.e257.tackler.api.TxnHeader
-import fi.e257.tackler.core.{AccountException, CommodityException, Settings}
+import fi.e257.tackler.core.{AccountException, CfgKeys, CommodityException, Settings, TxnException}
 import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transaction, Txns}
 import fi.e257.tackler.parser.TxnParser._
 import org.slf4j.{Logger, LoggerFactory}
@@ -223,11 +223,15 @@ abstract class CtxHandler {
 
 
     val uuid = Option(txnCtx.txn_meta()).map(meta => {
-      val key = meta.txn_meta_key().UUID().getText
-      require(key === "uuid") // IE if not
-
-      java.util.UUID.fromString(meta.text().getText.trim)
+      java.util.UUID.fromString(meta.txn_meta_uuid().UUID_VALUE().getText.trim)
     })
+
+    if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {
+      val msg = "" +
+        "Configuration setting '" + CfgKeys.Auditing.txnSetChecksum + "' is activated and there is txn without UUID."
+      log.error(msg)
+      throw new TxnException(msg)
+    }
 
     // txnCtx.txn_comment is never null, even when there aren't any comments
     // (in that case it will be an empty list)

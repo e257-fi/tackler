@@ -1,0 +1,48 @@
+{
+  "metadata" : {
+    "items" : [
+      {
+        "TxnSetChecksum" : {
+          "size" : 3,
+          "hash" : {
+            "algorithm" : "SHA-256",
+            "value" : "0b9f89dbdc0da621de136dc7856df22caecdf6041e44aff0d58493c6fd3166b6"
+          }
+        }
+      },
+      {
+        "GitInputReference" : {
+          "commit" : "6cbc0cdab01fe60151b94277ec6291e65f66af4b",
+          "ref" : "txns-1E2",
+          "dir" : "txns",
+          "suffix" : ".txn",
+          "message" : "txns-1E2: 2016/12"
+        }
+      },
+      {
+        "TxnFilterDescription" : {
+          "txnFilterDef" : {
+            "txnFilter" : {
+              "TxnFilterTxnDescription" : {
+                "regex" : "1E2 txn-(1|17|100)"
+              }
+            }
+          }
+        }
+      },
+      {
+        "AccountSelectorChecksum" : {
+          "hash" : {
+            "algorithm" : "SHA-256",
+            "value" : "e468cfe14511f611835d95d141f3869edd000ce17e14b5b2e3468e5d75baaf5f"
+          }
+        }
+      }
+    ]
+  },
+  "title" : "BALANCE",
+  "balances" : [
+  ],
+  "deltas" : [
+  ]
+}

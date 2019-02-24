@@ -113,22 +113,23 @@ class TacklerParserTest extends FlatSpec {
     val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    assert(ex.getMessage === """Txn Parse Error: Invalid input: [
-      |2017-01-01 str
-      | ;:uuid:
-      | e   1
-      | a  -1
-      |
-      |], msg:
-      |   Can not parse input
-      |   on line: 3
-      |   no viable alternative at input ' '""".stripMargin)
+    assert(ex.getMessage ===
+      s"""Txn Parse Error: Invalid input: [
+        |2017-01-01 str
+        | ;:uuid:
+        | e   1
+        | a  -1
+        |
+        |], msg:
+        |   Can not parse input
+        |   on line: 3
+        |   no viable alternative at input '${"\n"}'""".stripMargin)
   }
 
   /**
    * test: 56042ba1-89ca-48da-a55a-d6fea2946c59
    */
-  it should "notice invalid uuid" in {
+  it should "notice invalid uuid 1" in {
 
     val txnStr =
       """
@@ -141,7 +142,31 @@ class TacklerParserTest extends FlatSpec {
     val ex = intercept[RuntimeException]{
       tt.string2Txns(txnStr)
     }
-    assert(ex.getMessage.startsWith("Invalid UUID string: "), ex.getMessage)
+    assert(ex.getMessage.startsWith("Txn Parse Error: Invalid input: "), ex.getMessage)
+  }
+
+  /**
+   * test: 08e6dcf3-29b2-44d7-8fb0-af3fc6d74e0c
+   */
+  it should "notice invalid uuid 2" in {
+
+    /*
+     * https://bugs.openjdk.java.net/browse/JDK-8159339
+     * https://bugs.openjdk.java.net/browse/JDK-8165199
+     * https://bugs.openjdk.java.net/browse/JDK-8216407
+     */
+    val txnStr =
+      """
+        |2017-01-01 str
+        | ;:uuid: 694aaaaa39222-4d8b-4d0e-8204-50e2a0c8b664
+        | e   1
+        | a  -1
+        |
+        |""".stripMargin
+    val ex = intercept[RuntimeException]{
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.startsWith("Txn Parse Error: Invalid input: "), ex.getMessage)
   }
 
   behavior of "Account names"

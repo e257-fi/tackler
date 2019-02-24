@@ -165,9 +165,9 @@ class BalanceReporter(val mySettings: BalanceSettings) extends  BalanceReporterL
 
   protected def getBalance(txns: TxnData): Balance = {
     val bf = if (mySettings.accounts.isEmpty) {
-      AllBalanceAccounts
+      new AllBalanceAccounts(mySettings.hash)
     } else {
-      new BalanceFilterByAccount(mySettings.accounts)
+      new BalanceFilterByAccount(mySettings.accounts, mySettings.hash)
     }
 
     Balance(mySettings.title, txns, bf)

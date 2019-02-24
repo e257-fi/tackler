@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package fi.e257.tackler.report
 
 import io.circe.Json
 import io.circe.syntax._
-import fi.e257.tackler.api.{RegisterPosting, RegisterReport, RegisterTxn, TxnTS}
+import fi.e257.tackler.api.{Metadata, RegisterPosting, RegisterReport, RegisterTxn, TxnTS}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{RegisterEntry, _}
 
@@ -77,9 +77,10 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
     }
   }
 
-  protected def txtRegisterReport(accounts: Filtering[AccumulatorPosting], txns: TxnData): Seq[String] = {
+  protected def txtRegisterReport(metadata: Option[Metadata], accounts: RegisterAccountSelector, txns: TxnData): Seq[String] = {
+
     val header = List(
-      txns.metadata.fold("") { md => md.text() },
+      metadata.fold("") { md => md.text() },
       mySettings.title,
       "-" * mySettings.title.length)
 
@@ -108,35 +109,40 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
     a
   }
 
-  protected def jsonRegisterReport(accounts: Filtering[AccumulatorPosting], txns: TxnData): Json = {
+  protected def jsonRegisterReport(metadata: Option[Metadata] , accounts: RegisterAccountSelector, txns: TxnData): Json = {
 
-    RegisterReport(txns.metadata, mySettings.title, doBody(accounts, txns.txns)).asJson
+    RegisterReport(metadata, mySettings.title, doBody(accounts, txns.txns)).asJson
   }
 
   protected def getFilters() = {
     if (mySettings.accounts.isEmpty) {
-      AllRegisterPostings
+      new AllRegisterPostings(mySettings.hash)
     } else {
-      RegisterFilterByAccount(mySettings.accounts)
+      new RegisterFilterByAccount(mySettings.accounts, mySettings.hash)
     }
   }
 
   override
   def jsonReport(txnData: TxnData): Json = {
-    jsonRegisterReport(getFilters(), txnData)
+    val rrf = getFilters()
+
+    val md = txnData.getMetadata(rrf)
+
+    jsonRegisterReport(md, rrf, txnData)
   }
 
   override
   def writeReport(formats: Formats, txns: TxnData): Unit = {
     val rrf = getFilters()
+    val md = txns.getMetadata(rrf)
 
     formats.foreach({ case (format, writers) =>
       format match {
         case TextFormat() => {
-          doRowOutputs(writers, txtRegisterReport(rrf, txns))
+          doRowOutputs(writers, txtRegisterReport(md, rrf, txns))
         }
         case JsonFormat() => {
-          doRowOutputs(writers, Seq(jsonRegisterReport(rrf, txns).pretty(printer)))
+          doRowOutputs(writers, Seq(jsonRegisterReport(md, rrf, txns).pretty(printer)))
         }
       }
     })

@@ -21,6 +21,8 @@ import fi.e257.tackler.core.Settings
 class BalanceSettings(settings: Settings, myTitle: Option[String], myAccounts: Option[List[String]])
   extends ReportConfiguration {
 
+  val hash = settings.Auditing.hash
+
   override val minScale = settings.Reports.Balance.minScale
   override val maxScale = settings.Reports.Balance.maxScale
 

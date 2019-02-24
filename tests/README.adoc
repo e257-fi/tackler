@@ -1,5 +1,13 @@
-= DirSuite test directory
+= DirSuite test directory for Tackler
 
-WARNING: test output files are deleted before each test run under this directory tree. 
-See `dirsuite.conf` for used glob-pattern.
+WARNING: Inside this directory tree, test output files are +
+deleted automatically before each test run. +
+Glob-pattern used for deletion is defined in link:./dirsuite.conf[`dirsuite.conf`]
+
+
+See link:./tests.adoc[Tackler Test Tracking Database (T3DB)] 
+for general information about these tests.
+
+General information about Dirsuite can be found
+link:https://gitlab.com/e257/testing/dirsuite/blob/master/README.adoc[here].
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import io.circe.java8.time.decodeZonedDateTime
 import io.circe.java8.time.encodeZonedDateTime
 
 sealed trait TxnFilter {
-  def text(indent: String): String = indent
+  def text(indent: String): Seq[String]
 }
 object TxnFilter {
   @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
@@ -46,10 +46,11 @@ object TxnFilter {
  * @param txnFilter
  */
 final case class TxnFilterDefinition(txnFilter: TxnFilter) {
-  def text(indent: String): String = {
+  def text(indent: String): Seq[String] = {
     val myIndent = indent + "  "
-    indent + "Filter:" + "\n" +
-      txnFilter.text(myIndent) + "\n"
+
+    Seq(indent + "Filter:") ++
+      txnFilter.text(myIndent)
   }
 }
 object TxnFilterDefinition {
@@ -63,12 +64,16 @@ object TxnFilterDefinition {
 /**
  * Deselects all transactions.
  */
-final class TxnFilterNone() extends TxnFilter
+final case class TxnFilterNone() extends TxnFilter {
+  override def text(indent: String): Seq[String] = Seq(indent + "None pass")
+}
 
 /**
  * Selects all transactions.
  */
-final class TxnFilterAll() extends TxnFilter
+final case class TxnFilterAll() extends TxnFilter {
+  override def text(indent: String): Seq[String] = Seq(indent + "All pass")
+}
 
 
 sealed trait TxnFilters extends TxnFilter {
@@ -77,9 +82,9 @@ sealed trait TxnFilters extends TxnFilter {
 
   require(txnFilters.size > 1, "There must be at least two TxnFilters")
 
-  override def text(indent: String): String = {
+  override def text(indent: String): Seq[String] = {
     val myIndent = indent + "  "
-    indent +  opTxt + "\n" + txnFilters.map(f => f.text(myIndent)).mkString("\n")
+    Seq(indent +  opTxt) ++ txnFilters.flatMap(f => f.text(myIndent))
   }
 }
 
@@ -108,9 +113,9 @@ sealed case class TxnFilterOR(txnFilters: Seq[TxnFilter]) extends TxnFilters {
  * @param txnFilter which will be negated.
  */
 sealed case class TxnFilterNOT(txnFilter: TxnFilter) extends TxnFilter {
-  override def text(indent: String): String = {
+  override def text(indent: String): Seq[String] = {
     val myIndent = indent + "  "
-    indent + "NOT\n" + txnFilter.text(myIndent)
+    Seq(indent + "NOT") ++ txnFilter.text(myIndent)
   }
 
 }
@@ -119,8 +124,8 @@ sealed abstract class TxnFilterTxnTS(ts: ZonedDateTime) extends TxnFilter {
   // Circe with java8 time: https://github.com/circe/circe/issues/378
   val opTxt: String
 
-  override def text(indent: String): String = {
-    indent +  "Txn TS: " + opTxt + " " + TxnTS.isoZonedTS(ts)
+  override def text(indent: String): Seq[String] = {
+    Seq(indent +  "Txn TS: " + opTxt + " " + TxnTS.isoZonedTS(ts))
   }
 }
 
@@ -149,8 +154,8 @@ sealed abstract class TxnFilterRegex(regex: String) extends TxnFilter {
 
   val target: String
 
-  override def text(indent: String): String = {
-    indent +  target + ": " + "\"" + s"${regex}" + "\""
+  override def text(indent: String): Seq[String] = {
+    Seq(indent +  target + ": " + "\"" + s"${regex}" + "\"")
   }
 }
 /**
@@ -190,8 +195,8 @@ final case class TxnFilterTxnCode(regex: String) extends TxnFilterRegex(regex) {
  */
 final case class TxnFilterTxnUUID(uuid: UUID) extends TxnFilter {
 
-  override def text(indent: String): String = {
-    indent +  "Txn UUID: " + uuid.toString
+  override def text(indent: String): Seq[String] = {
+    Seq(indent +  "Txn UUID: " + uuid.toString)
   }
 }
 
@@ -241,11 +246,13 @@ final case class TxnFilterPostingComment(regex: String) extends TxnFilterRegex(r
 sealed abstract class TxnFilterPosting(regex: String, amount: BigDecimal) extends TxnFilterRegex(regex) {
   val opTxt: String
 
-  override def text(indent: String): String = {
+  override def text(indent: String): Seq[String] = {
     val myIndent = indent + "  "
-    indent +  target + "\n" +
-      myIndent + "account: " + "\"" + s"${regex}" + "\"" +"\n" +
-      myIndent + "amount " + opTxt + " " + amount.toString
+
+    Seq(
+      indent + target,
+      myIndent + "account: " + "\"" + s"${regex}" + "\"",
+      myIndent + "amount " + opTxt + " " + amount.toString)
   }
 }
 

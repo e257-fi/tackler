@@ -125,7 +125,7 @@ final case class Reports(settings: Settings) {
     } { outputPath =>
       using(Files.newOutputStream(Paths.get(outputPath.toString + "." + name + ".txn")))(ostream => {
         val strm: Writer = new BufferedWriter(new OutputStreamWriter(ostream, "UTF-8"))
-        exporter.writeExport(strm, txnData.txns)
+        exporter.writeExport(strm, txnData)
       })
     }
   }

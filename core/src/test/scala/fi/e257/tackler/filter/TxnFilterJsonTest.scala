@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,6 +117,20 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
       |              }
       |            }
       |          }
+      |        },
+      |        {
+      |          "TxnFilterAll" : {
+      |""".stripMargin +
+      "            " + // protect against stupid end-of-line white-space stripping
+    """
+      |          }
+      |        },
+      |        {
+      |          "TxnFilterNone" : {
+      |""".stripMargin +
+      "            " + // protect against stupid end-of-line white-space stripping
+    """
+      |          }
       |        }
       |      ]
       |    }
@@ -149,6 +163,9 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
       |      Posting Comment: "posting.comment"
       |    NOT
       |      Txn Description: "not-me-not"
+      |    All pass
+      |    None pass
+      |
       |""".stripMargin
 
   val tt = new TacklerTxns(Settings())
@@ -200,7 +217,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
     it("decode from JSON and then encode to text") {
       val txnFilterRoot = decode[TxnFilterDefinition](filterJsonStr)
 
-      assert(filterTextStr === txnFilterRoot.right.get.text(""))
+      assert(filterTextStr === txnFilterRoot.right.get.text("").mkString("", "\n", "\n\n"))
     }
 
     /**
@@ -292,7 +309,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
   }
 
   describe("Encode Filter and it's metadata") {
-    val txnData = TxnData(None, Seq.empty)
+    val txnData = TxnData(None, Seq.empty, None)
 
     val txnFilter = TxnFilterDefinition(
       TxnFilterAND(List[TxnFilter](
@@ -315,7 +332,9 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
         )),
         TxnFilterNOT(
           TxnFilterTxnDescription("not-me-not")
-        )
+        ),
+        TxnFilterAll(),
+        TxnFilterNone()
       ))
     )
 
@@ -330,7 +349,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
      * test: f3213817-fe0c-4bec-b6be-b3396bad8114
      */
     it("encode filter to TEXT") {
-      assert(filterTextStr === txnFilter.text(""))
+      assert(filterTextStr === txnFilter.text("").mkString("", "\n", "\n\n"))
     }
 
     /**
@@ -339,9 +358,9 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
     it("encode metadata as JSON") {
       val metadataJson =
         """{
-          |  "metadataItems" : [
+          |  "items" : [
           |    {
-          |      "TxnFilterMetadata" : {
+          |      "TxnFilterDescription" : {
           |        "txnFilterDef" : {
           |          "txnFilter" : {
           |            "TxnFilterAND" : {
@@ -428,6 +447,20 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
           |                        "regex" : "not-me-not"
           |                      }
           |                    }
+          |                  }
+          |                },
+          |                {
+          |                  "TxnFilterAll" : {
+          |""".stripMargin +
+          "                    " + // protect against stupid end-of-line white-space stripping
+        """
+          |                  }
+          |                },
+          |                {
+          |                  "TxnFilterNone" : {
+          |""".stripMargin +
+          "                    " + // protect against stupid end-of-line white-space stripping
+        """
           |                  }
           |                }
           |              ]

@@ -158,6 +158,25 @@ class DirsuiteCommodityTest extends DirSuiteLike {
   }
 }
 
+/**
+ * Audit
+ */
+class DirsuiteAuditTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
+  runDirSuiteTestCases(basedir, Glob("audit/ex/TacklerException-*.exec")) { args: Array[String] =>
+    assertThrows[TacklerException] {
+      TacklerCli.runExceptions(args)
+    }
+  }
+
+  runDirSuiteTestCases(basedir, Glob("audit/ok/*.exec")) { args: Array[String] =>
+    assertResult(TacklerCli.SUCCESS) {
+      TacklerCli.runReturnValue(args)
+    }
+  }
+}
+
 
 /**
  * Core
@@ -173,12 +192,6 @@ class DirsuiteCoreTest extends DirSuiteLike {
 
   runDirSuiteTestCases(basedir, Glob("core/ex/NoSuchFileException-*.exec")) { args: Array[String] =>
     assertThrows[NoSuchFileException] {
-      TacklerCli.runExceptions(args)
-    }
-  }
-
-  runDirSuiteTestCases(basedir, Glob("core/ex/TacklerParseException-*.exec")) { args: Array[String] =>
-    assertThrows[TacklerParseException] {
       TacklerCli.runExceptions(args)
     }
   }

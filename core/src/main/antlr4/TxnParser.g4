@@ -38,11 +38,9 @@ description: ' ' text;
 
 text: ~(NL)*?;
 
-txn_meta: indent ';' ':' txn_meta_key ':' ' ' text NL;
+txn_meta: indent ';' ':' txn_meta_uuid NL;
 
-// own uuid rule
-txn_meta_key: UUID;
-
+txn_meta_uuid: UUID_NAME ':' sp UUID_VALUE opt_sp;
 
 txn_comment: indent comment NL;
 

@@ -1,6 +1,6 @@
-= TEP-1002: Git backend
+= TEP-1002: Git Storage Backend
 
-Add git as backend for transaction data store.
+Add git as backend for transaction data storage.
 
 
 == Journal file format
@@ -200,3 +200,9 @@ features:
       parent: uuid
       subject: "one-line description"
 ....
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].

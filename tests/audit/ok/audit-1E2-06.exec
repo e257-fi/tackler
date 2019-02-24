@@ -1,0 +1,5 @@
+# format: exec
+# test:uuid: 224709cb-c96c-47f5-83e1-6e94c333e5c6
+# desc: check validity equity with metadata
+exec:--cfg;tests/audit/audit.conf;--reporting.console;off;--input.git.ref;txns-1E2;--output;out.audit-1E2-06-step1;--reporting.accounts;.*;--api-filter-def;{ "txnFilter": { "TxnFilterTxnDescription": { "regex": "1E2 txn-(1|17|100)" }}};--reporting.reports;balance;--reporting.exports;equity;
+exec:--cfg;tests/audit/fs-non-audit.conf;--reporting.console;off;--output;out.audit-1E2-06-step2;--input.file;out.audit-1E2-06-step1.equity.txn;

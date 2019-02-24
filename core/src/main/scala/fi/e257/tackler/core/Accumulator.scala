@@ -16,18 +16,20 @@
  */
 package fi.e257.tackler.core
 
-import scala.collection.mutable
-
 import fi.e257.tackler.model._
+
+import scala.collection.mutable
 
 object Accumulator {
 
-  def balanceGroups(txns: TxnData, groupOp: (Transaction) => String, balanceFilter: Filtering[BalanceTreeNode]): Seq[Balance] = {
+  def balanceGroups(txns: TxnData, groupOp: (Transaction) => String, balanceFilter: BalanceAccountSelector): Seq[Balance] = {
     txns.txns
       .groupBy(groupOp).toSeq
       .sortBy(_._1)
       .par.map({case (groupBy, balGrpTxns) =>
-        Balance(groupBy, TxnData(None, balGrpTxns), balanceFilter)
+        // This is single balance inside balance group,
+        // so there should be no audit or txn-set-checksum for that sub-group of txns
+        Balance(groupBy, TxnData(None, balGrpTxns, None), balanceFilter)
       })
       .filter(bal => !bal.isEmpty)
       .seq

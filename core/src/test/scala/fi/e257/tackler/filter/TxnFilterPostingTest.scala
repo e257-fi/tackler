@@ -92,6 +92,18 @@ class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
   }
 
   /**
+   * test: f85867a5-ebfd-4eb8-89c5-4a12b3b09109
+   */
+  it must "filter by account name with nonsensical starting whitespace" in {
+    val txnFilter = TxnFilterPostingAccount(" *e:abc.*")
+
+    val txnData = txnsAll.filter(TxnFilterDefinition(txnFilter))
+
+    assert(txnData.txns.size === 1)
+    assert(checkUUID(txnData, uuidTxn05))
+  }
+
+  /**
    * test: 0c1dcffe-152d-4959-89bb-2c48677ad171
    */
   it must "filter by posting comments" in {

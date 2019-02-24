@@ -50,12 +50,12 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
     header ++ body ++ addFooter(footer)
   }
 
-  protected def getBalanceGroups(txnData: TxnData): Seq[Balance] = {
+  protected def getBalanceGroups(txnData: TxnData): (Option[Metadata], Seq[Balance]) = {
 
     val balanceFilter = if (mySettings.accounts.isEmpty) {
-      AllBalanceAccounts
+      new AllBalanceAccounts(mySettings.hash)
     } else {
-      new BalanceFilterByAccount(mySettings.accounts)
+      new BalanceFilterByAccount(mySettings.accounts, mySettings.hash)
     }
 
     val groupOp = mySettings.groupBy match {
@@ -76,7 +76,8 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
       }
     }
 
-    Accumulator.balanceGroups(txnData, groupOp, balanceFilter)
+    (txnData.getMetadata(balanceFilter),
+      Accumulator.balanceGroups(txnData, groupOp, balanceFilter))
   }
 
   protected def jsonBalanceGroupReport(metadata: Option[Metadata], balGrps: Seq[Balance]): Json = {
@@ -89,7 +90,7 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
   override
   def jsonReport(txnData: TxnData): Json = {
     val balGrps = getBalanceGroups(txnData)
-    jsonBalanceGroupReport(txnData.metadata, balGrps)
+    jsonBalanceGroupReport(balGrps._1, balGrps._2)
   }
 
   override
@@ -100,10 +101,10 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
     formats.foreach({case (format, writers) =>
       format match {
         case TextFormat() =>
-          doRowOutputs(writers, txtBalanceGroupReport(txnData.metadata, balGrps))
+          doRowOutputs(writers, txtBalanceGroupReport(balGrps._1, balGrps._2))
 
         case JsonFormat() => {
-          doRowOutputs(writers, Seq(jsonBalanceGroupReport(txnData.metadata, balGrps).pretty(printer)))
+          doRowOutputs(writers, Seq(jsonBalanceGroupReport(balGrps._1, balGrps._2).pretty(printer)))
         }
       }
     })

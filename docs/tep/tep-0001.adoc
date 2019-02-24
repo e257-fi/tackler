@@ -159,6 +159,11 @@ Is there need to run or create new perf tests?
 
 * [ ] perf test
 
+=== Feature and Test case tracking
+
+link:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
+
+
 === Metadata template for test coverage tracking
 
 ....
@@ -190,3 +195,9 @@ features:
                 - ref: identity
                 - ref: equity
 ....
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].

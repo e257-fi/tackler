@@ -268,6 +268,11 @@ features:
               descriptions:
                 - desc: "filter by txn description"
           - test:
+              id: 503bbb2b-a964-495c-98da-ba4409b41c84
+              name: TxnFilterHeaderTest
+              descriptions:
+                - desc: "filter by txn description with whitespace regex at begin"
+          - test:
               id: 54c746cf-916f-4c24-8e53-d4306917a200
               name: TxnFilterHeaderTest
               descriptions:
@@ -304,6 +309,11 @@ features:
               name: TxnFilterPostingTest
               descriptions:
                 - desc: "filter by posting account name with wildcard at end "
+          - test:
+              id: f85867a5-ebfd-4eb8-89c5-4a12b3b09109
+              name: TxnFilterPostingTest
+              descriptions:
+                - desc: "filter by account name with nonsensical starting whitespace"
           - test:
               id: 0c1dcffe-152d-4959-89bb-2c48677ad171
               name: TxnFilterPostingTest

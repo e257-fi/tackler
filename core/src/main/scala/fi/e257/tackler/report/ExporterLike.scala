@@ -16,9 +16,9 @@
  */
 package fi.e257.tackler.report
 
-import fi.e257.tackler.model.Txns
+import fi.e257.tackler.model.TxnData
 
 trait ExporterLike extends OutputLike {
 
-  def writeExport(writer: Writer, txns: Txns): Unit
+  def writeExport(writer: Writer, txnData: TxnData): Unit
 }
