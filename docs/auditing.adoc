@@ -9,7 +9,6 @@ These features are:
  * Validation of accounts
  * Validation of commodities
  * Proof of used reporting parameters
- * Examples of reports with audit metadata
  * Tackler's test setup
 
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
@@ -77,7 +76,22 @@ See `auditing` in link:./tackler.conf[tackler.conf], link:./docs/tep/tep-1007.ad
 and link:#examples[examples] section for further information.
 
 
-=== Examples of reports with audit metadata
+=== Tackler's test setup
+
+Tackler and it's test setup are open source, so it's possible to do external audit of code base, tests or both.
+
+Tackler's code base is tested very extensively.  This includes near perfect test coverage and logical
+features permutation coverage.  Tackler is also tested with very large transaction sets (up to one million 
+transactions) to detect any anomalies with larger data sets.  Tackler's unit tests includes test cases 
+up to one hundred thousand transactions.
+
+For further info, see:
+
+ * link:../tests/tests.adoc[Tackler Test Tracking Database (T3DB)]
+ * link:../perf/results/readme.adoc[Performance Test Results]
+
+
+== Examples of reports with audit metadata
 [[examples]]
 
 Below are links to test reports with audit metadata:
@@ -93,22 +107,6 @@ Same information is available with JSON format for Server and Client API:
 * link:../tests/audit/ok/audit-1E2-04.ref.bal.json[Balance JSON report with audit metadata]
 * link:../tests/audit/ok/audit-1E2-04.ref.balgrp.json[Balange-group JSON report with audit metadata]
 * link:../tests/audit/ok/audit-1E2-04.ref.reg.json[Register JSON report with audit metadata]
-
-
-== Tackler's test setup
-
-Tackler's code base is tested very extensively. This includes near perfect test coverage and logical
-features permutation coverage. Tackler and it's test setup are open source, so it's possible to do
-external audit of code base, tests or both.
-
-Tackler is also tested with very large transaction sets (up to one million transactions) to detect any anomalies with
-larger data sets. Tackler's unit tests includes test cases up to one hundred thousand transactions.
-
-For further info, see:
-
- * image:https://gitlab.com/e257/accounting/tackler/badges/master/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
- * link:../tests/tests.adoc[Tackler Test Tracking Database (T3DB)]
- * link:../perf/results/readme.adoc[Performance Test Results]
 
 
 '''
