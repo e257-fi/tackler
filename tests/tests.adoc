@@ -18,6 +18,9 @@ Tackler performance test setup and actual results described in link:../perf/read
 
 == T3DB files
 
+image:https://gitlab.com/e257/accounting/tackler/badges/master/build.svg["Build status", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
+image:https://gitlab.com/e257/accounting/tackler/badges/master/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
+
 T3DB consist of following files:
 
 * link:./tests.yml[Main T3DB]
@@ -38,3 +41,9 @@ T3DB uses YAML format for describing features, test cases and links between thos
 T3DB schema is defined in following file:
 
 * link:./tests-schema.yml[Schema for T3DB (YAML is the worst schema language in the world)]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

@@ -24,3 +24,9 @@ None at the moment
 === TEPs in planning phase
 
 * link:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].

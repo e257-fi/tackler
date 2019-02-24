@@ -85,6 +85,7 @@ Total processing time: 1284, parse: 464, reporting: 80
 Default embedded configuration will try to find transaction data (files with `.txn` suffix)
 on `txns`-directory next to the jar-file.
 
+
 === Minimal Chart of Accounts
 
 Minimal Chart of Accounts for above demo setup could be something like:
@@ -116,6 +117,7 @@ of Chart of Accounts and commodity listing.
 
 
 == Recommend layout
+[[layout]]
 
 By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
 You can also provide path to configuration file with `--cfg` option.
@@ -164,6 +166,7 @@ and it will just work.
 
 There are more examples how to use tackler in link:./usage.adoc[Usage Guide].
 
+
 == Configuration
 
 Please see link:./configuration.adoc[Configuration Manual] for information about how to tailor and configure system.
@@ -198,3 +201,9 @@ Chart of Accounts and list of valid commodities.
 
 Chart of accounts is defined either as part of main configuration or
 as separate configuration file. See link:./accounts.conf[accounts.conf] for example configuration.
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

@@ -52,4 +52,10 @@ Mixed commodities must be converted to common commodity with value positions:
 
 For example see an accounting example for scuba diving
 link:trimix-filling-station.adoc[Trimix Filling and Mixing Station]. It demonstrates how to track different
-commodities and how to convert those commodities to monetary values,
+commodities and how to convert those commodities to monetary values.
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

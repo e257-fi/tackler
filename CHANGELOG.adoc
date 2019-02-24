@@ -12,16 +12,44 @@ Current published release is:
 
 New features and changes in this release are:
 
+ * Support Account Auditing, see:
+ ** link:./docs/auditing.adoc[Accounting Auditing and Asssurance]
+ ** link:./docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+ ** link:./docs/tackler.conf[tackler.conf]
+ * New or changed MetadataItems:
+ ** New item: `TxnSetChecksum`
+ ** New item: `AccountSelectorChecksum`
+ ** New fields: `GitInputReference`
+ *** Fields: `input.git.dir` and `input.git.suffix`
+ ** Renamed `TxnFilterMetadata` -> `TxnFilterDescription`
  * Add CLI option for: `input.git.dir`.
- * Add values of `input.git.dir` and `input.git.suffix` to the Medadata
  * Reformat balance report for better clarity
  * Base64 ascii armor for Txn Filters defined by `--api-filter-def` CLI option
  ** See link:./docs/usage.adoc[Usage Guide] and Txn Filters
- * Scala-ARM has been replaced with better-files resource mgmt functionality
+ * Scala-ARM has been removed and replaced with functionality from better-files
+
+Generator:
+
+ * Versions v0.4.0 and v0.4.1
+ * Add uuid to test corpus transactions
+ * Add 1E1 and 1E2 test sets
+ * Update build and deps
+
 
 ==== Fixes
 
-None
+Reject invalid UUIDs which were permitted in the past. These are certain 
+way invalid and malformed UUIDs, which are accepted by JDK.
+
+This could change old valid journal to invalid, if journal contains 
+these special way invalid UUIDs. 
+
+See following openjdk bugs for details:
+
+ * https://bugs.openjdk.java.net/browse/JDK-8159339
+ * https://bugs.openjdk.java.net/browse/JDK-8165199
+ * https://bugs.openjdk.java.net/browse/JDK-8216407
+
 
 
 ==== Development

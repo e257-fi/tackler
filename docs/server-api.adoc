@@ -92,3 +92,9 @@ link:../core/src/test/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala[core
 
 Complete test cases for Report API are located here:
 link:../core/src/test/scala/fi/e257/tackler/report/ReportApiTest.scala[core -> test -> report -> ReportApiTest]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].

@@ -33,3 +33,9 @@ exchange rate. For example:
    Time:End   -1493636400 s ; 2017-05-01T14:00:00+03:00
    Accumulator  ; 7200 s
 ....
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../../LICENSE[License].

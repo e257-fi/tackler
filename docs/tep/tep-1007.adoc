@@ -3,13 +3,19 @@
 Txn set checksum and report account selector checksum are verification and auditing tools to ensure
 that generated reports are using correct and known inputs.
 
-Tackler supports hash functions provided by Java platform, most notably `SHA-256` ... `SHA-512` algorithms on Java 8,
-and `SHA3-256` ... `SHA3-512` on Java 11+.
+See link:../auditing.adoc[Accounting Auditing and Asssurance] document for general description of this feature,
+and example reports listed below:
 
-See `MessageDigest` on:
 
-* link:https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest[JDK 8: MessageDigest]
-* link:https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-3A80CC46-91E1-4E47-AC51-CB7B782CEA7D[JDK 11: JDK Providers Documentation (SUN) -> MessageDigest]
+* Reports with audit metadata
+** link:../../tests/audit/ok/audit-1E2-04.ref.bal.txt[Balance report with audit metadata]
+** link:../../tests/audit/ok/audit-1E2-04.ref.balgrp.txt[Balange-group report with audit metadata]
+** link:../../tests/audit/ok/audit-1E2-04.ref.reg.txt[Register report with audit metadata]
+** link:../../tests/audit/ok/audit-1E2-04.ref.equity.txn[Equity export with audit metadata]
+* Reports in JSON format for Server and Client API
+** link:../../tests/audit/ok/audit-1E2-04.ref.bal.json[Balance JSON report with audit metadata]
+** link:../../tests/audit/ok/audit-1E2-04.ref.balgrp.json[Balange-group JSON report with audit metadata]
+** link:../../tests/audit/ok/audit-1E2-04.ref.reg.json[Register JSON report with audit metadata]
 
 
 == Transaction set checksum
@@ -93,6 +99,15 @@ Following changes are needed
 ** [x] Hard error if UUID is missing  during txn set checksum calculation +
        This is either internal error or logic error within usage of link:../server-api.adoc[Server API]
 * [x] calculate txn set checksum
+* [x] calculate account selector checksum
+
+Tackler supports hash functions provided by Java platform, most notably `SHA-256` ... `SHA-512` algorithms on Java 8,
+and `SHA3-256` ... `SHA3-512` on Java 11+.
+
+See `MessageDigest` on:
+
+* link:https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest[JDK 8: MessageDigest]
+* link:https://docs.oracle.com/en/java/javase/11/security/oracle-providers.html#GUID-3A80CC46-91E1-4E47-AC51-CB7B782CEA7D[JDK 11: JDK Providers Documentation (SUN) -> MessageDigest]
 
 
 
@@ -225,22 +240,22 @@ Changes to identity export
 == Documentation
 
 * [x] link:./readme.adoc[]: Update TEP index
-* [ ] link:../../README.adoc[]: is it a new noteworthy feature?
-* [ ] link:../../CHANGELOG[]: add new item
+* [x] link:../../README.adoc[]: is it a new noteworthy feature?
+* [x] link:../../CHANGELOG[]: add new item
 * [x] Does it warrant own T3DB file?
 ** [x] update link:../../tests/tests.adoc[]
 ** [x] update link:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file link:../../tests/tests-1007.yml[]
-* [ ] User docs
-** [ ] user manual
+* [x] User docs
+** [x] user manual
 ** [x] tackler.conf
-*** [ ] `hash`
-*** [ ] `txn-set-checksum`
-** [ ] examples
-* [ ] Developer docs
-** [ ] API changes
-*** [ ] Server API changes
-*** [ ] Client API changes
+*** [x] `hash`
+*** [x] `txn-set-checksum`
+** [x] examples
+* [x] Developer docs
+** [x] API changes
+*** [x] Server API changes
+*** [x] Client API changes
 
 
 == Future plans and Postponed (PP) features
@@ -332,3 +347,9 @@ Add new perf test target for txn set checksum
 === Feature and Test case tracking
 
 link:../../tests/tests-1007.yml[TEP-1007 T3DB]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].
