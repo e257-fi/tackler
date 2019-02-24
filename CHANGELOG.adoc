@@ -16,10 +16,11 @@ New features and changes in this release are:
  ** link:./docs/auditing.adoc[Accounting Auditing and Asssurance]
  ** link:./docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
  ** link:./docs/tackler.conf[tackler.conf]
- * New or changed MetadataItems:
+ * New or changed Metadata:
+ ** Renamed Metadata's `metadataItems` to `items`
  ** New item: `TxnSetChecksum`
  ** New item: `AccountSelectorChecksum`
- ** New fields: `GitInputReference`
+ ** New fields in `GitInputReference`
  *** Fields: `input.git.dir` and `input.git.suffix`
  ** Renamed `TxnFilterMetadata` -> `TxnFilterDescription`
  * Add CLI option for: `input.git.dir`.

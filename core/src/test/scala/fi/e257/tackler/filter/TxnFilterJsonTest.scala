@@ -358,7 +358,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
     it("encode metadata as JSON") {
       val metadataJson =
         """{
-          |  "metadataItems" : [
+          |  "items" : [
           |    {
           |      "TxnFilterDescription" : {
           |        "txnFilterDef" : {

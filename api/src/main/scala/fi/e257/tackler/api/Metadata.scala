@@ -31,10 +31,11 @@ object MetadataItem {
   implicit val encodeMetadataItem: Encoder[MetadataItem] = deriveEncoder[MetadataItem]
 }
 
-final case class Metadata(metadataItems: Seq[MetadataItem]) {
+
+final case class Metadata(items: Seq[MetadataItem]) {
 
   def mkString(start: String, sep: String, end: String): String = {
-    metadataItems.flatMap(_.text() ++ Seq("")).mkString(start, sep, end)
+    items.flatMap(_.text() ++ Seq("")).mkString(start, sep, end)
   }
 
   def text(): String = {
@@ -42,7 +43,7 @@ final case class Metadata(metadataItems: Seq[MetadataItem]) {
   }
 
   def ++(mdis: Seq[MetadataItem]): Metadata = {
-    Metadata(metadataItems ++ mdis)
+    Metadata(items ++ mdis)
   }
 }
 object Metadata {
@@ -61,6 +62,7 @@ object Checksum {
   implicit val encodeHash: Encoder[Checksum] = deriveEncoder[Checksum]
 }
 
+
 /**
  * Txn Set Checksum metadata item
  *
@@ -75,15 +77,6 @@ final case class TxnSetChecksum(size: Int, hash: Checksum) extends MetadataItem 
       "  " + "Set size: %d".format(size)
     )
   }
-}
-
-
-object TxnSetChecksum {
-  @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
-  implicit val decodeTxnSetChecksumMetadata: Decoder[TxnSetChecksum] = deriveDecoder[TxnSetChecksum]
-
-  @SuppressWarnings(Array("org.wartremover.warts.Nothing"))
-  implicit val encodeTxnSetChecksumMetadata: Encoder[TxnSetChecksum] = deriveEncoder[TxnSetChecksum]
 }
 
 
@@ -115,6 +108,7 @@ final case class TxnFilterDescription(txnFilterDef: TxnFilterDefinition) extends
  * Trait for txn input related metadata items.
  */
 sealed trait InputMetadataItem extends MetadataItem
+
 
 /**
  * Reference information for Git txn input

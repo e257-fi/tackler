@@ -1,6 +1,6 @@
 {
   "metadata" : {
-    "metadataItems" : [
+    "items" : [
       {
         "TxnSetChecksum" : {
           "size" : 10,

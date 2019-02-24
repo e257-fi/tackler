@@ -49,7 +49,7 @@ class TacklerTxnsGitTest extends FunSpec{
       val tt = new TacklerTxns(settings)
       val txns = tt.git2Txns(TacklerTxns.gitReference("txns-1E3"))
 
-      txns.metadata.get.metadataItems.head match {
+      txns.metadata.get.items.head match {
         case gitmd: GitInputReference => assert(gitmd.commit === "6fd9d4d31910d9960470413823ec0b96dc2e70ac")
         case _ => assert(false)
       }
@@ -64,7 +64,7 @@ class TacklerTxnsGitTest extends FunSpec{
       val tt = new TacklerTxns(settings)
       val txns = tt.git2Txns(TacklerTxns.gitReference("txns-1E5"))
 
-      txns.metadata.get.metadataItems.head match {
+      txns.metadata.get.items.head match {
         case gitmd: GitInputReference => assert(gitmd.commit === "75ad8168da60b23541f7c2eb29c2ab4a8293ed8c")
         case _ => assert(false)
       }
@@ -84,7 +84,7 @@ class TacklerTxnsGitTest extends FunSpec{
         val tt = new TacklerTxns(settings)
         val txns = tt.git2Txns(TacklerTxns.gitReference("txns-1E3"))
 
-        txns.metadata.get.metadataItems.head match {
+        txns.metadata.get.items.head match {
           case gitmd: GitInputReference => assert(gitmd.commit === "6fd9d4d31910d9960470413823ec0b96dc2e70ac")
           case _ => assert(false)
         }

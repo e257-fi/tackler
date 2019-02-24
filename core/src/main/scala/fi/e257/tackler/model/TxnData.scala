@@ -61,7 +61,7 @@ class TxnData private (val metadata: Option[Metadata], val txns: Txns, val algor
   def getTxnSetChecksum(): Option[Checksum] = {
 
     metadata.fold[Option[Checksum]](None)(md =>
-      md.metadataItems.flatMap(_ match {
+      md.items.flatMap(_ match {
         case tsc: TxnSetChecksum => Seq[Checksum](tsc.hash)
         case _ => Seq.empty[Checksum]
       }).headOption
@@ -91,7 +91,7 @@ class TxnData private (val metadata: Option[Metadata], val txns: Txns, val algor
     }).toList
 
     val noTSC: Seq[MetadataItem] = metadata.fold(Seq.empty[MetadataItem])(md => {
-      md.metadataItems.filter {
+      md.items.filter {
         case _: TxnSetChecksum => false
         case _ => true
       }
