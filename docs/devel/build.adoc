@@ -1,25 +1,36 @@
 = Building Tackler
 
+
 Tackler build is done by link:http://www.scala-sbt.org/[sbt].
 
 
 == Building and testing
 
- sbt clean test
-
+----
+LC_ALL=C.UTF-8 sbt clean test
+----
 
 === Running tests
 
 Some of the tests generate lots of output,
-especially `cli/test` (test `fi.e257.tackler.cli.TacklerCliTest`).
+especially `cli/test` (and especially `fi.e257.tackler.cli.Dirsuite*` tests).
 It might be helpful to run tests selectively, especially in case of errors:
 
 Start `sbt` and run on sbt shell:
+
 ....
 > apiJVM/test
 > core/test
-> cli/test
 ....
+
+For cli tests you could run all at once (`cli/test`), or step-by-step. Last test target, 
+Dirsuite-tests will generate supstantial amount of output.
+
+----
+> cli/testOnly fi.e257.tackler.cli.BuildInfoTest
+> cli/testOnly fi.e257.tackler.cli.TacklerCli*
+> cli/testOnly fi.e257.tackler.cli.Dirsuite*
+----
 
 
 == Generating binaries
