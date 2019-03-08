@@ -8,14 +8,15 @@ To use tackler cli you will need
   * Tackler command line binary (`tackler-cli.jar`-file)
 
 
+== Minimal setup
 
-Default embedded configuration will try to find transaction data (files with `.txn` suffix)
-on `txns`-directory next to the jar-file.
+For minimal initial installation you should follow xref:/docs/[Quickstart Guide].
 
 
-== Minimal Chart of Accounts
+=== Minimal setup with account name validation (Chart of Accounts)
 
-Minimal Chart of Accounts for above demo setup could be something like:
+To enable account name validation for minimal quickstart setup, there have to be Chart of Accounts, 
+which defines all used account names:
 
 ----
 cat >> accounts.conf << EOF
@@ -49,7 +50,7 @@ of Chart of Accounts and commodity listing.
 By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
 You can also provide path to configuration file with `--cfg` option.
 
-More sensible setup would be:
+Recommended layout and setup would be:
 
 ....
 ./bin/tackler-cli.jar
@@ -61,7 +62,10 @@ More sensible setup would be:
 ...
 ....
 
-Where `YYYY` and `MM` stand for time based data shard with year and month slides.
+Where `YYYY` and `MM` stand for time based data shard with year and month slides. It's up to individual 
+setup which is the best way to shard data, if any. Transactions can be selected either based on 
+shards, or by using filters. See xref:./filters.adoc[Transaction Filters] for information how to select
+different sets of transactions.
 
 With this setup, configuration file xref:./tackler-conf.adoc[tackler.conf] is located next to the jar-file,
 so configuration is auto-discovered.  Chart of Accounts (xref:./accounts-conf.adoc[accounts.conf]) contains
