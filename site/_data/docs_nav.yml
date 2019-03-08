@@ -1,0 +1,42 @@
+- title: Getting Started
+  docs:
+    - link: /docs/
+    - link: /docs/installation/
+    - link: /docs/usage/
+    - link: /docs/journal/format/
+
+- title: Reports and Exports
+  docs:
+    - link: /docs/report-balance/
+    - link: /docs/report-balance-group/
+    - link: /docs/report-register/
+    - link: /docs/export-equity/
+    - link: /docs/export-identity/
+
+- title: Documentation
+  docs:
+    - link: /docs/configuration/
+    - link: /docs/tackler-conf/
+    - link: /docs/accounts-conf/
+    - link: /docs/journal/
+    - link: /docs/journal/git-storage/
+    - link: /docs/txn-filters/
+    - link: /docs/commodities/
+    - link: /docs/currencies/
+    - link: /docs/auditing/
+    - link: /docs/reliability/
+    - link: /docs/performance/
+    - link: /docs/changelog/
+    - link: /docs/credits/
+    - link: /docs/licenses/
+
+- title: Examples
+  docs:
+    - link: /docs/examples/trimix-filling-station/
+
+- title: Embedding Tackler
+  docs:
+    - link: /docs/server-api/
+    - link: /docs/client-api/
+    - link: /docs/json/
+

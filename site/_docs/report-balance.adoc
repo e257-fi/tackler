@@ -1,0 +1,78 @@
+= Balance report
+
+Balance report is sum of selected accounts and sub-accounts.
+
+
+== Format
+
+First (the leftmost) sum is sum of postings which are directly debiting or crediting 
+that account (account tree node). If there are no such transactions,  then this first sum is zero.
+
+Second sum is recursive balance sum for that account tree (account and all its sub-accounts).
+
+The sum reported under line is balance delta, e.g. value difference of reported accounts.
+
+[NOTE]
+Balance delta is based and calculated only by values reported on the first column.
+
+
+== Balance report configuration
+
+See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance.*` for full
+information of balance report configuration options.
+
+
+=== Account filtering
+
+Accounts for Balance report can be filtered with global
+`reporting.accounts` (conf+cli) or report specific `reports.balance.accounts`
+setting (conf-only).
+
+
+
+== Example report
+
+
+Below are links to example balance reports with full auditing metadata.
+
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.bal.txt/[Balange report with audit metadata]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.bal.json/[Balange JSON report with audit metadata]
+
+
+=== Example output of balance report
+
+
+----
+BALANCE
+-------
+                 1.00    333.00  a
+                 0.00    332.00  a:a1
+                 0.00    332.00  a:a1:a2
+                27.40    327.40  a:a1:a2:b
+               300.00    300.00  a:a1:a2:b:c
+                 4.60      4.60  a:a1:a2:c
+                 0.00   -333.00  e
+              -322.00   -322.00  e:e0101
+                -2.00     -2.00  e:e0102
+                -9.00     -9.00  e:e0103
+=====================
+                 0.00
+----
+
+=== Example report with commodities
+
+Below is example balance report with mixed commodities.
+
+....
+BALANCE
+-------
+                 0.00           3.00 ACME  Assets
+                 3.00           3.00 ACME  Assets:Stocks
+                 0.00        -359.75 EUR   Assets
+              -359.75        -359.75 EUR   Assets:Cash
+==========================
+                 3.00 ACME
+              -359.75 EUR
+....
+
+

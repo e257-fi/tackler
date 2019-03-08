@@ -13,7 +13,8 @@ Current published release is:
 
 New features and changes in this release are:
 
- * ...
+ * All documentation is moved on Tackler's web site: https://tackler.e257.fi/
+
 
 ==== Fixes
 
@@ -34,9 +35,9 @@ Updated deps and tools:
 New features and changes in this release are:
 
  * Support Account Auditing, see:
- ** link:./docs/auditing.adoc[Accounting Auditing and Asssurance]
- ** link:./docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
- ** link:./docs/tackler.conf[tackler.conf]
+ ** xref:./docs/auditing.adoc[Accounting Auditing and Asssurance]
+ ** xref:./docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+ ** xref:./docs/tackler.conf[tackler.conf]
  * New or changed Metadata:
  ** Renamed Metadata's `metadataItems` to `items`
  ** New item: `TxnSetChecksum`
@@ -47,7 +48,7 @@ New features and changes in this release are:
  * Add CLI option for: `input.git.dir`.
  * Reformat balance report for better clarity
  * Base64 ascii armor for Txn Filters defined by `--api-filter-def` CLI option
- ** See link:./docs/usage.adoc[Usage Guide] and Txn Filters
+ ** See xref:./docs/usage.adoc[Usage Guide] and Txn Filters
  * Scala-ARM has been removed and replaced with functionality from better-files
 
 Generator:
@@ -93,7 +94,7 @@ Updated deps and tools:
 New features in this release are:
 
 * Strict validation of commodities and currencies. This is turned on by default,
-  if `accounts.strict = true`.  See link:./docs/accounts.conf[accounts.conf]
+  if `accounts.strict = true`.  See xref:./docs/accounts.conf[accounts.conf]
   for how to configure this.
 * Improve error messages in case of parse and logic errors (filename, lines, etc.)
 * Reports
@@ -122,9 +123,9 @@ New features in this release are:
 
 * Configuration settings `reporting.scale` and `reports.<report>.scale`
   for report output scale. Defaults are not changed (min=2, max=7). See:
-** link:./docs/usage.adoc[Usage Guide]
-** link:./docs/tackler.conf[tackler.conf]
-** link:./docs/tep/tep-1006.adoc[TEP-1006: Configuration settings for report output scale]
+** xref:./docs/usage.adoc[Usage Guide]
+** xref:./docs/tackler.conf[tackler.conf]
+** xref:./docs/tep/tep-1006.adoc[TEP-1006: Configuration settings for report output scale]
 
 
 ==== Fixes
@@ -165,15 +166,15 @@ Updated deps and tools:
 === 0.10.0
 
 New features of this release are
-link:./docs/txn-filters.adoc[transaction filters]
-and updated link:./tools/generator/[generator].
+xref:./docs/txn-filters.adoc[transaction filters]
+and updated xref:./tools/generator/[generator].
 
 * Transaction filters:
-** link:./docs/txn-filters.adoc[Txn filter overview]
-** link:./docs/server-api.adoc[Server API for filters]
-** link:./docs/client-api.adoc[Client API and data model for filters]
-** link:./docs/tep/tep-1005.adoc[TEP-1005: Txn Filters]
-* Transaction test data link:./tools/generator/[generator]:
+** xref:./docs/txn-filters.adoc[Txn filter overview]
+** xref:./docs/server-api.adoc[Server API for filters]
+** xref:./docs/client-api.adoc[Client API and data model for filters]
+** xref:./docs/tep/tep-1005.adoc[TEP-1005: Txn Filters]
+* Transaction test data xref:./tools/generator/[generator]:
 ** new version: 0.3.0
 ** Txn generator creates txn `code` and `description` fields
   to support perf testing of Txn Filters.
@@ -210,7 +211,7 @@ Updated deps and tools:
 
 === 0.9.0
 
- * New link:./docs/client-api.adoc[client API] (`tackler-api`) library of  data models (JVM and JS environments).
+ * New xref:./docs/client-api.adoc[client API] (`tackler-api`) library of  data models (JVM and JS environments).
  ** Publish JVM and JS version of `tackler-api.jar` on Maven Central Repository
  * Server API clean ups and enhancements (helper methods for Txns and report handling).
  * JSON cleanups and changes (see diff of `tests` with `ignore-whitespace`)
@@ -270,7 +271,7 @@ Updated deps and tools:
 === 0.7.0
 
  * JSON report format
- ** link:docs/tep/tep-1004.adoc[TEP-1004: JSON report output]
+ ** xref:docs/tep/tep-1004.adoc[TEP-1004: JSON report output]
  * Update build chain to sbt 1.0
 
 ==== Fixes
@@ -299,11 +300,11 @@ Build is updated to sbt 1.0.
 === 0.6.0
 
  * Support for Units and Commodities
- ** link:docs/commodities.adoc[Commodities]
- ** link:docs/currencies.adoc[Currencies]
- ** link:docs/tep/tep-1001.adoc[TEP-1001: Units and Commodities]
- ** link:docs/journal.adoc[Journal changes to support commodities]
- ** link:docs/trimix-filling-station.adoc[Example of accounting system for Trimix Gas Mixing Station]
+ ** xref:docs/commodities.adoc[Commodities]
+ ** xref:docs/currencies.adoc[Currencies]
+ ** xref:docs/tep/tep-1001.adoc[TEP-1001: Units and Commodities]
+ ** xref:docs/journal.adoc[Journal changes to support commodities]
+ ** xref:docs/trimix-filling-station.adoc[Example of accounting system for Trimix Gas Mixing Station]
 
 
 ==== Fixes
@@ -315,8 +316,8 @@ Build is updated to sbt 1.0.
 
  * First public release
  * Git storage support:
- ** link:docs/git-storage.adoc[Git Storage Manual]
- ** link:docs/tep/tep-1002.adoc[TEP-1002: Git Storage System]
+ ** xref:docs/git-storage.adoc[Git Storage Manual]
+ ** xref:docs/tep/tep-1002.adoc[TEP-1002: Git Storage System]
  * Rename configuration and CLI arg key `input.txn` to `input.fs`
  * Support link as target for top-level shard directory (`input.fs.dir`)
 

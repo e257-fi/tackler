@@ -31,18 +31,18 @@ Changes to machinery
 * [x] link:http://www.eclipse.org/jgit/[jgit]
 ** [x] Add and check licenses: link:http://git.eclipse.org/c/jgit/jgit.git/plain/LICENSE[EDL]
 ** [x] Is there NOTICE files? No
-** [x] Add license under link:../licenses[doc/licenses]
-** [x] Add link of license to link:../readme.adoc[index]
-** [x] Add link:../../THANKS.adoc[THANKS]
+** [x] Add license under xref:../licenses[doc/licenses]
+** [x] Add link of license to xref:../readme.adoc[index]
+** [x] Add xref:../../THANKS.adoc[THANKS]
 
 === Examples
 
 * [x] link:https://github.com/centic9/jgit-cookbook[jgit-cookbook]
 ** [x] Add and check licenses: link:https://github.com/centic9/jgit-cookbook/blob/master/LICENSE.md[Apache License 2.0]
 ** [x] Is there NOTICE files? No
-** [x] Add license under link:../licenses[doc/licenses]
-** [x] Add link of license to link:../readme.adoc[index]
-** [x] Add link:../../THANKS.adoc[THANKS]
+** [x] Add license under xref:../licenses[doc/licenses]
+** [x] Add link of license to xref:../readme.adoc[index]
+** [x] Add xref:../../THANKS.adoc[THANKS]
 
 
 === Future plans
@@ -204,5 +204,5 @@ features:
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

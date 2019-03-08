@@ -1,0 +1,132 @@
+= Installation Manual
+
+This is installation manual for tackler command line.
+
+To use tackler cli you will need
+
+  * Java Runtime Environment (Java 8 and Java 11 are tested regularly)
+  * Tackler command line binary (`tackler-cli.jar`-file)
+
+
+
+Default embedded configuration will try to find transaction data (files with `.txn` suffix)
+on `txns`-directory next to the jar-file.
+
+
+== Minimal Chart of Accounts
+
+Minimal Chart of Accounts for above demo setup could be something like:
+
+----
+cat >> accounts.conf << EOF
+accounts {
+
+  strict = true
+
+  permit-empty-commodity = true
+
+  coa = [
+    "Expenses:Ice_cream",
+    "Expenses:Lemonade",
+    "Assets:Cash"
+  ]
+}
+EOF
+----
+
+After that it's possible to run tackler with account name validation:
+
+ java -jar ./tackler-cli.jar
+
+If there is missing or mistyped account, that will cause an exception error.
+See xref:./accounts-conf.adoc[example of accounts.conf] for full documentation
+of Chart of Accounts and commodity listing.
+
+
+== Recommend layout
+[[layout]]
+
+By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
+You can also provide path to configuration file with `--cfg` option.
+
+More sensible setup would be:
+
+....
+./bin/tackler-cli.jar
+./bin/tackler.conf
+./bin/accounts.conf
+./txns/
+./txns/YYYY/MM/journal-01.txn
+./txns/YYYY/MM/journal-02.txn
+...
+....
+
+Where `YYYY` and `MM` stand for time based data shard with year and month slides.
+
+With this setup, configuration file xref:./tackler-conf.adoc[tackler.conf] is located next to the jar-file,
+so configuration is auto-discovered.  Chart of Accounts (xref:./accounts-conf.adoc[accounts.conf]) contains
+accounts and commodity names and it is possible to do strict account and commodity name validation.
+
+Minimal `tackler.conf` for above setup could be:
+
+....
+tackler {
+  core {
+    basedir = ../
+    input {
+      storage = fs
+      fs {
+        dir = "txns"
+        glob = "**.txn"
+      }
+    }
+    include "accounts.conf"
+  }
+}
+....
+
+With this setup, it is possible to run Tackler by:
+
+ java -jar ./bin/tackler-cli.jar
+
+and it will just work.
+
+There are more examples how to use tackler in xref:./usage.adoc[Usage Guide].
+
+
+== Configuration
+
+Please see xref:./configuration.adoc[Configuration Manual] for information about how to tailor and configure system.
+
+You can override some of the configuration varibles with CLI arguments.
+These configuration variables, and command line switches are documented
+in xref:./tackler-conf.adoc[tackler.conf].
+
+
+=== Chart of Accounts and commodities
+
+By default it is fatal error if there is an unknown account or commodity within
+transactions.  It's also fatal error if there is a posting without commodity
+and and `accounts.permit-empty-commodity` is `true`.
+
+This can be turned off with:
+
+    --accounts.strict=false
+
+but then there is no safety net against typos with account names.
+
+Postings with empty/missing commodities can be allowed with configuration setting:
+
+....
+accounts {
+   permit-empty-commodity = true
+}
+....
+
+With production systems, it is highly recommended to provide valid
+Chart of Accounts and list of valid commodities.
+
+Chart of accounts is defined either as part of main configuration or
+as separate configuration file. See xref:./accounts-conf.adoc[accounts.conf] for example configuration.
+
+

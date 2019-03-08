@@ -44,10 +44,10 @@ Changes to conf-settings
 *** [x] Argonaut: BSD-3: https://github.com/circe/circe/blob/master/LICENSE.argonaut
 *** [x] Ephox: BSD-3: https://github.com/circe/circe/blob/master/LICENSE.ephox
 ** [x] Is there NOTICE file(s)?: https://github.com/circe/circe/blob/master/NOTICE
-** [x] Add license under link:../licenses[doc/licenses]
-*** [x] Add NOTICES under link:../licenses[doc/licenses]
-** [x] Add link of license to link:../readme.adoc[index]
-** [x] Add link to link:../../THANKS.adoc[THANKS]
+** [x] Add license under xref:../licenses[doc/licenses]
+*** [x] Add NOTICES under xref:../licenses[doc/licenses]
+** [x] Add link of license to xref:../readme.adoc[index]
+** [x] Add link to xref:../../THANKS.adoc[THANKS]
 ** [x] Add license material to binary distribution
 
 
@@ -78,8 +78,8 @@ Changes to balance report
 
 ==== Examples
 
-* link:../../tests/commodity/ok/basic-03.ref.bal.json[Balance with commodities]
-* link:../../tests/core/ok/git-tag-01.ref.bal.json[Balance with Metadata]
+* xref:../../tests/commodity/ok/basic-03.ref.bal.json[Balance with commodities]
+* xref:../../tests/core/ok/git-tag-01.ref.bal.json[Balance with Metadata]
 
 
 === Balance Group report
@@ -95,8 +95,8 @@ Changes to balance group report
 
 ==== Examples
 
-* link:../../tests/commodity/ok/basic-03.ref.balgrp.json[Balance-group with Commodities]
-* link:../../tests/core/ok/git-tag-01.ref.balgrp.json[Balange-group with Metata]
+* xref:../../tests/commodity/ok/basic-03.ref.balgrp.json[Balance-group with Commodities]
+* xref:../../tests/core/ok/git-tag-01.ref.balgrp.json[Balange-group with Metata]
 
 === Register report
 
@@ -111,8 +111,8 @@ Changes to register report
 
 ==== Examples
 
-* link:../../tests/commodity/ok/basic-03.ref.reg.json[Register report with Commodities]
-* link:../../tests/core/ok/git-tag-01.ref.reg.json[Register report with Commodities]
+* xref:../../tests/commodity/ok/basic-03.ref.reg.json[Register report with Commodities]
+* xref:../../tests/core/ok/git-tag-01.ref.reg.json[Register report with Commodities]
 
 === Equity report
 
@@ -125,8 +125,8 @@ No JSON support with Identity (because it is export).
 
 == Documentation
 
-* [x] link:../../README.adoc[]: is it a new noteworthy feature?
-* [x] link:../../CHANGELOG[]: add new item
+* [x] xref:../../README.adoc[]: is it a new noteworthy feature?
+* [x] xref:../../CHANGELOG[]: add new item
 * [x] User docs
 ** [x] user manual
 *** [x] cli-arguments
@@ -159,8 +159,8 @@ Normal, ok-case tests to validate functionality:
 ** [x] data from git
 *** [x] based on ref
 *** [x] based on commitid
-*** [x] check link:./tep-1002.adoc[TEP-1002] for additional test cases
-* [x] check link:../journal.adoc[journal format] for additional test cases
+*** [x] check xref:./tep-1002.adoc[TEP-1002] for additional test cases
+* [x] check xref:../journal.adoc[journal format] for additional test cases
 
 * [x] tests/commodity/ok/basic-04.exec
 * [x] tests/commodity/ok/basic-06.exec
@@ -198,5 +198,5 @@ features:
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

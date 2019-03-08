@@ -1,0 +1,50 @@
+= Client API
+
+This document explains how to use Tackler API on JVM and JS environments.
+
+Tackler's client side api (`tackler-api`) has data models of reports which can be used on the client side.
+This api is provided for both  JVM and JS environments via ScalaJS.
+
+{gitlink}/api/src/main/scala/fi/e257/tackler/api/[Tackler API] data models:
+
+ * {gitlink}/api/src/main/scala/fi/e257/tackler/api/BalanceReport.scala[BalanceReport]
+ * {gitlink}/api/src/main/scala/fi/e257/tackler/api/BalanceGroupReport.scala[BalanceGroupReport]
+ * {gitlink}/api/src/main/scala/fi/e257/tackler/api/RegisterReport.scala[RegisterReport]
+ * {gitlink}/api/src/main/scala/fi/e257/tackler/api/Metadata.scala[Metadata]
+ * {gitlink}/api/src/main/scala/fi/e257/tackler/api/TxnHeader.scala[TxnHeader]
+ * {gitlink}/api/src/main/scala/fi/e257/tackler/api/TxnFilter.scala[TxnFilter]
+
+== JSON
+
+Client API provides JSON decoding via link:https://circe.github.io/circe/[Circe]:
+
+    val balReport: Either.RightProjection[DecodingFailure, BalanceReport] = jsonResult.as[BalanceReport].right
+
+
+There are tests utilizing de-serializing in
+{gitlink}/core/src/test/scala/fi/e257/tackler/report/ReportApiTest.scala[core -> test -> report -> ReportApiTest]
+
+
+== Transaction Filters
+
+There is an option to filter transactions based on attributes of single transaction.
+See xref:./txn-filters.adoc[Transaction Filters] for general information about these filters.
+
+Transaction filters data model is defined in
+{gitlink}/api/src/main/scala/fi/e257/tackler/api/TxnFilter.scala[api -> TxnFilter], and it is available for JVM and JS environments.
+See xref:./txn-filters.adoc[Transaction Filters] document for full list of
+available filters.
+
+There are several examples of how to define complex transaction filters in the test suite:
+{gitlink}/core/src/test/scala/fi/e257/tackler/filter[core -> tests -> filter]
+
+
+== tackler-api
+
+Dependency settings for SBT are:
+
+    libraryDependencies += "fi.e257" %%% "tackler-api"  % "version-number"
+
+This is released on Maven Central Repository.
+
+

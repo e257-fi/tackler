@@ -21,7 +21,7 @@
 
 === Units and Commodities 
 
-Units and commodities: link:../docs/tep/tep-1001.adoc[TEP-1001]
+Units and commodities: xref:../docs/tep/tep-1001.adoc[TEP-1001]
 
  * [ ] conversions between units
 
@@ -31,7 +31,7 @@ Units and commodities: link:../docs/tep/tep-1001.adoc[TEP-1001]
 
 === GIT
 
-Git Storage: link:../docs/tep/tep-1002.adoc[TEP-1002]
+Git Storage: xref:../docs/tep/tep-1002.adoc[TEP-1002]
 
  * Far-Far-Away
  ** [ ] Ketch
@@ -41,7 +41,7 @@ Git Storage: link:../docs/tep/tep-1002.adoc[TEP-1002]
 
 === Equity report
 
-Equity report: link:../docs/tep/tep-1000.adoc[TEP-1000]
+Equity report: xref:../docs/tep/tep-1000.adoc[TEP-1000]
 
  * [ ] special input handling for equity (input-path by conf)
 

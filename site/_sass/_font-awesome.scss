@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src:  url('/fonts/FontAwesome.eot?ri2xfu');
+  src:  url('/fonts/FontAwesome.eot?ri2xfu#iefix') format('embedded-opentype'),
+    url('/fonts/FontAwesome.ttf?ri2xfu') format('truetype'),
+    url('/fonts/FontAwesome.woff?ri2xfu') format('woff'),
+    url('/fonts/FontAwesome.svg?ri2xfu#FontAwesome') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fa {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'FontAwesome' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-bulb:before {
+  content: "\e901";
+}
+.fa-lamp:before {
+  content: "\e901";
+}
+.fa-idea:before {
+  content: "\e901";
+}
+.fa-git:before {
+  content: "\eae7";
+}
+.fa-twitter:before {
+  content: "\ea96";
+}
+.icon-warning:before {
+  content: "\ea07";
+}
+.fa-warning:before {
+  content: "\ea07";
+}
+.icon-note:before {
+  content: "\ea08";
+}
+.fa-notification:before {
+  content: "\ea08";
+}
+.fa-check:before {
+  content: "\e900";
+}
+.fa-chain:before {
+  content: "\f0c1";
+}
+.fa-link:before {
+  content: "\f0c1";
+}

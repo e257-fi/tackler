@@ -1,0 +1,56 @@
+---
+version: 0.23.0
+url: https://tackler.e257.fi/
+baseurl: /
+repository: https://gitlab.com/e257/accounting/tackler
+
+collections:
+  docs:
+    permalink: "/:collection/:path/"
+    output: true
+  posts:
+    permalink: "/news/:year/:month/:day/:title/"
+    output: true
+  tutorials:
+    output: true
+
+defaults:
+- scope:
+    path: _docs
+    type: docs
+  values:
+    layout: docs
+- scope:
+    path: _posts
+    type: posts
+  values:
+    layout: news_item
+    image: "/img/tackler.png"
+
+asciidoc: {}
+
+asciidoctor:
+  base_dir: /
+  safe: unsafe
+  attributes:
+    - gitlink=link:https://gitlab.com/e257/accounting/tackler/blob/master
+    - repolink=link:/repo
+    - relfileprefix=../
+    - outfilesuffix=/
+    - idseparator=_
+    - source-highlighter=coderay
+    - icons=font
+
+
+#- page-layout=docs
+exclude:
+- .gitignore
+- .jekyll-cache
+- Gemfile
+- Gemfile.lock
+- bin
+- vendor
+- icomoon-selection.json
+- readme.*
+- todo.*
+

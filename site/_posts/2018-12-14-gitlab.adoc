@@ -1,0 +1,7 @@
+= Tackler goes to Gitlab
+:page-category: site
+:page-date: 2018-12-14 12:00:00 +0200
+:page-author: 35vlg84
+
+Tackler is now hosted on link:https://gitlab.com/e257/accounting/tackler[gitlab.com] 
+under groupId fi.e257.

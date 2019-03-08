@@ -1,0 +1,11 @@
+= Tackler 0.20.0 released
+:page-date: 2018-12-15 12:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.20.0
+:page-category: release
+
+
+This is same as Tackler v0.10.0. The difference is that code is
+hosted at link:https://gitlab.com/e257/accounting/tackler/[gitlab.com] and moved under new groupId.
+
+

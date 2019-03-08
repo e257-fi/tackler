@@ -1,0 +1,30 @@
+= Journal
+:page-permalink: /docs/journal/
+
+
+Tackler supports journals on plain filesystem and on git repository.
+
+
+== Git storage
+
+Tackler has native, integrated support for Git. This means that journal data 
+is read directly from git and for that reason all Git's reference notations
+are supported: branches, tags, symbolic version selectors and 
+plain commit ids.
+
+This also means that State of Journal is extremely well defined
+and reported  when Git storage is used.
+There won't be any fuzz if working copy was in clean state or not, 
+because used journal is always in committed state.
+Tackler also includes used commit id  into reports.
+
+For full details and examples, 
+see xref:./journal/git-storage.adoc[Git Storage Manual]
+and xref:./auditing.adoc[Accounting Auditing], 
+
+
+== Filesystem storage
+
+Journal is read directly from filesystem storage as plain file or set of files, 
+when filesystem storage is used. See xref:./installation.adoc[Installation Manual] 
+for further info.

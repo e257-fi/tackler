@@ -13,7 +13,7 @@ by that particular test case.
 
 == Performance testing
 
-Tackler performance test setup and actual results described in link:../perf/readme.adoc[Tackler performance test setup] document.
+Tackler performance test setup and actual results described in xref:../perf/readme.adoc[Tackler performance test setup] document.
 
 
 == T3DB files
@@ -23,15 +23,15 @@ image:https://gitlab.com/e257/accounting/tackler/badges/master/coverage.svg["Cov
 
 T3DB consist of following files:
 
-* link:./tests.yml[Main T3DB]
-* link:./tests-1001.yml[T3DB for TEP-1001]
-* link:./tests-1002.yml[T3DB for TEP-1002]
-* link:./tests-1004.yml[T3DB for TEP-1004]
-* link:./tests-1005.yml[T3DB for TEP-1005]
-* link:./tests-1006.yml[T3DB for TEP-1006]
-* link:./tests-1006.yml[T3DB for TEP-1007]
+* xref:./tests.yml[Main T3DB]
+* xref:./tests-1001.yml[T3DB for TEP-1001]
+* xref:./tests-1002.yml[T3DB for TEP-1002]
+* xref:./tests-1004.yml[T3DB for TEP-1004]
+* xref:./tests-1005.yml[T3DB for TEP-1005]
+* xref:./tests-1006.yml[T3DB for TEP-1006]
+* xref:./tests-1006.yml[T3DB for TEP-1007]
 
-link:./tests-tmpl.yml[Template for T3DB entry]
+xref:./tests-tmpl.yml[Template for T3DB entry]
 
 
 === T3DB format
@@ -40,10 +40,10 @@ T3DB uses YAML format for describing features, test cases and links between thos
 
 T3DB schema is defined in following file:
 
-* link:./tests-schema.yml[Schema for T3DB (YAML is the worst schema language in the world)]
+* xref:./tests-schema.yml[Schema for T3DB (YAML is the worst schema language in the world)]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../LICENSE[License].
+See the xref:../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../LICENSE[License].

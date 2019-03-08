@@ -1,0 +1,40 @@
+= Reliability
+
+[quote]
+____
+Simplicity is prerequisite for reliability +
+as reliability is for integrity +
+when integrity is the essence of trust.
+____
+
+
+== Testing
+
+All tackler's features must be tested, and overell test coverage 
+should be almost perfect.  Tackler is tested with functional and 
+logical test sets to ensure that all logical code paths are covered.
+
+At the moment, Tackler test coverage is better than *99.7%*.
+
+Tackler has *84* tracked features. For those 84 features, tackler has 
+over *270* test cases, tackler-cli is executed over *140* times by test setup, 
+and results are verified by over *380* reference reports. 
+
+Accounting Journal with size of *one hundred thousand* (1E5) transactions 
+is used for *unit* testing
+(see: {gitlink}/core/src/test/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala[TacklerTxnsGitTest]),
+and Tackler is stress and performance tested with up to *one million* (1E6) 
+transactions test sets. See xref:./performance.adoc[Performance Overview]
+for details.
+
+
+=== Tackler Test Tracking Database
+
+{gitlink}/tests/tests.adoc[Tackler Test Tracking Database (T3DB)] tracks features
+and tests for those features. T3DB is used to ensure that all features 
+and error paths for those features are tested, that test setup has as little as 
+possible of overlapping tests and prevent  duplicate test cases.
+
+T3DB also provides reverse mapping from a test case back to the feature,
+which is validated by that test case.
+

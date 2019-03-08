@@ -1,0 +1,47 @@
+= Tackler 0.23.0 released
+:page-date: 2019-02-24 12:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.23.0
+:page-category: release
+
+
+
+
+== New features and changes in this release are:
+
+ * Support Account Auditing, see:
+ ** link:/docs/auditing/[Accounting Auditing and Asssurance]
+ ** link:/docs/tackler-conf/[tackler.conf]
+ ** {gitlink}/docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+ * Add CLI option for: `input.git.dir`.
+ * Reformat balance report for better clarity
+ * Base64 ascii armor for Txn Filters defined by `--api-filter-def` CLI option
+ ** See link:/docs/usage[Usage Guide] and Txn Filters
+
+
+{gitlink}/tools/generator[Generator]:
+
+ * Versions v0.4.0 and v0.4.1
+ * Add uuid to test corpus transactions
+ * Add 1E1 and 1E2 test sets
+ * Update build and deps
+
+
+== Fixes
+
+Reject invalid UUIDs which were permitted in the past. There are certain 
+way invalid and malformed UUIDs, which are accepted by JDK.
+
+This could change old valid journal to invalid, if journal contains 
+these specially way invalid UUIDs. 
+
+See following openjdk bugs for details:
+
+ * https://bugs.openjdk.java.net/browse/JDK-8159339
+ * https://bugs.openjdk.java.net/browse/JDK-8165199
+ * https://bugs.openjdk.java.net/browse/JDK-8216407
+
+
+== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]

@@ -3,19 +3,19 @@
 Txn set checksum and report account selector checksum are verification and auditing tools to ensure
 that generated reports are using correct and known inputs.
 
-See link:../auditing.adoc[Accounting Auditing and Asssurance] document for general description of this feature,
+See xref:../auditing.adoc[Accounting Auditing and Asssurance] document for general description of this feature,
 and example reports listed below:
 
 
 * Reports with audit metadata
-** link:../../tests/audit/ok/audit-1E2-04.ref.bal.txt[Balance report with audit metadata]
-** link:../../tests/audit/ok/audit-1E2-04.ref.balgrp.txt[Balange-group report with audit metadata]
-** link:../../tests/audit/ok/audit-1E2-04.ref.reg.txt[Register report with audit metadata]
-** link:../../tests/audit/ok/audit-1E2-04.ref.equity.txn[Equity export with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.bal.txt[Balance report with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.balgrp.txt[Balange-group report with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.reg.txt[Register report with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.equity.txn[Equity export with audit metadata]
 * Reports in JSON format for Server and Client API
-** link:../../tests/audit/ok/audit-1E2-04.ref.bal.json[Balance JSON report with audit metadata]
-** link:../../tests/audit/ok/audit-1E2-04.ref.balgrp.json[Balange-group JSON report with audit metadata]
-** link:../../tests/audit/ok/audit-1E2-04.ref.reg.json[Register JSON report with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.bal.json[Balance JSON report with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.balgrp.json[Balange-group JSON report with audit metadata]
+** xref:../../tests/audit/ok/audit-1E2-04.ref.reg.json[Register JSON report with audit metadata]
 
 
 == Transaction set checksum
@@ -25,7 +25,7 @@ and proof of presence of transactions which are used to do accounting calculatio
 
 Txn set checksum is based on UUID of Txn, and it is hash function's result of those UUIDs.
 Hash is calculated so that it is possible to verify it easily with external tools.
-See link:../journal.adoc[Journal Format] and description of Transaction metadata.
+See xref:../journal.adoc[Journal Format] and description of Transaction metadata.
 
 Txn set checksum is calculated based on following algorithm:
 
@@ -34,7 +34,7 @@ Txn set checksum is calculated based on following algorithm:
   with single newline (`'\n'`, ASCII `0x0A`) character.
 * Resulting hash function hash is Txn Set Checksum
 
-See link:../../contrib[contrib] for example script (link:../../contrib/txn-set-checksum.sh[txn-set-checksum.sh])
+See xref:../../contrib[contrib] for example script (xref:../../contrib/txn-set-checksum.sh[txn-set-checksum.sh])
 how to calculate that with standard UNIX command line tools.
 
 
@@ -44,12 +44,12 @@ Each transaction must have unique UUID. Presence of UUID and uniqueness are enfo
 
 Txn set checksum verifies that same set of transactions (UUIDs) is used for calculations,
 but it does *not* verify actual content of used transactions.  If and when content verification is needed,
-then link:../git-storage.adoc[Tackler's git storage backend] could be used for that.  In that case,
+then xref:../git-storage.adoc[Tackler's git storage backend] could be used for that.  In that case,
 content verification is done by combining reported git's `commit id` and `txn set checksum`.
 Together `commit id` and `txn set checksum` creates tamper proof verification of used transaction data.
 
 To re-verify previous tackler report, it is possible to use git commit id (from old report) as an input reference.
-See link:../usage.doc[Usage Guide] and link:../git-storage.doc[Git Storage Guide] for further info.
+See xref:../usage.doc[Usage Guide] and xref:../git-storage.doc[Git Storage Guide] for further info.
 
 
 == Report account selector checksum
@@ -87,7 +87,7 @@ New configuration group for `core`:
 ** [x] boolean: `txn-set-checksum`
 
 If `txn-set-checksum` is true, then all transactions must have valid `:uuid:`-metadata field.
-See link:../journal.adoc[Journal Format] for further info.
+See xref:../journal.adoc[Journal Format] for further info.
 
 
 == Machinery
@@ -97,7 +97,7 @@ Following changes are needed
 * [x] enforce uuid
 ** [x] Verify presence of UUID at parse time
 ** [x] Hard error if UUID is missing  during txn set checksum calculation +
-       This is either internal error or logic error within usage of link:../server-api.adoc[Server API]
+       This is either internal error or logic error within usage of xref:../server-api.adoc[Server API]
 * [x] calculate txn set checksum
 * [x] calculate account selector checksum
 
@@ -239,13 +239,13 @@ Changes to identity export
 
 == Documentation
 
-* [x] link:./readme.adoc[]: Update TEP index
-* [x] link:../../README.adoc[]: is it a new noteworthy feature?
-* [x] link:../../CHANGELOG[]: add new item
+* [x] xref:./readme.adoc[]: Update TEP index
+* [x] xref:../../README.adoc[]: is it a new noteworthy feature?
+* [x] xref:../../CHANGELOG[]: add new item
 * [x] Does it warrant own T3DB file?
-** [x] update link:../../tests/tests.adoc[]
-** [x] update link:../../tests/check-tests.sh[]
-** [x] Add new T3DB file link:../../tests/tests-1007.yml[]
+** [x] update xref:../../tests/tests.adoc[]
+** [x] update xref:../../tests/check-tests.sh[]
+** [x] Add new T3DB file xref:../../tests/tests-1007.yml[]
 * [x] User docs
 ** [x] user manual
 ** [x] tackler.conf
@@ -346,10 +346,10 @@ Add new perf test target for txn set checksum
 
 === Feature and Test case tracking
 
-link:../../tests/tests-1007.yml[TEP-1007 T3DB]
+xref:../../tests/tests-1007.yml[TEP-1007 T3DB]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

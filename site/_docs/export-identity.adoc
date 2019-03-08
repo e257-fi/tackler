@@ -1,0 +1,26 @@
+= Identity export
+
+Identity export produces output of input transactions as they are interpreted by Tackler.
+
+This export is valid input for Tackler, so it can be used for example archiving purposes.
+
+== Transaction ordering
+
+By Tackler's design constraints input order of transactions is not important, and it does not mandate
+transactions processing order.
+
+Transactions are sorted by using transaction's properties in following order to find correct sort order.
+
+ timestamp, code, description, uuid
+
+Tackler supports timestamps up to nanosecond resolution, so timestamp could be used to produce stable 
+natural sorting order if transaction producers have syncronized time available
+and nanosecond resolution is sufficient.
+
+If all available transactions properties used for ordering are same between several transaction, 
+then transaction ordering is undefined. 
+
+[WARNING]
+Transactions must have UUIDs, if fully deterministic, stable
+and "distributed transaction producers"-safe transaction ordering is needed.
+

@@ -1,13 +1,13 @@
 = Subfeatures of Units and Commodities
 
-List of subfeatures of link:../tep-1001.adoc[Units and Commodities]
+List of subfeatures of xref:../tep-1001.adoc[Units and Commodities]
 
-* link:units.adoc[Units]
-* link:commodities.adoc[Commodities]
-* link:tests.adoc[Units]
+* xref:units.adoc[Units]
+* xref:commodities.adoc[Commodities]
+* xref:tests.adoc[Units]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../../LICENSE[License].
+See the xref:../../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../../LICENSE[License].

@@ -1,0 +1,101 @@
+= Register report
+
+Register report is report with running total of transactions for selected accounts.
+
+
+== Format
+
+On the left side of report, first column is posting amount for account on that transaction.
+
+Second column on the left side is running total of that account for selected transactions.
+
+== Transaction ordering
+
+By Tackler's design constraints input order of transactions is not important, and it does not mandate
+transactions processing order.
+
+Transactions are sorted by using transaction's properties in following order to find correct sort order.
+
+ timestamp, code, description, uuid
+
+Tackler supports timestamps up to nanosecond resolution, so timestamp could be used to produce stable 
+natural sorting order if transaction producers have syncronized time available
+and nanosecond resolution is sufficient.
+
+If all available transactions properties used for ordering are same between several transaction, 
+then transaction ordering is undefined. 
+
+[WARNING]
+Transactions must have UUIDs, if fully deterministic, stable
+and "distributed transaction producers"-safe transaction ordering is needed.
+
+Currently register report prints each transaction's time with date resolution, but actual value of 
+timestamp is used for determining sort order.
+
+In future there will be an option to select desired output time resolution for register report.
+
+
+
+== Register report configuration
+
+See xref:./tackler-conf.adoc[tackler.conf] and `reports.register.*` for full
+information of register report configuration options.
+
+=== Account filtering
+
+Accounts for Register report can be filtered with global
+`reporting.accounts` (conf+cli) or report specific `reports.register.accounts`
+setting (conf-only).
+
+If there are no accounts matched with selected regexs with some transaction,
+then that transaction is not is not printed / outputted at all.
+
+
+== Example reports
+
+Below are links to example register reports with full auditing metadata.
+
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.txt/[Register report with audit metadata]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register JSON report with audit metadata]
+
+
+=== Example output of register report
+
+----
+REGISTER
+--------
+2017-01-01Z y 01
+            a:b                                           20.00              20.00
+            e:e0101                                      -20.00             -20.00
+----------------------------------------------------------------------------------
+2017-01-01Z z 01
+            a:b                                            1.00              21.00
+            e:e0101                                       -1.00             -21.00
+----------------------------------------------------------------------------------
+2017-01-01Z x 01
+            a:b:c                                        300.00             300.00
+            e:e0101                                     -300.00            -321.00
+----------------------------------------------------------------------------------
+2017-01-02Z 02
+            a:b                                            2.00              23.00
+            e:e0102                                       -2.00              -2.00
+----------------------------------------------------------------------------------
+2017-01-03Z (#001) 03
+            a:b                                            2.10              25.10
+            e:e0103                                       -2.10              -2.10
+----------------------------------------------------------------------------------
+2017-01-03Z (#002) 03
+            a:c                                            2.20               2.20
+            e:e0103                                       -2.20              -4.30
+----------------------------------------------------------------------------------
+2017-01-03Z (#003) 03
+            a:b                                            2.30              27.40
+            e:e0103                                       -2.30              -6.60
+----------------------------------------------------------------------------------
+2017-01-03Z (#004) 03
+            a:c                                            2.40               4.60
+            e:e0103                                       -2.40              -9.00
+----------------------------------------------------------------------------------
+----
+
+

@@ -1,0 +1,29 @@
+= Tackler 0.22.0 released
+:page-date: 2019-01-28 12:00:00 -0200
+:page-author: 35vlg84
+:page-version: 0.22.0
+:page-category: release
+
+
+
+== New features in this release are:
+
+* Strict validation of commodities and currencies. This is turned on by default,
+  if `accounts.strict = true`.  See link:/docs/accounts-conf/[accounts.conf]
+  for how to configure this.
+* Improve error messages in case of parse and logic errors (filename, lines, etc.)
+* Reports
+** Register report: Add separator between txn entries
+
+
+== Fixes
+
+Force UTF-8 always on console, regardless of console settings.
+This is needed for Windows/MinGW/MSYS2.
+
+
+
+
+== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]

@@ -1,0 +1,131 @@
+= Accounts.conf
+
+accounts.conf contains Chart of Accounts (CoA) for Tackler,
+and other accounts and commodities related settings.
+
+File format is 
+link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
+(Human-Optimized Config Object Notation)
+
+----
+# Accounts and commodity related settings
+accounts {
+
+  # Strict account and commodity name validation
+  #
+  # If set true, then Tackler will process only accounts
+  # which are listed on Chart of Accounts (accounts.coa).
+  # It is fatal error if account is not listed in CoA,
+  # and strict is same time set to be true.
+  #
+  # Same applies for commodities (see below).
+  #
+  # Valid values are (boolean): true, false
+  #
+  # CLI: --accounts.strict
+  strict = true
+
+  # Permit empty or missing units and commodities
+  #
+  # Default is false, which means that all postings
+  # must have commodity or unit. To allow posting without
+  # commodity, set this true.
+  #
+  # Valid values are (boolean): true, false
+  permit-empty-commodity = true
+
+  # Chart of Accounts
+  #
+  # This is a list of known account names.
+  #
+  # Names must be quoted ("name")
+  # and they are comma separated.
+  #
+  # Account names have following form:
+  #
+  # Name must start with character,
+  # and after that there could be
+  # '_', '-', '·', characters and numbers.
+  #
+  # Characters can be a wide range of
+  # international UTF-8 characters.
+  #
+  # Sub-accounts must be separated with ':'.
+  #
+  # Or in other words:
+  #    name
+  #       = accounts
+  #    accounts
+  #       = account
+  #       | account ':' accounts
+  #    account
+  #       = NameStartChar (NameChar)*
+  #    NameStartChar
+  #       = 'A'..'Z' | 'a'..'z'
+  #       | '\u00C0'..'\u00D6'
+  #       | '\u00D8'..'\u00F6'
+  #       | '\u00F8'..'\u02FF'
+  #       | '\u0370'..'\u037D'
+  #       | '\u037F'..'\u1FFF'
+  #       | '\u200C'..'\u200D'
+  #       | '\u2070'..'\u218F'
+  #       | '\u2C00'..'\u2FEF'
+  #       | '\u3001'..'\uD7FF'
+  #       | '\uF900'..'\uFDCF'
+  #       | '\uFDF0'..'\uFFFD'
+  #    NameChar
+  #       = NameStartChar
+  #       | '0'..'9'
+  #       | '-'
+  #       | '_'
+  #       | '\u00B7'
+  #       | '\u0300'..'\u036F'
+  #       | '\u203F'..'\u2040'
+  #
+  # Example Chart of Accounts (coa):
+  coa = [
+    "Income",
+    "Income:Lottery",
+    "Expenses",
+    "Expenses:ice_cream",
+    "Expenses:jäätelö",
+    "Expenses:jäätelö:mansikka-vadelma",
+    "Expenses:crème·glacée",
+    "Expenses:мороженое",
+    "Expenses:アイスクリーム",
+    "Expenses:風:空",
+    "Assets",
+    "Assets:Banks:Acme_Inc",
+    "Assets:Cash",
+    "Liabilities",
+    "Equity"
+  ]
+
+  # List of commodities
+  #
+  # This is list of known commodities
+  #
+  # Commodity names have same restrictions
+  # as single account name element:
+  #
+  # Name must start with character,
+  # and after that there could be
+  # '_', '-', '·', characters and numbers.
+  #
+  # Characters can be a wide range of
+  # international UTF-8 characters.
+  #
+  # Or in other words:
+  #    commodity
+  #       = NameStartChar (NameChar)*
+  #
+  # Example list of commodities:
+  commodities = [
+    "EUR",
+    "USD",
+    "He·bar",
+    "O2·bar"
+  ]
+}
+----
+

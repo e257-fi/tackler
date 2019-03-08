@@ -10,18 +10,18 @@ link:https://github.com/antlr/antlr4/releases/tag/4.7[Major changes of ANTLR 4.7
 include full 21-bit unicode support and deprecated `ANTLRFileStream et.al.`
 These changes had no visible impact on Tackler's performance:
 
- * link:./hw01/perf-1E3-antlr-4.7.txt[]
- * link:./hw01/perf-1E6-antlr-4.7.txt[]
+ * xref:./hw01/perf-1E3-antlr-4.7.txt[]
+ * xref:./hw01/perf-1E6-antlr-4.7.txt[]
 
 === ANTLR 4.6
 
 Initially used version
 
- * link:./hw01/perf-1E3-antlr-4.6.txt[]
- * link:./hw01/perf-1E6-antlr-4.6.txt[]
+ * xref:./hw01/perf-1E3-antlr-4.6.txt[]
+ * xref:./hw01/perf-1E6-antlr-4.6.txt[]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

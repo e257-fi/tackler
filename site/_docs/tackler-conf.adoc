@@ -1,0 +1,317 @@
+= Tackler.conf
+
+Full reference of Tackler configuration. All settings have defaults 
+values, and only those which would be overridden should be defined.
+
+File format is HOCON
+link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
+(Human-Optimized Config Object Notation)
+
+"CLI:" will show command line interface option for config option if there is one
+
+----
+tackler {
+  core {
+
+    # Default time zone
+    #
+    # Timezone is used if Txn timestamp does not have zone info.
+    #
+    # Format is either zone's offset or ZoneID (IANA Time Zone Database),
+    # for example: "Z", "GMT", "UTC", "+02:00", "Europe/Helsinki"
+    #
+    # If timezone is offset, then timestamp is not adjusted based on
+    # daylight saving time.
+    #
+    # If timezone is zone name, then it is adjusted according
+    # the DST rules for that zone.
+    #
+    # timezone = "+02:00"
+    #    2016-01-01T00:00:00 => 2016-01-01T00:00:00+02:00
+    #    2016-06-25T00:00:00 => 2016-06-25T00:00:00+02:00
+    #
+    # timezone = "Europe/Helsinki"
+    #    2016-01-01T00:00:00 => 2016-01-01T00:00:00+02:00
+    #    2016-06-25T00:00:00 => 2016-06-25T00:00:00+03:00
+    timezone = "Z"
+
+
+    # Base directory path
+    #
+    # This is as basepath for all relavite paths in this conf-file.
+    # Basedir itself could be relative to the location of this conf-file
+    #
+    # CLI: --basedir
+    basedir = ../
+
+    # Settings related to auditing
+    auditing {
+
+      # Hash algorithm
+      #
+      # Name of used hash algorithm (JDK Sun Provider MessageDigest):
+      #
+      #   JDK-8:  MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
+      #
+      #   JDK-11: MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
+      #           SHA-512/224, SHA-512/256
+      #           SHA3-224, SHA3-256, SHA3-384, SHA3-512
+      #
+      # Valid values (string): "JDK algorithm name"
+      hash = "SHA-256"
+
+      # Txn set checksum
+      #
+      # Should Tackler calculate transaction set checksum?
+      #
+      # If this is set on, then all transaction must have valid unique UUID.
+      # Presence and uniqueness of UUIDs is enforced.
+      #
+      # Valid values (boolean): on | off
+      txn-set-checksum = off
+    }
+
+    # Input section
+    #
+    # Settings related for txn-journal storage system
+    input {
+
+      # type of used storage system
+      #
+      # Valid options are: fs, git
+      storage = fs
+
+      # Filesystem and shard based storage
+      fs {
+
+        # Top-level directory of storage tree
+        #
+        # This is where scanning is started and it should be
+        # root directory of shard structure.
+        # This could contain e.g. environment variables (see HOCON docs)
+        # to restrict scanned set of shard directory structure.
+        #
+        # CLI: --input.fs.dir
+        dir = "txns"
+
+        # Glob to filter (include) Txn-data
+        #
+        # For example:
+        # - flat single level dirs: "*.txn"
+        # - multi-level shard dirs: "**.txn"
+        #
+        # CLI: --input.fs.glob
+        glob = "**.txn"
+      }
+
+      # git based storage
+      git {
+
+        # Path to git repository
+        #
+        # This must point to "bare" section of repository, e.g.
+        # either to bare git repository, or to '.git'-directory
+        # within non-bare repositories
+        repository = "tackler-data.git"
+
+        # Git ref
+        #
+        # This is git ref name (ref or symbolic ref). It is used
+        # to define branch or tag to find transaction data.
+        # HEAD revision is automatically used for that branch.
+        #
+        # This could be e.g. "master", "cleared", "Y2016" or git tag.
+        # Please see git documentation for information about ref and symbolic refs.
+        #
+        # CLI: --input.git.ref
+        ref = "master"
+
+        # Txn directory inside repository
+        #
+        # Directory inside git repository where transactions are stored.
+        # This is filesystem path "inside repository" and working copy,
+        # and it is relative to the top of repository (and working copy) root.
+        #
+        # CLI: --input.git.dir
+        dir = "txns"
+
+        # Suffix of file names which are processed as transactions.
+        suffix = ".txn"
+      }
+    }
+
+    # Generic reporting settings
+    reporting {
+
+      # Settings for output scale of report output
+      #
+      # Scale is amount of decimals printed with values.
+      # For example: value of 0.000123456 is printed with
+      # scale.max = 6 as 0.000123
+      # scale.max = 7 as 0.0001235
+      # Used rounding mode is HALF_UP
+      scale {
+        # Minimum count of decimals to be printed always
+        #
+        # Can not be negative or bigger than max value
+        min = 2
+
+        # Maximum count of decimals to be printed
+        #
+        # Can not be negative or smaller than min value
+        # In theory there is no practical upper limit for max value
+        # There is a test for values with 30 digits and 128 decimals.
+        max = 7
+      }
+
+      # Selection of reports to produce by default
+      # Valid options are:
+      #   "balance", "balance-group", "register"
+      #
+      # CLI: --reporting.reports "report1" "report2"
+      # e.g. --reporting.reports balance register
+      reports = ["balance", "balance-group", "register"]
+
+      # Selection of exports to produce by default
+      # Valid options are:
+      #   "equity", "identity"
+      #
+      # CLI: --reporting.exports "report1" "report2"
+      # e.g. --reporting.exports equity identity
+      exports = []
+
+      # Reporting formats, default is: txt
+      # Valid options are:
+      #    "txt", "json"
+      #
+      # CLI: --reporting.formats "frmt1" "frmt2"
+      # e.g. --reporting.formats "txt" "json"
+      formats = ["txt"]
+
+      # Default list of accounts in reports and exports
+      #
+      # Each entry is regexp which is matched with account name
+      # Empty list will include everything
+      #
+      # Valid values: list of regex as string
+      #
+      # For example:
+      #  Income and Expenses accounts
+      #    accounts = [ "^Income.*", "^Expenses.*" ]
+      #  All accounts
+      #    accounts = [ ]
+      #
+      # CLI: --reporting.accounts 'regex1' 'regex2' 'etc.'
+      #      --reporting.accounts '^Assets.*' '^Expenses.*'
+      #  All accounts
+      #      --reporting.accounts
+      accounts = []
+
+      # Use console for output?
+      #
+      # If this is "true" or "on", then reports are
+      # also printed on console.
+      #
+      # Valid values (boolean): on | off
+      # CLI: --reporting.console
+      console = on
+    }
+
+    # Report definitions
+    reports {
+      # Balance report
+      balance {
+
+        # Title of balance report
+        # Valid values: string
+        title = "BALANCE"
+
+        # Report specific scale settings
+        # See reporting.scale for further information
+        //scale {
+        //  min = 2
+        //  max = 4
+        //}
+
+        # List of accounts to include into balance report
+        #
+        # If not set, then reporting.accounts is used as default
+        # See reporting.accounts for further information
+        // accounts = [ "^Income.*", "^Expenses.*"]
+      }
+
+      # Balance Group report
+      #
+      # This report makes multiple balance reports over
+      # group of transactions which are grouped based on
+      # group-by criteria.
+      balance-group {
+
+        # Title of balance group report
+        # valid values: string
+        title = "BALANCE GROUPS"
+
+        # Report specific scale settings
+        # See reporting.scale for further information
+        //scale {
+        //  min = 2
+        //  max = 4
+        //}
+
+        # Group by criteria
+        #
+        # Group by balances based on criteria.
+        # Criteria could be:
+        #   "year", "month", "date", "iso-week", "iso-week-date"
+        group-by = "month"
+
+        # List of accounts to include into balance-group report
+        #
+        # If not set, then reporting.accounts is used as default
+        # See reporting.accounts for further information
+        // accounts = [ "^Expenses.*" ]
+      }
+
+      register {
+
+        # Title of register report
+        # Valid values: string
+        title = "REGISTER"
+
+        # Report specific scale settings
+        # See reporting.scale for further information
+        //scale {
+        //  min = 2
+        //  max = 4
+        //}
+
+        # List of accounts to include into register report
+        #
+        # If not set, then reporting.accounts is used as default
+        # See reporting.accounts for further information
+        //accounts = []
+      }
+    }
+
+    # Export definitions
+    exports {
+
+      # Equity export
+      equity {
+        # List of accounts to include into equity export
+        #
+        # If not set, then reporting.accounts is used as default
+        # See reporting.accounts for further information
+        //accounts = []
+      }
+
+      # Identity Export
+      # There are no configuration options for identity export
+    }
+
+    # Include Chart of Accounts and commodity related settings from separate file
+    include "accounts.conf"
+  }
+}
+----
+

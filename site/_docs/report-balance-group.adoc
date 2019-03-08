@@ -1,0 +1,124 @@
+= Balance Group report
+
+Balance Group report is combined report of multiple balance reports 
+which are done out of sets of transactions.
+
+There are several different operators to select how transaction sets are formed.
+
+Available group operators are:
+`year`, `month`, `day`, `iso-week` and `iso-week-date`.
+
+link:https://en.wikipedia.org/wiki/ISO_week_date[ISO-8601 week date] rules are used 
+for `iso-week` and `iso-week-date`.
+
+Balance-group report provides handy way to produce subreports over reporting period, 
+for example there could be need of weekly subreports for each monthly reporting period.
+
+== Format
+Output format of Balance-group report is same as balance report, 
+except that there are multiple subset balances included into same report.
+
+First (the leftmost) sum is sum of postings which are directly debiting or crediting 
+that account (account tree node). If there are no such transactions,  then this first sum is zero.
+
+Second sum is recursive balance sum for that account tree (account and all its sub-accounts).
+
+The sum reported under line is balance delta, e.g. value difference of reported accounts.
+
+[NOTE]
+Balance delta is based and calculated only by values reported on the first column.
+
+
+== Balance group report configuration
+
+
+Balance Groups are selected by `reports.balance-group.group-by` conf-setting.
+
+See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance-group.*` for full
+information of balance group report configuration options.
+
+
+=== Account filtering
+
+Accounts for Balance Group report can be filtered with global
+`reporting.accounts` (conf- and cli-option) or report specific `reports.balance-group.accounts`
+setting (conf-only).
+
+If there are no accounts matched with selected regexs with some balance group time period,
+then that balance group is not is not printed or included into output at all.
+
+
+== Example report
+
+
+Below are links to example balance-group reports with full auditing metadata.
+
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.txt/[Balange-group report with audit metadata]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.json/[Balange-group JSON report with audit metadata]
+
+
+=== Example output of balance-group report
+
+Below is part of performance test output.
+Time span of Transaction set is one year, and each balance group is calculated
+by week (iso-8601 weeks with UTC timezone 'Z'). 
+
+In the report `em01` is monthly-day based expence account, and "am01" is monthly based
+assets account. For that reason, "e:ey2016:em01:ed01" and "e:ey2016:em01:ed02"  have
+transactions on week 2016-W01 and "e:ey2016:em01:ed03, ..." on week 2016-W02. 
+
+
+....
+BALANCE GROUPS
+--------------
+2016-W01Z
+---------
+                 0.00   -8.0000005  a
+                 0.00   -8.0000005  a:ay2016
+           -8.0000005   -8.0000005  a:ay2016:am01
+                 0.00    8.0000005  e
+                 0.00    8.0000005  e:ey2016
+                 0.00    8.0000005  e:ey2016:em01
+            2.0000002    2.0000002  e:ey2016:em01:ed01
+            6.0000003    6.0000003  e:ey2016:em01:ed02
+=====================
+            0.0000000
+2016-W02Z
+---------
+                 0.00   -114.0000019  a
+                 0.00   -114.0000019  a:ay2016
+         -114.0000019   -114.0000019  a:ay2016:am01
+                 0.00    114.0000019  e
+                 0.00    114.0000019  e:ey2016
+                 0.00    114.0000019  e:ey2016:em01
+            9.0000003      9.0000003  e:ey2016:em01:ed03
+            8.0000002      8.0000002  e:ey2016:em01:ed04
+           15.0000003     15.0000003  e:ey2016:em01:ed05
+           18.0000003     18.0000003  e:ey2016:em01:ed06
+           21.0000003     21.0000003  e:ey2016:em01:ed07
+           16.0000002     16.0000002  e:ey2016:em01:ed08
+           27.0000003     27.0000003  e:ey2016:em01:ed09
+=====================
+            0.0000000
+....
+
+== Example report with commodities
+
+Below is one entry of monthly based balance group report.
+
+....
+BALANCE GROUPS
+--------------
+2017-05Z
+--------
+                 0.00           3.00 ACME  Assets
+                 3.00           3.00 ACME  Assets:Stocks
+                 0.00        -359.75 EUR   Assets
+              -359.75        -359.75 EUR   Assets:Cash
+==========================
+                 3.00 ACME
+              -359.75 EUR
+...
+....
+
+

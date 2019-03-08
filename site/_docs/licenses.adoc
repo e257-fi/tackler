@@ -1,0 +1,39 @@
+= License information
+:page-permalink: /docs/licenses/
+
+Tackler is licensed under the Apache License, Version 2.0.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an *"AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the {repolink}/LICENSE/[License] for the specific language governing permissions and
+limitations under the {repolink}/LICENSE/[License].
+
+* {repolink}/LICENSE/[LICENSE]
+* {repolink}/NOTICE/[NOTICE]
+
+== Licenses of other components
+
+Licenses of components used in tackler:
+
+* {repolink}/docs/licenses/ANTLR4-LICENSE.txt/[ANTLR4]
+* {repolink}/docs/licenses/BETTER-FILES-LICENSE.txt/[Better-files]
+* {repolink}/docs/licenses/CATS-LICENSE.txt/[Cats]
+* {repolink}/docs/licenses/CIRCE-LICENSE.txt/[circe]
+* {repolink}/docs/licenses/CIRCE-NOTICE.txt/[circe NOTICE]
+* {repolink}/docs/licenses/CIRCE-LICENSE.ephox.txt/[circe ephox]
+* {repolink}/docs/licenses/CIRCE-LICENSE.argonaut.txt/[circe argonaut]
+* {repolink}/docs/licenses/CONFIG-LICENSE.txt/[Typelevel Config]
+* {repolink}/docs/licenses/JGIT-LICENSE.txt/[jgit]
+* {repolink}/docs/licenses/JGIT-COOKBOOK-LICENSE.txt/[jgit-Cookbook]
+* {repolink}/docs/licenses/LOGBACK-LICENSE.txt/[Logback]
+* {repolink}/docs/licenses/SLF4J-LICENSE.txt/[SLF4J]
+* {repolink}/docs/licenses/SCALLOP-LICENSE.txt/[Scallop]
+
+Tackler's site:
+
+* {repolink}/docs/licenses/JEKYLL-LICENSE.txt/[Jekyll]
+* {repolink}/docs/licenses/GITGRAPHJS-LICENSE.txt/[GitGraph.JS]
+* {repolink}/docs/licenses/LATO-LICENSE.txt/[Lato Font]
+ 
+

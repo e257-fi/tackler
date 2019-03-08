@@ -123,7 +123,7 @@ No changes to identity export
 
 == Documentation
 
-* [x] link:../../CHANGELOG[]: add new item
+* [x] xref:../../CHANGELOG[]: add new item
 * [x] User docs
 ** [x] user manual
 *** [x] cli-arguments
@@ -201,10 +201,10 @@ Tests for error cases:
 
 === Test coverage tracking
 
-link:../../tests/tests-1005.yml[TEP-1005 test cases]
+xref:../../tests/tests-1005.yml[TEP-1005 test cases]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

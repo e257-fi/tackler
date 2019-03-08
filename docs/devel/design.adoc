@@ -17,10 +17,10 @@ For example Txn (single Transaction) or Txns (sequence of Transactions).
 In case of tree-structures, child (singular) and childs (plural) is misspelled by purpose.
 
 Tackler data model classes and objects are defined in
-link:../../core/src/main/scala/fi/e257/tackler/model[core / model] package.
+xref:../../core/src/main/scala/fi/e257/tackler/model[core / model] package.
 
 Tackler data model classes which are used between server and client are located in
-link:../../api/src/main/scala/fi/e257/tackler/api/[tackler-api] package.  These API models
+xref:../../api/src/main/scala/fi/e257/tackler/api/[tackler-api] package.  These API models
 are serialized over wire by Circe as JSON, and there are deserializers available
 as JavaScript and JVM for these models.
 
@@ -34,7 +34,7 @@ All dates use subset of link:https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] fo
 * ISO DateTime with timezone offset or ZoneId
 
 Internally all dates and time is handled as datetime with zone. If txn date does not have zone info,
-then link:../tackler.conf[configured] default zone is used.
+then xref:../tackler.conf[configured] default zone is used.
 
 If timezone is offset (`+02:00`) then it is *not* adjusted by daylight saving times.
 When on the other hand, timezone as ZoneId (`e.g. Europe/Helsinki`) is adjusted by daylight saving time.
@@ -88,7 +88,7 @@ own leaf-names, etc.
 
 In default mode of operation, Tackler checks that all transactions postings
 (e.g. accounts)  are listed on Chart of Accounts.  It is fatal error if there is
-an account which is not listed. This can be lifted by link:../accounts.conf[configuration and command
+an account which is not listed. This can be lifted by xref:../accounts.conf[configuration and command
 line parameter].
 
 === Accumulator and Reporting
@@ -107,13 +107,13 @@ For parsing Tackler uses http://www.antlr.org/[ANTLR4].
 
 Parser definition is located 
 
- * link:../../core/src/main/antlr4/TxnLexer.g4[]
- * link:../../core/src/main/antlr4/TxnParser.g4[]
+ * xref:../../core/src/main/antlr4/TxnLexer.g4[]
+ * xref:../../core/src/main/antlr4/TxnParser.g4[]
 
-Input is fed to the Parser by link:../../core/src/main/scala/fi/e257/tackler/parser/TacklerTxns.scala[core / parser / TacklerTxns]. 
+Input is fed to the Parser by xref:../../core/src/main/scala/fi/e257/tackler/parser/TacklerTxns.scala[core / parser / TacklerTxns]. 
 Result of parsing (e.g. ANTLR  Parser Context) is converted to 
-the link:../../core/src/main/scala/fi/e257/tackler/model[Tackler Model] 
-by link:../../core/src/main/scala/fi/e257/tackler/parser/CtxHandler.scala[core / parser / CtxHandler]
+the xref:../../core/src/main/scala/fi/e257/tackler/model[Tackler Model] 
+by xref:../../core/src/main/scala/fi/e257/tackler/parser/CtxHandler.scala[core / parser / CtxHandler]
 helper class.
 
 == Input
@@ -133,5 +133,5 @@ order is needed, then transactions must have UUIDs.
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../LICENSE[License].
+See the xref:../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../LICENSE[License].

@@ -1,0 +1,30 @@
+<header>
+  <div class="flexbox">
+    <div class="center-on-mobiles">
+      <h1>
+        <a href="{{ "/" | relative_url }}" class="logo">
+          <span>Tackler</span>
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav hide-on-mobiles">
+      {% include primary-nav-items.html %}
+    </nav>
+    <div class="meta hide-on-mobiles">
+      <ul>
+        <li>
+          <a href="https://bintray.com/e257/tackler/tackler-cli/v{{ site.version }}#files">v{{ site.version }}</a>
+        </li>
+        <li>
+	  <a href="{{ site.repository }}"><img class="gl-top-hdr" src="{{ "/img/gitlab-icon-rgb.svg" | relative_url }}" alt="GitLab"/></a>
+        </li>
+	<li>
+	 <a href="https://twitter.com/35VLG84"><span class="fa fa-twitter"></span></a>
+	</li>
+      </ul>
+    </div>
+  </div>
+  <nav class="mobile-nav show-on-mobiles">
+    {% include mobile-nav-items.html %}
+  </nav>
+</header>

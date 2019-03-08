@@ -1,0 +1,11 @@
+= Tackler 0.9.0 released
+:page-date: 2018-01-22 12:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.9.0
+:page-category: release
+
+
+Release of version v0.9.0
+
+ * New Client API
+ ** tackler-cli.jar is published on Maven Central Repository  

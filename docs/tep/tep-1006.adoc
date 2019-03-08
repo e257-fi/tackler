@@ -111,7 +111,7 @@ None
 
 == Documentation
 
-* [x] link:../../CHANGELOG[]: add new item
+* [x] xref:../../CHANGELOG[]: add new item
 * [x] User docs
 ** [x] tackler.conf
 *** [x] global settings
@@ -167,10 +167,10 @@ Should not affect performance.
 
 === Feature and Test case tracking
 
-link:../../tests/tests-1006.yml[TEP-1006 test cases]
+xref:../../tests/tests-1006.yml[TEP-1006 test cases]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

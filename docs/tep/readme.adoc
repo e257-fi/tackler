@@ -3,18 +3,18 @@
 Tackler Enhancement Proposals (TEP) are used to 
 do high level plans for new features and changes to Tackler.
 
-TEP Template: link:./tep-0001.adoc[TEP-0001]
+TEP Template: xref:./tep-0001.adoc[TEP-0001]
 
 
 === Implemented TEPs
 
-* link:./tep-1000.adoc[TEP-1000: Equity]
-* link:./tep-1001.adoc[TEP-1001: Units and Commodities]
-* link:./tep-1002.adoc[TEP-1002: Git Storage system]
-* link:./tep-1004.adoc[TEP-1004: JSON report output]
-* link:./tep-1005.adoc[TEP-1005: Txn filters]
-* link:./tep-1006.adoc[TEP-1006: CFG settings for report output scale]
-* link:./tep-1007.adoc[TEP-1007: Txn set checksum]
+* xref:./tep-1000.adoc[TEP-1000: Equity]
+* xref:./tep-1001.adoc[TEP-1001: Units and Commodities]
+* xref:./tep-1002.adoc[TEP-1002: Git Storage system]
+* xref:./tep-1004.adoc[TEP-1004: JSON report output]
+* xref:./tep-1005.adoc[TEP-1005: Txn filters]
+* xref:./tep-1006.adoc[TEP-1006: CFG settings for report output scale]
+* xref:./tep-1007.adoc[TEP-1007: Txn set checksum]
 
 
 === TEPs in implementation phase
@@ -23,10 +23,10 @@ None at the moment
 
 === TEPs in planning phase
 
-* link:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
+* xref:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
-the link:../../LICENSE[License].
+See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
+the xref:../../LICENSE[License].

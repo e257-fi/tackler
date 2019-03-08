@@ -1,0 +1,96 @@
+= Server API
+
+This document explains how to embedded Tackler core and use it as a library in other systems.
+
+Tackler operates on stream of immutable transactions and over this
+transaction stream (or sub-selection of it) it generates different reports.
+
+Transaction stream is immutable and thread safe, and it is possible to make multiple reports
+over same set of txn data. Currently all transactions are held in memory.
+
+Dependency settings for SBT are:
+
+    libraryDependencies += "fi.e257" %%  "tackler-core" % "version-number"
+
+This is released on Maven Central Repository.
+
+
+== Reading transactions
+
+Transactions can be read from three different sources
+
+ * From filesystem `fs`-storage xref:./tackler-conf.adoc[(conf: tackler.core.input.fs)]
+ * From xref:./git-storage.adoc[Git] `git`-storage xref:./tackler-conf.adoc[(conf: tackler.core.input.git)]
+ * Internally directly from string
+
+All of these inputs produce transaction stream and metadata of that stream. This transaction set (`txnData`)
+can then be fed to different reports.  See
+{gitlink}/core/src/main/scala/fi/e257/tackler/parser/TacklerTxns.scala[core -> main -> parser -> TacklerTxns]
+and it's companion object's helpers.
+
+== Filtering transactions
+
+There is an option to filter transactions based on attributes of single transaction.
+See xref:./txn-filters.adoc[Transaction Filters] for general information about these filters.
+
+Transaction filter models are defined at
+{gitlink}/api/src/main/scala/fi/e257/tackler/api/TxnFilter.scala[api -> TxnFilter].
+Actual filtering implementation is located in package:
+{gitlink}/core/src/main/scala/fi/e257/tackler/filter/[core -> filter].
+
+Filters are typically used via
+{gitlink}/core/src/main/scala/fi/e257/tackler/model/TxnData.scala[core -> model -> TxnData.filter] method.
+See {gitlink}/core/src/test/scala/fi/e257/tackler/filter/[core -> test -> filter]
+for examples of how to define and use transaction filters.
+
+
+=== JSON decoding of transaction filters
+
+Server API provides JSON decoding of transaction filters
+via link:https://circe.github.io/circe/[Circe].
+
+Below is an example of how filter can be created from JSON string:
+
+----
+import io.circe.parser.decode
+import fi.e257.tackler.api.TxnFilterDefinition
+
+val filterJsonStr = """{ "txnFilter": { "TxnFilterTxnCode" : { "regex" : "#123" } } }"""
+
+val txnFilterDef = decode[TxnFilterDefinition](filterJsonStr)
+
+// txnFilterDef: Either[io.circe.Error,fi.e257.tackler.api.TxnFilterDefinition] = Right(TxnFilterDefinition(TxnFilterTxnCode(#123)))
+----
+
+See {gitlink}/core/src/test/scala/fi/e257/tackler/filter/TxnFilterJsonTest.scala[core -> test -> filter -> TxnFilterJsonTest]
+for more examples of JSON decoding and encoding.
+
+== Generating reports
+
+Reports are done in three steps:
+
+ 1. Make settings for report (`BalanceSettings`)
+ 2. Instantiate report maker (`BalanceReporter`)
+ 3. Generate actual report (`balRpt.jsonReport(txnData)`)
+
+=== Consuming reports
+
+See xref:./client-api.adoc[Client API] how to use generated reports on client side.
+
+
+== Example of usage of Server API
+
+There is test for server reporting api, which could be used as an example.
+With this test transactions are read internally from string, and then that txns stream is used to produce various
+reports.
+
+Tackler's CLI contains examples (`git2Txns` and `paths2Txns`) how to use FS or Git storage:
+{gitlink}/cli/src/main/scala/fi/e257/tackler/cli/TacklerCli.scala[cli -> main -> TacklerCli]
+
+Test cases for GIT input are located here:
+{gitlink}/core/src/test/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala[core -> test -> parser -> TacklerTxnsGitTest]
+
+Complete test cases for Report API are located here:
+{gitlink}/core/src/test/scala/fi/e257/tackler/report/ReportApiTest.scala[core -> test -> report -> ReportApiTest]
+
+

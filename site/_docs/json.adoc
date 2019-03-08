@@ -1,0 +1,33 @@
+= JSON report format
+
+JSON is treated as Human Machine Interface, e.g. values etc.
+are truncated the same way as with text output, and all data is represent as strings.
+
+This means reports in JSON format should be ready to be displayed
+to user by UI as it is without further processing.
+
+JSON output does not contain null values, e.g. if field is null, it is dropped.
+
+xref:./client-api.adoc[Client API] lists used data models for JSON serialization.
+
+== Example reports
+
+Supported reports with JSON output are `balance`, `balance-group` and `register`.
+Exports in Tackler journal format (`equity` and `identity`) are not supported with JSON.
+
+=== Balance report
+
+* {repolink}/tests/commodity/ok/basic-03.ref.bal.json/[Balance with commodities]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.bal.json/[Balance with Metadata]
+
+=== Balance Group report
+
+* {repolink}/tests/commodity/ok/basic-03.ref.balgrp.json/[Balance-group with Commodities]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.json/[Balange-group with Metadata]
+
+=== Register report
+
+* {repolink}/tests/commodity/ok/basic-03.ref.reg.json/[Register report with Commodities]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register report with Metadata]
+
+

@@ -1,0 +1,147 @@
+---
+layout: default
+overview: true
+permalink: /
+---
+
+<section class="intro">
+  <div class="grid">
+    <div class="unit whole center-on-mobiles">
+      <h3 class="align-center">Can you trust your accounting?</h3>
+      <h1 class="align-center">Use plain text records for rock solid accounting</h1>
+      <h3 class="align-center">Tackler is built on simplicity, reliability and integrity</h3>
+    </div>
+  </div>
+</section>
+<section class="features">
+  <div class="grid">
+    <div class="unit one-third">
+      <h2>Simplicity</h2>
+      <p>
+	<ul>
+	<li>Clean, simple journal format</li>
+	<li>User and developer documentation</li>
+	<li>Client and Server API</li>
+	</ul>
+      <a href="{{ "/docs/" | relative_url }}">Documentation &rarr;</a>
+      </p>
+    </div>
+    <div class="unit one-third">
+      <h2>Reliability</h2>
+      <p>
+	<ul>
+	<li>Journals with millions of records</li>
+	<li>1:3 features to tests ratio</li>
+	<li>Test coverage &gt;99.7%</li>
+	</ul>
+	</p>
+      <a href="{{ "/docs/reliability/" | relative_url }}">Tackler's Test Setup &rarr;</a>
+    </div>
+    <div class="unit one-third">
+      <h2>Integrity</h2>
+      <p>
+	<ul>
+	<li>Distributed journal</li>
+	<li>Audit trail of accounting actions</li>
+	<li>Proof of used accounting records</li>
+	</ul>
+	</p>
+      <a href="{{ "/docs/auditing/" | relative_url }}" >Accounting Auditing  &rarr;</a>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>
+<section class="git-included">
+  <div class="grid">
+    <div class="unit whole">
+      <div class="grid pane"> 
+          <div class="pane-content">
+		<div class="unit one-fifth center-on-mobiles">
+			<canvas id="gitGraph"></canvas>
+			<script src="/js/gitgraph.min.js"></script>
+			<script src="/js/git-included.js"></script>
+    		</div>
+    		<div class="unit four-fifths center-on-mobiles">
+            		<h2 class="center-on-mobiles">Integrated support for Git by JGit</h2>
+		<p>
+		<ul>
+		<li>Distributed journal and accounting setup</li>
+		<li>Good support for data integrity and availability</li>
+		<li>Accounting audit trail is included into reports</li>
+		<li>Integrated Git-support, journal is read directly from repository
+			<ul>
+			<li>Always clean and well defined state of journal for reports</li>
+			<li>Branches, tags, symbolic refs, commit ids – all are supported</li>
+			</ul>
+		</li>
+		</ul>
+		
+		For full details and examples, see 
+		<a href="{{ "/docs/journal/git-storage/" | relative_url }}">&rarr; Git Storage Guide</a>.
+		</p>
+          </div>
+        </div>
+      </div>
+        <div class="clear"></div>
+    </div>
+  </div>
+</section>
+<section class="quickstart">
+  <div class="grid">
+    <div class="unit one-fifth center-on-mobiles">
+      <h3>Get up and running in&nbsp;seconds.</h3>
+    </div>
+    <div class="unit four-fifths code">
+      <p class="title">Quick-start Instructions</p>
+      <div class="shell">
+        <p class="line">
+          <span class="output">
+		# Download  <a href="https://bintray.com/e257/tackler/tackler-cli/v{{ site.version }}#files">tackler-cli-{{ site.version }}.jar</a> or
+                <a href="{{ site.repository }}/blob/master/docs/devel/build.adoc">build it.</a>
+	  </span>
+        </p>
+        <p class="line">
+          <span class="path">~</span>
+          <span class="prompt">$</span>
+          <span class="command">mkdir -p tackler/txns; cd tackler</span>
+        </p>
+        <p class="line">
+          <span class="path">~/tackler</span>
+          <span class="prompt">$</span>
+          <span class="command">cp /path/to/tackler-cli-{{ site.version }}.jar .</span>
+        </p>
+        <p class="line">
+          <span class="path">~/tackler</span>
+          <span class="prompt">$</span>
+          <span class="command">cat &gt; txns/journal.txn &lt;&lt; EOF
+<pre>2018-05-01 It was warm, sunny day
+  Expenses:Ice_cream  2
+  Assets:Cash
+EOF
+</pre>
+</span>
+        </p>
+        <p class="line">
+          <span class="path">~/tackler</span>
+          <span class="prompt">$</span>
+          <span class="command">java -jar ./tackler-cli-{{ site.version }}.jar --accounts.strict=false</span>
+        </p>
+        <p class="line">
+          <span class="output">
+<pre>
+BALANCE
+-------
+                 0.00   -2.00  Assets
+                -2.00   -2.00  Assets:Cash
+                 0.00    2.00  Expenses
+                 2.00    2.00  Expenses:Ice_cream
+=====================
+                 0.00
+</pre>
+	  </span>
+        </p>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>

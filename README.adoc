@@ -7,53 +7,36 @@ image:https://www.scala-js.org/assets/badges/scalajs-0.6.17.svg["Scala.js",link=
 
 = Tackler
 
-Tackler Ain't Calculator and Kernel for link:http://ledger-cli.org/[Ledger] Equivalent Records.
-Why not?  - Because it uses simplified Ledger syntax.
+Tackler Ain't Calculator and Kernel for link:http://ledger-cli.org/[Ledger] Equivalent Records. +
+Why not? Because it uses simplified Ledger syntax.
 
 So in other words, Tackler is accounting engine and reporting tool for link:http://plaintextaccounting.org/[text
 based double-entry accounting].
 
+== Tackler's website
 
-== Features
+see link:https://tackler.e257.fi[Tackler's site] for all user information and documentation.
 
-* Supports for link:./docs/auditing.adoc[Accounting Auditing and Assurance]
-* Tackler's link:tests/tests.adoc[all features are extensively tested]
-* Support for link:docs/commodities.adoc[Commodities] and link:docs/currencies.adoc[Currencies]
-* Native support for link:docs/git-storage.adoc[GIT based journal storage]
-* Clean and simple link:docs/journal.adoc[journal format]
-* Strict account and commodity name validation with link:./docs/accounts.conf[Chart of Accounts]
-* Multiple report and export types:
-** link:docs/report-balance.adoc[Balance], link:docs/report-balance-group.adoc[Balance Groups] and link:docs/report-register.adoc[Register] Reports
-** link:docs/export-equity.adoc[Equity] and link:docs/export-identity.adoc[Identity] Exports
-* Support for link:./docs/txn-filters.adoc[Transaction Filters]
-* Supports UTF-8 characters in transaction data (link:tests/parser/ok/par-02.ref.identity.txn[descriptions], link:tests/parser/ok/par-02.ref.reg.txt[comments], link:tests/parser/ok/id-chars-01.ref.identity.txn[account names])
-* Supports ISO 8601 timestamps with link:tests/core/ok/time-dst-01.ref.identity.txn[timezones]
-  and link:tests/core/ok/time-nano-01.ref.identity.txn[nanosecond] resolution
-* Text and link:docs/json.adoc[JSON] output formats for reports
-** link:docs/server-api.adoc[Server API] for embedding Tackler core
-** link:docs/client-api.adoc[Client API] for JVM and JS environments
-* Has good performance with link:docs/performance.adoc[large transaction set]
-** Tackler is link:perf/results/perf-hw00.adoc[tested up to one million (1E6)] transactions
-** Tackler can parse and process link:perf/results/readme.adoc[56000 txn/s] on Quad Core system
-* link:docs/readme.adoc[Extensive documentation]
 
 
 == Why Tackler?
 
-Tackler's idea is provide *concise*, *minimal* and *reliable*
+Tackler's idea is provide *simple*, *reliable* and *trustworthy*
 engine to process text-based human readable accounting records.
 
-_Concise_ means that Tackler's journal format is semantically concise
-and easy for humans to *reason about*.
-
-_Minimal_ means that Tackler provides *minimum* set of features which are
-needed for its operation.
+_Simple_ means that Tackler's journal format is semantically concise
+and easy for humans to *reason about* and that Tackler provides
+*minimum* set of features which are needed for its operation.
 
 _Reliable_ means that Tackler's behaviour is well known, tested
 and it is *documented*.
 
-All that said, Tackler can be used easily from command line
-with normal personal accounting data sets.
+_Trustworthy_ means that Tackler must provide correct and trustworthy
+results always. Tackler's result should be possible to verify, ideally
+in cryptographically secure way.
+
+All that said, Tackler can be used easily with command line interface
+for normal personal accounting data sets.
 
 
 === Tackler Goals
@@ -86,23 +69,19 @@ and journal parsing is done with link:http://www.antlr.org/[ANTLR4].
 
 == Documentation and Quick Start Guides
 
-Full list of available documentation is located on link:./docs/readme.adoc[Index of Documentation].
+Full list of available documentation is located on xref:./docs/readme.adoc[Index of Documentation].
 
-For quick start information, see:
+=== Tackler's website
 
-* link:./docs/installation.adoc[Installation Manual]
-* link:./docs/journal.adoc[Tackler journal format]
-* link:./docs/usage.adoc[Usage Guide]
-* link:./docs/tackler.conf[tackler.conf] for annotated configuration file
-* link:./docs/accounts.conf[accounts.conf] for annotated chart of accounts
+see link:https://tackler.e257.fi[Tackler's web site] for all user information and documentation.
 
 
 == Todo, TEPs and Roadmap
 
-At the moment, current set of active todo items is kept link:./todo[todo files].
+At the moment, current set of active todo items is kept xref:./todo[todo files].
 
 There are Tackler Enhancement Proposals for planning and tracking implementation
-of major new features. These are listed on link:docs/tep/readme.adoc[TEP index].
+of major new features. These are listed on xref:docs/tep/readme.adoc[TEP index].
 
 === Roadmap
 
@@ -119,12 +98,12 @@ Extremely loosely defined roadmap is following:
 == Releases
 
 For release information and version history details,
-see link:./CHANGELOG.adoc[CHANGELOG].
+see xref:./CHANGELOG.adoc[CHANGELOG].
 
 Tackler-core is supposed to be usable as separate component.
 Tackler-api is released for JVM and JS environments, and it is intended
-to be used on the client side. See link:./docs/server-api.adoc[Server API]
-and link:./docs/client-api.adoc[Client API] for additional information.
+to be used on the client side. See xref:./docs/server-api.adoc[Server API]
+and xref:./docs/client-api.adoc[Client API] for additional information.
 
 Dependency settings for SBT are:
 
@@ -138,7 +117,7 @@ then it might be better to look
 link:http://plaintextaccounting.org/[something else].
 
 However, complex backward non-compatible changes to 
-link:./docs/journal.adoc[Journal file format]
+xref:./docs/journal.adoc[Journal file format]
 should be rare. At the moment Tackler is used in production for
 operational data set.
 
@@ -149,14 +128,14 @@ are more likely to subject of change.
 == Contributing to Tackler
 
 Contributions to the project are most welcome. See
-link:./CONTRIBUTING.adoc[CONTRIBUTING] how you could help.
+xref:./CONTRIBUTING.adoc[CONTRIBUTING] how you could help.
 
 Your pull requests and patches can be merged only if you can certify
-the link:./DCO[Developer Certificate of Origin (DCO), Version 1.1].
+the xref:./DCO[Developer Certificate of Origin (DCO), Version 1.1].
 
 By signing-off your commit you certify DCO and acknowlegde that you have
 the rights to submit your pull requsted or patch as an open-source patch,
-as stated in link:./DCO[Developer Certificate of Origin].
+as stated in xref:./DCO[Developer Certificate of Origin].
 
 Certifying DCO is done by adding a `Signed-off-by` line
 to **every** git commit message:
@@ -174,7 +153,7 @@ Please make sure that you sign-off all your PR's commits.
 
 == Credits
 
-See link:./THANKS.adoc[THANKS] for full list of credits.
+See xref:./THANKS.adoc[THANKS] for full list of credits.
 
 
 == License

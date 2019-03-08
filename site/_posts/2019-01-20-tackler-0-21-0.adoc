@@ -1,0 +1,40 @@
+= Tackler 0.21.0 released
+:page-date: 2019-01-20 12:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.21.0
+:page-category: release
+
+
+
+== New features in this release are:
+
+* Configuration settings `reporting.scale` and `reports.<report>.scale`
+  for report output scale. Defaults are not changed (min=2, max=7). See:
+** link:/docs/usage/[Usage Guide]
+** link:/docs/tackler-conf/[tackler.conf]
+** {gitlink}/docs/tep/tep-1006.adoc[TEP-1006: Configuration settings for report output scale]
+
+
+== Fixes
+
+ * Fix failing test: e257/accounting/tackler#1
+
+
+== Development
+
+Updated deps and tools:
+
+ * Updated dependencies
+ ** ANTLR: 4.7.2
+ ** circe: 0.11.1
+ ** jgit: 5.2.1.201812262042-r
+ * build
+ ** sbt: 1.2.8
+
+
+
+
+
+== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]
