@@ -7,7 +7,7 @@
 
 
 
-== New features and changes in this release are:
+=== New features
 
  * Support Account Auditing, see:
  ** link:/docs/auditing/[Accounting Auditing and Asssurance]
@@ -27,7 +27,7 @@
  * Update build and deps
 
 
-== Fixes
+=== Fixes
 
 Reject invalid UUIDs which were permitted in the past. There are certain 
 way invalid and malformed UUIDs, which are accepted by JDK.
@@ -42,6 +42,6 @@ See following openjdk bugs for details:
  * https://bugs.openjdk.java.net/browse/JDK-8216407
 
 
-== Full Changelog
+=== Full Changelog
 
-For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.

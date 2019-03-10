@@ -1,10 +1,11 @@
 = JSON report format
 
 JSON is treated as Human Machine Interface, e.g. values etc.
-are truncated the same way as with text output, and all data is represent as strings.
+are truncated the same way as with text output, and all data is represented 
+as strings.
 
 This means reports in JSON format should be ready to be displayed
-to user by UI as it is without further processing.
+to user by UI as they are without further processing or data formatting.
 
 JSON output does not contain null values, e.g. if field is null, it is dropped.
 

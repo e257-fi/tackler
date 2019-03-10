@@ -6,7 +6,7 @@
 
 
 
-== New features in this release are:
+=== New features
 
 * Strict validation of commodities and currencies. This is turned on by default,
   if `accounts.strict = true`.  See link:/docs/accounts-conf/[accounts.conf]
@@ -16,14 +16,12 @@
 ** Register report: Add separator between txn entries
 
 
-== Fixes
+=== Fixes
 
 Force UTF-8 always on console, regardless of console settings.
 This is needed for Windows/MinGW/MSYS2.
 
 
+=== Full Changelog
 
-
-== Full Changelog
-
-For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.

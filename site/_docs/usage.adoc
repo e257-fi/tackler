@@ -43,19 +43,33 @@ relative to the basedir.
 
 === Input
 
-There are two different ways to provide transaction data to Tackler.
+There are few different ways to provide transaction data to Tackler.
 
-Input can be either single file or  directory structure,
-which contains accounting data in separate files.
+Input can be based on:
 
-==== Single input file
+ * Filesystem storage
+ ** Journal in single file 
+ ** Journal data is in multiple files inside directory structure
+ * Git storage
+ ** (Journal is in single file)
+ ** Journal data is in multiple files inside directory structure
+
+
+==== Journal in single file
+
+Single file input can be defined only by command line switch:
 
   --input.file path/to/txn-file
 
 path can be absolute or relative path to the basedir.
 
+If you like to use single journal mode and define it by configuration, 
+then just put journal in specific directory and define that directory 
+as a root for storage (`input.fs.dir`) with approriate glob. 
 
-==== Multiple `txn` -files and sharding
+
+==== Journal data is in multiple files inside directory structure
+
 
 * `--input.fs.dir`: directory which holds `txn` -files (absolute or relative path to basedir).
 * `--input.fs.glob`: glob to find `txn` -files under txn.dir
@@ -102,9 +116,19 @@ It's recommended to select some data shard scheme with production systems.
 Regardless of used sharding scheme, it is possible to group txns with different
 `group-by` operators.
 
+Also see section about xref:#txn-filters[Transaction Filters]. 
+
+
 ==== Git storage
+[[git-storage]]
+
+Tackler journal data can be read directly from git, even without checkout working copy. 
 
 Please see xref:./journal/git-storage.adoc[git storage] for full information about git based storage.
+
+Git storage will use Git storage backend will use by default directory structure based mode.
+If you like to use single journal mode with git, then just put journal in specific directory,
+and define that as a root for storage (`input.git.dir`). 
 
 Addition to configuration, Git reference or commit id can be given from command line:
 
@@ -116,6 +140,7 @@ These options are mutually exclusive with each other and with filesystem storage
 
 
 === Transaction Filtering
+[[txn-filters]]
 
 Tackler has an option to filter transactions based on attributes of single transaction.
 
@@ -142,7 +167,8 @@ Same filter defined as base64 string (with `base64 --wrap=0`):
 --api-filter-def base64:eyAidHhuRmlsdGVyIjogeyAiVHhuRmlsdGVyVHhuRGVzY3JpcHRpb24iOiB7ICJyZWdleCI6ICIuKmljZS1jcmVhbS4qIiB9IH0gfQo=
 ----
 
-If txn filter is defined as base64 string, then there must be `base64:` at the begin of string.
+If txn filter is defined as base64 string, then there must be `base64:` at the begin of string 
+(see xref:#txn-filters-shell[Using txn filters with shell]).
 
 Second example is more complex combination of filters to find all transactions which have
 code as starting "#" and description starts as "txn-".
@@ -155,6 +181,7 @@ See xref:./txn-filters.adoc[Transaction Filters] for list of all available filte
 
 
 ==== Using Transaction Filters with shell scripting
+[[txn-filters-shell]]
 
 
 Transaction filters can be easily combined and created by shell scripts. When stored in `base64` ascii armor

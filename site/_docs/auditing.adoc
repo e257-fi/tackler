@@ -17,7 +17,7 @@ For supporting accounting auditing, tackler can provide:
 [WARNING]
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
 See the {repolink}/LICENSE/[License] for the specific language governing permissions and limitations under
-the {repolink}/LICENSE/[License].
+the License.
 
 
 == Tackler's features for Auditing and Assurance actions
@@ -105,7 +105,7 @@ For further info, see:
 Below are links to test reports with audit metadata:
 
 * {repolink}/tests/audit/ok/audit-1E2-04.ref.bal.txt/[Balance report with audit metadata]
-* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.txt/[Balange-group report with audit metadata]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.txt/[Balance Group report with audit metadata]
 * {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.txt/[Register report with audit metadata]
 * {repolink}/tests/audit/ok/audit-1E2-04.ref.equity.txn/[Equity export with audit metadata]
 
@@ -113,7 +113,7 @@ Below are links to test reports with audit metadata:
 Same information is available with JSON format for Server and Client API:
 
 * {repolink}/tests/audit/ok/audit-1E2-04.ref.bal.json/[Balance JSON report with audit metadata]
-* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.json/[Balange-group JSON report with audit metadata]
+* {repolink}/tests/audit/ok/audit-1E2-04.ref.balgrp.json/[Balance Group JSON report with audit metadata]
 * {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register JSON report with audit metadata]
 
 

@@ -111,9 +111,9 @@ in xref:./tackler-conf.adoc[tackler.conf].
 
 By default it is fatal error if there is an unknown account or commodity within
 transactions.  It's also fatal error if there is a posting without commodity
-and and `accounts.permit-empty-commodity` is `true`.
+and at the same `accounts.permit-empty-commodity` is `false`.
 
-This can be turned off with:
+Both checks for accounts and commodities can be turned off with:
 
     --accounts.strict=false
 

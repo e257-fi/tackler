@@ -6,7 +6,7 @@
 
 
 
-== New features in this release are:
+=== New features
 
 * Configuration settings `reporting.scale` and `reports.<report>.scale`
   for report output scale. Defaults are not changed (min=2, max=7). See:
@@ -15,26 +15,11 @@
 ** {gitlink}/docs/tep/tep-1006.adoc[TEP-1006: Configuration settings for report output scale]
 
 
-== Fixes
+=== Fixes
 
  * Fix failing test: e257/accounting/tackler#1
 
 
-== Development
+=== Full Changelog
 
-Updated deps and tools:
-
- * Updated dependencies
- ** ANTLR: 4.7.2
- ** circe: 0.11.1
- ** jgit: 5.2.1.201812262042-r
- * build
- ** sbt: 1.2.8
-
-
-
-
-
-== Full Changelog
-
-For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
