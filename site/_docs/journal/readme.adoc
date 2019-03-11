@@ -4,6 +4,12 @@
 
 Tackler supports journals on plain filesystem and on git repository.
 
+Tackler can use journal from single file or journal could be split into multiple different files. 
+There are options to configure directory setup from where tackler will scan journal files.
+
+See xref:./journal/sharding.adoc[Transaction data sharding] for information of possible ways to 
+shard transaction data.
+
 
 == Git storage
 

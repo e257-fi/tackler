@@ -19,6 +19,7 @@
     - link: /docs/tackler-conf/
     - link: /docs/accounts-conf/
     - link: /docs/journal/
+    - link: /docs/journal/sharding/
     - link: /docs/journal/git-storage/
     - link: /docs/txn-filters/
     - link: /docs/commodities/

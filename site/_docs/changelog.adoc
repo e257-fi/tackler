@@ -1,5 +1,5 @@
 = Tackler releases
 
 
-For full changelog see {gitlink}/CHANGELOG.adoc[CHANGELOG in tackler's repository]
+For full changelog see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
 

@@ -12,10 +12,12 @@ Why not? Because it uses simplified syntax.
 
 == Journal files
 
-Tackler can use journal from single file or journal could be split into multiple different files. 
-There are options to configure directory setup from where tackler will scan journal files.
-See xref:../usage.adoc[Usage Manual] and xref:../tackler-conf.adoc[tackler.conf] for further defails
-how to define used storage system.
+Journal can be a single file or it can be split on transaction level into multiple files (shards).
+
+See general link:/docs/journal/[Journal Documentation], 
+xref:../usage.adoc[Usage Manual] and 
+xref:../tackler-conf.adoc[tackler.conf] for further defails
+how to define used storage system and ideas for different sharding schemes.
 
 
 == Format
@@ -30,26 +32,26 @@ how to define used storage system.
 |
 ----
 2017-01-01 opening balance
- assets:checking      500.00
- equity:opening_balances
+ Assets:Checking 500.00
+ Equity:Assets
 
-2017-01-05  farmer's market
-    expenses:groceries       50.00
-    assets:checking
+2017-01-05 Shopping on farmer's market
+ Expenses:Groceries 50.00
+ Assets:Checking
 
 ----
 | This is sequence of Transactions (Txns). There could one
-or many Txn per input file.
+or many Txns per input file.
 
 
 | Basic transaction
 |
 ----
 DATE [(code)] [DESCRIPTION]
-  ACCOUNT  AMOUNT
-  ACCOUNT  [AMOUNT]
+ ACCOUNT  AMOUNT
+ ACCOUNT  [AMOUNT]
 ----
-| Transaction's content (comments and account postings) must be intented at least by one space. 
+| Transaction's content (comments and account postings) must be intented at least by *one* space. 
 
 There must be two or more accounts (postings) which
 must have zero sum if all accounts have amount. Account's amount can not be zero.
@@ -61,7 +63,7 @@ There has to be at least one space between account and amount.
 If compatibility with other systems is needed, then two spaces should be used.
 
 
-| Dates and Timestamps (`ISO-8601`)
+| Dates and Timestamps
 |
 ----
 YYYY-MM-DD
@@ -80,10 +82,10 @@ e.g.
 2016-12-31T13:01:01+02:00
 2016-12-31T13:01:01.123456789+02:00
 ----
-| These are ISO-8601 dates and times with nanosecond resolution.
+| These are link:https://en.wikipedia.org/wiki/ISO_8601[ISO-8601] dates and times with nanosecond resolution.
 
 * If time part is missing then `00:00:00` is used.
-* If ZoneId is missing then xref:../tackler-conf.adoc[configured] default Offset/ZoneId is used.
+* If Offset is missing then offset based on xref:../tackler-conf.adoc[configured] timezone/offset is used.
 
 | Transaction code
 |
@@ -122,24 +124,28 @@ Expenses:アイスクリーム
 Expenses:風:空
 ----
 | Account names begin with a UTF-8 letter. Then
-letters, digits, middle dot '·', hyphen '-' and underscore '_' are allowed in account names,
-but no spaces. See xref:accounts.conf[] for full details.
+letters, digits, middle dot `·`, hyphen `-` and underscore `_` are allowed in account names,
+but no spaces.   Sub-accounts are separated by `:`
 
-Sub-accounts are separated by `:`
+All accounts must be declared in Chart of Accounts, or `accounts.strict` should be `false`.
 
-All accounts must be declared in Chart of Accounts, if not, `accounts.strict=false` could be used.
+See xref:../accounts-conf.adoc[accounts.conf] for full details.
 
 
 | Amounts
 |
 ----
 1234567.1234
-
-1.12345678 is printed as 1.1234568
+Output truncation:
+  1.12345678 is printed as 
+  1.1234568  with scale.max=7
 ----
-| Default configuration setting for *output* scale is between 2..7 decimal points, see xref:../tackler-conf.adoc[tackler.conf].
+| 
+Default *output* scale is is between 2..7 decimal points.  This is can be configured 
+by `reporting.scale.{min, max}` in xref:../tackler-conf.adoc[tackler.conf].
 
-Internally these are Scala's BigDecimals, which represents decimal floating-point numbers of arbitrary precision. 
+Tackler uses decimal floating-point numbers of arbitrary precision (Scala BigDecimals) for calculations.
+There are unit tests with numbers of 30 digits and 130 decimals.
 
 
 | Commodities
@@ -187,7 +193,7 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 |
 ----
 2017-01-01 description
- ; it was hot
+ ; it was warm
  ; and sunny day
  Expenses:Jäätelö 2.12
  Assets:Cash

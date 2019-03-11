@@ -37,7 +37,9 @@ for how to configure tackler.
 
 === Input and output
 
-* `--basedir`: provides base directory for all operations. All other relative paths are
+`--basedir`:: 
+
+Provides base directory for all operations. All other relative paths are
 relative to the basedir.
 
 
@@ -59,64 +61,32 @@ Input can be based on:
 
 Single file input can be defined only by command line switch:
 
-  --input.file path/to/txn-file
+`--input.file` ::
 
-path can be absolute or relative path to the basedir.
+This is a path to journal file, which will be used for input. 
+Path can be absolute or relative path to the basedir.
 
-If you like to use single journal mode and define it by configuration, 
-then just put journal in specific directory and define that directory 
-as a root for storage (`input.fs.dir`) with approriate glob. 
+
+If you like to use single journal file mode and define it
+by configuration, then  this can be done by putting journal file 
+in dedicated directory and define that directory as a root for 
+storage directory (`input.fs.dir`) with approriate glob. 
 
 
 ==== Journal data is in multiple files inside directory structure
 
 
-* `--input.fs.dir`: directory which holds `txn` -files (absolute or relative path to basedir).
-* `--input.fs.glob`: glob to find `txn` -files under txn.dir
+`--input.fs.dir`:: 
 
- e.g. *.txn for flat directories or **.txn for deep directory structures
+Directory which holds `txn` -files (absolute or relative path to basedir).
 
-One typical way to shard `txn` data is to use time based sharding, for example:
+`--input.fs.glob`:: 
 
- * `year/month/day`
- * `year/iso-week/iso-week-date`
+Glob to define which files are used as journals. For flat directory structure use e.g. `*.txn`,
+and directory structure with some sharding scheme, use   `**.txn`.
 
-
-With data shard and glob-pattern it is very easy to generate reports with
-only selected accounting data.  For example with shard based on iso-week-date
-it is possible to generate weekly reports with following piece of bash:
-
-....
-report_year=$1
-report_week=$2
-
-java \
-   -jar tackler-cli.jar \
-   --basedir="$exe_dir/.." \
-   --input.fs.dir="txns/$report_year/W$report_week" \
-   --input.fs.glob="**.txn" \
-   "$@"
-....
-
-If this feature is used (e.g. with shell or
-link:https://github.com/typesafehub/config#optional-system-or-env-variable-overrides[environment arguments are used with conf])
-then it is good idea to use as specialized `input.fs.dir` as possible. In that case scanned file set is as small as possible.
-File scanning and glob matching starts from `input.fs.dir` and descents from there.
-
-Tackler doesn't care how do you shard your data or if you don't shard it at all. 
-It can easily handle huge single file txn collections: 100 000 (1E5) txns easily 
-and one million (1E6) txns with some memory.  
-
-However, with sharding memory requirements are smaller, 
-there isn't basically any performance inpact with shard input, 
-and sharding makes more sense with version control backend.
-
-It's recommended to select some data shard scheme with production systems.
-
-Regardless of used sharding scheme, it is possible to group txns with different
-`group-by` operators.
-
-Also see section about xref:#txn-filters[Transaction Filters]. 
+See xref:./journal/sharding.adoc[Journal Sharding] for discussion of 
+possible sharding schemes.
 
 
 ==== Git storage
@@ -124,19 +94,35 @@ Also see section about xref:#txn-filters[Transaction Filters].
 
 Tackler journal data can be read directly from git, even without checkout working copy. 
 
-Please see xref:./journal/git-storage.adoc[git storage] for full information about git based storage.
+See xref:./journal/git-storage.adoc[git storage] for full information about git based storage.
 
-Git storage will use Git storage backend will use by default directory structure based mode.
+Git storage backend will use by default directory structure based mode.
 If you like to use single journal mode with git, then just put journal in specific directory,
 and define that as a root for storage (`input.git.dir`). 
 
 Addition to configuration, Git reference or commit id can be given from command line:
 
-* `--input.git.ref` is for git reference (e.g. branch name), HEAD of that branch will be used
-* `--input.git.commit` one single commit and tree defined by it will be used
-* `--input.git.dir` this is path of top level directory which contains txns inside repository
 
-These options are mutually exclusive with each other and with filesystem storage arguments (`input.fs.*`).
+`--input.git.ref=<ref-name>`:: 
+
+Use `ref-name` for git reference. This could be e.g. tag or branch name. When it is's branch name,
+HEAD of that branch will be used automatically. This can not be specified at the same time with `--input.git.commit`.
+
+
+`--input.git.commit=<commit-id>`:: 
+
+Use single `commit-id` and tree defined by it. This can not be specified at the same time with `--input.git.ref`.
+
+
+`--input.git.dir=<dir-name>`::
+
+Top level directory of transaction data is defined by `dir-name`. All files inside this directory tree
+with xref:./tackler-conf.adoc[configured] suffix will be used as journal files.
+
+These options are mutually exclusive with filesystem storage arguments (`input.fs.*`).
+
+See xref:./journal/sharding.adoc[Journal Sharding] for discussion of 
+possible sharding schemes.
 
 
 === Transaction Filtering
@@ -306,28 +292,29 @@ then either Txns must have either `uuid` or unique `time`, `code` or `descriptio
 
 Produced reports can be selected either by xref:./tackler-conf.adoc[configuration] or CLI options:
 
-    --reporting.reports "report1" "report2"
+`--reporting.reports report1 report2 ...`::
 
 Valid options are:
 xref:./report-balance.adoc[`balance`],
 xref:./report-balance-group.adoc[`balance-group`],
-xref:./report-register.adoc[`register`],
+xref:./report-register.adoc[`register`]
+
 
 
 Produced exports can be selected either by xref:./tackler-conf.adoc[configuration] or CLI options:
 
-    --reporting.exports "export1" "export2"
 
-valid options are:
-xref:./export-equity.adoc[`equity`],
-xref:./export-identity.adoc[`identity`]
+`--reporting.exports export1 export2`::
+
+valid options are xref:./export-equity.adoc[`equity`] and xref:./export-identity.adoc[`identity`]
 
 
 ===== Selecting report formats
 
 Report formats can be selected either by xref:./tackler-conf.adoc[configuration] or CLI options:
 
-    --reporting.formats "frmt1" "frmt2"
+
+`--reporting.formats frmt1 frmt2`::
 
 Valid options are: `txt` and `json`
 
@@ -411,9 +398,10 @@ GroupBy is set by xref:./tackler-conf.adoc[configuration (tackler.conf)].
 
 ==== Output
 
-* `--reporting.console=true` will print reports on console
 
-* `--output <basename>`: will print reports to separate files,
+`--reporting.console=true`:: will print reports on console
+
+`--output <basename>`:: will print reports to separate files,
 which are named based on basename.
 
 Basename is path and name prefix for output reports, and it

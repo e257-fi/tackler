@@ -63,9 +63,10 @@ Recommended layout and setup would be:
 ....
 
 Where `YYYY` and `MM` stand for time based data shard with year and month slides. It's up to individual 
-setup which is the best way to shard data, if any. Transactions can be selected either based on 
-shards, or by using filters. See xref:./filters.adoc[Transaction Filters] for information how to select
-different sets of transactions.
+setup which is xref:./journal/sharding.adoc[the best way to shard transaction data], if any. 
+
+Transactions can be selected either based on  shards, or by using filters. 
+See xref:./filters.adoc[Transaction Filters] for information how to select different sets of transactions.
 
 With this setup, configuration file xref:./tackler-conf.adoc[tackler.conf] is located next to the jar-file,
 so configuration is auto-discovered.  Chart of Accounts (xref:./accounts-conf.adoc[accounts.conf]) contains
