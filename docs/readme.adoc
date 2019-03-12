@@ -5,8 +5,8 @@ see link:https://tackler.e257.fi[Tackler's web site] for all user information an
 
 == Developer documentation
 
-* xref:./devel/build.adoc[How to build]
-* xref:./devel/design.adoc[General Design]
+* xref:./devel/build.adoc[How to build Tackler]
+* xref:./devel/design.adoc[General design of Tackler]
 
 
 === Tackler Enhancement Proposals
