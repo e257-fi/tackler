@@ -1,6 +1,6 @@
 = TEP-1008: Numeric Account names
 
-See branch link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1008[/tep/tep-1008]
-for actual TEP-1008 content.
-
+See this document on
+link:https://gitlab.com/e257/accounting/tackler/blob/tep/tep-1008-num-acc-names/docs/tep/tep-1008.adoc[tep/tep-1008-num-acc-names]
+branch for actual TEP-1008 content.
 
