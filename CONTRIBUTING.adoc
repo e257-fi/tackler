@@ -29,11 +29,11 @@ for new TEP here: xref:./docs/tep/tep-0001.adoc[TEP template]
 . Build and test
 .. Build and run tests
 +
-    sbt clean test
+    LC_ALL=C.UTF-8 sbt clean test
 +
 .. Generate test coverage reports
 +
-    sbt clean coverageOn test coverageReport
+    LC_ALL=C.UTF-8 sbt clean coverageOn test coverageReport
     sbt coverageAggregate
 
 == Documentation for Tackler developers
