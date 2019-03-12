@@ -12,7 +12,7 @@ cache:
     - "sbt-cache/sbtboot"
 
 test·jdk11:
-  image: "hseeberger/scala-sbt:11.0.1_2.12.8_1.2.7"
+  image: "hseeberger/scala-sbt:11.0.2_2.12.8_1.2.8"
 
   variables:
     SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy"
