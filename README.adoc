@@ -73,7 +73,7 @@ and journal parsing is done with link:http://www.antlr.org/[ANTLR4].
 
 See link:https://tackler.e257.fi[Tackler's web site] for all user information and documentation.
 
-Developer related information is listed xref:./docs/readme.adoc[here].
+Developer related information is listed link:./docs/readme.adoc[here].
 
 
 == Todo, TEPs and Roadmap
@@ -98,7 +98,7 @@ Extremely loosely defined roadmap is following:
 == Releases
 
 For release information and version history details,
-see xref:./CHANGELOG.adoc[CHANGELOG].
+see link:./CHANGELOG.adoc[CHANGELOG].
 
 Tackler-core is intended to be used as for component to implement
 server systems. Tackler-api is released for JVM and JS environments,
@@ -130,14 +130,14 @@ are more likely to subject of change.
 == Contributing to Tackler
 
 Contributions to the project are most welcome. See
-xref:./CONTRIBUTING.adoc[CONTRIBUTING] how you could help.
+link:./CONTRIBUTING.adoc[CONTRIBUTING] how you could help.
 
 Your pull requests and patches can be merged only if you can certify
-the xref:./DCO[Developer Certificate of Origin (DCO), Version 1.1].
+the link:./DCO[Developer Certificate of Origin (DCO), Version 1.1].
 
 By signing-off your commit you certify DCO and acknowlegde that you have
 the rights to submit your pull requsted or patch as an open-source patch,
-as stated in xref:./DCO[Developer Certificate of Origin].
+as stated in link:./DCO[Developer Certificate of Origin].
 
 Certifying DCO is done by adding a `Signed-off-by` line
 to **every** git commit message:
@@ -155,7 +155,7 @@ Please make sure that you sign-off all your commits on your merge/pull request.
 
 == Credits
 
-See xref:./THANKS.adoc[THANKS] for full list of credits.
+See link:./THANKS.adoc[THANKS] for full list of credits.
 
 
 == License

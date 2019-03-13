@@ -5,7 +5,7 @@ Contributions to the project are most welcome!
 
 == Open and planned tasks
 
-At the moment project todo items are maintained in xref:../todo/[todo files].
+At the moment project todo items are maintained in link:./todo/[todo files].
 Before starting working on something, please first check by opening Gitlab issue
 if your plan is feasible and viable from project's perspective.
 
@@ -13,8 +13,8 @@ if your plan is feasible and viable from project's perspective.
 
 Bigger changes to Tackler are done via Tackler Enhancements Proposals.
 
-These are tracked on xref:./docs/tep/readme.adoc[TEP Index]. There is template
-for new TEP here: xref:./docs/tep/tep-0001.adoc[TEP template]
+These are tracked on link:./docs/tep/readme.adoc[TEP Index]. There is template
+for new TEP here: link:./docs/tep/tep-0001.adoc[TEP template]
 
 
 == How to build and test
@@ -38,59 +38,59 @@ for new TEP here: xref:./docs/tep/tep-0001.adoc[TEP template]
 
 == Documentation for Tackler developers
 
-xref:./docs/devel/readme.adoc[Developer's Guide] for Tackler located under
-xref:./docs/devel/[docs -> devel].
+link:./docs/devel/readme.adoc[Developer's Guide] for Tackler located under
+link:./docs/devel/[docs -> devel].
 
 
 == Explore code
 
 Directory structure follows Maven's layout and code has been divided to sub-projects
 
-xref:./api[api]::
+link:./api[api]::
 Tackler Api (`tackler-api`)
 +
-** xref:./api/src/main/scala/fi/e257/tackler/api/[api -> scala -> api] Client API (JVM and JS)
+** link:./api/src/main/scala/fi/e257/tackler/api/[api -> scala -> api] Client API (JVM and JS)
 +
-xref:./core[core]::
+link:./core[core]::
 Tackler Core (`tackler-core`)
 +
-** xref:./core/src/main/antlr4/[core -> antlr4] ANTLR4 Grammar definition for Tackler input
-** xref:./core/src/main/java/fi/e257/tackler/parser/[core -> java -> parser] Java helpers for parser
-** xref:./core/src/main/scala/fi/e257/tackler/parser/[core -> scala -> parser] Scala interface for Parser
-** xref:./core/src/main/scala/fi/e257/tackler/model/[core -> scala -> model]  Model object (Txn, Posting, etc)
-** xref:./core/src/main/scala/fi/e257/tackler/core/[core -> scala -> core] Core modules
-** xref:./core/src/main/scala/fi/e257/tackler/report/[core -> scala -> report] Reporting code
+** link:./core/src/main/antlr4/[core -> antlr4] ANTLR4 Grammar definition for Tackler input
+** link:./core/src/main/java/fi/e257/tackler/parser/[core -> java -> parser] Java helpers for parser
+** link:./core/src/main/scala/fi/e257/tackler/parser/[core -> scala -> parser] Scala interface for Parser
+** link:./core/src/main/scala/fi/e257/tackler/model/[core -> scala -> model]  Model object (Txn, Posting, etc)
+** link:./core/src/main/scala/fi/e257/tackler/core/[core -> scala -> core] Core modules
+** link:./core/src/main/scala/fi/e257/tackler/report/[core -> scala -> report] Reporting code
 +
-xref:./cli[cli]::
-* xref:./cli/src/main/scala/fi/e257/tackler/cli/[cli -> scala -> cli] Command Line Interface code
+link:./cli[cli]::
+* link:./cli/src/main/scala/fi/e257/tackler/cli/[cli -> scala -> cli] Command Line Interface code
 +
-xref:./tests[tests]::
+link:./tests[tests]::
 This directory contains link:https://gitlab.com/e257/testing/dirsuite[DirSuite] based integration tests for Tackler.
 +
-** xref:./tests/tests.adoc[tests -> tests.adoc] General overview of tests and Tackler Test Tracking Database (T3DB)
-** xref:./tests/accumulator[tests -> accumulator] Tests for validating calculator and Accumulator operations
-** xref:./tests/cli[tests -> cli] Tests for Command Line Interface verification
-** xref:./tests/parser[tests -> parser] Parser and input recognition tests (valid and non-valid input)
-** xref:./tests/core[tests -> core] Tests for core components and features
-** xref:./tests/reporting[tests -> reporting] Tests to validate reporting
-** xref:./tests/reset-refs.sh[tests -> reset-refs.sh] Tool to reset reference vectors with current output
+** link:./tests/tests.adoc[tests -> tests.adoc] General overview of tests and Tackler Test Tracking Database (T3DB)
+** link:./tests/accumulator[tests -> accumulator] Tests for validating calculator and Accumulator operations
+** link:./tests/cli[tests -> cli] Tests for Command Line Interface verification
+** link:./tests/parser[tests -> parser] Parser and input recognition tests (valid and non-valid input)
+** link:./tests/core[tests -> core] Tests for core components and features
+** link:./tests/reporting[tests -> reporting] Tests to validate reporting
+** link:./tests/reset-refs.sh[tests -> reset-refs.sh] Tool to reset reference vectors with current output
 
 === API documents
 
 For API documents, see:
 
- * xref:./docs/devel/readme.adoc[Developer's Guide]
- * xref:./docs/server-api.adoc[Server API]
- * xref:./docs/client-api.adoc[Client API].
+ * link:./docs/devel/readme.adoc[Developer's Guide]
+ * link:./docs/server-api.adoc[Server API]
+ * link:./docs/client-api.adoc[Client API].
 
 == Developer Certificate of Origin
 
 Your pull requests and patches can be merged only if you can certify
-the xref:./DCO[Developer Certificate of Origin (DCO), Version 1.1].
+the link:./DCO[Developer Certificate of Origin (DCO), Version 1.1].
 
 By signing-off your commit you certify DCO and acknowlegde that you have
 the rights to submit your pull requsted or patch as an open-source patch,
-as stated in xref:./DCO[Developer Certificate of Origin].
+as stated in link:./DCO[Developer Certificate of Origin].
 
 Certifying DCO is done by adding a `Signed-off-by` line
 to **every** git commit message:
