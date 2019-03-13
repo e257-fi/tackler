@@ -1,16 +1,16 @@
 = Features
 :page-permalink: /features/
 
-* Tackler's xref:/docs/reliability.adoc[all features are extensively tested]
+* Tackler's xref:docs/reliability.adoc[all features are extensively tested]
 * Native support for xref:docs/journal/git-storage.adoc[GIT based journal storage]
-* Support for xref:./docs/auditing.adoc[Accounting Auditing and Assurance]
+* Support for xref:docs/auditing.adoc[Accounting Auditing and Assurance]
 * Support for xref:docs/commodities.adoc[Commodities] and xref:docs/currencies.adoc[Currencies]
-* Strict account and commodity name validation with xref:./docs/accounts-conf.adoc[Chart of Accounts]
+* Strict account and commodity name validation with xref:docs/accounts-conf.adoc[Chart of Accounts]
 * Clean and simple xref:docs/journal/format.adoc[journal format]
 * Multiple report and export types:
 ** xref:docs/report-balance.adoc[Balance], xref:docs/report-balance-group.adoc[Balance Groups] and xref:docs/report-register.adoc[Register] Reports
 ** xref:docs/export-equity.adoc[Equity] and xref:docs/export-identity.adoc[Identity] Exports
-* Support for xref:./docs/txn-filters.adoc[Transaction Filters]
+* Support for xref:docs/txn-filters.adoc[Transaction Filters]
 * Supports UTF-8 characters in transaction data ({gitlink}/tests/parser/ok/par-02.ref.identity.txn[descriptions], {gitlink}/tests/parser/ok/par-02.ref.reg.txt[comments], {gitlink}/tests/parser/ok/id-chars-01.ref.identity.txn[account names])
 * Supports ISO 8601 timestamps with {gitlink}/tests/core/ok/time-dst-01.ref.identity.txn[timezones]
   and {gitlink}/tests/core/ok/time-nano-01.ref.identity.txn[nanosecond] resolution

@@ -1,5 +1,9 @@
 = Client API
 
+image:/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://javadoc.io/page/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
+image:/img/scaladoc-api.svg["ScalaDoc: tackler-api", link="https://javadoc.io/page/fi.e257/tackler-api_2.12/latest/fi/e257/tackler/api/index.html"]
+image:/img/scalajs-0.6.17.svg["Scala.js",link="https://www.scala-js.org"]
+
 This document explains how to use Tackler API on JVM and JS environments.
 
 Tackler's client side api (`tackler-api`) has data models of reports which can be used on the client side.

@@ -1,21 +1,23 @@
 image:https://gitlab.com/e257/accounting/tackler/badges/master/build.svg["Build status", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
 image:https://gitlab.com/e257/accounting/tackler/badges/master/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
 image:https://api.bintray.com/packages/e257/tackler/tackler-cli/images/download.svg[link="https://bintray.com/e257/tackler/tackler-cli/_latestVersion"]
-image:https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.12/badge.svg["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.12"]
-image:https://javadoc.io/badge/fi.e257/tackler-core_2.12.svg?color=blue["javadoc", link="https://javadoc.io/page/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
+image:https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.12/badge.svg["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.12"] +
+image:https://tackler.e257.fi/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://javadoc.io/page/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
+image:https://tackler.e257.fi/img/scaladoc-api.svg["ScalaDoc: tackler-api", link="https://javadoc.io/page/fi.e257/tackler-api_2.12/latest/fi/e257/tackler/api/index.html"]
 image:https://www.scala-js.org/assets/badges/scalajs-0.6.17.svg["Scala.js",link="https://www.scala-js.org"]
 
 = Tackler
 
+
 Tackler Ain't Calculator and Kernel for link:http://ledger-cli.org/[Ledger] Equivalent Records. +
 Why not? Because it uses simplified Ledger syntax.
 
-So in other words, Tackler is accounting engine and reporting tool for link:http://plaintextaccounting.org/[text
-based double-entry accounting].
+In other words, Tackler is accounting engine and reporting tool for
+link:http://plaintextaccounting.org/[text based double-entry accounting].
 
 == Tackler's website
 
-see link:https://tackler.e257.fi[Tackler's site] for all user information and documentation.
+See link:https://tackler.e257.fi[Tackler's web site] for user information and documentation.
 
 
 
@@ -69,19 +71,17 @@ and journal parsing is done with link:http://www.antlr.org/[ANTLR4].
 
 == Documentation and Quick Start Guides
 
-Full list of available documentation is located on xref:./docs/readme.adoc[Index of Documentation].
+See link:https://tackler.e257.fi[Tackler's web site] for all user information and documentation.
 
-=== Tackler's website
-
-see link:https://tackler.e257.fi[Tackler's web site] for all user information and documentation.
+Developer related information is listed xref:./docs/readme.adoc[here].
 
 
 == Todo, TEPs and Roadmap
 
-At the moment, current set of active todo items is kept xref:./todo[todo files].
+Tackler's outstanding todo items are kept in link:./todo[todo] files.
+Major new ideas, enhancement ideas and plans are tracked and planned in
+link:./docs/tep/readme.adoc[Tackler Enhancement Proposals (TEP)].
 
-There are Tackler Enhancement Proposals for planning and tracking implementation
-of major new features. These are listed on xref:docs/tep/readme.adoc[TEP index].
 
 === Roadmap
 
@@ -100,10 +100,13 @@ Extremely loosely defined roadmap is following:
 For release information and version history details,
 see xref:./CHANGELOG.adoc[CHANGELOG].
 
-Tackler-core is supposed to be usable as separate component.
-Tackler-api is released for JVM and JS environments, and it is intended
-to be used on the client side. See xref:./docs/server-api.adoc[Server API]
-and xref:./docs/client-api.adoc[Client API] for additional information.
+Tackler-core is intended to be used as for component to implement
+server systems. Tackler-api is released for JVM and JS environments,
+and it is intended to be used on the client enviroments.
+
+See link:https://tackler.e257.fi/docs/server-api/[Server API]
+and link:https://tackler.e257.fi/docs/client-api/[Client API]
+for additional information.
 
 Dependency settings for SBT are:
 
@@ -112,16 +115,15 @@ Dependency settings for SBT are:
 
 These are released on Maven Central Repository.
 
-Tackler is under development, so if you enjoy calm seas
-then it might be better to look
-link:http://plaintextaccounting.org/[something else].
-
-However, complex backward non-compatible changes to 
-xref:./docs/journal.adoc[Journal file format]
+Tackler is under development, however
+complex backward non-compatible changes to
+link:https://tackler.e257.fi/docs/journal/format/[Journal file format]
 should be rare. At the moment Tackler is used in production for
 operational data set.
 
-Configuration files, command line interface and Client API (data models)
+Configuration files, command line interface
+and link:https://tackler.e257.fi/docs/client-api/[Client API]
+(data models and link:https://tackler.e257.fi/docs/json/[JSON serialization])
 are more likely to subject of change.
 
 
@@ -148,7 +150,7 @@ You can also create a git `commit.template` with appropriate content. These
 settings can be done per repository basis,  so they don't have to be globally
 set in your system.
  
-Please make sure that you sign-off all your PR's commits.
+Please make sure that you sign-off all your commits on your merge/pull request.
 
 
 == Credits
@@ -173,4 +175,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ....
-
