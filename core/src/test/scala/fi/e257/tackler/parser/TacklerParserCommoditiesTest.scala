@@ -38,7 +38,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 1)
   }
 
   /**
@@ -57,7 +58,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 2)
   }
 
   /**
@@ -72,7 +74,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 1)
   }
 
   /**
@@ -91,7 +94,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 2)
   }
 
   behavior of "Profit and Loss parsing"
@@ -108,7 +112,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 1)
   }
 
   /**
@@ -127,7 +132,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 2)
   }
 
   /**
@@ -142,7 +148,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 1)
   }
 
   /**
@@ -161,7 +168,8 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    tt.string2Txns(txnStr)
+    val txns = tt.string2Txns(txnStr)
+    assert(txns.txns.size === 2)
   }
 
   behavior of "with invalid input"
@@ -177,11 +185,10 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    //val ex =
-    intercept[TacklerParseException] {
+    val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    // assert(ex.getMessage === todo specific message
+    assert(ex.getMessage.contains("on line: 3"))
   }
 
   /**
@@ -196,11 +203,10 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    //val ex =
-    intercept[TacklerParseException] {
+    val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    // assert(ex.getMessage === todo specific message
+    assert(ex.getMessage.contains("on line: 3"))
   }
 
   /**
@@ -215,11 +221,10 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    //val ex =
-    intercept[TacklerParseException] {
+    val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    // assert(ex.getMessage === todo specific message
+    assert(ex.getMessage.contains("on line: 3"))
   }
 
   /**
@@ -234,11 +239,10 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    //val ex =
-    intercept[TacklerParseException] {
+    val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    // assert(ex.getMessage === todo specific message
+    assert(ex.getMessage.contains("on line: 3"))
   }
 
   /**
@@ -253,11 +257,10 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    //val ex =
-    intercept[TacklerParseException] {
+    val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    // assert(ex.getMessage === todo specific message
+    assert(ex.getMessage.contains("on line: 3"))
   }
 
   /**
@@ -272,10 +275,9 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         |
         |""".stripMargin
 
-    //val ex =
-    intercept[TacklerParseException] {
+    val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
     }
-    // assert(ex.getMessage === todo specific message
+    assert(ex.getMessage.contains("on line: 3"))
   }
 }

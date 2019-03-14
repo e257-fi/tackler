@@ -137,84 +137,92 @@ Anything which wasn't implemented?
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] ok accounts
-** [ ] `a:0`
-** [ ] `a:001`
-** [ ] `a:0_0`
-** [ ] `a:0-0`
-** [ ] `a:0·0`
-** [ ] `a:0:abc`
-** [ ] `a:001:abc`
-** [ ] `a:0_0:abc`
-** [ ] `a:0-0:abc`
-** [ ] `a:0·0:abc`
-** [ ] `a0:0`
-** [ ] `a0:001`
-** [ ] `a0:0_0`
-** [ ] `a0:0-0`
-** [ ] `a0:0·0`
-** [ ] `a0:001:1_2`
-** [ ] `a0:0_0:1-2`
-** [ ] `a0:0-0:1·2`
-** [ ] `a0:0·0:123`
-** [ ] `a0:001:abc`
-** [ ] `a0:0_0:abc`
-** [ ] `a0:0-0:abc`
-** [ ] `a0:0·0:abc`
-** [ ] `a:abc:001`
-** [ ] `a:abc:0_0`
-** [ ] `a:abc:0-0`
-** [ ] `a:abc:0·0`
-** [ ] `a0:abc:abc`
-** [ ] `a0:0123456789`
-** [ ] `a0:0123456789:123-456-789`
-** [ ] `a0:4zefqrnuz95sw`
-* [ ] ok commodity
-** [ ] `au`
-** [ ] `au_oz`
-** [ ] `au-g`
-** [ ] `au·kg`
-** [ ] `O2_bar`
-** [ ] `O2-bar`
-** [ ] `O2·bar`
-** [ ] `O2_bar_50L`
-** [ ] `O2-bar-50L`
-** [ ] `O2·bar·50L`
-** [ ] `SP500`
+* [x] ok accounts
+** [x] `a:0`
+** [x] `a:001`
+** [x] `a:0_0`
+** [x] `a:0-0`
+** [x] `a:0·0`
+** [x] `a:0:abc`
+** [x] `a:001:abc`
+** [x] `a:0_0:abc`
+** [x] `a:0-0:abc`
+** [x] `a:0·0:abc`
+** [x] `a0:0`
+** [x] `a0:001`
+** [x] `a0:0_0`
+** [x] `a0:0-0`
+** [x] `a0:0·0`
+** [x] `a0:001:1_2`
+** [x] `a0:0_0:1-2`
+** [x] `a0:0-0:1·2`
+** [x] `a0:0·0:123`
+** [x] `a0:001:abc`
+** [x] `a0:0_0:abc`
+** [x] `a0:0-0:abc`
+** [x] `a0:0·0:abc`
+** [x] `a:abc:001`
+** [x] `a:abc:0_0`
+** [x] `a:abc:0-0`
+** [x] `a:abc:0·0`
+** [x] `a0:abc:abc`
+** [x] `a0:0123456789`
+** [x] `a0:0123456789:123-456-789`
+** [x] `a0:4zefqrnuz95sw`
+* [x] ok commodity
+** [x] `au`
+** [x] `au_oz`
+** [x] `au-g`
+** [x] `au·kg`
+** [x] `O2_bar`
+** [x] `O2-bar`
+** [x] `O2·bar`
+** [x] `O2_bar_50L`
+** [x] `O2-bar-50L`
+** [x] `O2·bar·50L`
+** [x] `SP500`
 
 
 === Errors
 
 Various error cases:
 
-* [ ] e: account names with errors
-** [ ] `0`
-** [ ] `0:0`
-** [ ] `a:0.0`
-** [ ] `_0`
-** [ ] `_0:a`
-** [ ] `·0`
-** [ ] `·0:a`
-** [ ] `-0`
-** [ ] `a:-0:a`
-** [ ] `a:_0`
-** [ ] `a:_0:a`
-** [ ] `a:·0`
-** [ ] `a:·0:a`
-** [ ] `a:-0`
-** [ ] `a:-0:a`
-* [ ] e: commodity names with errors
-** [ ] `0coin`
-** [ ] `0000`
-** [ ] `_0`
-** [ ] `·0`
-** [ ] `-0`
+* [x] e: account names with errors
+** [x] `0`
+** [x] `0:0`
+** [x] `a:0.0`
+** [x] `_0`
+** [x] `_0:a`
+** [x] `·0`
+** [x] `·0:a`
+** [x] `-0`
+** [x] `a:-0:a`
+** [x] `a:_0`
+** [x] `a:_0:a`
+** [x] `a:·0`
+** [x] `a:·0:a`
+** [x] `a:-0`
+** [x] `a:-0:a`
+* [x] e: commodity names with errors
+** [x] `0coin`
+** [x] `0000`
+** [x] `a0.000`
+** [x] `a0,000`
+** [x] `au:oz`
+** [x] `_0`
+** [x] `·0`
+** [x] `-0`
+
 
 === Perf
 
 Is there need to run or create new perf tests?
 
-* [ ] perf test
+* [x] perf test
+
+Based on comparison between version 0.23 and tep-1008,
+this change has no impact on performance.
+
 
 === Feature and Test case tracking
 
@@ -234,23 +242,23 @@ features:
         errors:
           - error:
               id: 385f7a60-9618-40e4-9f3e-8e28c76a8872
-              name: "todo: name of test class/method or test description file"
+              name: "TacklerParserAccountsTest"
               desc: "Invalid numerical account names"
           - error:
               id: 78a4af97-a876-4a13-9d67-b7e0ef86ed44
-              name: "todo: name of test class/method or test description file"
+              name: "TacklerParserAccountsTest"
               desc: "Invalid numerical commodity names"
         operations:
           - test:
               id: 00d410e8-f627-4bb1-a403-0dbe1d64a73a
-              name: "todo: name of test class/method or test description file"
+              name: "tests/parser/ok/acc-names-01.exec"
               descriptions:
                 - desc: "valid numerical accounts"
               references:
                 - ref: identity
           - test:
               id: bf61d3a8-8a77-4b8a-917e-1d58acfde25a
-              name: "todo: name of test class/method or test description file"
+              name: "tests/parser/ok/acc-names-02.exec"
               descriptions:
                 - desc: "valid commodity names with numerical parts"
               references:
