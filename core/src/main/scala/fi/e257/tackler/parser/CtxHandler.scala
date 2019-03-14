@@ -89,9 +89,9 @@ abstract class CtxHandler {
     "org.wartremover.warts.ListOps"))
   protected def handleAccount(accountCtx: AccountContext, commodity: Option[Commodity]): AccountTreeNode = {
 
-    val account: String = JavaConverters.asScalaIterator(accountCtx.ID().iterator())
+    val account: String = JavaConverters.asScalaIterator(accountCtx.children.iterator())
       .map(_.getText)
-      .mkString(":")
+      .mkString("")
 
     if (settings.Accounts.strict) {
       settings.Accounts.coa.find({ case (key, _) => key === account }) match {
@@ -110,7 +110,8 @@ abstract class CtxHandler {
   }
 
   protected def handleAmount(amountCtx: AmountContext): BigDecimal = {
-    BigDecimal(amountCtx.NUMBER().getText)
+
+    BigDecimal(Option(amountCtx.INT()).getOrElse(amountCtx.NUMBER()).getText())
   }
 
   protected def handleClosingPosition(postingCtx: PostingContext): (

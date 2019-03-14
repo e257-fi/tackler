@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,22 +24,24 @@ DATE: DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT;
 TS: DATE 'T' TIME;
 TS_TZ: TS TZ;
 
+INT: DIGIT+;
+
+NUMBER: ('+' | '-')? (INT | FLOAT);
+
 ID: NameStartChar (NameChar)*;
 
-NUMBER: INT | FLOAT;
+SUBID: (NameStartChar | DIGIT) (NameChar)*;
 
 fragment TIME: DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT+)?;
 
 fragment TZ: 'Z' | (('+' | '-') DIGIT DIGIT ':' DIGIT DIGIT);
 
-fragment INT: ('+' | '-')? DIGIT+;
-
-fragment FLOAT: ('+' | '-')? DIGIT+ '.' DIGIT+;
+fragment FLOAT: DIGIT+ '.' DIGIT+;
 
 fragment
 NameChar
    : NameStartChar
-   | '0'..'9'
+   | DIGIT
    | '_'
    | '-'
    | '\u00B7'
@@ -79,5 +81,3 @@ COLON: ':';
 NL: '\r'? '\n';
 
 ANYCHAR : . ;
-
-

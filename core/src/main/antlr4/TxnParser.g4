@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,9 +69,9 @@ opt_opening_pos: sp '{' opt_sp amount sp unit opt_sp '}';
 
 closing_pos: sp '@' sp amount sp unit;
 
-account: ID (':' ID)*;
+account: ID (':' (ID|SUBID|INT))*;
 
-amount: NUMBER;
+amount: INT|NUMBER;
 
 unit: ID;
 
