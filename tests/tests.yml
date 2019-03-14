@@ -440,58 +440,6 @@ features:
               name: tests/parser/ok/par-03.exec
               desc: txn sorting
 
-### Account names etc.
-  - feature:
-      id: e9e2b481-225a-4344-b27e-a51c237959a8
-      subject: "txn: account names"
-      tests:
-        errors:
-          - error:
-              id: 9c836932-718c-491d-8cf0-30e35a0d1533
-              name: TacklerParserTest
-              desc: missing account name part
-          - error:
-              id: 4a8f98d6-fb07-46ea-89ea-5ef4e7f4a3f8
-              name: TacklerParserTest
-              desc: "name starts with ':'"
-          - error:
-              id: d8e4e643-1b1b-46c7-b84c-e6cf04952971
-              name: TacklerParserTest
-              desc: "name ends with ':'"
-        operations:
-          - test:
-              id: e997a1a0-4f96-4212-a565-31565c87a7a2
-              name: tests/parser/ok/id-01.exec
-              descriptions:
-                - desc: "name contains '-'"
-                - desc: "name contains '_'"
-              references:
-                - ref: identity
-                - ref: register
-          - test:
-              id: bc8f6399-fd7a-420a-8deb-9cc0ae97c9f6
-              name: tests/parser/ok/id-chars-01.exec
-              descriptions:
-                - desc: high bit latin chars
-                - desc: kanji
-              references:
-                - ref: identity
-
-  - feature:
-      id: 893da4ec-5ce2-4108-b446-f86ab26a4c4c
-      subject: Chart of Accounts
-      tests:
-        errors:
-          - error:
-              id: a11c536e-ce20-4e2b-8abf-cd8a47cdaf07
-              name: tests/cli/ex/AccountException-unknown-acc-01.exec
-              desc: Unknown account name (no entry in CoA)
-        operations:
-          - test:
-              refid: e997a1a0-4f96-4212-a565-31565c87a7a2
-          - test:
-              refid: bc8f6399-fd7a-420a-8deb-9cc0ae97c9f6
-
   - feature:
       id: db4f2f57-aac8-41d6-997f-489cfaab8345
       subject: "Comments, journal level (not supported)"

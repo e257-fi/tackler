@@ -23,15 +23,50 @@ image:https://gitlab.com/e257/accounting/tackler/badges/master/coverage.svg["Cov
 
 T3DB consist of following files:
 
-* xref:./tests.yml[Main T3DB]
-* xref:./tests-1001.yml[T3DB for TEP-1001]
-* xref:./tests-1002.yml[T3DB for TEP-1002]
-* xref:./tests-1004.yml[T3DB for TEP-1004]
-* xref:./tests-1005.yml[T3DB for TEP-1005]
-* xref:./tests-1006.yml[T3DB for TEP-1006]
-* xref:./tests-1006.yml[T3DB for TEP-1007]
+link:./tests.yml[Main T3DB]::
 
-xref:./tests-tmpl.yml[Template for T3DB entry]
+* Main features
+
+
+link:./tests-1001.yml[T3DB for TEP-1001]::
+
+* Commodities
+* Currencies
+
+
+link:./tests-1002.yml[T3DB for TEP-1002]::
+
+* Git Backend
+
+
+link:./tests-1004.yml[T3DB for TEP-1004]::
+
+* JSON output
+
+
+link:./tests-1005.yml[T3DB for TEP-1005]::
+
+* transaction filters
+
+
+link:./tests-1006.yml[T3DB for TEP-1006]::
+
+* Configuration settings for min, max scale
+
+
+link:./tests-1007.yml[T3DB for TEP-1007]::
+
+* Transaction set checksum
+* Account selector checksum
+
+
+link:./tests-1008.yml[T3DB for TEP-1008]::
+
+* Account names
+* Numerical Account names
+
+
+link:./tests-tmpl.yml[Template for T3DB entry]
 
 
 === T3DB format
@@ -45,5 +80,5 @@ T3DB schema is defined in following file:
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the xref:../LICENSE[License] for the specific language governing permissions and limitations under
-the xref:../LICENSE[License].
+See the link:../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../LICENSE[License].
