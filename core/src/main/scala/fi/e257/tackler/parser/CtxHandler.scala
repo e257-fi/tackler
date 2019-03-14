@@ -101,7 +101,6 @@ abstract class CtxHandler {
           log.error(msg)
           throw new AccountException(msg)
         case Some((_, value)) =>
-          // enhance: check valid set of commodities from settings
           AccountTreeNode(value.account, commodity)
       }
     } else {
@@ -110,7 +109,6 @@ abstract class CtxHandler {
   }
 
   protected def handleAmount(amountCtx: AmountContext): BigDecimal = {
-
     BigDecimal(Option(amountCtx.INT()).getOrElse(amountCtx.NUMBER()).getText())
   }
 
