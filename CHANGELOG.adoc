@@ -13,7 +13,10 @@ Current published release is:
 
 New features and changes in this release are:
 
- * All documentation is moved on Tackler's web site: https://tackler.e257.fi/
+ * All user documentation is moved to Tackler's new web site: https://tackler.e257.fi/
+ * Support numerical sub-account names, see:
+ ** xref:./docs/tep/tep-1008.adoc[TEP-1008: Numerical Account names]
+ ** link:https://gitlab.com/e257/accounting/tackler/issues/2[GitLab Issue: 2]
 
 
 ==== Fixes

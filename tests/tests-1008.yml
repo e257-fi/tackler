@@ -1,0 +1,117 @@
+features:
+  - feature:
+      id: e9e2b481-225a-4344-b27e-a51c237959a8
+      subject: "txn: account names"
+      tests:
+        errors:
+          - error:
+              id: 9c836932-718c-491d-8cf0-30e35a0d1533
+              name: TacklerParserAccountsTest
+              descriptions:
+                - desc: "missing sub-account '::'"
+                - desc: "name starts with ':'"
+                - desc: "name ends with ':'"
+        operations:
+          - test:
+              id: e997a1a0-4f96-4212-a565-31565c87a7a2
+              name: tests/parser/ok/id-01.exec
+              descriptions:
+                - desc: "name contains '-'"
+                - desc: "name contains '_'"
+                - desc: "name contains '·'"
+              references:
+                - ref: identity
+                - ref: register
+          - test:
+              id: bc8f6399-fd7a-420a-8deb-9cc0ae97c9f6
+              name: tests/parser/ok/id-chars-01.exec
+              descriptions:
+                - desc: high bit latin chars
+                - desc: kanji
+              references:
+                - ref: identity
+
+  - feature:
+      id: 893da4ec-5ce2-4108-b446-f86ab26a4c4c
+      subject: Chart of Accounts
+      tests:
+        errors:
+          - error:
+              id: a11c536e-ce20-4e2b-8abf-cd8a47cdaf07
+              name: tests/cli/ex/AccountException-unknown-acc-01.exec
+              desc: Unknown account name (no entry in CoA)
+        operations:
+          - test:
+              refid: e997a1a0-4f96-4212-a565-31565c87a7a2
+          - test:
+              refid: bc8f6399-fd7a-420a-8deb-9cc0ae97c9f6
+
+  - feature:
+      id: bfc11481-21e2-4d12-8d9d-c4b434fd9228
+      subject: "Numeric account names"
+      tests:
+        errors:
+          - error:
+              id: 385f7a60-9618-40e4-9f3e-8e28c76a8872
+              name: TacklerParserAccountsTest
+              desc: "check invalid top-account names"
+          - error:
+              id: b160ec62-6254-45c8-ac3c-ef0ee41c95b1
+              name: TacklerParserAccountsTest
+              desc: "check invalid sub-account names"
+          - error:
+              id: 78a4af97-a876-4a13-9d67-b7e0ef86ed44
+              name: TacklerParserAccountsTest
+              desc: "check invalid commodity names"
+        operations:
+          - test:
+              id: 00d410e8-f627-4bb1-a403-0dbe1d64a73a
+              name: "tests/parser/ok/acc-names-01.exec"
+              descriptions:
+                - desc: "valid numerical accounts"
+              references:
+                - ref: identity
+          - test:
+              id: bf61d3a8-8a77-4b8a-917e-1d58acfde25a
+              name: "tests/parser/ok/acc-names-02.exec"
+              descriptions:
+                - desc: "valid commodity names with numerical parts"
+              references:
+                - ref: identity
+
+  - feature:
+      id: 82b6a8a4-eb91-4d1a-b048-c6ea52d09f6e
+      parent: bfc11481-21e2-4d12-8d9d-c4b434fd9228
+      subject: "Sub-account name can start with number"
+      tests:
+        errors:
+          - error:
+              refid: 385f7a60-9618-40e4-9f3e-8e28c76a8872
+              desc: "Number at the begin of name is not allowed for top level account"
+          - error:
+              refid: 78a4af97-a876-4a13-9d67-b7e0ef86ed44
+              desc: "Number at the begin of name is not allowed for commodities"
+        operations:
+          - test:
+              refid: 00d410e8-f627-4bb1-a403-0dbe1d64a73a
+              descriptions:
+                - desc: "valid sub-accounts"
+              references:
+                - ref: identity
+
+  - feature:
+      id: 01119667-b0ec-41ec-a84b-a4ca915fcc47
+      parent: bfc11481-21e2-4d12-8d9d-c4b434fd9228
+      subject: "Sub-account name can be fully numerical"
+      tests:
+        errors:
+          - error:
+              refid: 78a4af97-a876-4a13-9d67-b7e0ef86ed44
+              desc: "Commodities with pure numerical names are not allowed"
+        operations:
+          - test:
+              refid: 00d410e8-f627-4bb1-a403-0dbe1d64a73a
+              descriptions:
+                - desc: "Fully numerical sub-accounts"
+              references:
+                - ref: identity
