@@ -528,10 +528,6 @@ features:
           - test:
               refid: 9c836932-718c-491d-8cf0-30e35a0d1533
           - test:
-              refid: 4a8f98d6-fb07-46ea-89ea-5ef4e7f4a3f8
-          - test:
-              refid: d8e4e643-1b1b-46c7-b84c-e6cf04952971
-          - test:
               id: b591d5d3-0be8-4264-8ec0-75b464ff86dc
               name: TacklerParserTest
               desc: valid simple input
