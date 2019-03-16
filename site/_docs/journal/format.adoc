@@ -31,11 +31,11 @@ how to define used storage system and ideas for different sharding schemes.
 | Basic example
 |
 ----
-2017-01-01 opening balance
+2017-01-01 'Opening balance
  Assets:Checking 500.00
  Equity:Assets
 
-2017-01-05 Shopping on farmer's market
+2017-01-05 'Shopping on farmer's market
  Expenses:Groceries 50.00
  Assets:Checking
 
@@ -47,7 +47,7 @@ or many Txns per input file.
 | Basic transaction
 |
 ----
-DATE [(code)] [DESCRIPTION]
+DATE [(code)] [[']DESCRIPTION]
  ACCOUNT  AMOUNT
  ACCOUNT  [AMOUNT]
 ----
@@ -90,20 +90,50 @@ e.g.
 | Transaction code
 |
 ----
-DATE '(' code ')' [description]
- ...
+DATE '(' code ')'
 ----
 
 e.g.
 
 ----
-2017-01-01 (#123) Ice cream!
- Expences:Jäätelö
- Assets:Bank:Checking
+2017-01-01 (#123)
+ Expences:Jäätelö   2
+ Assets:Cash
 ----
-| Transaction code, which is terminated by`)` character.
+| Optional Transaction code, this could be check number, wire transfer id or 
+delivery tracking number, for example. 
 
-For example this could be check number or wire transfer id.
+Transcation code is terminated by `)` character. 
+
+Do not use following chararters for code,
+
+`'` `(` `)` `[` `]` `{` `}` `<` `>`
+
+even though those are accepted by Tackler at the moment.
+
+| Description
+|
+----
+DATE [[']Description]
+----
+
+e.g.
+
+----
+2019-03-16 'Ice cream 'n soda!
+...
+2019-03-16 (#125) 'It was 125th Ice Cream!
+...
+2017-01-01 Desc without '-prefix is discouraged
+----
+
+| Optional Description of transaction, this is similar to subject line of email.
+
+At the moment, Tackler accepts ledger-like freestyle descriptions, but this 
+form of transaction description is discouraged. 
+
+Future versions of Tackler might drop support for freestyle descriptions, 
+and there should be `'` at the start of description in the future.
 
 
 | Account names
@@ -151,7 +181,7 @@ There are unit tests with numbers of 30 digits and 130 decimals.
 | Commodities
 |
 ----
-2017-05-01 In Sweden
+2017-05-01 'In Sweden
  Expences:Ice·Cream  200 SEK
  Assets:Cash
 ----
@@ -161,7 +191,7 @@ There are unit tests with numbers of 30 digits and 130 decimals.
 | Value positions
 |
 ----
-2017-05-01 In Sweden
+2017-05-01 'In Sweden
  Expences:Ice·Cream  200 SEK @ 0.1039 EUR
  Assets:Cash  -20.78 EUR
 ----
@@ -170,7 +200,7 @@ There are unit tests with numbers of 30 digits and 130 decimals.
 | PnL: Opening position
 |
 ----
-2017-05-01 selling one Acme Inc.
+2017-05-01 'Selling one Acme Inc.
  Stock:Shares -1 ACME·INC {120 EUR} @ 123 EUR
  Assets:Cash 123 EUR
 ----
@@ -181,7 +211,7 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 | Comments
 |
 ----
-2017-01-01 description
+2017-01-01 'Txn with comment
  ; txn level comment
  Expenses:groceries 12.00 ; posting comment
  assets:checking
@@ -192,7 +222,7 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 | Transaction comments
 |
 ----
-2017-01-01 description
+2017-01-01 'Txn with multiline comment
  ; it was warm
  ; and sunny day
  Expenses:Jäätelö 2.12
@@ -204,7 +234,7 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 | Posting comments
 |
 ----
-2017-01-01 description
+2017-01-01 'Posting with comment
  Expenses:Jäätelö 2.12 ; Strawberry ice cream!
  Assets:Cash
 ----
@@ -214,7 +244,7 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 | Transaction metadata
 |
 ----
-2017-01-01 description
+2017-01-01 'Txn with UUID
  ;:uuid: 83976d4b-8ea8-4cec-804f-931e4f171c3b
  Expenses:Ice_cream 2.12
  Assets:Cash
@@ -234,7 +264,7 @@ or xref:../export-identity.adoc[identity export].
 | Posting metadata
 |
 ----
-2017-01-01 description
+2017-01-01 'Waporware - not supported
  Expenses:Ice_cream 2.12 ;:date:2017-01-03
  Assets:Cash
 ----

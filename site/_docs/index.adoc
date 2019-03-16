@@ -19,11 +19,11 @@ mkdir txns
 
 # Create some transactions
 cat > txns/journal.txn << EOF
-2018-06-01 First transaction
+2018-06-01 'First transaction
  Expenses:Ice_cream  2
  Assets:Cash
 
-2018-06-02 Second transaction
+2018-06-02 'Second transaction
  Expenses:Lemonade  1
  Assets:Cash
 
@@ -69,11 +69,11 @@ BALANCE
 
 REGISTER
 --------
-2018-06-01Z First transaction
+2018-06-01Z 'First transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
 ----------------------------------------------------------------------------------
-2018-06-02Z Second transaction
+2018-06-02Z 'Second transaction
             Assets:Cash                                   -1.00              -3.00
             Expenses:Lemonade                              1.00               1.00
 ----------------------------------------------------------------------------------
