@@ -64,7 +64,7 @@ cd tackler-demo
 mkdir txns
 
 cat > txns/txn-01.txn << EOF
-2017-04-23 first demo transaction
+2017-04-23 'first demo transaction
  Expenses:Ice_cream  2
  Assets:Cash
 
@@ -74,7 +74,7 @@ git add txns/txn-01.txn
 git commit -m 'first transaction'
 
 cat > txns/txn-02.txn << EOF
-2017-04-23 second demo transaction
+2017-04-23 'second demo transaction
  Expenses:Lemonade  1
  Assets:Cash
 
@@ -143,11 +143,11 @@ Git storage:
 
 REGISTER
 --------
-2017-04-23Z first demo transaction
+2017-04-23Z 'first demo transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
 ----------------------------------------------------------------------------------
-2017-04-23Z second demo transaction
+2017-04-23Z 'second demo transaction
             Assets:Cash                                   -1.00              -3.00
             Expenses:Lemonade                              1.00               1.00
 ----------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ Git storage:
 
 REGISTER
 --------
-2017-04-23Z first demo transaction
+2017-04-23Z 'first demo transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
 ----------------------------------------------------------------------------------

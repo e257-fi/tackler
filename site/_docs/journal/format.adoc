@@ -22,6 +22,17 @@ how to define used storage system and ideas for different sharding schemes.
 
 == Format
 
+[WARNING]
+.Future Journal Format Change
+====
+Transaction description must start with `'` -prefix. Future versions of Tackler
+will drop support for ledger-like freestyle transaction notes or descriptions. +
+ +
+Transaction code can not contain following characters in the future: +
+`'` `(` `)` `[` `]` `{` `}` `<` `>`
+====
+
+
 [cols="1,5a,3a", options="header"]
 |===
 |
@@ -43,11 +54,13 @@ how to define used storage system and ideas for different sharding schemes.
 | This is sequence of Transactions (Txns). There could one
 or many Txns per input file.
 
+See xref:./sharding.adoc[Transactoin data sharding] for ideas 
+how to store journal.
 
 | Basic transaction
 |
 ----
-DATE [(code)] [[']DESCRIPTION]
+DATE [CODE] [DESCRIPTION]
  ACCOUNT  AMOUNT
  ACCOUNT  [AMOUNT]
 ----
@@ -90,7 +103,7 @@ e.g.
 | Transaction code
 |
 ----
-DATE '(' code ')'
+DATE ['(' code ')']
 ----
 
 e.g.
@@ -100,7 +113,7 @@ e.g.
  Expences:Jäätelö   2
  Assets:Cash
 ----
-| Optional Transaction code, this could be check number, wire transfer id or 
+| Optional transaction code, this could be check number, wire transfer id or 
 delivery tracking number, for example. 
 
 Transcation code is terminated by `)` character. 
@@ -111,10 +124,12 @@ Do not use following chararters for code,
 
 even though those are accepted by Tackler at the moment.
 
-| Description
+| Transaction description +
+(note)
+
 |
 ----
-DATE [[']Description]
+DATE [CODE] [[']Description]
 ----
 
 e.g.
@@ -124,16 +139,16 @@ e.g.
 ...
 2019-03-16 (#125) 'It was 125th Ice Cream!
 ...
-2017-01-01 Desc without '-prefix is discouraged
+2017-01-01 Notes without '-prefix are discouraged
 ----
 
-| Optional Description of transaction, this is similar to subject line of email.
+| Optional transaction description, this is textual note 
+or subject line of transaction
 
-At the moment, Tackler accepts ledger-like freestyle descriptions, but this 
-form of transaction description is discouraged. 
+[WARNING]
+Future versions of Tackler will drop support for freestyle form
+and there must be `'` -prefix for notes.
 
-Future versions of Tackler might drop support for freestyle descriptions, 
-and there should be `'` at the start of description in the future.
 
 
 | Account names

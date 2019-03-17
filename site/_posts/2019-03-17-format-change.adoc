@@ -1,0 +1,36 @@
+= Journal format change
+:page-date: 2019-03-17 10:00:00 +0200
+:page-author: 35vlg84
+:page-category: journal
+
+
+There will be incompatible journal format change in the future.
+
+[WARNING]
+.Future Journal Format Change
+====
+Transaction description must start with `'` -prefix. Future versions of Tackler
+will drop support for ledger-like freestyle transaction notes or descriptions. +
+ +
+Transaction code can not contain following characters in the future: +
+`'` `(` `)` `[` `]` `{` `}` `<` `>`
+====
+
+Below is an example of transaction entries which are valid at the moment and in the future.
+
+----
+2019-03-03 (#123)
+  Expenses:Ice·cream  2
+  Assets:Cash
+
+2019-03-04 'Ice cream 'n soda!
+  Expenses:Ice·cream  2
+  Expenses:Soda  2
+  Assets:Cash
+
+2019-03-05 (#125) 'It was 125th ice cream
+  Expenses:Ice·cream  2
+  Assets:Cash
+----
+
+See link:/docs/journal/format/[Journal format] for full reference.
