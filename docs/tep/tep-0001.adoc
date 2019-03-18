@@ -1,7 +1,8 @@
 = TEP-XXXX: name
 
-See link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-XXXX-SHORT-NAME[/tep/tep-XXXX-SHORT-NAME]
-branch for actual TEP-XXXX content.
+See branch
+link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-XXXX-SHORT-NAME/docs/tep/tep-XXXX.adoc[/tep/tep-XXXX-SHORT-NAME]
+for actual TEP-XXXX content.
 
 Single line description of enhancement
 
@@ -164,9 +165,15 @@ Is there need to run or create new perf tests?
 
 === Feature and Test case tracking
 
-Feature-id:: <UUID>
 
-xref:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
+
+Feature-id::
+
+* name: <Feature name / subject-line>
+* uuid: <UUID>
+
+
+link:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
 
 
 === Metadata template for test coverage tracking

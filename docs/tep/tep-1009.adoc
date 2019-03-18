@@ -3,6 +3,8 @@
 Change Transaction header format so that it is more robust, regular 
 and less error prone for humans to manipulate.
 
+== Overview
+
 Currently Tackler's format tries to mimic Ledger's format, and be as much 
 compatible with as possible. However, ledger's journal format is somewhat fuzzy,
 and it is unnecessarily difficult to detect some error cases.
@@ -21,7 +23,7 @@ for humans these are really confusing and error prone.
 It doesn't help, that Tackler won't notice these as an error.
 
 
-== Solution
+=== Solution
 
 Break compatibility with Ledger as needed, and change the grammar to more regular
 and less error prone version.
@@ -44,13 +46,277 @@ This is breaking change to journal format, if these characters are used in code 
 
 Transaction metadata::
 
-Transaction medadata must start with `#` -prefix, old `;:` -prefix will be deprecated.
+Transaction medadata must start with `#` + space -prefix, instead of `;:`.
 
 
+=== Execution
+
+
+==== Phase 1
+
+Release version of Tackler  which accepts old version and new version,
+but emits only new syntax (equity, identity exports).  Mark old syntax to deprecated
+on all documentation etc.
+
+
+=== Phase 2
+
+Drop support for old syntax.
+
+
+== Journal file format
+
+
+
+Transaction description::
+
+Transaction description must start with `'` -prefix.
+
+
+Transaction code::
+
+Transaction code can not contain characters: +
+`'` `(` `)` `[` `]` `{` `}` `<` `>`
+
+
+Transaction metadata::
+
+Transaction medadata must start with `#` + space -prefix, instead of `;:`.
+
+
+
+== CLI changes
+
+None
+
+
+== CONF changes
+
+None
+
+
+== Machinery
+
+Changes to machinery
+
+* [ ] item
+
+
+=== API changes
+
+None
+
+
+==== Server API changes
+
+None
+
+
+==== Client API changes
+
+None
+
+
+=== New dependencies
+
+None
+
+
+== Reporting
+
+This causes modifications to Register report.
+
+
+=== Balance report
+
+None
+
+
+=== Balance Group report
+
+None
+
+
+=== Register report
+
+Register report has to be changed due this change.
+
+Without change to register report it would not be possible to identify following two
+transactions correctly from register-report.
+
+The first one is with code '#123', and the second one is txn with description '(#123)'.
+
+....
+2019-03-01 (#123)
+ a 1
+ b
+
+2019-03-01 '(#123)
+ a 1
+ b
+....
+
+Without changes to register report,  these two would look exactly same on the report, and it would impossible
+e.g. to select correct filters.
+
+
+=> Change register report so that it prefix description with `'`
+
+=> Change register report so that will prefix metadata with `#`
+
+
+== Exporting
+
+Equity and Identity exports must be valid input to tackler, hence both must be changed.
+
+=== Equity export
+
+Change equity export so that it will use `'` for description.
+
+
+=== Identity export
+
+Change identity export so that it will use `'` for description, and `#` for metadata.
+
+
+== Documentation
+
+* [ ] xref:./readme.adoc[]: Update TEP index
+* [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
+* [ ] link:../../CHANGELOG[]: add new item
+* [ ] Does it warrant own T3DB file?
+** [ ] update xref:../../tests/tests.adoc[]
+** [ ] update xref:../../tests/check-tests.sh[]
+** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [ ] User docs
+** [ ] user manual
+** [ ] examples
+
+
+== Future plans and Postponed (PP) features
+
+
+Following characters are reserved for future use in header's first line: `[` `]` `{` `}` `<` `>`
+
+
+=== Postponed (PP) features
+
+Anything which wasn't implemented?
+
+
+== Tests
+
+Normal, ok-case tests to validate functionality:
+
+==== Phase 1
+
+* [ ] Accepts old syntax
+** [ ] Txn header without `'`-prefix
+** [ ] code field with reserved characters
+** [ ] Txn metadata with `;:`
+
+* [ ] Accepts new syntax
+** [ ] Txn header with `'`-prefix
+** [ ] Txn metadata with `#` + space
+***  [ ] Test Txn metadata with `#` + multiple space
+
+
+==== Phase 2
+
+* [ ] Rejects old syntax
+** [ ] Txn header without `'`-prefix
+** [ ] code field with reserved characters
+** [ ] Txn metadata with `;:`
+
+* [ ] Accepts new syntax
+** [ ] Txn header with `'`-prefix
+** [ ] Txn metadata with `#`
+
+
+=== Errors
+
+Various error cases:
+
+* [ ] e: error test
+
+
+==== Phase 1
+
+* [ ] e: incorrect metadata syntax
+
+
+==== Phase 2
+
+* [ ] Rejects old syntax
+** [ ] e: Txn header without `'`-prefix
+** [ ] e: code field with reserved characters
+** [ ] e: Txn metadata with `;:`
+
+
+
+=== Perf
+
+Is there need to run or create new perf tests?
+
+* [ ] perf test
+
+=== Feature and Test case tracking
+
+
+Feature-id::
+
+* name: Txn description syntax
+* uuid: 67bf0fd9-b7d9-4138-8a8f-be524ca3cbc5
+
+Feature-id::
+
+* name: code field syntax
+* uuid: bbecb600-37d1-418e-b825-fd8d36634643
+
+Feature-id::
+
+* name: metadata syntax
+* uuid: be31bd6b-9ece-4f5d-9179-3ca66f057339
+
+
+link:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
+
+
+=== Metadata template for test coverage tracking
+
+....
+features:
+  - feature:
+      id: uuid
+      subject: "todo: one-line description of main feature"
+
+  - feature:
+      id: uuid
+      parent: uuid-of-parent
+      subject: "todo: one-line description of sub feature"
+      tests:
+        errors:
+          - error:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              desc: "todo: description"
+        operations:
+          - test:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              descriptions:
+                - desc: "todo: description"
+              references:
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+                - ref: identity
+                - ref: equity
+....
 
 
 '''
-Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, 
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*,
 either express or implied. +
-See the link:../../LICENSE[License] for the specific language governing permissions 
+See the link:../../LICENSE[License] for the specific language governing permissions
 and limitations under the link:../../LICENSE[License].
