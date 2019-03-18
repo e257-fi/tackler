@@ -1,5 +1,8 @@
 = TEP-XXXX: name
 
+See link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-XXXX-SHORT-NAME[/tep/tep-XXXX-SHORT-NAME]
+branch for actual TEP-XXXX content.
+
 Single line description of enhancement
 
 Longer paragraph with high level explanation of enhancement
@@ -56,8 +59,8 @@ Changes to client API or JSON model
 * [ ] link / url of new dependency
 ** [ ] Add and check licenses: link / url
 ** [ ] Is there NOTICE file(s)?
-** [ ] Add license under xref:../licenses[doc/licenses]
-*** [ ] Add NOTICES under xref:../licenses[doc/licenses]
+** [ ] Add license under link:../licenses/[doc/licenses]
+*** [ ] Add NOTICES under link:../licenses/[doc/licenses]
 ** [ ] Add link of license to xref:../readme.adoc[index]
 ** [ ] Add link to xref:../../THANKS.adoc[THANKS]
 ** [ ] Add license material to binary distribution
@@ -111,7 +114,7 @@ Changes to identity export
 
 * [ ] xref:./readme.adoc[]: Update TEP index
 * [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
-* [ ] xref:../../CHANGELOG[]: add new item
+* [ ] link:../../CHANGELOG[]: add new item
 * [ ] Does it warrant own T3DB file?
 ** [ ] update xref:../../tests/tests.adoc[]
 ** [ ] update xref:../../tests/check-tests.sh[]
@@ -161,6 +164,8 @@ Is there need to run or create new perf tests?
 
 === Feature and Test case tracking
 
+Feature-id:: <UUID>
+
 xref:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
 
 
@@ -199,5 +204,5 @@ features:
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
-the xref:../../LICENSE[License].
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].

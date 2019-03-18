@@ -1,6 +1,6 @@
 = Index of documentation
 
-see link:https://tackler.e257.fi[Tackler's web site] for all user information and documentation.
+see link:https://tackler.e257.fi/[Tackler's web site] for all user information and documentation.
 
 
 == Developer documentation

@@ -15,6 +15,7 @@ TEP Template: xref:./tep-0001.adoc[TEP-0001]
 * xref:./tep-1005.adoc[TEP-1005: Txn filters]
 * xref:./tep-1006.adoc[TEP-1006: CFG settings for report output scale]
 * xref:./tep-1007.adoc[TEP-1007: Txn set checksum]
+* xref:./tep-1008.adoc[TEP-1008: Numeric account names]
 
 
 === TEPs in implementation phase
@@ -23,7 +24,7 @@ None at the moment
 
 === TEPs in planning phase
 
-* xref:./tep-1008.adoc[TEP-1008: Numeric account names]
+* xref:./tep-1009.adoc[TEP-1009: Txn header syntax]
 * xref:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
 
 

@@ -1,4 +1,4 @@
-= TEP-1008: Numeric Account names
+= TEP-1008: Numeric Account Names
 
 Allow account names to start with numbers and/or be numeric only.
 

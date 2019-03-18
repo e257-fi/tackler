@@ -5,23 +5,38 @@ cpu: Intel(R) Core(TM) i5-2540M CPU @ 2.60GHz
 hd: Intel(R) SSD 535
 mem: 16GB
 ----
-Raw test results: xref:./hw01/[HW01 (laptop)]
+Raw test results: link:./hw01/[HW01 (laptop)]
+
+If you are seeing this on GitLab, then inline graphs probably won't show up:
+link:https://gitlab.com/gitlab-org/gitlab-ce/issues/17276[GitLab: Issue 17276]
 
 
 == perf-1E3
+
+link:./perf-hw01-1E3.svg[Graph: HW01 1E3]
+
 image::perf-hw01-1E3.svg[]
 
 == perf-1E4
+
+link:./perf-hw01-1E4.svg[Graph: HW01 1E4]
+
 image::perf-hw01-1E4.svg[]
 
 == perf-1E5
+
+link:./perf-hw01-1E5.svg[Graph: HW01 1E5]
+
 image::perf-hw01-1E5.svg[]
 
 == perf-1E6
+
+link:./perf-hw01-1E6.svg[Graph: HW01 1E6]
+
 image::perf-hw01-1E6.svg[]
 
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
-See the xref:../../LICENSE[License] for the specific language governing permissions and limitations under
-the xref:../../LICENSE[License].
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].
