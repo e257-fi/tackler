@@ -1,13 +1,13 @@
 = Trimix Filling Station
 
-Trimix is breathing gas for diving which is mixture of Helium, Oxygen and Nitrogen.
+Trimix is breathing gas for diving which is mixture of Helium, Oxygen and air.
 
 This is an example how you could use Tackler for Trimix Filling station accounting purposes. 
 This example is also part of Tacklers test setup and it is run with test target.
 
-Trimix is made out of mix Helium and Nitrox or mix of Helium, Oxygen and compressed air. 
-Helium is expensive and oxygen substantially cheaper (depending where do you live 
-and how oxygen is available in your region).
+Trimix is made out of mix of Helium and Nitrox or mix of Helium, Oxygen and compressed air.
+Helium is expensive and Oxygen substantially cheaper (depending where do you live
+and how Oxygen is available in your region).
 
 At filling station you have to track individual users (how much and which gas they have used),
 and how much do you have gas in your Helium and Oxygen tanks. Also you have to generate bills 
@@ -23,13 +23,13 @@ There is also an example how you could run and record and bill used gases.
 === Initial gas delivery
 
 ....
-2017-01-01 (#123456789) Helium delivery (three tanks)
+2017-01-01 (#123456789) 'Helium delivery (three tanks)
    Gas:He:Tank·102  298 bar·He
    Gas:He:Tank·103  298 bar·He
    Gas:He:Tank·104  298 bar·He
    Woikoski:He
 
-2017-01-01 (#123456789) Oxygen delivery (one tank)
+2017-01-01 (#123456789) 'Oxygen delivery (one tank)
    Gas:O2:Tank·208  198 bar·O2
    Woikoski:O2
 ....
@@ -38,34 +38,41 @@ There is also an example how you could run and record and bill used gases.
 === One 18/45 trimix blend with Helium (He) and Oxygen (O2)
 
 ....
-2017-05-01 (mix-1234) tmx 18/45 D12L
+2017-05-01 (mix-1234) 'tmx 18/45 D12L
+   ; This mix used 26 bar of Helium from 50L tank
    Gas:He:Tank·102  247 bar·He ; End pressure
    Gas:He:Tank·102 -273 bar·He ; Start pressure, negative pressure delta
    Mixer:diverX:He
 
-2017-05-01 (mix-1234) tmx 18/45 D12L
-   ; this mix used 5 bar @ 50L tank
+2017-05-01 (mix-1234) 'tmx 18/45 D12L
+   ; This mix used 5 bar of Oxygen from 50L tank
    Gas:O2:Tank·208  145 bar·O2 ; End pressure
    Gas:O2:Tank·208 -150 bar·O2 ; Start pressure, negative pressure delta
    Mixer:diverX:O2
 ....
 
-Why are there negative pressure deltas?
+==== Why is this using negative pressure deltas?
 
-With initial starting pressures negative deltas makes more sense, 
-so tank pressure degreses as gas is used. That way with negative deltas 
-remaining pressure in storage tank (reported by gauge) match pressure
-reported by accounting system.
+By using negative pressure deltas the whole account flow makes more sense,
+and there are 1:1 real world check points.
 
-Also with negative deltas, users accumulate posivite pressures, which in turn are 
-zeroed with negative pressures within payment transactions.  So in overall, 
-whole transaction flow makes more sense with real starting pressure 
-and negative tank pressure deltas when mixing gas.
+When system uses negative pressure deltas, then tank pressure decreases as gas is used,
+and remaining pressure in storage tank (reported by gauge) matches pressure
+reported by accounting system (Reported by Balance report for the tank).
+
+Also with negative deltas, gas which accumulates for user (used by user) has positive
+sign, which correlates nicely natural "how much gas user owns" concepts.
+
+This accumulated saldo is then in turn zeroed with negative pressures and positive monetary values
+within payment transactions.
+
+So in overall, whole transaction flow makes more sense with real starting pressure
+and negative tank pressure deltas when mixing gas. Examples below should clarify this.
 
 
 == Accounting
 
-Balance report by gas and by tanks
+Balance report by gas type and by tank
 
 ....
 cli/run --cfg ../tests/commodity/gb.conf --reporting.accounts ^Gas:.*:Tank.*
@@ -101,7 +108,7 @@ Users Gas Balance
 === Generate billing transactions
 
 ....
-2017-05-02  diverX outstanding payments
+2017-05-02 'diverX outstanding payments
    ; Convert used gas (bars) to EUR
    User:diverX:He -26 bar·He @ 1.25 EUR ; -32.50 EUR
    User:diverX:O2  -5 bar·O2 @ 0.25 EUR ;  -1.25 EUR
@@ -156,5 +163,3 @@ Example reports
 * {repolink}/tests/commodity/ok/gas-blender-saldo.ref.bal.txt/[Used gas by divers]
 * {repolink}/tests/commodity/ok/gas-blender-mix-log.ref.reg.txt/[Gas Blending entries (register)]
 * {repolink}/tests/commodity/ok/gas-blender-billing.ref.bal.txt/[Billing statement]
-
-

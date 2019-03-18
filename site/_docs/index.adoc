@@ -1,86 +1,35 @@
-= Quickstart
+= Tour of Tackler
 :page-permalink: /docs/
 
 
-The minimum setup to run tackler is:
+See following documents to get up and speed with Tackler.
 
-----
-# Create demo setup
-mkdir -p tackler
+== Getting started
 
-# Change to tackler
-cd tackler
+* xref:docs/quickstart.adoc[Quickstart]
 
-# Copy tacker-cli.jar to here
-cp /path/to/tackler-cli-x.y.z.jar tackler-cli.jar
+* xref:docs/journal/format.adoc[Journal Format]
 
-# Create default folder for transaction data
-mkdir txns
-
-# Create some transactions
-cat > txns/journal.txn << EOF
-2018-06-01 'First transaction
- Expenses:Ice_cream  2
- Assets:Cash
-
-2018-06-02 'Second transaction
- Expenses:Lemonade  1
- Assets:Cash
-
-EOF
-----
-
-The journal data file can not be empty (`txns/journal.txn` in above),
-hence we create some demo data into it.
-
-After above steps, content of demo folder should be:
-
-----
-./tackler-cli.jar
-./txns/
-./txns/journal.txn
-----
-
-Now you can run following command on that demo folder:
-
- java -jar ./tackler-cli.jar --accounts.strict=false
-
-This will produce balance and register reports without account name or commodity name validation.
-
-Output should be something like below:
-
-----
-# ... Log lines suppressed ...
-# ... There is legitime ERROR about missing configuration ...
-# ... See Installation Manual how to configure tackler ...
-# 
-Txns size: 2
-
-BALANCE
--------
-                 0.00   -3.00  Assets
-                -3.00   -3.00  Assets:Cash
-                 0.00    3.00  Expenses
-                 2.00    2.00  Expenses:Ice_cream
-                 1.00    1.00  Expenses:Lemonade
-=====================
-                 0.00
+* xref:docs/installation.adoc[Installation Manual]
 
 
-REGISTER
---------
-2018-06-01Z 'First transaction
-            Assets:Cash                                   -2.00              -2.00
-            Expenses:Ice_cream                             2.00               2.00
-----------------------------------------------------------------------------------
-2018-06-02Z 'Second transaction
-            Assets:Cash                                   -1.00              -3.00
-            Expenses:Lemonade                              1.00               1.00
-----------------------------------------------------------------------------------
+== Daily usage
 
+* xref:docs/journal/git-storage.adoc[Git Storage Guide]
 
-Total processing time: 1284, parse: 464, reporting: 80
-----
+* xref:docs/usage.adoc[Usage Guide]
 
-See xref:docs/installation.adoc[Installation Manual] and xref:docs/usage.adoc[Usage Guide] how to
-use tackler.
+* xref:docs/txn-filters.adoc[Transaction filters]
+
+* xref:docs/currencies.adoc[Currencies, shares ...]
+
+== Examples
+
+* xref:docs/examples/trimix-filling-station.adoc[Trimix Filling Station]
+
+== Embedding Tackler
+
+ * xref:docs/server-api.adoc[Server API]
+ * xref:docs/client-api.adoc[Client API]
+ * xref:docs/json.adoc[JSON Report and Metadata]
+

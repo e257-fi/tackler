@@ -1,11 +1,20 @@
 = Git Storage Guide
 
-How to use link:https://git-scm.com/[GIT] repository as storage backend with Tackler.
+Tackler has integrated and native support for link:https://git-scm.com/[GIT] version control system.
 
-Tackler has integrated support for git as storage backend.  Tackler will include version metadata
-directly to the generated reports. This provides one part of immutable audit trail of used transaction data,
-if that is needed or mandated by regulations. See xref:../auditing.adoc[Accounting Auditing] if there is
-need for audit trail of used account data.
+Tackler has integrated support for git as storage backend.  This means that Tackler can include version metadata
+directly to the generated reports, and generated reports are always made out of well known state of accounting data.
+
+This provides one key of the immutable audit trail of used accounting data. This audit trail can be printed e.g.
+on paper or transferred directly to accountant or escrow agent. See xref:../auditing.adoc[Accounting Auditing]
+if there is need for audit trail of used account data.
+
+See xref:./sharding.adoc[Transaction data sharding] for ideas how to store data inside git repository. It is
+really good idea to select feasible way to split up journal, so that possible merge conflicts
+could be kept at minimum.  Tackler supports happily one-transaction - one-journal-file mode.
+
+
+== Using GIT branches and references with Tackler
 
 Tackler supports use of multiple branches, and transactions sets can be referenced by standard git ways:
 

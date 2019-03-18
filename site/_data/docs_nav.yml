@@ -1,6 +1,7 @@
 - title: Getting Started
   docs:
     - link: /docs/
+    - link: /docs/quickstart/
     - link: /docs/installation/
     - link: /docs/usage/
     - link: /docs/journal/format/
