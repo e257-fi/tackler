@@ -1,5 +1,56 @@
 = TEP-1009: Transaction Header Syntax
 
-See link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1009-txn-header[/tep/tep-1009-txn-header]
-branch for actual TEP-1009 content.
+Change Transaction header format so that it is more robust, regular 
+and less error prone for humans to manipulate.
 
+Currently Tackler's format tries to mimic Ledger's format, and be as much 
+compatible with as possible. However, ledger's journal format is somewhat fuzzy,
+and it is unnecessarily difficult to detect some error cases.
+
+For example, currently following invalid ISO-8601 offset (one extra space)
+is recognized as start of txn description, not as an offset.
+
+....
+2019-03-01T12:00:00 -04:00 Description
+....
+
+Same goes on with various not-so-obvious format errors with code field.
+These are easy to handle with automatically generated transactions, but
+for humans these are really confusing and error prone.
+
+It doesn't help, that Tackler won't notice these as an error.
+
+
+== Solution
+
+Break compatibility with Ledger as needed, and change the grammar to more regular
+and less error prone version.
+
+This will cause that there will be following changes to journal format,
+which are partially  incompatible (breaking change) with old journal format and data.
+
+
+Transaction description::
+
+Transaction description must start with `'` -prefix. This is breaking change to journal format.
+
+
+Transaction code::
+
+Transaction code can not contain characters: +
+`'` `(` `)` `[` `]` `{` `}` `<` `>` +
+This is breaking change to journal format, if these characters are used in code field.
+
+
+Transaction metadata::
+
+Transaction medadata must start with `#` -prefix, old `;:` -prefix will be deprecated.
+
+
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, 
+either express or implied. +
+See the link:../../LICENSE[License] for the specific language governing permissions 
+and limitations under the link:../../LICENSE[License].
