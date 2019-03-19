@@ -12,7 +12,7 @@ for single transactions.
 
 Usage of transaction filters:
 
-* See xref:./usage.adoc[Usage Guide] for using transaction filters with
+* See xref:./usage.adoc#txn-filters[Usage Guide] for using transaction filters with
 `tackler-cli.jar` CLI application.
 * See xref:./server-api.adoc[Server API document] for using transaction filters with embedded `tackler-core`.
 * See xref:./client-api.adoc[Client API document] for data model of transaction filters for JS/JVM `tackler-api`.

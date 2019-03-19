@@ -31,5 +31,5 @@ See following documents to get up and speed with Tackler.
 
  * xref:docs/server-api.adoc[Server API]
  * xref:docs/client-api.adoc[Client API]
- * xref:docs/json.adoc[JSON Report and Metadata]
+ * xref:docs/json.adoc[JSON Format for Reports and Metadata]
 

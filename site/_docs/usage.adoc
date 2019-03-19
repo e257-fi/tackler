@@ -89,8 +89,8 @@ See xref:./journal/sharding.adoc[Journal Sharding] for discussion of
 possible sharding schemes.
 
 
-==== Git storage
 [[git-storage]]
+==== Git storage
 
 Tackler journal data can be read directly from git, even without checkout working copy. 
 
@@ -125,13 +125,13 @@ See xref:./journal/sharding.adoc[Journal Sharding] for discussion of
 possible sharding schemes.
 
 
-=== Transaction Filtering
 [[txn-filters]]
+=== Transaction Filters
 
 Tackler has an option to filter transactions based on attributes of single transaction.
 
 If transaction is filtered away by txn filter, it will disappear from all calculations and statistics.
-The effect is same as if transaction didn't exist in first place.  Transactions can be filtered based on
+The effect is same as if transaction didn't exist in the first place.  Transactions can be filtered based on
 various attributes of single transaction, and different filters can be combined logically together.
 
 For full list of available filters and their syntax, see xref:./txn-filters.adoc[Transaction Filters]
@@ -139,7 +139,8 @@ document.
 
 
 Transaction filter can be defined by providing filter definition as JSON with `--api-filter-def` option,
-either as plain JSON or base64 encoded.
+and it can be plain JSON or encoded as base64 string. Base64 encoding will make it easy to use filters
+with xref:./usage.adoc#txn-filters-shell[shell scripts].
 
 Belows is an example of filter to find all transactions where there is "ice-cream"
 on transaction's description field.
@@ -166,12 +167,12 @@ code as starting "#" and description starts as "txn-".
 See xref:./txn-filters.adoc[Transaction Filters] for list of all available filters and their syntax.
 
 
-==== Using Transaction Filters with shell scripting
 [[txn-filters-shell]]
+==== Using Transaction Filters with shell scripting
 
 
-Transaction filters can be easily combined and created by shell scripts. When stored in `base64` ascii armor
-format, those filters also easy to handle in shell scripts.
+Transaction filters can be easily combined and created by shell scripts.
+Filter definitions can be easily handled with shell scripts in `base64` ascii armor format.
 
 By combining these two features, it's easy to extend Tackler's functionality with simple and powerful constructs.
 
@@ -214,7 +215,8 @@ EOF
 Get reports for all transactions between 2019-01-15 10:00 and 15:30 on TZ=02:00
 
 ....
-tackler-cli.jar --api-filter-def $(time_span_filter 2019-01-15TT10:00:00+02:00  2019-01-15T15:30:00+02:00)
+tackler-cli.jar --api-filter-def \
+   $(time_span_filter 2019-01-15TT10:00:00+02:00  2019-01-15T15:30:00+02:00)
 
 Filter:
   AND
@@ -245,7 +247,9 @@ time_window_filter () {
 Transaction data from last 5 years:
 
 ----
-tackler-cli.jar --api-filter-def $(get_window_filter "2019-01-01" "-5 years")
+tackler-cli.jar --api-filter-def \
+   $(get_window_filter "2019-01-01" "-5 years")
+
 Filter:
   AND
     Txn TS: begin 2014-01-01T00:00:00Z
@@ -256,7 +260,8 @@ Filter:
 Transaction data from last 30 days:
 
 ----
-tackler-cli.jar --api-filter-def $(get_window_filter "2019-01-15" "-30 days")
+tackler-cli.jar --api-filter-def \
+   $(get_window_filter "2019-01-15" "-30 days")
 
 Filter:
   AND
@@ -268,7 +273,8 @@ Filter:
 Transaction data for Q1/2018:
 
 ----
-tackler-cli.jar --api-filter-def $(get_window_filter "2018-01-01" "+3 months")
+tackler-cli.jar --api-filter-def \
+   $(get_window_filter "2018-01-01" "+3 months")
 
 Filter:
   AND

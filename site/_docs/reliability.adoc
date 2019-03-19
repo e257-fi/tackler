@@ -21,7 +21,7 @@ over *270* test cases, tackler-cli is executed over *140* times by test setup,
 and results are verified by over *380* reference reports. 
 
 Accounting Journal with size of *one hundred thousand* (1E5) transactions 
-is used for *unit* testing
+is used with *unit tests*
 (see: {gitlink}/core/src/test/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala[TacklerTxnsGitTest]),
 and Tackler is stress and performance tested with up to *one million* (1E6) 
 transactions test sets. See xref:./performance.adoc[Performance Overview]

@@ -5,15 +5,18 @@
 * Native support for xref:docs/journal/git-storage.adoc[GIT based journal storage]
 * Support for xref:docs/auditing.adoc[Accounting Auditing and Assurance]
 * Support for xref:docs/commodities.adoc[Commodities] and xref:docs/currencies.adoc[Currencies]
-* Strict account and commodity name validation with xref:docs/accounts-conf.adoc[Chart of Accounts]
+* Strict xref:docs/accounts-conf.adoc[account and commodity name validation] with Chart of Accounts
 * Clean and simple xref:docs/journal/format.adoc[journal format]
 * Multiple report and export types:
 ** xref:docs/report-balance.adoc[Balance], xref:docs/report-balance-group.adoc[Balance Groups] and xref:docs/report-register.adoc[Register] Reports
 ** xref:docs/export-equity.adoc[Equity] and xref:docs/export-identity.adoc[Identity] Exports
 * Support for xref:docs/txn-filters.adoc[Transaction Filters]
-* Supports UTF-8 characters in transaction data ({gitlink}/tests/parser/ok/par-02.ref.identity.txn[descriptions], {gitlink}/tests/parser/ok/par-02.ref.reg.txt[comments], {gitlink}/tests/parser/ok/id-chars-01.ref.identity.txn[account names])
-* Supports ISO 8601 timestamps with {gitlink}/tests/core/ok/time-dst-01.ref.identity.txn[timezones]
-  and {gitlink}/tests/core/ok/time-nano-01.ref.identity.txn[nanosecond] resolution
+* Supports UTF-8 characters in transaction data (
+{repolink}/tests/parser/ok/par-02.ref.identity.txn/[descriptions],
+{repolink}/tests/parser/ok/par-02.ref.reg.txt/[comments],
+{repolink}/tests/parser/ok/id-chars-01.ref.identity.txn/[account names])
+* Supports ISO 8601 timestamps with {repolink}/tests/core/ok/time-dst-01.ref.identity.txn/[timezones]
+  and {repolink}/tests/core/ok/time-nano-01.ref.identity.txn/[nanosecond] resolution
 * Text and xref:docs/json.adoc[JSON] output formats for reports
 ** xref:docs/server-api.adoc[Server API] for embedding Tackler core
 ** xref:docs/client-api.adoc[Client API] for JVM and JS environments

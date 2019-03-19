@@ -44,11 +44,8 @@ See xref:./accounts-conf.adoc[example of accounts.conf] for full documentation
 of Chart of Accounts and commodity listing.
 
 
-== Recommend layout
 [[layout]]
-
-By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
-You can also provide path to configuration file with `--cfg` option.
+== Recommended layout
 
 Recommended layout and setup would be:
 
@@ -65,12 +62,19 @@ Recommended layout and setup would be:
 Where `YYYY` and `MM` stand for time based data shard with year and month slides. It's up to individual 
 setup which is xref:./journal/sharding.adoc[the best way to shard transaction data], if any. 
 
-Transactions can be selected either based on  shards, or by using filters. 
-See xref:./filters.adoc[Transaction Filters] for information how to select different sets of transactions.
+Transactions can be selected either based on  shards or by using filters. 
+See xref:./usage.adoc#txn-filters[Usage Guide] for how to use filters, 
+and xref:./filters.adoc[Transaction Filters] document for overall information about available filters. 
 
-With this setup, configuration file xref:./tackler-conf.adoc[tackler.conf] is located next to the jar-file,
-so configuration is auto-discovered.  Chart of Accounts (xref:./accounts-conf.adoc[accounts.conf]) contains
-accounts and commodity names and it is possible to do strict account and commodity name validation.
+
+=== Configuration Settings for Recommended Layout
+
+By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
+You can also provide path to configuration file with `--cfg` option.
+
+With recommended setup, configuration file xref:./tackler-conf.adoc[tackler.conf] is located next to the jar-file
+and it is auto-discovered.  There is also xref:./accounts-conf.adoc[accounts.conf] which contains
+accounts and commodity names definitions. This makes it possible to do strict account and commodity name validation.
 
 Minimal `tackler.conf` for above setup could be:
 

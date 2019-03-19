@@ -7,12 +7,10 @@ echo "<html><body></body></html>" > repo/tests/index.html
 
 grep \
     '{repolink}/' \
-    _docs/licenses.adoc _docs/auditing.adoc _docs/examples/trimix-filling-station.adoc _docs/json.adoc | \
+    pages/features.adoc _docs/licenses.adoc _docs/auditing.adoc _docs/examples/trimix-filling-station.adoc _docs/json.adoc | \
     sed -E 's@.*\{repolink\}/(.*)\[.*@\1@' | \
     while read f;
     do
-        #orig_name="$(echo $(basename $f) | sed -E 's/\.[^\.]+$//' )"
-        #fsname=$(dirname $f)/$orig_name
         fsname=$(dirname $f)/$(basename $f)
         trgdir=repo/$(dirname $f)
         src=$(basename $f)
