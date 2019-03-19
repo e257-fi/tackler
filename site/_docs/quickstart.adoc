@@ -82,7 +82,7 @@ REGISTER
 Total processing time: 1284, parse: 464, reporting: 80
 ----
 
-See xref:docs/journal/format.adoc[Journal Format],
-xref:docs/installation.adoc[Installation Manual]
-and xref:docs/usage.adoc[Usage Guide] how to
+See xref:./journal/format.adoc[Journal Format],
+xref:./installation.adoc[Installation Manual]
+and xref:./usage.adoc[Usage Guide] how to
 use tackler.
