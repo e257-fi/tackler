@@ -33,19 +33,19 @@ class TxnFilterTxnHeaderTest extends TxnFilterSpec with FlatSpecLike {
   val uuidTxn04 = "205d4a48-471c-4015-856c-1c827f8befdd"
 
   val txnStr =
-    s"""2018-01-01 abc txn01
-       | ;:uuid: ${uuidTxn01}
+    s"""2018-01-01 'abc txn01
+       | # uuid: ${uuidTxn01}
        | ; xyz
        | e  1
        | a
        |
-       |2018-02-01 (abc) txn02
-       | ;:uuid: ${uuidTxn02}
+       |2018-02-01 (abc) 'txn02
+       | # uuid: ${uuidTxn02}
        | e  1
        | a
        |
-       |2018-03-01 (xyz) txn03
-       | ;:uuid: ${uuidTxn03}
+       |2018-03-01 (xyz) 'txn03
+       | # uuid: ${uuidTxn03}
        | ; xyz
        | ; abc
        | ; klm
@@ -53,7 +53,7 @@ class TxnFilterTxnHeaderTest extends TxnFilterSpec with FlatSpecLike {
        | a
        |
        |2018-04-01
-       | ;:uuid: ${uuidTxn04}
+       | # uuid: ${uuidTxn04}
        | e:b:abc  1
        | a
        |
@@ -116,7 +116,7 @@ class TxnFilterTxnHeaderTest extends TxnFilterSpec with FlatSpecLike {
    */
   it must "filter by txn UUID with no UUID" in {
     val txnNoUUIDStr =
-      s"""2018-01-01 abc txn01
+      s"""2018-01-01 'abc txn01
          | ; xyz
          | e  1
          | a

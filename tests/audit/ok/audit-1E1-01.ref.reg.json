@@ -12,7 +12,7 @@
       },
       {
         "GitInputReference" : {
-          "commit" : "e77476c58da3921746befd8a36c34a6b53310878",
+          "commit" : "4aa4e9797501c1aefc92f32dff30ab462dae5545",
           "ref" : "txns-1E1",
           "dir" : "txns",
           "suffix" : ".txn",

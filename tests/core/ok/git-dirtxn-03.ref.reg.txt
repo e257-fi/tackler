@@ -1,9 +1,9 @@
 Git storage:
-  commit:  15a786028157a6b01dddf31988c087e6a4543bde
+  commit:  491cc5fdcbfe0b51a4556d634b0240b18cc16f96
   ref:     dirtxn-02
   dir:     git-txns/2019
   suffix:  .txn
-  message: dirtxn-02 targets
+  message: test: dirtxn-02
 
 
 REGISTER

@@ -1,12 +1,12 @@
 
 REGISTER
 --------
-2017-01-10Z 'aa test by sorting that code detected
+2017-01-10Z 'aa test by sorting that code is detected
             # uuid: 40a2e6b1-eabd-40e3-be2f-0b7d6924e943
             a                                              1.00               1.00
             e                                             -1.00              -1.00
 ----------------------------------------------------------------------------------
-2017-01-10Z (!"#¤%&/(=?) 'ok case
+2017-01-10Z (!"#¤%&/=?) 'ok case
             # uuid: b0bdf37a-d94d-4a68-8692-246ef9359ded
             a                                              1.00               2.00
             e                                             -1.00              -2.00

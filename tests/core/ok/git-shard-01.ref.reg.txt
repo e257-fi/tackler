@@ -1,9 +1,9 @@
 Git storage:
-  commit:  ebe0ca2f24a44069c179f9df3f72ff04ece965d5
+  commit:  422ca7f3cbc1f3597fd2312d7d6c7793115e1e50
   ref:     shard-01
   dir:     git-txns
   suffix:  .txn
-  message: txns data for shard test
+  message: test: shard-01
 
 
 REGISTER

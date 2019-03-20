@@ -1,9 +1,9 @@
 Git storage:
-  commit:  a7938d9b61958d2cabea7503a7be89191d4fb31e
+  commit:  3ebf14112c0ba2b4263a4b7388c589b10db27b1e
   ref:     FIXED by commit
   dir:     git-txns
   suffix:  .txn
-  message: commit-id-01: 2nd
+  message: test: commit-id-01, step 3
 
 Filter:
   Txn Description: "shard01"

@@ -32,19 +32,19 @@ class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
   val uuidTxn05 = "c6e6cb30-858b-4d9f-8b87-3fae2372136a"
 
   val txnStr =
-    s"""2018-01-01 abc txn01
-       | ;:uuid: ${uuidTxn01}
+    s"""2018-01-01 'abc txn01
+       | # uuid: ${uuidTxn01}
        | ; xyz
        | e:b  1.000000001
        | a
        |
-       |2018-02-01 (abc) txn02
-       | ;:uuid: ${uuidTxn02}
+       |2018-02-01 (abc) 'txn02
+       | # uuid: ${uuidTxn02}
        | e:b  1.0000000011 ; abc hamburger
        | a
        |
-       |2018-03-01 (xyz) txn03
-       | ;:uuid: ${uuidTxn03}
+       |2018-03-01 (xyz) 'txn03
+       | # uuid: ${uuidTxn03}
        | ; xyz
        | ; abc
        | ; klm
@@ -52,12 +52,12 @@ class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
        | a
        |
        |2018-04-01
-       | ;:uuid: ${uuidTxn04}
+       | # uuid: ${uuidTxn04}
        | e:b:abc  3 ; xyz
        | a
        |
        |2018-05-01
-       | ;:uuid: ${uuidTxn05}
+       | # uuid: ${uuidTxn05}
        | e:abc:foo  4 EUR
        | a
        |

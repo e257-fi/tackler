@@ -42,7 +42,7 @@ class TacklerTxnsTest extends FlatSpec {
    */
   it should "notice unbalanced transaction" in {
     val txnStr =
-      """2017-01-01 str
+      """2017-01-01
         | e  1
         | a  1
         |""".stripMargin
@@ -60,15 +60,15 @@ class TacklerTxnsTest extends FlatSpec {
    */
   it should "handle multiple txns" in {
     val txnStr =
-      """2017-01-03 str3
+      """2017-01-03 'str3
         | e  1
         | a
         |
-        |2017-01-01 str1
+        |2017-01-01 'str1
         | e  1
         | a
         |
-        |2017-01-02 str2
+        |2017-01-02 'str2
         | e  1
         | a
         |

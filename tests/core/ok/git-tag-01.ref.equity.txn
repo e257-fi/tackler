@@ -1,10 +1,10 @@
 2017-02-02T00:00:00Z 'Equity: last txn (uuid): 7594bf5f-15b5-46ef-ab7b-21d3c5f19bdc
  ; Git storage:
- ;   commit:  a7938d9b61958d2cabea7503a7be89191d4fb31e
+ ;   commit:  3a1622d0c81cd1520f42ee357315d1db8c0e0771
  ;   ref:     tag-test-01
  ;   dir:     git-txns
  ;   suffix:  .txn
- ;   message: commit-id-01: 2nd
+ ;   message: test: commit-id-01, step 2
  ; 
  a  110
  e  -110

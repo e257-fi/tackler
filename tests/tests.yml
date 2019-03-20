@@ -515,9 +515,8 @@ features:
               name: TacklerTxnsTest
               desc: handle long error message (str-input)
           - error:
-              id: 6880deae-8cbc-4b36-b148-feb3d4e71137
-              name: TacklerTxnsTest
-              desc: check TacklerParseError with invalid input (str-input)
+              refid: b0d7d5b1-8927-43c4-80c1-bfda9d0b149f
+              desc: TacklerParseError for invalid input with String-input
         operations:
           - test:
               refid: 641c44ab-0ac3-4247-b16e-a4acea5a78ec
