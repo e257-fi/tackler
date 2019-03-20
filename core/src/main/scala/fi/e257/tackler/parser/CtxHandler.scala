@@ -210,19 +210,33 @@ abstract class CtxHandler {
     val code = Option(txnCtx.code()).map(c => c.code_value().getText.trim)
 
     val desc = Option(txnCtx.description()).fold[Option[String]](
+      // No description at all
       None
     )(d => {
-      val s = d.text().getText.trim
-      if (s.isEmpty) {
-        None
-      } else {
-        Some(s)
-      }
+      // Ok, there is description
+
+      /*
+       * There is always "text" rule/token with current grammar (e.g. it can't be null).
+       */
+
+      val s = d.text().getText
+      Option(d.QUOTE()).fold({
+        // This branch can be removed after mandatory '-prefix for desc
+        val trimmed = s.trim
+        if (trimmed.isEmpty) {
+          None
+        } else {
+          Some(trimmed)
+        }
+      })(_ => {
+        // right-trim, there was quote on the left side ...
+        Some(s.substring(0, s.lastIndexWhere(c => !c.isWhitespace)+1))
+      })
     })
 
 
     val uuid = Option(txnCtx.txn_meta()).map(meta => {
-      java.util.UUID.fromString(meta.txn_meta_uuid().UUID_VALUE().getText.trim)
+      java.util.UUID.fromString(meta.txn_meta_uuid().UUID_VALUE().getText)
     })
 
     if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {

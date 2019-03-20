@@ -210,10 +210,11 @@ Normal, ok-case tests to validate functionality:
 
 ==== Phase 1
 
-* [ ] Accepts old syntax
-** [ ] Txn header without `'`-prefix
-** [ ] code field with reserved characters
-** [ ] Txn metadata with `;:`
+* [x] Accepts old syntax
+** [x] Txn header without `'`-prefix
+** [x] code field with reserved characters
+** [x] Txn metadata with `;:`
+** [x] All output is on new syntax
 
 * [ ] Accepts new syntax
 ** [ ] Txn header with `'`-prefix

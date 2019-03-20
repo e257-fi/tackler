@@ -85,12 +85,12 @@ final case class TxnHeader(
   def txnHeaderToString(indent: String, tsFormatter: (ZonedDateTime => String)): String = {
     val codeStr = code.map(c => " (" + c + ") ")
 
-    val uuidStr = uuid.map(u => indent + ";:uuid: " + u.toString + "\n")
+    val uuidStr = uuid.map(u => indent + "# uuid: " + u.toString + "\n")
     val commentsStr = comments.map(cs =>
       cs.map(c => indent + "; " + c + "\n").mkString
     )
 
-    tsFormatter(timestamp) + codeStr.getOrElse(" ") + description.getOrElse("") + "\n" +
+    tsFormatter(timestamp) + codeStr.getOrElse(" ") + description.fold("")("'" + _) + "\n" +
       uuidStr.getOrElse("") +
       commentsStr.getOrElse("")
   }
