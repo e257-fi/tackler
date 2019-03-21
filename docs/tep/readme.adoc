@@ -3,9 +3,6 @@
 Tackler Enhancement Proposals (TEP) are used to 
 do high level plans for new features and changes to Tackler.
 
-TEP Template: xref:./tep-0001.adoc[TEP-0001]
-
-
 === Implemented TEPs
 
 * xref:./tep-1000.adoc[TEP-1000: Equity]
@@ -20,13 +17,15 @@ TEP Template: xref:./tep-0001.adoc[TEP-0001]
 
 === TEPs in implementation phase
 
-None at the moment
+* xref:./tep-1009.adoc[TEP-1009: Txn header syntax] (In Phase 1)
 
 === TEPs in planning phase
 
-* xref:./tep-1009.adoc[TEP-1009: Txn header syntax]
 * xref:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
 
+=== TEP Template
+
+TEP Template: xref:./tep-0001.adoc[TEP-0001]
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.

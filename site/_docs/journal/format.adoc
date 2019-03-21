@@ -23,13 +23,18 @@ how to define used storage system and ideas for different sharding schemes.
 == Format
 
 [WARNING]
-.Future Journal Format Change
+.Journal Format Change (v1 -> v2)
 ====
-Transaction description must start with `'` -prefix. Future versions of Tackler
-will drop support for ledger-like freestyle transaction notes or descriptions. +
- +
-Transaction code can not contain following characters in the future: +
-`'` `(` `)` `[` `]` `{` `}` `<` `>`
+
+[horizontal]
+Transaction description:: must start with `'` -prefix
+
+Transaction code:: can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+
+Transaction metadata (uuid):: must start with ``# ``
+
+Tackler version 0.24 accepts both old and new journal formats.
+Support for old v1 format will be dropped in the future releases.
 ====
 
 
@@ -42,7 +47,7 @@ Transaction code can not contain following characters in the future: +
 | Basic example
 |
 ----
-2017-01-01 'Opening balance
+2017-01-01
  Assets:Checking 500.00
  Equity:Assets
 
@@ -103,7 +108,7 @@ e.g.
 | Transaction code
 |
 ----
-DATE ['(' code ')']
+DATE [(code)]
 ----
 
 e.g.
@@ -116,40 +121,34 @@ e.g.
 | Optional transaction code, this could be check number, wire transfer id or 
 delivery tracking number, for example. 
 
-Transcation code is terminated by `)` character. 
-
-Do not use following chararters for code,
-
-`'` `(` `)` `[` `]` `{` `}` `<` `>`
-
-even though those are accepted by Tackler at the moment.
+Code can not contain characters: +
+  `'` `(` `)` `[` `]` `{` `}` `<` `>`
 
 | Transaction description +
 (note)
 
 |
 ----
-DATE [CODE] [[']Description]
+DATE [CODE] ['description]
 ----
 
 e.g.
 
 ----
-2019-03-16 'Ice cream 'n soda!
-...
 2019-03-16 (#125) 'It was 125th Ice Cream!
-...
-2017-01-01 Notes without '-prefix are discouraged
+ Expenses:IceCream 2
+ Assets:Cash
+
+2019-03-16 'Ice cream 'n soda!
+ Expenses:BostonCooler 3
+ Assets:Cash
 ----
 
 | Optional transaction description, this is textual note 
-or subject line of transaction
-
-[WARNING]
-Future versions of Tackler will drop support for freestyle form
-and there must be `'` -prefix for notes.
-
-
+or subject line of transaction. +
+ +
+There must be `'`-prefix for description, and description is all text
+until whitespace and newline at the end of line.
 
 | Account names
 |
@@ -161,36 +160,40 @@ e.g.
 
 ----
 Expenses:ice_cream
-Expenses:jäätelö
 Expenses:jäätelö:mansikka-vadelma
 Expenses:crème·glacée
 Expenses:мороженое
 Expenses:アイスクリーム
 Expenses:風:空
+Credit_Card:1234567890
 ----
-| Account names begin with a UTF-8 letter. Then
+| Top Account names begin with a UTF-8 letter. Then
 letters, digits, middle dot `·`, hyphen `-` and underscore `_` are allowed in account names,
-but no spaces.   Sub-accounts are separated by `:`
-
-All accounts must be declared in Chart of Accounts, or `accounts.strict` should be `false`.
-
+but no spaces. +
+ +
+Sub-accounts are separated by `:` and sub-accounts can be all numeric. +
+ +
+All accounts must be declared in Chart of Accounts, or `accounts.strict` must be set to `false`.
 See xref:../accounts-conf.adoc[accounts.conf] for full details.
 
 
 | Amounts
 |
 ----
-1234567.1234
+1234567890.123456789
 Output truncation:
-  1.12345678 is printed as 
-  1.1234568  with scale.max=7
+  1.123456701 is printed as
+  1.1234567   with scale.max=7
+
+  1.12345675  is rounded (HALF_UP) as
+  1.1234568   with scale.max=7
 ----
 | 
 Default *output* scale is is between 2..7 decimal points.  This is can be configured 
 by `reporting.scale.{min, max}` in xref:../tackler-conf.adoc[tackler.conf].
 
 Tackler uses decimal floating-point numbers of arbitrary precision (Scala BigDecimals) for calculations.
-There are unit tests with numbers of 30 digits and 130 decimals.
+Amount handling is tested with numbers up to 30 digits and 130 decimals.
 
 
 | Commodities
@@ -221,6 +224,26 @@ There are unit tests with numbers of 30 digits and 130 decimals.
 ----
 | Currently opening position is valid input, but it is not used.
 This is planned feature. See xref:../currencies.adoc[Currencies]
+
+
+| Transaction metadata
+|
+----
+2017-01-01 'Txn with UUID
+ # uuid: 83976d4b-8ea8-4cec-804f-931e4f171c3b
+ Expenses:Ice_cream 2.12
+ Assets:Cash
+----
+| At the moment only supported metadata is `uuid` which is reserved for optional transaction's
+unique identifier (link:https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID]). +
+ +
+Transaction UUID is mandatory if `txn-set-checksum` calculation is activated.
+See xref:../tackler-conf.adoc[tackler.conf] and {gitlink}/docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+for further information. +
+ +
+Transactions must have UUIDs, if fully deterministic, stable
+and "distributed transaction producers"-safe sort order is needed for xref:../report-register.adoc[register report]
+or xref:../export-identity.adoc[identity export].
 
 
 | Comments
@@ -255,38 +278,4 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 ----
 |
 
-
-| Transaction metadata
-|
-----
-2017-01-01 'Txn with UUID
- ;:uuid: 83976d4b-8ea8-4cec-804f-931e4f171c3b
- Expenses:Ice_cream 2.12
- Assets:Cash
-----
-| At the moment only supported metadata is `uuid` which is reserved for optional transaction's
-unique identifier (link:https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID]).
-
-Transaction UUID is mandatory if `txn-set-checksum` calculation is activated.
-See xref:../tackler-conf.adoc[tackler.conf] and {gitlink}/docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
-for further information.
-
-Transactions must have UUIDs, if fully deterministic, stable
-and "distributed transaction producers"-safe sort order is needed for xref:../report-register.adoc[register report]
-or xref:../export-identity.adoc[identity export].
-
-
-| Posting metadata
-|
-----
-2017-01-01 'Waporware - not supported
- Expenses:Ice_cream 2.12 ;:date:2017-01-03
- Assets:Cash
-----
-| *WAPORWARE*
-
-Currently metadata is not supported with postings.
-
 |===
-
-

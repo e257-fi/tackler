@@ -43,23 +43,26 @@ accounts {
   #
   # Account names have following form:
   #
-  # Name must start with character,
+  #    TOPACCT[:SUBACCT[:...]]
+  #
+  # Top-Account name (ID) must start with character,
   # and after that there could be
-  # '_', '-', '·', characters and numbers.
+  # '_', '-', '·', numbers and characters.
+  #
+  # Sub-accounts (SUBID) must be separated with ':'
+  # and sub-accounts can be all numeric
   #
   # Characters can be a wide range of
   # international UTF-8 characters.
   #
-  # Sub-accounts must be separated with ':'.
-  #
   # Or in other words:
-  #    name
-  #       = accounts
-  #    accounts
-  #       = account
-  #       | account ':' accounts
   #    account
+  #       = ID (':' (ID | SUBID))*
+  #    ID
   #       = NameStartChar (NameChar)*
+  #    SUBID =
+  #         (NameStartChar | '0'..'9') (NameChar)*;
+  #
   #    NameStartChar
   #       = 'A'..'Z' | 'a'..'z'
   #       | '\u00C0'..'\u00D6'
@@ -97,8 +100,7 @@ accounts {
     "Assets",
     "Assets:Banks:Acme_Inc",
     "Assets:Cash",
-    "Liabilities",
-    "Equity"
+    "Credit·Card:1234567890"
   ]
 
   # List of commodities
@@ -106,11 +108,11 @@ accounts {
   # This is list of known commodities
   #
   # Commodity names have same restrictions
-  # as single account name element:
+  # as single top-account name element (ID):
   #
   # Name must start with character,
   # and after that there could be
-  # '_', '-', '·', characters and numbers.
+  # '_', '-', '·', numbers and characters.
   #
   # Characters can be a wide range of
   # international UTF-8 characters.
@@ -128,4 +130,3 @@ accounts {
   ]
 }
 ----
-

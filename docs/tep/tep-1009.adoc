@@ -199,9 +199,9 @@ Change identity export so that it will use `'` for description, and `#` for meta
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update link:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file link:../../tests/tests-1009.yml[]
-* [ ] User docs
-** [ ] Journal format
-** [ ] All examples
+* [x] User docs
+** [x] Journal format
+** [x] All examples
 
 
 == Future plans and Postponed (PP) features

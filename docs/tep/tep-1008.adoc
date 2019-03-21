@@ -118,10 +118,9 @@ for pre TEP-1008 version of Tackler.
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update link:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file link:../../tests/tests-1008.yml[]
-* [ ] User docs
-** [ ] user manual
-*** [ ] journal format
-** [ ] accounts.conf
+* [x] User docs
+** [x] journal format
+** [x] accounts.conf
 
 
 == Future plans and Postponed (PP) features

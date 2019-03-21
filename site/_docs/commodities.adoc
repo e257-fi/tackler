@@ -31,7 +31,7 @@ Transactions with mixed commodities without value positions are not allowed.
 Example of mixed commodity transaction without value positions:
 
 ....
-2017-05-01 this is not valid
+2017-05-01 'this is not valid
  Vault:Bullion 1 g·Au
  Vault:Bullion 4 g·Ag
  Assets:Cash
@@ -40,7 +40,7 @@ Example of mixed commodity transaction without value positions:
 Mixed commodities must be converted to common commodity with value positions:
 
 ....
-2017-05-01 this is valid
+2017-05-01 'this is valid
  Vault:Bullion 1 g·Au @ 37.00 EUR
  Vault:Bullion 1 g·Ag @ 0.495 EUR
  Assets:Cash
@@ -51,7 +51,5 @@ Mixed commodities must be converted to common commodity with value positions:
 == Example
 
 For example see an accounting example for scuba diving
-xref:trimix-filling-station.adoc[Trimix Filling and Mixing Station]. It demonstrates how to track different
+xref:./examples/trimix-filling-station.adoc[Trimix Filling and Mixing Station]. It demonstrates how to track different
 commodities and how to convert those commodities to monetary values.
-
-
