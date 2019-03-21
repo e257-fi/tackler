@@ -32,15 +32,15 @@ class TacklerParserTest extends FlatSpec {
   it should "accept valid input string" in {
     val txnStr =
       """
-        |2017-01-01 str
+        |2017-01-01 'str
         | e   1
         | a  -1
         |
         |""".stripMargin
 
-    val txns = TacklerParser.txnsText(txnStr)
+    val txnData = tt.string2Txns(txnStr)
 
-    assert(txns.txn(0).description().text().getText === "str")
+    assert(txnData.txns.head.header.description.getOrElse("") === "str")
   }
 
   /**
@@ -49,7 +49,7 @@ class TacklerParserTest extends FlatSpec {
   it should "accept UFT-8 via string interface" in {
     val txnStr =
       """
-        |2017-01-01 äöåÄÖÅéèÿ風空
+        |2017-01-01 'äöåÄÖÅéèÿ風空
         | e   1
         | a  -1
         |
@@ -63,7 +63,7 @@ class TacklerParserTest extends FlatSpec {
    * test: b0d7d5b1-8927-43c4-80c1-bfda9d0b149f
    */
   it should "handle long String input in case of error" in {
-    val txnStr = """2017-01-01 ()) str""" + " " * 1025
+    val txnStr = """2017-01-01 ()) str""" + " " * 2048
 
     val ex = intercept[TacklerParseException] {
       tt.string2Txns(txnStr)
@@ -73,26 +73,10 @@ class TacklerParserTest extends FlatSpec {
       .startsWith(
         """Txn Parse Error: Invalid input: truncated inputStr(0, 1024)=[2017-01-01 ()) str""".stripMargin),
       ex.getMessage)
-    assert(ex.getMessage.length === 1176)
-  }
-
-  behavior of "Invalid (code)"
-
-  /**
-   * test: 6880deae-8cbc-4b36-b148-feb3d4e71137
-   */
-  it should "error with TacklerParseError" in {
-    val txnStr = """2017-01-01 ()) str"""
-
-    val ex = intercept[TacklerParseException] {
-      tt.string2Txns(txnStr)
-    }
-    assert(ex.getMessage ===
-      """Txn Parse Error: Invalid input: [2017-01-01 ()) str], msg:
-        |   Can not parse input
-        |   on line: 1
-        |   no viable alternative at input '2017-01-01'""".stripMargin)
-
+    // This length is fuzzy because total length depends on
+    // actual parser error which varies as grammar is changed (while developing it)
+    // so let's have some leeway here.
+    assert(ex.getMessage.length < 1500)
   }
 
   behavior of "Invalid UUID"
@@ -103,8 +87,8 @@ class TacklerParserTest extends FlatSpec {
   it should "detect missing uuid" in {
     val txnStr =
       """
-        |2017-01-01 str
-        | ;:uuid:
+        |2017-01-01
+        | # uuid:
         | e   1
         | a  -1
         |
@@ -115,8 +99,8 @@ class TacklerParserTest extends FlatSpec {
     }
     assert(ex.getMessage ===
       s"""Txn Parse Error: Invalid input: [
-        |2017-01-01 str
-        | ;:uuid:
+        |2017-01-01
+        | # uuid:
         | e   1
         | a  -1
         |
@@ -133,8 +117,8 @@ class TacklerParserTest extends FlatSpec {
 
     val txnStr =
       """
-        |2017-01-01 str
-        | ;:uuid: 77356f17-98c9-43c6b9a7-bfc7436b77c8
+        |2017-01-01
+        | # uuid: 77356f17-98c9-43c6b9a7-bfc7436b77c8
         | e   1
         | a  -1
         |
@@ -157,8 +141,8 @@ class TacklerParserTest extends FlatSpec {
      */
     val txnStr =
       """
-        |2017-01-01 str
-        | ;:uuid: 694aaaaa39222-4d8b-4d0e-8204-50e2a0c8b664
+        |2017-01-01
+        | # uuid: 694aaaaa39222-4d8b-4d0e-8204-50e2a0c8b664
         | e   1
         | a  -1
         |

@@ -34,17 +34,17 @@ class TxnFilterTxnTSEndTest extends TxnFilterSpec with FlatSpecLike{
 
   val txnStrTSDate =
     s"""2018-01-01
-       | ;:uuid: ${uuidTSDate01}
+       | # uuid: ${uuidTSDate01}
        | e  1
        | a
        |
        |2018-02-01
-       | ;:uuid: ${uuidTSDate02}
+       | # uuid: ${uuidTSDate02}
        | e  1
        | a
        |
        |2018-03-01
-       | ;:uuid: ${uuidTSDate03}
+       | # uuid: ${uuidTSDate03}
        | e  1
        | a
        |
@@ -57,17 +57,17 @@ class TxnFilterTxnTSEndTest extends TxnFilterSpec with FlatSpecLike{
 
   val txnStrTSTime =
     s"""2018-01-01T11:00:00
-       | ;:uuid: ${uuidTSTime01}
+       | # uuid: ${uuidTSTime01}
        | e  1
        | a
        |
        |2018-01-01T23:00:00
-       | ;:uuid: ${uuidTSTime02}
+       | # uuid: ${uuidTSTime02}
        | e  1
        | a
        |
        |2018-01-02T00:00:00
-       | ;:uuid: ${uuidTSTime03}
+       | # uuid: ${uuidTSTime03}
        | e  1
        | a
        |
@@ -82,17 +82,17 @@ class TxnFilterTxnTSEndTest extends TxnFilterSpec with FlatSpecLike{
 
   val txnStrTSNano =
     s"""2018-01-01T14:00:00.123456787
-       | ;:uuid: ${uuidTSNano01}
+       | # uuid: ${uuidTSNano01}
        | e  1
        | a
        |
        |2018-01-01T14:00:00.123456788
-       | ;:uuid: ${uuidTSNano02}
+       | # uuid: ${uuidTSNano02}
        | e  1
        | a
        |
        |2018-01-01T14:00:00.123456789
-       | ;:uuid: ${uuidTSNano03}
+       | # uuid: ${uuidTSNano03}
        | e  1
        | a
        |
@@ -106,18 +106,18 @@ class TxnFilterTxnTSEndTest extends TxnFilterSpec with FlatSpecLike{
 
   val txnStrTSZone =
     s"""2018-01-04T09:00:00+10:00
-       | ;:uuid: ${uuidTSZone01}
+       | # uuid: ${uuidTSZone01}
        | e  1
        | a
        |
        |2018-01-03T18:00:00-06:00
-       | ;:uuid: ${uuidTSZone02}
+       | # uuid: ${uuidTSZone02}
        | ; Zone support must be tested with offsets which cancel each others (e.g. result is same time in UTC)
        | e  1
        | a
        |
        |2018-01-04T00:00:00
-       | ;:uuid: ${uuidTSZone03}
+       | # uuid: ${uuidTSZone03}
        | e  1
        | a
        |

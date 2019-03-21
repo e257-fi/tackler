@@ -31,7 +31,7 @@ class TacklerParserAccountsTest extends FunSpec {
         (
           // perr: '::'
           """
-            |2017-01-01 desc
+            |2017-01-01
             | a::b  1
             | e
             |
@@ -42,7 +42,7 @@ class TacklerParserAccountsTest extends FunSpec {
         (
           // perr: :a
           """
-            |2017-01-01 desc
+            |2017-02-02
             | :a  1
             | e
             |
@@ -53,7 +53,7 @@ class TacklerParserAccountsTest extends FunSpec {
         (
           // perr: a:
           """
-            |2017-01-01 desc
+            |2017-03-03
             | a:  1
             | e
             |

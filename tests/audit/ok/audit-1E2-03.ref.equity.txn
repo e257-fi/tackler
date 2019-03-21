@@ -1,10 +1,10 @@
-2016-12-31T23:58:20Z Equity: last txn (uuid): 28827cf2-2cb7-3524-b437-2faf26febda8
+2016-12-31T23:58:20Z 'Equity: last txn (uuid): 28827cf2-2cb7-3524-b437-2faf26febda8
  ; Txn set checksum:
  ;   SHA-256: 0b9f89dbdc0da621de136dc7856df22caecdf6041e44aff0d58493c6fd3166b6
  ;   Set size: 3
  ; 
  ; Git storage:
- ;   commit:  6cbc0cdab01fe60151b94277ec6291e65f66af4b
+ ;   commit:  15fc7e053906ed3714037b0af0a81bb486fb4884
  ;   ref:     txns-1E2
  ;   dir:     txns
  ;   suffix:  .txn

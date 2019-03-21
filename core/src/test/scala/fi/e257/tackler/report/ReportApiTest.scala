@@ -27,15 +27,15 @@ class ReportApiTest extends FlatSpec {
 
   val settings = Settings()
   val txnStr =
-    """2017-12-14 txn-01
+    """2017-12-14 'txn-01
     | e:e14  14
     | a
     |
-    |2017-12-15 txn-02
+    |2017-12-15 'txn-02
     | x:not·this  15
     | a
     |
-    |2017-12-16 txn-03
+    |2017-12-16 'txn-03
     | e:e16  16
     | a
     |

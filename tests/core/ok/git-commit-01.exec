@@ -1,4 +1,4 @@
 # format: exec
 # test:uuid: ede5d6b5-1885-4e02-8f9d-e2e1034fb6e3
-# commit-id 1st
-exec:--cfg;tests/core/git-ok.conf;--input.git.commit;962773d45495336e5829d6c2c810dc0c9222d996;--output;out.git-commit-01;
+# commit-id-01: 1st commit
+exec:--cfg;tests/core/git-ok.conf;--input.git.commit;4b0ea73bef9bd996102eed35712e80fe1c81207e;--output;out.git-commit-01;

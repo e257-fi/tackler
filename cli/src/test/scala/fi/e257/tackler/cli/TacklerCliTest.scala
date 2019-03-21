@@ -274,3 +274,16 @@ class DirsuiteReportingTest extends DirSuiteLike {
     }
   }
 }
+
+/**
+ * Compatibility tests
+ */
+class DirsuiteCompatibilityTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
+  runDirSuiteTestCases(basedir, Glob("compat/ok/*.exec")) { args: Array[String] =>
+    assertResult(TacklerCli.SUCCESS) {
+      TacklerCli.runReturnValue(args)
+    }
+  }
+}

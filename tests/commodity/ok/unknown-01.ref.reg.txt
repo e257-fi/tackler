@@ -1,7 +1,7 @@
 
 REGISTER
 --------
-2019-01-26Z unknown commodity with non-strict
+2019-01-26Z 'unknown commodity with non-strict
             a                                            -10.00             -10.00 JPY
             e                                             10.00              10.00 JPY
 --------------------------------------------------------------------------------------

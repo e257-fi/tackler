@@ -82,13 +82,13 @@ object Generator {
         case (tsStr, valSpace) =>
 
           val code = s"(#%07d)".format(i)
-          val txn = tsStr + " " + code + " " + countStr + s" txn-%d".format(i) + "\n" +
+          val txn = tsStr + " " + code + " '" + countStr + s" txn-%d".format(i) + "\n" +
             (if (cliCfg.compatible.getOrElse(false)) {
               ""
             } else {
               // Generate UUID so that each set has own predictable set of UUIDs.
               // e.g. uuid differs between sets (1E2 vs. 1E3) for txn-1, txn-2 etc.
-              " ;:uuid: " + nameUUID(countStr + code) + "\n"
+              " # uuid: " + nameUUID(countStr + code) + "\n"
             }) +
             s""" $expensesAcc$valSpace$d.0000001
                | $assetsAcc

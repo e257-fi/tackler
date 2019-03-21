@@ -42,7 +42,7 @@ object TacklerParser {
           "[" + inputText + "]"
         }) + ", msg:\n" + ex.getMessage
 
-        log.info(msg)
+        log.error(msg)
         throw new TacklerParseException(msg, ex)
     }
   }
@@ -56,7 +56,7 @@ object TacklerParser {
           "Txn Parse Error: \n" +
           "   file: " + inputPath.toString + "\n" +
           ex.getMessage
-        log.info(msg)
+        log.error(msg)
         throw new TacklerParseException(msg, ex)
     }
   }
@@ -67,7 +67,7 @@ object TacklerParser {
     } catch {
       case ex: ParseCancellationException =>
         val msg = "Txn Parse Error with input stream, msg: " + ex.getMessage
-        log.info(msg)
+        log.error(msg)
         throw new TacklerParseException(msg, ex)
     }
   }

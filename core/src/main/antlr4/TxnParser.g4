@@ -21,24 +21,35 @@ options {
     language = Java;
 }
 
-txns: blankline* txn (blankline+ txn)* blankline* EOF;
+txns: blankline* txn (blankline+ txn)* blankline* opt_sp EOF;
 
-txn: date code? description? NL txn_meta? txn_comment* postings;
+txn: date code? (description | opt_sp) NL txn_meta? txn_comment* postings;
 
 date: DATE
     | TS
     | TS_TZ
     ;
 
-code: ' ' '(' code_value ')' ' '?;
+code: sp '(' code_value  ')';
 
-code_value: ~(')'|NL)+;
 
-description: ' ' text;
+/* TEP-1009: Phase-1 */
+code_value: ~( ')' | NL)*;
+/* TEP-1009: Phase-2 */
+//code_value: ~( '\'' | '(' | ')' | '[' | ']' | '{' | '}' | '<' | '>' | NL)*;
 
-text: ~(NL)*?;
+/* TEP-1009: Phase-1 */
+description: sp '\''? text;
+/* TEP-1009: Phase-2 */
+//description: sp '\'' text;
 
-txn_meta: indent ';' ':' txn_meta_uuid NL;
+text: ~(NL)*;
+
+/* TEP-1009: Phase-1 */
+txn_meta: indent (('#' sp) | (';' ':')) txn_meta_uuid NL;
+/* TEP-1009: Phase-2 */
+//txn_meta: indent '#' sp txn_meta_uuid NL;
+
 
 txn_meta_uuid: UUID_NAME ':' sp UUID_VALUE opt_sp;
 
@@ -50,9 +61,9 @@ comment: ';' ' ' text;
 
 postings: posting+ (posting|last_posting);
 
-posting:  indent account sp amount opt_sp opt_unit? opt_comment? NL;
+posting:  indent account sp amount opt_unit? (opt_comment | opt_sp) NL;
 
-last_posting: indent account opt_sp opt_comment? NL;
+last_posting: indent account (opt_comment | opt_sp) NL;
 
 
 opt_unit: sp unit opt_position?;

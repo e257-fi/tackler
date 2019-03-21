@@ -1,0 +1,86 @@
+features:
+  - feature:
+      id: f61ad04a-34fd-44f2-a721-8d541fb45180
+      subject: "Txn Header Syntax"
+      tests:
+        operations:
+          - test:
+              id: 370393e9-bc2f-4aa1-a81c-08d536487fe7
+              name: "tests/compat/ok/journal-v1v2-01.exec"
+              descriptions:
+                - desc: "Journal v1v2 compatibility test vector"
+
+  - feature:
+      id: f1d42a7c-4f74-44f7-923d-abbd72b55a71
+      parent: f61ad04a-34fd-44f2-a721-8d541fb45180
+      subject: "txn hdr: timestamp"
+      tests:
+        errors:
+          - error:
+              id: 4ff959f7-c2bd-4750-8664-f46ce50a7c7b
+              name: "TacklerParserHeaderTimestampTest"
+              descriptions:
+                - desc: "check invalid timestamp constructs"
+                - desc: "TODO: enable all tests (todo: perr)"
+        operations:
+          - test:
+              id: 2c0ee1a2-1a23-4427-a6dc-6156abc36272
+              name: "TacklerParserHeaderCodeTest"
+              descriptions:
+                - desc: "valid timestamp constructs"
+
+  - feature:
+      id: bbecb600-37d1-418e-b825-fd8d36634643
+      parent: f61ad04a-34fd-44f2-a721-8d541fb45180
+      subject: "txn hdr: code"
+      tests:
+        errors:
+          - error:
+              id: 242aa119-bc5e-4562-9f4a-5feb26d1fba6
+              name: "TacklerParserHeaderCodeTest"
+              descriptions:
+                - desc: "invalid code constructs"
+                - desc: "TODO: enable ignored tests"
+        operations:
+          - test:
+              id: a5450ec6-42a3-4f3b-b989-27eb2949ccad
+              name: "TacklerParserHeaderCodeTest"
+              descriptions:
+                - desc: "valid code constructs"
+
+  - feature:
+      id: 67bf0fd9-b7d9-4138-8a8f-be524ca3cbc5
+      parent: f61ad04a-34fd-44f2-a721-8d541fb45180
+      subject: "txn hdr: description"
+      tests:
+        errors:
+          - error:
+              id: 03d3df34-e68a-4104-b8ab-be06d36bf189
+              name: "TacklerParserHeaderDescriptionTest"
+              descriptions:
+                - desc: "invalid description constructs"
+        operations:
+          - test:
+              id: 58d08778-10ee-489c-bb91-7059b9ba0cca
+              name: "TacklerParserHeaderDescriptionTest"
+              descriptions:
+                - desc: "valid description constructs"
+
+
+  - feature:
+      id: be31bd6b-9ece-4f5d-9179-3ca66f057339
+      parent: f61ad04a-34fd-44f2-a721-8d541fb45180
+      subject: "txn hdr: metadata"
+      tests:
+        errors:
+          - error:
+              id: 49f73bec-afd9-4bef-bf5b-f9439ab2ea47
+              name: "TacklerParserMetadataTest"
+              descriptions:
+                - desc: "invalid metadata constructs"
+        operations:
+          - test:
+              id: 546e4368-dcfa-44d5-a21d-13f3b8bf51b6
+              name: "TacklerParserMetadataTest"
+              descriptions:
+                - desc: "valid metadata constructs"

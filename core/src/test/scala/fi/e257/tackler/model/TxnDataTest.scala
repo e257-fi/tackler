@@ -33,18 +33,18 @@ class TxnDataTest extends FunSpec {
   val uuid03 = "dd3bf34b-78e9-4a80-9072-8503c462f7c3"
 
   val strUUIDs =
-    s"""2019-01-01 txn01
-       | ;:uuid:   ${uuid01}
+    s"""2019-01-01 'txn01
+       | # uuid:   ${uuid01}
        | e  1
        | a
        |
-       |2019-02-01 txn02
-       | ;:uuid: ${"\t"}${uuid02}${"\t"}${" "}
+       |2019-02-01 'txn02
+       | # uuid: ${"\t"}${uuid02}${"\t"}${" "}
        | e  1
        | a
        |
-       |2019-03-01 txn03
-       | ;:uuid: ${uuid03}
+       |2019-03-01 'txn03
+       | # uuid: ${uuid03}
        | e  1
        | a
        |
@@ -52,7 +52,7 @@ class TxnDataTest extends FunSpec {
 
   val strNoUUID =
     s"""
-       |2019-04-01 txn04
+       |2019-04-01 'txn04
        | e  1
        | a
        |
@@ -60,8 +60,8 @@ class TxnDataTest extends FunSpec {
 
   val strDuplicateUUID =
     s"""
-       |2019-04-01 txn04
-       | ;:uuid: ${uuid02}
+       |2019-04-01 'txn04
+       | # uuid: ${uuid02}
        | e  1
        | a
        |

@@ -1,0 +1,56 @@
+2019-03-01T00:00:00Z 
+   ; no code, no desc.
+   a   1
+   e  -1
+
+2019-03-02T00:00:00Z ('([]{}<>) 
+   ; code with non-compatible characters
+   a   1
+   e  -1
+
+2019-03-03T00:00:00Z () 
+   ; empty code
+   a   1
+   e  -1
+
+2019-03-03T01:00:00Z () 
+   ; whitespace only code
+   a   1
+   e  -1
+
+2019-03-04T00:00:00Z (#123) 
+   ; code specimen
+   a   1
+   e  -1
+
+2019-03-05T00:00:00Z (#123) 'abc
+   ; code specimen, description with multiple spaces
+   a   1
+   e  -1
+
+2019-03-06T00:00:00Z 'abc
+   ; description specimen
+   a   1
+   e  -1
+
+2019-03-07T00:00:00Z 'abc
+   ; description with '-char (it will be dropped)
+   a   1
+   e  -1
+
+2019-03-08T00:00:00Z 
+   ; no code, no desc., trailing whitespace in header
+   a   1
+   e  -1
+
+2019-03-09T00:00:00Z '風空 мороженое アイスクリーム crème·glacée jäätelö
+   ; description with wide range UFT-8 characters
+   a   1
+   e  -1
+
+2019-03-10T00:00:00Z 
+   # uuid: b465d185-c936-4fc4-9573-6a0608c8183a
+   ; metadata in old format
+   a   1
+   e  -1
+

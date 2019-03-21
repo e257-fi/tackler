@@ -69,10 +69,16 @@ fragment HEX: [a-fA-F0-9];
 
 fragment DIGIT: [0-9];
 
+QUOTE: '\'';
 L_BRACE: '(';
 R_BRACE: ')';
 L_CURLY: '{';
 R_CURLY: '}';
+L_SQUARE: '[';
+R_SQUARE: ']';
+L_ANGLE: '<';
+R_ANGLE: '>';
+HASH: '#';
 AT: '@';
 SPACE: ' ';
 TAB: '\t';
