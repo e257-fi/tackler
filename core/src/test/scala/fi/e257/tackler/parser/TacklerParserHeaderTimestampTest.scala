@@ -20,13 +20,12 @@ import fi.e257.tackler.api.TxnTS
 import fi.e257.tackler.core.Settings
 import org.scalatest.FunSpec
 
-
 class TacklerParserHeaderTimestampTest extends FunSpec {
 
   describe("Timestamp") {
 
     /**
-     * test:
+     * test: 4ff959f7-c2bd-4750-8664-f46ce50a7c7b
      */
     it("check invalid timestamp constructs") {
       val perrStrings: List[(String, String, String)] = List(
@@ -233,7 +232,7 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
     }
 
     /**
-     * test:
+     * test: 2c0ee1a2-1a23-4427-a6dc-6156abc36272
      */
     it("accept valid timestamp constructs") {
       val pokStrings: List[(String, String)] = List(

@@ -13,15 +13,48 @@ Current published release is:
 
 New features and changes in this release are:
 
+ * Support for Journal formats v1 and v2
+ ** See xref:./docs/tep/tep-1009.adoc[TEP-1009: Txn Header Syntax]
+ * Support numerical sub-account names
+ ** See xref:./docs/tep/tep-1008.adoc[TEP-1008: Numerical Account names] for details
+ ** And related Gitlab link:https://gitlab.com/e257/accounting/tackler/issues/2[Issue: 2]
  * All user documentation is moved to Tackler's new web site: https://tackler.e257.fi/
- * Support numerical sub-account names, see:
- ** xref:./docs/tep/tep-1008.adoc[TEP-1008: Numerical Account names]
- ** link:https://gitlab.com/e257/accounting/tackler/issues/2[GitLab Issue: 2]
+
+==== Journal format changes
+
+This release has Phase 1 support for journal version v2.  This means that it accepts
+journal format v1, but outputs only format v2.
+
+ * Journal changes
+ ** Txn description can start with `'` (this is mandatory with v2)
+ ** Txn Metadata (UUID) can start with `#` (this is mandatory with v2)
+
+ * link:https://tackler.e257.fi/docs/export-identity/[Identity] and
+ link:https://tackler.e257.fi/docs/export-equity/[Equity]
+ exports output only format v2
+
+===== Future Journal format v2
+
+Future version of Tackler journal v2 will have following changes:
+
+Transaction description::
+Transaction description must start with `'` -prefix.
+
+
+Transaction code::
+Transaction code can not contain characters: +
+`'` `(` `)` `[` `]` `{` `}` `<` `>`
+
+Transaction metadata::
+Transaction metadata (UUID) must start with `#` + space -prefix.
+
+See xref:./docs/tep/tep-1009.adoc[TEP-1009: Txn Header Syntax]
+for motivation for this change and for further info.
 
 
 ==== Fixes
 
-None
+Journal format is
 
 ==== Development
 

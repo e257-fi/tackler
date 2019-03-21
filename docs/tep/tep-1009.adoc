@@ -6,8 +6,8 @@ and less error prone for humans to manipulate.
 == Overview
 
 Currently Tackler's format tries to mimic Ledger's format, and be as much 
-compatible with as possible. However, ledger's journal format is somewhat fuzzy,
-and it is unnecessarily difficult to detect some error cases.
+compatible with it as possible. However, ledger's journal format is somewhat fuzzy,
+and makes it unnecessarily difficult to detect some error cases.
 
 For example, currently following invalid ISO-8601 offset (one extra space)
 is recognized as start of txn description, not as an offset.
@@ -16,20 +16,26 @@ is recognized as start of txn description, not as an offset.
 2019-03-01T12:00:00 -04:00 Description
 ....
 
+Technically it's invalid ISO-8601 timestamp, but it would be nice if this
+very probable human error could be spotted by tackler.
+
 Same goes on with various not-so-obvious format errors with code field.
 These are easy to handle with automatically generated transactions, but
 for humans these are really confusing and error prone.
 
-It doesn't help, that Tackler won't notice these as an error.
+It doesn't help, that tackler won't notice these as an error.
+
+Trying to fix  these with ledger-compatible way leads to overly
+complicated grammar rules and some of the resulting rules are ambiguous.
 
 
 === Solution
 
-Break compatibility with Ledger as needed, and change the grammar to more regular
-and less error prone version.
+Break compatibility with Ledger as needed, and change the grammar
+to be more regular and less error prone.
 
 This will cause that there will be following changes to journal format,
-which are partially  incompatible (breaking change) with old journal format and data.
+which are breaking changes with old journal format and data.
 
 
 Transaction description::
@@ -46,7 +52,7 @@ This is breaking change to journal format, if these characters are used in code 
 
 Transaction metadata::
 
-Transaction medadata must start with `#` + space -prefix, instead of `;:`.
+Transaction metadata must start with `#` + space -prefix, instead of `;:`.
 
 
 === Execution
@@ -81,8 +87,7 @@ Transaction code can not contain characters: +
 
 Transaction metadata::
 
-Transaction medadata must start with `#` + space -prefix, instead of `;:`.
-
+Transaction medadata (uuid) must start with ``#`` + space -prefix
 
 
 == CLI changes
@@ -99,7 +104,11 @@ None
 
 Changes to machinery
 
-* [ ] item
+* [x] Transition
+** [x] In phase 1, it must accept old and new format
+** [ ] After phase 2, only new format will be accepted
+* [x] Changes to Grammar and CTX-handlers
+* [x] All test and reference vectors have to be updated (also those inside GIT repositories)
 
 
 === API changes
@@ -124,7 +133,7 @@ None
 
 == Reporting
 
-This causes modifications to Register report.
+This change causes modifications to Register report.
 
 
 === Balance report
@@ -141,10 +150,10 @@ None
 
 Register report has to be changed due this change.
 
-Without change to register report it would not be possible to identify following two
+Without change to register report it would  be impossible to identify following two
 transactions correctly from register-report.
 
-The first one is with code '#123', and the second one is txn with description '(#123)'.
+The first one has code '#123', and the second one has txn with description '(#123)'.
 
 ....
 2019-03-01 (#123)
@@ -156,11 +165,14 @@ The first one is with code '#123', and the second one is txn with description '(
  b
 ....
 
-Without changes to register report,  these two would look exactly same on the report, and it would impossible
-e.g. to select correct filters.
-
+With current register report, both will look exactly same,
+and it would impossible e.g. to select correct filters.
 
 => Change register report so that it prefix description with `'`
+
+Register report also prints transaction UUID. For overall consistency,
+it would be good to have same syntax for uuid in register report,
+as there is with journal.
 
 => Change register report so that will prefix metadata with `#`
 
@@ -181,27 +193,27 @@ Change identity export so that it will use `'` for description, and `#` for meta
 
 == Documentation
 
-* [ ] xref:./readme.adoc[]: Update TEP index
-* [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
-* [ ] link:../../CHANGELOG[]: add new item
-* [ ] Does it warrant own T3DB file?
-** [ ] update xref:../../tests/tests.adoc[]
-** [ ] update xref:../../tests/check-tests.sh[]
-** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [x] xref:./readme.adoc[]: Update TEP index
+* [x] link:../../CHANGELOG[]: add new item
+* [x] Does it warrant own T3DB file?
+** [x] update xref:../../tests/tests.adoc[]
+** [x] update link:../../tests/check-tests.sh[]
+** [x] Add new T3DB file link:../../tests/tests-1009.yml[]
 * [ ] User docs
-** [ ] user manual
-** [ ] examples
+** [ ] Journal format
+** [ ] All examples
 
 
 == Future plans and Postponed (PP) features
 
-
 Following characters are reserved for future use in header's first line: `[` `]` `{` `}` `<` `>`
+
+Extending current metadata data (uuid) to actual metadata header block (e.g. several lines).
 
 
 === Postponed (PP) features
 
-Anything which wasn't implemented?
+Nothing
 
 
 == Tests
@@ -216,10 +228,16 @@ Normal, ok-case tests to validate functionality:
 ** [x] Txn metadata with `;:`
 ** [x] All output is on new syntax
 
-* [ ] Accepts new syntax
-** [ ] Txn header with `'`-prefix
-** [ ] Txn metadata with `#` + space
-***  [ ] Test Txn metadata with `#` + multiple space
+* [x] Accepts new syntax
+** [x] Txn header with `'`-prefix
+** [x] Txn metadata with `#` + space
+***  [x] Test Txn metadata with `#` + multiple space
+
+* [x] Test vector to validate that old format is still accepted
+** [x] description without `'`
+** [x] code with special characters
+** [x] old `;:` metadata format
+
 
 
 ==== Phase 2
@@ -233,17 +251,16 @@ Normal, ok-case tests to validate functionality:
 ** [ ] Txn header with `'`-prefix
 ** [ ] Txn metadata with `#`
 
+* [ ] Enable all tests ("todo: perr:" and ignored suites)
+
 
 === Errors
 
-Various error cases:
-
-* [ ] e: error test
-
+Error case tests for Phase-1 and Phase-2.
 
 ==== Phase 1
 
-* [ ] e: incorrect metadata syntax
+* [x] e: incorrect metadata syntax
 
 
 ==== Phase 2
@@ -257,64 +274,29 @@ Various error cases:
 
 === Perf
 
-Is there need to run or create new perf tests?
+No need for new perf tests - change is covered by normal perf suite.
 
-* [ ] perf test
 
 === Feature and Test case tracking
 
+Feature-id::
+* name: Txn Header Syntax
+* id:   f61ad04a-34fd-44f2-a721-8d541fb45180
 
 Feature-id::
-
-* name: Txn description syntax
-* uuid: 67bf0fd9-b7d9-4138-8a8f-be524ca3cbc5
-
-Feature-id::
-
 * name: code field syntax
-* uuid: bbecb600-37d1-418e-b825-fd8d36634643
+* id:   bbecb600-37d1-418e-b825-fd8d36634643
 
 Feature-id::
+* name: Txn description syntax
+* id:   67bf0fd9-b7d9-4138-8a8f-be524ca3cbc5
 
+Feature-id::
 * name: metadata syntax
-* uuid: be31bd6b-9ece-4f5d-9179-3ca66f057339
+* id:   be31bd6b-9ece-4f5d-9179-3ca66f057339
 
 
-link:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
-
-
-=== Metadata template for test coverage tracking
-
-....
-features:
-  - feature:
-      id: uuid
-      subject: "todo: one-line description of main feature"
-
-  - feature:
-      id: uuid
-      parent: uuid-of-parent
-      subject: "todo: one-line description of sub feature"
-      tests:
-        errors:
-          - error:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              desc: "todo: description"
-        operations:
-          - test:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              descriptions:
-                - desc: "todo: description"
-              references:
-                - ref: balance
-                - ref: balance-group
-                - ref: register
-                - ref: identity
-                - ref: equity
-....
-
+link:../../tests/tests-1009.yml[TEP-1009 T3DB]
 
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*,

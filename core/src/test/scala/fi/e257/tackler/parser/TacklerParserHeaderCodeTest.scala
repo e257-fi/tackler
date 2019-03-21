@@ -19,13 +19,12 @@ package fi.e257.tackler.parser
 import fi.e257.tackler.core.Settings
 import org.scalatest.FunSpec
 
-
 class TacklerParserHeaderCodeTest extends FunSpec {
 
   describe("Code") {
 
     /**
-     * test:
+     * test: 242aa119-bc5e-4562-9f4a-5feb26d1fba6
      */
     ignore("check invalid code constructs") {
       val perrStrings: List[(String, String, String)] = List(
@@ -267,7 +266,7 @@ class TacklerParserHeaderCodeTest extends FunSpec {
     }
 
     /**
-     * test:
+     * test: a5450ec6-42a3-4f3b-b989-27eb2949ccad
      */
     it("accept valid code constructs") {
       val pokStrings: List[(String, String)] = List(

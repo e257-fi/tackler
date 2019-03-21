@@ -19,13 +19,12 @@ package fi.e257.tackler.parser
 import fi.e257.tackler.core.Settings
 import org.scalatest.FunSpec
 
-
 class TacklerParserHeaderDescriptionTest extends FunSpec {
 
   describe("Description") {
 
     /**
-     * test:
+     * test: 03d3df34-e68a-4104-b8ab-be06d36bf189
      */
     ignore("check invalid description constructs") {
       val perrStrings: List[(String, String, String)] = List(
@@ -137,7 +136,7 @@ class TacklerParserHeaderDescriptionTest extends FunSpec {
     }
 
     /**
-     * test:
+     * test: 58d08778-10ee-489c-bb91-7059b9ba0cca
      */
     it("accept valid description constructs") {
       val pokStrings: List[(String, String)] = List(
