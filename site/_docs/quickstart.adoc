@@ -2,21 +2,24 @@
 :page-permalink: /docs/quickstart/
 
 
-The minimum setup to run tackler is:
+The minimum steps to create usable tackler setup is:
 
 ----
-# Create demo setup
+# Create demo-setup
 mkdir -p tackler
+mkdir -p tackler/txns
 
-# Change to tackler
+# Change current working directory to tackler demo folder
 cd tackler
 
-# Copy tacker-cli.jar to here
-cp /path/to/tackler-cli-x.y.z.jar tackler-cli.jar
+# "Install" tackler-cli.jar
+cp /path/to/tackler-cli-x.y.z.jar ./tackler-cli.jar
+----
 
-# Create default folder for transaction data
-mkdir txns
+The journal data file can not be empty (`txns/journal.txn` in below),
+hence we have to create some demo data into it.
 
+----
 # Create some transactions
 cat > txns/journal.txn << EOF
 2018-06-01 'First transaction
@@ -30,10 +33,7 @@ cat > txns/journal.txn << EOF
 EOF
 ----
 
-The journal data file can not be empty (`txns/journal.txn` in above),
-hence we create some demo data into it.
-
-After above steps, content of demo folder should be:
+After these steps, content of tackler demo folder should be:
 
 ----
 ./tackler-cli.jar
@@ -41,17 +41,15 @@ After above steps, content of demo folder should be:
 ./txns/journal.txn
 ----
 
-Now you can run following command on that demo folder:
-
- java -jar ./tackler-cli.jar --accounts.strict=false
-
-This will produce balance and register reports without account name or commodity name validation.
-
-Output should be something like below:
+With above setup, following command will generate balance and register reports
+by using default embedded configuration.
 
 ----
+# run inside tackler demo folder
+java -jar ./tackler-cli.jar --accounts.strict=false
+
 # ... Log lines suppressed ...
-# ... There is legitime ERROR about missing configuration ...
+# ... There are legitime ERROR and WARNING about missing configuration ...
 # ... See Installation Manual how to configure tackler ...
 # 
 Txns size: 2
@@ -85,4 +83,4 @@ Total processing time: 1284, parse: 464, reporting: 80
 See xref:./journal/format.adoc[Journal Format],
 xref:./installation.adoc[Installation Manual]
 and xref:./usage.adoc[Usage Guide] how to
-use tackler.
+configure and use tackler.

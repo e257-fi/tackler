@@ -40,7 +40,8 @@ which are breaking changes with old journal format and data.
 
 Transaction description::
 
-Transaction description must start with `'` -prefix. This is breaking change to journal format.
+Transaction description must start with `'` -prefix.
+This is breaking change to journal format.
 
 
 Transaction code::
@@ -53,6 +54,7 @@ This is breaking change to journal format, if these characters are used in code 
 Transaction metadata::
 
 Transaction metadata must start with `#` + space -prefix, instead of `;:`.
+This is breaking change to journal format.
 
 
 === Execution

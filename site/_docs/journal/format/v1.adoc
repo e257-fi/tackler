@@ -1,0 +1,85 @@
+= Journal Format Version v1
+:page-layout: page
+:page-permalink: /docs/journal/format/v1/
+
+[NOTE]
+.Journal Format Version v1
+====
+This is document is about an old, unsupported version of journal format. +
+See xref:../format.adoc[Journal Format] document for information about
+current format.
+====
+
+
+
+Journal format version v1 is supported by Tackler versions:
+
+ v0.24::
+  * Version v1 and v2
+ v0.5 ... v0.23::
+  * Version v1 only
+
+
+[WARNING]
+.Backward incompatible Journal Format Changes between v1 and v2
+====
+
+[horizontal]
+Transaction description:: in V2, description must start with `'` -prefix
+
+Transaction code:: in V2, code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+
+Transaction metadata (uuid):: in V2, metadata must start by ``#`` character with space
+====
+
+== Format v1 features deprecated by version v2
+
+[cols="1,5a,3a", options="header"]
+|===
+|
+| Journal entry
+| Comments
+
+
+| Transaction code
+|
+----
+DATE [ ( code ) ]
+----
+
+| Optional transaction code +
+Code could be any character except `)`
+
+| Transaction description +
+(note)
+
+|
+----
+DATE [CODE] [description]
+----
+
+| Optional transaction description +
+Description was all whitespace trimmed text,
+until newline at the end of line.
+
+| Account names
+|
+----
+ACCT[:SUBACCT[:...]]
+----
+
+| Account and sub-account names begun with a UTF-8 letter. Sub-accounts starting with numbers or
+all numerical accounts were *not* allowed.
+
+
+| Transaction metadata
+|
+----
+2017-01-01
+ ;:uuid: 6a8bf2f2-443a-41cc-94b2-f49d785f9614
+ ...
+----
+| Transaction metadata +
+Metadata entry (uuid) started with `;:`
+
+|===

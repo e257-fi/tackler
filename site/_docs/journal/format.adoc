@@ -20,23 +20,11 @@ xref:../tackler-conf.adoc[tackler.conf] for further defails
 how to define used storage system and ideas for different sharding schemes.
 
 
-== Format
+== Journal Format Syntax
 
-[WARNING]
-.Journal Format Change (v1 -> v2)
-====
-
-[horizontal]
-Transaction description:: must start with `'` -prefix
-
-Transaction code:: can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
-
-Transaction metadata (uuid):: must start with ``# ``
-
-Tackler version 0.24 accepts both old and new journal formats.
-Support for old v1 format will be dropped in the future releases.
-====
-
+This is description of journal format syntax for version v2. Differences to format v1 are
+described xref:./format/v1.adoc[here].  Tackler version 0.24 accepts both v1
+and v2 journal formats. Support for old v1 format will be dropped in future releases.
 
 [cols="1,5a,3a", options="header"]
 |===
@@ -59,7 +47,7 @@ Support for old v1 format will be dropped in the future releases.
 | This is sequence of Transactions (Txns). There could one
 or many Txns per input file.
 
-See xref:./sharding.adoc[Transactoin data sharding] for ideas 
+See xref:./sharding.adoc[Transaction data sharding] for ideas
 how to store journal.
 
 | Basic transaction
@@ -167,11 +155,11 @@ Expenses:アイスクリーム
 Expenses:風:空
 Credit_Card:1234567890
 ----
-| Top Account names begin with a UTF-8 letter. Then
+| Top-account names begin with a UTF-8 letter. Then
 letters, digits, middle dot `·`, hyphen `-` and underscore `_` are allowed in account names,
 but no spaces. +
  +
-Sub-accounts are separated by `:` and sub-accounts can be all numeric. +
+Sub-accounts are separated by `:`. Sub-accounts can start with numbers and be all numeric. +
  +
 All accounts must be declared in Chart of Accounts, or `accounts.strict` must be set to `false`.
 See xref:../accounts-conf.adoc[accounts.conf] for full details.
@@ -193,7 +181,7 @@ Default *output* scale is is between 2..7 decimal points.  This is can be config
 by `reporting.scale.{min, max}` in xref:../tackler-conf.adoc[tackler.conf].
 
 Tackler uses decimal floating-point numbers of arbitrary precision (Scala BigDecimals) for calculations.
-Amount handling is tested with numbers up to 30 digits and 130 decimals.
+By default, the precision approximately matches that of IEEE 128-bit floating point numbers (34 decimal digits).
 
 
 | Commodities
@@ -202,8 +190,25 @@ Amount handling is tested with numbers up to 30 digits and 130 decimals.
 2017-05-01 'In Sweden
  Expences:Ice·Cream  200 SEK
  Assets:Cash
+
+2018-07-01 (mix-1234) 'tmx 18/45 D12L
+   ; This mix used 26 bar of Helium
+   Gas:He:Storage·Tank:102  247 He·bar
+   Gas:He:Stogare·Tank:102 -273 He·bar
+   Mixer:diverX:He
 ----
-| See xref:../commodities.adoc[Commodities]
+| Commodity of posting +
+Commodity is mandatory, if `accounts.strict` is set `true` and
+`permit-empty-commodity` is `false`. +
+ +
+Commodity names begin with a UTF-8 letter. Then
+letters, digits, middle dot `·`, hyphen `-` and underscore `_` are allowed,
+but no spaces.
+
+In strict-mode, all commodities must be defined.
+See xref:../accounts-conf.adoc[accounts.conf] for full details. +
+ +
+See xref:../commodities.adoc[Commodities] for general info.
 
 
 | Value positions
@@ -213,7 +218,9 @@ Amount handling is tested with numbers up to 30 digits and 130 decimals.
  Expences:Ice·Cream  200 SEK @ 0.1039 EUR
  Assets:Cash  -20.78 EUR
 ----
-| See xref:../currencies.adoc[Currencies]
+| Optional value position for posting +
+This is mandatory for mixed commodity transaction,
+see xref:../currencies.adoc[Currencies].
 
 | PnL: Opening position
 |
@@ -222,7 +229,8 @@ Amount handling is tested with numbers up to 30 digits and 130 decimals.
  Stock:Shares -1 ACME·INC {120 EUR} @ 123 EUR
  Assets:Cash 123 EUR
 ----
-| Currently opening position is valid input, but it is not used.
+| Optional opening position for posting +
+Currently opening position is valid input, but it is not used.
 This is planned feature. See xref:../currencies.adoc[Currencies]
 
 
@@ -234,15 +242,17 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
  Expenses:Ice_cream 2.12
  Assets:Cash
 ----
-| At the moment only supported metadata is `uuid` which is reserved for optional transaction's
-unique identifier (link:https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID]). +
+| Optional transaction metadata (uuid) +
+This is transaction's unique identifier (link:https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID]). +
  +
 Transaction UUID is mandatory if `txn-set-checksum` calculation is activated.
-See xref:../tackler-conf.adoc[tackler.conf] and {gitlink}/docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+See xref:../tackler-conf.adoc[tackler.conf] and
+{gitlink}/docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
 for further information. +
  +
 Transactions must have UUIDs, if fully deterministic, stable
-and "distributed transaction producers"-safe sort order is needed for xref:../report-register.adoc[register report]
+and "distributed transaction producers"-safe sort order is needed
+for xref:../report-register.adoc[register report]
 or xref:../export-identity.adoc[identity export].
 
 
@@ -254,7 +264,8 @@ or xref:../export-identity.adoc[identity export].
  Expenses:groceries 12.00 ; posting comment
  assets:checking
 ----
-| There must be space after `;` character
+| Optional transaction comment +
+There must be space after `;` character.
 
 
 | Transaction comments
@@ -266,7 +277,9 @@ or xref:../export-identity.adoc[identity export].
  Expenses:Jäätelö 2.12
  Assets:Cash
 ----
-| Could have multiple comments, there has to be space after `;` char.
+| Optional transaction comment +
+This can span over multiple lines.
+There must be space after `;` character.
 
 
 | Posting comments
@@ -276,6 +289,8 @@ or xref:../export-identity.adoc[identity export].
  Expenses:Jäätelö 2.12 ; Strawberry ice cream!
  Assets:Cash
 ----
-|
+
+| Optional posting comment +
+There must be space after `;` character.
 
 |===

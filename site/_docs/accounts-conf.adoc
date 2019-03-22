@@ -11,7 +11,7 @@ link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
 # Accounts and commodity related settings
 accounts {
 
-  # Strict account and commodity name validation
+  # Strict account and commodity name validation mode
   #
   # If set true, then Tackler will process only accounts
   # which are listed on Chart of Accounts (accounts.coa).
@@ -21,15 +21,16 @@ accounts {
   # Same applies for commodities (see below).
   #
   # Valid values are (boolean): true, false
-  #
   # CLI: --accounts.strict
   strict = true
 
   # Permit empty or missing units and commodities
   #
+  # This option is used only when accounts.strict is true
+  #
   # Default is false, which means that all postings
   # must have commodity or unit. To allow posting without
-  # commodity, set this true.
+  # commodity, set this to true or disable strict mode.
   #
   # Valid values are (boolean): true, false
   permit-empty-commodity = true
@@ -45,23 +46,26 @@ accounts {
   #
   #    TOPACCT[:SUBACCT[:...]]
   #
-  # Top-Account name (ID) must start with character,
+  # Top-account name (ID) must start with character,
   # and after that there could be
   # '_', '-', '·', numbers and characters.
   #
-  # Sub-accounts (SUBID) must be separated with ':'
-  # and sub-accounts can be all numeric
+  # Sub-account name (SUBID) must be separated with ':',
+  # can start with numbers and can be all numeric.
   #
   # Characters can be a wide range of
   # international UTF-8 characters.
   #
   # Or in other words:
+  #
   #    account
   #       = ID (':' (ID | SUBID))*
+  #
   #    ID
   #       = NameStartChar (NameChar)*
-  #    SUBID =
-  #         (NameStartChar | '0'..'9') (NameChar)*;
+  #
+  #    SUBID
+  #       = (NameStartChar | '0'..'9') (NameChar)*
   #
   #    NameStartChar
   #       = 'A'..'Z' | 'a'..'z'
@@ -108,7 +112,7 @@ accounts {
   # This is list of known commodities
   #
   # Commodity names have same restrictions
-  # as single top-account name element (ID):
+  # as single top-account name element (ID)
   #
   # Name must start with character,
   # and after that there could be
@@ -118,8 +122,15 @@ accounts {
   # international UTF-8 characters.
   #
   # Or in other words:
+  #
   #    commodity
   #       = NameStartChar (NameChar)*
+  #
+  #    NameStartChar
+  #       = <same as for account names>
+  #
+  #    NameChar
+  #       = <same as for account names>
   #
   # Example list of commodities:
   commodities = [
