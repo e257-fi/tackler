@@ -9,6 +9,27 @@ Current published release is:
 == Release history
 
 
+=== 0.30.0-SNAPSHOT
+
+New features and changes in this release:
+
+
+==== Fixes
+
+Fixes in this release:
+
+==== Development
+
+Updated deps and tools:
+
+ * Updated dependencies
+ ** ...
+ * build
+ ** ...
+
+
+
+
 === 0.24.0
 
 [WARNING]
@@ -81,6 +102,8 @@ Changes to Journal Format to make it more lenient when possible.
 ==== Development
 
 Updated deps and tools: None
+
+
 
 
 === 0.23.0

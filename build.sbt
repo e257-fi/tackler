@@ -27,7 +27,7 @@ lazy val noPublishSettings = Seq(
 
 lazy val commonSettings = Seq(
   organization := "fi.e257",
-  version := "0.24.0",
+  version := "0.30.0-SNAPSHOT",
   scalaVersion := "2.12.8",
   compileOrder := CompileOrder.JavaThenScala,
   scalacOptions ++= Seq(
