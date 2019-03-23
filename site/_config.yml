@@ -1,6 +1,6 @@
 ---
-version: 0.23.0
-url: https://tackler.e257.fi/
+version: 0.24.0
+url: https://tackler.e257.fi
 baseurl: /
 repository: https://gitlab.com/e257/accounting/tackler
 

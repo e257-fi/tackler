@@ -1,0 +1,47 @@
+= Tackler 0.24.0 released
+:page-date: 2019-03-23 16:30:00 +0200
+:page-author: 35vlg84
+:page-version: 0.24.0
+:page-category: release
+
+
+[NOTE]
+.Phase 1 support for new Journal Format Version v2
+====
+
+[horizontal]
+Transaction description:: in v2, description must start with `'` -prefix
+
+Transaction code:: in v2, code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+
+Transaction metadata (uuid):: in v2, metadata must start by ``#`` character with space
+====
+
+This release has Phase 1 support for new Journal Format Version v2.
+This means that it will accept both old deprecated
+link:https://tackler.e257.fi/docs/journal/format/v1/[version v1]
+and new link:https://tackler.e257.fi/docs/journal/format/v2/[version v2]
+of journal format. All exports
+(link:https://tackler.e257.fi/docs/export-equity/[Equity] and
+link:https://tackler.e257.fi/docs/export-identity/[Identity])
+are in new v2 format.
+
+[WARNING]
+====
+Support for old Journal Format Version v1 will be dropped in future release of Tackler.
+====
+
+New features and changes in this release are:
+
+ * support for New Journal Format Version v2 (phase 1), see:
+ ** xref:/docs/journal/format/v2.adoc[New Journal Format v2]
+ ** xref:/docs/journal/format/v1.adoc[Deprecated Journal Format v1]
+ ** Background: {gitlink}/docs/tep/tep-1009.adoc[TEP-1009: Txn Header Syntax]
+ * Support for numerical sub-account names, see:
+ ** xref:/docs/journal/format/v2.adoc[Journal Format v2]
+ ** Background: {gitlink}/docs/tep/tep-1008.adoc[TEP-1008: Numerical Account names]
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.

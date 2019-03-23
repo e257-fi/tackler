@@ -4,19 +4,31 @@
 :page-category: journal
 
 
-There will be incompatible journal format change in the future.
+[WARNING]
+.Backward incompatible Journal Format Changes between version v1 and v2
+====
+
+[horizontal]
+Transaction description:: in v2, description must start with `'` -prefix
+
+Transaction code:: in v2, code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+
+Transaction metadata (uuid):: in v2, metadata must start by ``#`` character with space
+====
+
+Tackler v0.24.0 has Phase 1 support for new Journal Format Version v2.
+This means that it will accept both old deprecated xref:/docs/journal/format/v1.adoc[version v1]
+and new xref:/docs/journal/format/v2.adoc[version v2] of journal format. All exports
+(xref:/docs/export-equity.adoc[Equity] and xref:/docs/export-identity.adoc[Identity])
+are in new format.
 
 [WARNING]
-.Future Journal Format Change
 ====
-Transaction description must start with `'` -prefix. Future versions of Tackler
-will drop support for ledger-like freestyle transaction notes or descriptions. +
- +
-Transaction code can not contain following characters in the future: +
-`'` `(` `)` `[` `]` `{` `}` `<` `>`
+Support for old Journal Format Version v1 will be dropped in future release of Tackler.
 ====
 
-Below is an example of transaction entries which are valid at the moment and in the future.
+Below are examples of transaction entries which are valid with
+Journal Format Version v2.
 
 ----
 2019-03-03 (#123)
@@ -29,8 +41,11 @@ Below is an example of transaction entries which are valid at the moment and in 
   Assets:Cash
 
 2019-03-05 (#125) 'It was 125th ice cream
+  # uuid: 9b212495-0c48-4991-a52c-e6684487bd8d
   Expenses:Ice·cream  2
   Assets:Cash
 ----
 
-See link:/docs/journal/format/[Journal format] for full reference.
+See link:/docs/journal/format/[Journal format] for full reference,
+and {gitlink}/docs/tep/tep-1009.adoc[TEP-1009: Txn Header Syntax]
+for background and motivation of this change.

@@ -63,8 +63,14 @@ link:https://gitlab.com/e257/accounting/tackler/tree/master/tools/generator[Gene
 
 ==== Journal format changes
 
-This release has Phase 1 support for journal version v2.  This means that it accepts
-journal format v1, but output will be only in format v2.
+This release has Phase 1 support for new Journal Format Version v2.
+This means that it will accept both old deprecated
+link:https://tackler.e257.fi/docs/journal/format/v1/[version v1]
+and new link:https://tackler.e257.fi/docs/journal/format/v2/[version v2]
+of journal format. All exports
+(link:https://tackler.e257.fi/docs/export-equity/[Equity] and
+link:https://tackler.e257.fi/docs/export-identity/[Identity])
+are in new format.
 
 Phase 1 support for Journal Format Version v2
 

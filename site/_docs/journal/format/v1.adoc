@@ -5,8 +5,8 @@
 [NOTE]
 .Journal Format Version v1
 ====
-This is document is about an old, unsupported version of journal format. +
-See xref:../format.adoc[Journal Format] document for information about
+This document is about deprecated version of journal format. +
+See xref:../format.adoc[Journal Format] for information about
 current format.
 ====
 
@@ -15,7 +15,7 @@ current format.
 Journal format version v1 is supported by Tackler versions:
 
  v0.24::
-  * Version v1 and v2
+  * Version v1 and link:/docs/journal/format/v2/[v2]
  v0.5 ... v0.23::
   * Version v1 only
 
@@ -25,18 +25,18 @@ Journal format version v1 is supported by Tackler versions:
 ====
 
 [horizontal]
-Transaction description:: in V2, description must start with `'` -prefix
+Transaction description:: in v2, description must start with `'` -prefix
 
-Transaction code:: in V2, code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+Transaction code:: in v2, code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
 
-Transaction metadata (uuid):: in V2, metadata must start by ``#`` character with space
+Transaction metadata (uuid):: in v2, metadata must start by ``#`` character with space
 ====
 
-== Format v1 features deprecated by version v2
+== Journal Format Version v1 features deprecated by v2
 
 [cols="1,5a,3a", options="header"]
 |===
-|
+| Version v1
 | Journal entry
 | Comments
 
@@ -48,8 +48,7 @@ DATE [ ( code ) ]
 ----
 
 | Optional transaction code +
-Code could be any character except `)`
-
+Any character except `)` was accepted.
 | Transaction description +
 (note)
 
