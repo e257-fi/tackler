@@ -79,20 +79,6 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
           "on line: 2",
           """at input '2017-01-1'"""
         ),
-        /*
-        todo: perr: tz
-        (
-          """
-            |2017-01-01 +02:00
-            | a 1
-            | e 1
-            |
-            |""".stripMargin,
-          "on line: 2",
-          """at input ' +02:00'"""
-        ),
-         */
-
         (
           """
             |2017-01-01+0200
@@ -123,19 +109,6 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
           "on line: 2",
           """at input '2017-01-01T14'"""
         ),
-        /*
-        todo: perr: tz
-        (
-          """
-            |2017-01-01T14:00:00 +02:00
-            | a 1
-            | e 1
-            |
-            |""".stripMargin,
-          "on line: 2",
-          """at input ' +02:00'"""
-        ),
-        */
         (
           """
             |2017-01-01T14:00:00+0200
@@ -146,21 +119,6 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
           "on line: 2",
           """at input '+0200'"""
         ),
-
-        /*
-        todo: perr: tz
-        (
-          """
-            |2017-01-01 -04:00
-            | a 1
-            | e 1
-            |
-            |""".stripMargin,
-          "on line: 2",
-          """at input ' -04:00'"""
-        ),
-         */
-
         (
           """
             |2017-01-01-04:00
@@ -191,20 +149,6 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
           "on line: 2",
           """at input '2017-01-01T14'"""
         ),
-        /*
-        todo: perr: tz
-        (
-          """
-            |2017-01-01T14:00:00 -04:00
-            | a 1
-            | e 1
-            |
-            |""".stripMargin,
-          "on line: 2",
-          """at input ' -04:00'"""
-        ),
-         */
-
         (
           """
             |2017-01-01T14:00:00-0400
@@ -229,6 +173,105 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
       }).foldLeft(0)(_ + _)
 
       assert(count === 13)
+    }
+
+    /**
+     * test: 294a4d37-2911-4c0f-9024-0c79bf3c99ba
+     */
+    ignore("check invalid timestamp constructs with format v2") {
+      val perrStrings: List[(String, String, String)] = List(
+        (
+          """
+            |2017-01-01 Z
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' Z'"""
+        ),
+        (
+          """
+            |2017-01-01 +02:00
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' +02'"""
+        ),
+        (
+          """
+            |2017-01-01 -04:00
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' -04'"""
+        ),
+        (
+          """
+            |2017-01-01T14:00:00 Z
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' Z'"""
+        ),
+        (
+          """
+            |2017-01-01T14:00:00 +02:00
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' +02'"""
+        ),
+        (
+          """
+            |2017-01-01T14:00:00 -04:00
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' -04'"""
+        ),
+        (
+          """
+            |2017-01-01 T 14:00:00+02:00
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' T'"""
+        ),
+        (
+          """
+            |2017-01-01 T 14:00:00 +02:00
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 2",
+          """at input ' T'"""
+        ),
+      )
+      val count = perrStrings.map(perrStr => {
+        val ex = intercept[TacklerParseException]({
+          val _ = TacklerParser.txnsText(perrStr._1)
+        })
+
+        assert(ex.getMessage.contains(perrStr._2))
+        assert(ex.getMessage.contains(perrStr._3))
+        1
+      }).foldLeft(0)(_ + _)
+
+      assert(count === 8)
     }
 
     /**
