@@ -16,7 +16,7 @@ to users and reset Helium and Oxygen usage for each billed user.
 Below are accounting entries for filling station, and an examples what kind of transactions
 are recorded of one mixing of 18/45 (O2/He) trimix gas.
 
-There is also an example how you could run and record and bill used gases.
+There are also examples how you could record and bill used gases.
 
 == Gas usage
 
