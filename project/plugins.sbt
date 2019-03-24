@@ -1,6 +1,6 @@
 // code generators
 addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.9.0")
-addSbtPlugin("com.simplytyped" % "sbt-antlr4" % "0.8.1")
+addSbtPlugin("com.simplytyped" % "sbt-antlr4" % "0.8.2")
 
 // ScalaJS
 addSbtPlugin("org.scala-js"       % "sbt-scalajs"              % "0.6.26")
