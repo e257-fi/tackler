@@ -13,6 +13,8 @@ Current published release is:
 
 New features and changes in this release:
 
+ * CLI switch `input.storage` to change used storage type
+
 
 ==== Fixes
 

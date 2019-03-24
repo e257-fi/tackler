@@ -56,6 +56,44 @@ Input can be based on:
  ** (Journal is in single file)
  ** Journal data is in multiple files inside directory structure
 
+==== Storage selector
+
+If there are valid configurations for filesystem and git storage,
+then used storage system can be switched from command line:
+
+`--input.storage` ::
+
+Valid options are `fs` or `git`. This could be used in case when
+there is need to run tests reports from working copy before committing
+transactions into repository. Or vice versa, using `fs` normally
+but running reports from `git`.
+
+Below is a storage configuration example for such dual setup.
+
+----
+tackler {
+  core {
+    input {
+
+      storage = git
+
+      # In this example, "accounting" repository is clone
+      # and is used as a working copy.
+      fs {
+        dir = "accounting/2019"
+        glob = "*.txn"
+      }
+
+      git {
+        repository = "accounting/.git"
+        ref = "master"
+        dir = "2019"
+        suffix = ".txn"
+      }
+    }
+  }
+}
+----
 
 ==== Journal in single file
 
