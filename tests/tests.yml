@@ -1188,6 +1188,31 @@ features:
                 - ref: identity
 
   - feature:
+      id: 84ef7d9c-ca37-4e8d-90ef-704adb2740bd
+      subject: "cli: args: input.storage: flip-flop used storage"
+      tests:
+        errors:
+          - error:
+              id: 9c9b341f-2ffe-4cad-8c24-174334e39a17
+              name: tests/core/ex/TacklerException-strg-selector-01r.exec
+              desc: "unknown storage type"
+        operations:
+          - test:
+              id: d844f381-94dd-42ad-a3a5-dbf08974f7fa
+              name: tests/core/ok/strg-selector-01.exec
+              descriptions:
+                - desc: "git -> fs"
+              references:
+                - ref: identity
+          - test:
+              id: af6d111d-5b01-40ad-8da2-98f26dacc4f3
+              name: tests/core/ok/strg-selector-02.exec
+              descriptions:
+                - desc: "fs -> git"
+              references:
+                - ref: identity
+
+  - feature:
       id: 7ae035a1-3ebc-43f4-87af-0439e2d3b2e5
       subject: "cli: args: input.fs.dir"
       tests:

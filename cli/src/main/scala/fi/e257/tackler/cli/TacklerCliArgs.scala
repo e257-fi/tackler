@@ -95,6 +95,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
     // Handle simple strings
     val stringArgsConf = opts2Config(List(
       basedir,
+      input_storage,
       input_fs_dir,
       input_fs_glob,
       input_git_ref,
@@ -156,6 +157,9 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
   //
   val basedir: ScallopOption[String] = opt[String](
     name=CfgKeys.basedir,required = false, noshort = true)
+
+  val input_storage: ScallopOption[String] = opt[String](
+    name=CfgKeys.input_storage, required = false, noshort = true)
 
   val input_fs_dir: ScallopOption[String] = opt[String](
     name=CfgKeys.input_fs_dir, required = false, noshort = true)
