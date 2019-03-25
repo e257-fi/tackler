@@ -1,5 +1,7 @@
 ---
 version: 0.24.0
+title: Tackler plain text accounting
+description: Tackler is accounting engine and reporting tool for plain text double entry accounting system.
 url: https://tackler.e257.fi
 baseurl: /
 repository: https://gitlab.com/e257/accounting/tackler
@@ -25,7 +27,6 @@ defaults:
     type: posts
   values:
     layout: news_item
-    image: "/img/tackler.png"
 
 asciidoc: {}
 
