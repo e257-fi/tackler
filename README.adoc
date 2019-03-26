@@ -155,7 +155,7 @@ Please make sure that you sign-off all your commits on your merge/pull request.
 
 == Credits
 
-See link:./THANKS.adoc[THANKS] for full list of credits.
+See xref:./site/_docs/credits.adoc[THANKS] for full list of credits.
 
 
 == License

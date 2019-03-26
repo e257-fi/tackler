@@ -63,7 +63,7 @@ Changes to client API or JSON model
 ** [ ] Add license under link:../licenses/[doc/licenses]
 *** [ ] Add NOTICES under link:../licenses/[doc/licenses]
 ** [ ] Add link of license to xref:../readme.adoc[index]
-** [ ] Add link to xref:../../THANKS.adoc[THANKS]
+** [ ] Add link to xref:../../site/_docs/credits.adoc[THANKS]
 ** [ ] Add license material to binary distribution
 
 

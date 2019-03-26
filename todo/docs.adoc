@@ -1,14 +1,9 @@
 = Docs TODO
 
  * [ ] Examples
+ ** [ ] Timetracking
  * [ ] docs: gitlab logo for repository urls?
- * [ ] journal: sharding
-
 
 = Site
 
- * [ ] journal / storage nav links snafu
  * [ ] Logo?
- * [ ] fix font-awesome vs. jekyll vs. asciidoc note mess
- * [ ] fix font-awesome vs. jekyll vs. asciidoc warning mess
- * [ ] repo:thanks vs. site:thanks (duplicate atm)
