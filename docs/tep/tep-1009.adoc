@@ -108,7 +108,7 @@ Changes to machinery
 
 * [x] Transition
 ** [x] In phase 1, it must accept old and new format
-** [ ] After phase 2, only new format will be accepted
+** [x] After phase 2, only new format will be accepted
 * [x] Changes to Grammar and CTX-handlers
 * [x] All test and reference vectors have to be updated (also those inside GIT repositories)
 
@@ -244,16 +244,16 @@ Normal, ok-case tests to validate functionality:
 
 ==== Phase 2
 
-* [ ] Rejects old syntax
-** [ ] Txn header without `'`-prefix
-** [ ] code field with reserved characters
-** [ ] Txn metadata with `;:`
+* [x] Rejects old syntax
+** [x] Txn header without `'`-prefix
+** [x] code field with reserved characters
+** [x] Txn metadata with `;:`
 
-* [ ] Accepts new syntax
-** [ ] Txn header with `'`-prefix
-** [ ] Txn metadata with `#`
+* [x] Accepts new syntax
+** [x] Txn header with `'`-prefix
+** [x] Txn metadata with `#`
 
-* [ ] Enable all tests ("todo: perr:" and ignored suites)
+* [x] Enable all tests ("todo: perr:" and ignored suites)
 
 
 === Errors

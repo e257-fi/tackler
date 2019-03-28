@@ -26,7 +26,7 @@ class TacklerParserHeaderDescriptionTest extends FunSpec {
     /**
      * test: 03d3df34-e68a-4104-b8ab-be06d36bf189
      */
-    ignore("check invalid description constructs") {
+    it("check invalid description constructs") {
       val perrStrings: List[(String, String, String)] = List(
         (
           """

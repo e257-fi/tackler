@@ -83,7 +83,17 @@ class TacklerParserMetadataTest extends FunSpec {
           "on line: 3",
           """at input 'uuid'"""
         ),
-
+        (
+          """
+            |2017-01-01
+            | ;:uuid: 688fca6a-86e2-4c9d-82a0-1384a386167f
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ';'"""
+        ),
       )
       val count = perrStrings.map(perrStr => {
         val ex = intercept[TacklerParseException]({
@@ -95,7 +105,7 @@ class TacklerParserMetadataTest extends FunSpec {
         1
       }).foldLeft(0)(_ + _)
 
-      assert(count === 5)
+      assert(count === 6)
     }
 
     /**

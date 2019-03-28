@@ -33,22 +33,13 @@ date: DATE
 code: sp '(' code_value  ')';
 
 
-/* TEP-1009: Phase-1 */
-code_value: ~( ')' | NL)*;
-/* TEP-1009: Phase-2 */
-//code_value: ~( '\'' | '(' | ')' | '[' | ']' | '{' | '}' | '<' | '>' | NL)*;
+code_value: ~( '\'' | '(' | ')' | '[' | ']' | '{' | '}' | '<' | '>' | NL)*;
 
-/* TEP-1009: Phase-1 */
-description: sp '\''? text;
-/* TEP-1009: Phase-2 */
-//description: sp '\'' text;
+description: sp '\'' text;
 
 text: ~(NL)*;
 
-/* TEP-1009: Phase-1 */
-txn_meta: indent (('#' sp) | (';' ':')) txn_meta_uuid NL;
-/* TEP-1009: Phase-2 */
-//txn_meta: indent '#' sp txn_meta_uuid NL;
+txn_meta: indent '#' sp txn_meta_uuid NL;
 
 
 txn_meta_uuid: UUID_NAME ':' sp UUID_VALUE opt_sp;

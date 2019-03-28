@@ -11,8 +11,24 @@ Current published release is:
 
 === 0.30.0-SNAPSHOT
 
+[WARNING]
+.Phase 2 support for new Journal Format Version v2
+====
+
+[horizontal]
+Transaction description:: must start with `'` -prefix
+
+Transaction code:: can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+
+Transaction metadata (uuid):: must start by ``#`` character with space
+====
+
 New features and changes in this release:
 
+ * New Journal Format Version v2 (phase 2), see:
+ ** link:https://tackler.e257.fi/docs/journal/format/v2/[New Journal Format v2]
+ ** link:https://tackler.e257.fi/docs/journal/format/v1/[Deprecated Journal Format v1]
+ ** xref:./docs/tep/tep-1009.adoc[TEP-1009: Txn Header Syntax]
  * CLI switch `input.storage` to change used storage type
 
 

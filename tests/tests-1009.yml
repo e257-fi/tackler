@@ -8,7 +8,7 @@ features:
               id: 370393e9-bc2f-4aa1-a81c-08d536487fe7
               name: "tests/compat/ok/journal-v1v2-01.exec"
               descriptions:
-                - desc: "Journal v1v2 compatibility test vector"
+                - desc: "Ignored (phase-2): Journal v1v2 compatibility test vector"
 
   - feature:
       id: f1d42a7c-4f74-44f7-923d-abbd72b55a71
@@ -26,7 +26,6 @@ features:
               name: "TacklerParserHeaderTimestampTest"
               descriptions:
                 - desc: "check invalid timestamp constructs with format v2"
-                - desc: "TODO: TEP-1009: phase-2: enable"
         operations:
           - test:
               id: 2c0ee1a2-1a23-4427-a6dc-6156abc36272
@@ -45,7 +44,6 @@ features:
               name: "TacklerParserHeaderCodeTest"
               descriptions:
                 - desc: "invalid code constructs"
-                - desc: "TODO: TEP-1009: phase-2: enable"
         operations:
           - test:
               id: a5450ec6-42a3-4f3b-b989-27eb2949ccad
@@ -64,7 +62,6 @@ features:
               name: "TacklerParserHeaderDescriptionTest"
               descriptions:
                 - desc: "invalid description constructs"
-                - desc: "TODO: TEP-1009: phase-2: enable"
         operations:
           - test:
               id: 58d08778-10ee-489c-bb91-7059b9ba0cca
@@ -83,6 +80,7 @@ features:
               name: "TacklerParserMetadataTest"
               descriptions:
                 - desc: "invalid metadata constructs"
+                - desc: "format version v1 metadata uuid"
         operations:
           - test:
               id: 546e4368-dcfa-44d5-a21d-13f3b8bf51b6

@@ -178,7 +178,7 @@ class TacklerParserHeaderTimestampTest extends FunSpec {
     /**
      * test: 294a4d37-2911-4c0f-9024-0c79bf3c99ba
      */
-    ignore("check invalid timestamp constructs with format v2") {
+    it("check invalid timestamp constructs with format v2") {
       val perrStrings: List[(String, String, String)] = List(
         (
           """

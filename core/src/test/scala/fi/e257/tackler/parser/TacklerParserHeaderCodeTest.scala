@@ -26,7 +26,7 @@ class TacklerParserHeaderCodeTest extends FunSpec {
     /**
      * test: 242aa119-bc5e-4562-9f4a-5feb26d1fba6
      */
-    ignore("check invalid code constructs") {
+    it("check invalid code constructs") {
       val perrStrings: List[(String, String, String)] = List(
         (
           """
