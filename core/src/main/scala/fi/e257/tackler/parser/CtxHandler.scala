@@ -213,25 +213,13 @@ abstract class CtxHandler {
       // No description at all
       None
     )(d => {
-      // Ok, there is description
-
-      /*
-       * There is always "text" rule/token with current grammar (e.g. it can't be null).
-       */
+      // Ok, there was description
+      // There is always "text" rule/token with current grammar (e.g. it can't be null).
 
       val s = d.text().getText
-      Option(d.QUOTE()).fold({
-        // This branch can be removed after mandatory '-prefix for desc
-        val trimmed = s.trim
-        if (trimmed.isEmpty) {
-          None
-        } else {
-          Some(trimmed)
-        }
-      })(_ => {
-        // right-trim, there was quote on the left side ...
-        Some(s.substring(0, s.lastIndexWhere(c => !c.isWhitespace)+1))
-      })
+
+      // right-trim, there was quote on the left side ...
+      Some(s.substring(0, s.lastIndexWhere(c => !c.isWhitespace) + 1))
     })
 
 
