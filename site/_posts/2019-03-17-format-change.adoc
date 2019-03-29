@@ -17,9 +17,9 @@ Transaction metadata (uuid):: in v2, metadata must start by ``#`` character with
 ====
 
 Tackler v0.24.0 has Phase 1 support for new Journal Format Version v2.
-This means that it will accept both old deprecated xref:/docs/journal/format/v1.adoc[version v1]
-and new xref:/docs/journal/format/v2.adoc[version v2] of journal format. All exports
-(xref:/docs/export-equity.adoc[Equity] and xref:/docs/export-identity.adoc[Identity])
+This means that it will accept both old deprecated link:/docs/journal/format/v1/[version v1]
+and new link:/docs/journal/format/v2/[version v2] of journal format. All exports
+(link:/docs/export-equity/[Equity] and link:/docs/export-identity/[Identity])
 are in new format.
 
 [WARNING]

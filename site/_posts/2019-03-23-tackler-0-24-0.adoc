@@ -34,11 +34,11 @@ Support for old Journal Format Version v1 will be dropped in future release of T
 New features and changes in this release are:
 
  * support for New Journal Format Version v2 (phase 1), see:
- ** xref:/docs/journal/format/v2.adoc[New Journal Format v2]
- ** xref:/docs/journal/format/v1.adoc[Deprecated Journal Format v1]
+ ** link:/docs/journal/format/v2/[New Journal Format v2]
+ ** link:/docs/journal/format/v1/[Deprecated Journal Format v1]
  ** Background: {gitlink}/docs/tep/tep-1009.adoc[TEP-1009: Txn Header Syntax]
  * Support for numerical sub-account names, see:
- ** xref:/docs/journal/format/v2.adoc[Journal Format v2]
+ ** link:/docs/journal/format/v2/[Journal Format v2]
  ** Background: {gitlink}/docs/tep/tep-1008.adoc[TEP-1008: Numerical Account names]
 
 
