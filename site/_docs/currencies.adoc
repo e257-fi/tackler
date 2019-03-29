@@ -1,4 +1,6 @@
 = Currencies, Shares, etc.
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Currencies and shares are special xref:./commodities.adoc[commodities] which have value without unit of measurement.
 

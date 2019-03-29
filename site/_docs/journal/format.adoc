@@ -1,4 +1,6 @@
 = Journal Format
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 :page-layout: page
 :page-redirect_from: /docs/journal/format/v2/
 

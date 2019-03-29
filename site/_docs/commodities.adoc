@@ -1,4 +1,6 @@
 = Commodities
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Commodity is something which doesn't have value without unit of measurement.
 

@@ -1,4 +1,6 @@
 = Features
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 :page-permalink: /features/
 
 * Tackler's xref:docs/reliability.adoc[all features are extensively tested]

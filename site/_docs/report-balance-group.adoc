@@ -1,4 +1,6 @@
 = Balance Group report
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Balance Group report is combined report of multiple balance reports 
 which are done out of sets of transactions.

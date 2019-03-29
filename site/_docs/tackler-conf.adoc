@@ -1,4 +1,6 @@
 = Tackler.conf
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Full reference of Tackler configuration. All settings have defaults 
 values, and only those which would be overridden should be defined.
