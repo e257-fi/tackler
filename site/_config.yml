@@ -5,6 +5,7 @@ description: Tackler is accounting engine and reporting tool for plain text doub
 url: https://tackler.e257.fi
 baseurl: /
 repository: https://gitlab.com/e257/accounting/tackler
+google_site_verification: FbNBEYMPTc60nFoVACPaE9zwaV73D4RjQ9jLTxaf78A
 
 collections:
   docs:
@@ -27,8 +28,30 @@ defaults:
     type: posts
   values:
     layout: news_item
+- scope:
+    path: /repo/**
+  values:
+    sitemap: false
+- scope:
+    path: /css/**
+  values:
+    sitemap: false
+- scope:
+    path: /img/**
+  values:
+    sitemap: false
+- scope:
+    path: /js/**
+  values:
+    sitemap: false
+- scope:
+    path: /fonts/**
+  values:
+    sitemap: false
+
 
 asciidoc: {}
+
 
 asciidoctor:
   base_dir: /
