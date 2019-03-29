@@ -197,12 +197,12 @@ tackler {
       #
       # For example:
       #  Income and Expenses accounts
-      #    accounts = [ "^Income.*", "^Expenses.*" ]
+      #    accounts = [ "Income(:.*)?", "Expenses(:.*)?" ]
       #  All accounts
       #    accounts = [ ]
       #
       # CLI: --reporting.accounts 'regex1' 'regex2' 'etc.'
-      #      --reporting.accounts '^Assets.*' '^Expenses.*'
+      #      --reporting.accounts 'Assets(:.*)?' 'Expenses(:.*)?'
       #  All accounts
       #      --reporting.accounts
       accounts = []
@@ -237,7 +237,7 @@ tackler {
         #
         # If not set, then reporting.accounts is used as default
         # See reporting.accounts for further information
-        // accounts = [ "^Income.*", "^Expenses.*"]
+        // accounts = [ "Income(:.*)?", "Expenses(:.*)?" ]
       }
 
       # Balance Group report
@@ -269,7 +269,7 @@ tackler {
         #
         # If not set, then reporting.accounts is used as default
         # See reporting.accounts for further information
-        // accounts = [ "^Expenses.*" ]
+        // accounts = [ "Expenses(:.*)?" ]
       }
 
       register {

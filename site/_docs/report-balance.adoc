@@ -22,12 +22,49 @@ See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance.*` for full
 information of balance report configuration options.
 
 
-=== Account filtering
+=== Account selectors
 
-Accounts for Balance report can be filtered with global
-`reporting.accounts` (conf+cli) or report specific `reports.balance.accounts`
-setting (conf-only).
+By default all accounts are included into balance report, but that's not very
+interesting balance report because balance over all accounts will be zero always.
 
+Balance report accounts can be selected by Accounts Selectors. This can be done
+either by using global `reporting.accounts` (conf+cli) option or by using report specific
+`reports.balance.accounts` setting (conf-only). If report specific account selector
+is defined in configuration, it can not be overridden from command line.
+
+Balance delta is based and calculated only by values reported on the first column.
+This means that if sub-account is not listed by balance report,
+it will *not* be part of balance calculations.
+
+[WARNING]
+====
+If Accounts Selector is used balance report, please be make sure that all intended accounts
+and especially *sub-accounts* are listed for report. +
+ +
+For example: select only top-level "Assets" and all its sub-accounts: `"Assets(:.*)?"`
+====
+
+Compare following two reports:
+
+.`--reporting.accounts "e1(:.*)?"`
+----
+BALANCE
+-------
+                 1.00    6.00  e1
+                 2.00    5.00  e1:e2
+                 3.00    3.00  e1:e2:e3
+=====================
+                 6.00
+----
+
+.`--reporting.accounts "e1"`
+----
+BALANCE
+-------
+                 1.00    6.00  e1
+=====================
+                 1.00
+----
 
 
 == Example report
