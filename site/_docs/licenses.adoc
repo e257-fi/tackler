@@ -37,5 +37,5 @@ Tackler's site:
 * {repolink}/docs/licenses/JEKYLL-LICENSE.txt/[Jekyll]
 * {repolink}/docs/licenses/GITGRAPHJS-LICENSE.txt/[GitGraph.JS]
 * {repolink}/docs/licenses/LATO-LICENSE.txt/[Lato Font]
- 
+* {repolink}/docs/licenses/COUSINE-LICENSE.txt/[Cousine Font]
 
