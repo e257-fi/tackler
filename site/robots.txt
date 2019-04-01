@@ -1,0 +1,3 @@
+Sitemap: https://tackler.e257.fi/sitemap.xml
+User-agent: *
+Disallow: /repo/
