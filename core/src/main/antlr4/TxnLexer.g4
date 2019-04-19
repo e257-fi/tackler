@@ -51,7 +51,12 @@ NameChar
 
 fragment
 NameStartChar
-   : 'A'..'Z' | 'a'..'z'
+   : '$' | '¢' | '£' | '¤' | '¥' // common currency symbols which are not in block 20A0-20CF
+   | '\u00B5' //  Micro Sign
+   | '\u00B9' | '\u00B2' | '\u00B3' // Superscript 1, 2, 3 (Latin-1 Supplement)
+   | '\u00B0' // Degree Sign
+   | '\u00BC' | '\u00BD' | '\u00BE' // Vulgar Fraction: 1/4, 1/2, 3/4 (Latin-1 Supplement)
+   | 'A'..'Z' | 'a'..'z'
    | '\u00C0'..'\u00D6'
    | '\u00D8'..'\u00F6'
    | '\u00F8'..'\u02FF'

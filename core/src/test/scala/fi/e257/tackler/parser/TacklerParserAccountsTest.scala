@@ -16,12 +16,50 @@
  */
 package fi.e257.tackler.parser
 
+import fi.e257.tackler.core.Settings
 import org.scalatest.FunSpec
-
 
 class TacklerParserAccountsTest extends FunSpec {
 
+  val tt = new TacklerTxns(Settings())
+
   describe("Account names") {
+
+    /**
+     * test: c6584dc1-3a9d-4bb6-8619-0ced9c7c6a17
+     */
+    it("accept valid non-common account names") {
+      val txnStr =
+        """
+          |2019-01-01
+          | e 1
+          | a
+          |
+          |2019-01-01
+          | $¢£¤¥ 1
+          | a
+          |
+          |2019-01-01
+          | µ 1
+          | a
+          |
+          |2019-01-01
+          | ¼½¾⅐Ⅶ 1
+          | a
+          |
+          |2019-01-01
+          | ° 1
+          | a
+          |
+          |2019-01-01
+          | ¹²³⁴ 1
+          | a
+          |
+          |""".stripMargin
+
+      val txns = tt.string2Txns(txnStr)
+      assert(txns.txns.size === 6)
+    }
 
     /**
      * test: 9c836932-718c-491d-8cf0-30e35a0d1533
@@ -60,6 +98,39 @@ class TacklerParserAccountsTest extends FunSpec {
             |""".stripMargin,
           "on line: 3",
           """at input 'a'"""
+        ),
+        (
+          // perr: '×' U+00D7
+          """
+            |2017-03-03
+            | a×b  1
+            | e
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input '×'"""
+        ),
+        (
+          // perr: '÷' U+00F7
+          """
+            |2017-03-03
+            | a÷b  1
+            | e
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input '÷'"""
+        ),
+        (
+          // perr: ';' U+037E
+          """
+            |2017-03-03
+            | a;b  1
+            | e
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ';'"""
         )
       )
 
@@ -73,7 +144,7 @@ class TacklerParserAccountsTest extends FunSpec {
         1
       }).foldLeft(0)(_ + _)
 
-      assert(count === 3)
+      assert(count === 6)
     }
   }
 

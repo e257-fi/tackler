@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2017-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,18 +28,47 @@ class TacklerParserCommoditiesTest extends FlatSpec {
 
   /**
    * parse-only test
+   * test: aadbdf7c-c1d0-4e1e-a02f-9ca1b5ab2afc
    */
-  it should "uac" in {
+  it should "commodity names" in {
     val txnStr =
       """
         |2017-01-01
         | e   1 USD
         | a
         |
+        |2019-01-01
+        | e   1 €
+        | a
+        |
+        |2019-01-01
+        | e   1 ¢
+        | a
+        |
+        |2019-01-01
+        | e   1 $
+        | a
+        |
+        |2019-01-01
+        | e   1 £
+        | a
+        |
+        |2019-01-01
+        | e   1 ¥
+        | a
+        |
+        |2019-01-01
+        | e   1 ¤
+        | a
+        |
+        |2019-01-01
+        | e   1 Au·µg
+        | a
+        |
         |""".stripMargin
 
     val txns = tt.string2Txns(txnStr)
-    assert(txns.txns.size === 1)
+    assert(txns.txns.size === 8)
   }
 
   /**
@@ -64,18 +93,47 @@ class TacklerParserCommoditiesTest extends FlatSpec {
 
   /**
    * parse-only test
+   * test: 5f5dcb57-792d-49df-a491-2923612a0e2f
    */
-  it should "uac closing position" in {
+  it should "closing position" in {
     val txnStr =
       """
         |2017-01-01
         | e   1 USD @ 1.20 EUR
         | a
         |
+        |2019-01-01
+        | e   1 USD @ 1 €
+        | a
+        |
+        |2019-01-01
+        | e   1 € @ 1 $
+        | a
+        |
+        |2019-01-01
+        | e   1 $ @ 1 £
+        | a
+        |
+        |2019-01-01
+        | e   1 £ @ 1 ¥
+        | a
+        |
+        |2019-01-01
+        | e   1 ¥ @ 1 ¢
+        | a
+        |
+        |2019-01-01
+        | e   1 ¢ @ 1 Au·µg
+        | a
+        |
+        |2019-01-01
+        | e   1 Au·µg @ 1 EUR
+        | a
+        |
         |""".stripMargin
 
     val txns = tt.string2Txns(txnStr)
-    assert(txns.txns.size === 1)
+    assert(txns.txns.size === 8)
   }
 
   /**
@@ -110,10 +168,38 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         | e   1 USD {1.20 EUR}
         | a
         |
+        |2019-01-01
+        | e   1 USD {1 €}
+        | a
+        |
+        |2019-01-01
+        | e   1 € { 1 $ }
+        | a
+        |
+        |2019-01-01
+        | e   1 $ {1 £ }
+        | a
+        |
+        |2019-01-01
+        | e   1 £ { 1 ¥}
+        | a
+        |
+        |2019-01-01
+        | e   1 ¥ {1 ¢}
+        | a
+        |
+        |2019-01-01
+        | e   1 ¢ {1 Au·µg}
+        | a
+        |
+        |2019-01-01
+        | e   1 Au·µg {1 EUR}
+        | a
+        |
         |""".stripMargin
 
     val txns = tt.string2Txns(txnStr)
-    assert(txns.txns.size === 1)
+    assert(txns.txns.size === 8)
   }
 
   /**
@@ -146,10 +232,38 @@ class TacklerParserCommoditiesTest extends FlatSpec {
         | e   1 USD {1.20 EUR} @ 1.09 EUR
         | a
         |
+        |2019-01-01
+        | e   1 USD {1 €} @ 1.09 €
+        | a
+        |
+        |2019-01-01
+        | e   1 € { 1 $ } @ 1.09 $
+        | a
+        |
+        |2019-01-01
+        | e   1 $ {1 £ } @ 1.09 £
+        | a
+        |
+        |2019-01-01
+        | e   1 £ { 1 ¥} @ 1.09  ¥
+        | a
+        |
+        |2019-01-01
+        | e   1 ¥ {1 ¢} @ 1.09 ¢
+        | a
+        |
+        |2019-01-01
+        | e   1 ¢ {1 Au·µg} @ 1.09 Au·µg
+        | a
+        |
+        |2019-01-01
+        | e   1 ⁴ {1 EUR} @ 1.09 EUR
+        | a
+        |
         |""".stripMargin
 
     val txns = tt.string2Txns(txnStr)
-    assert(txns.txns.size === 1)
+    assert(txns.txns.size === 8)
   }
 
   /**

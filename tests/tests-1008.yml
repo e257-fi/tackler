@@ -13,6 +13,15 @@ features:
                 - desc: "name ends with ':'"
         operations:
           - test:
+              id: c6584dc1-3a9d-4bb6-8619-0ced9c7c6a17
+              name: TacklerParserAccountsTest
+              descriptions:
+                - desc: "currency symbols"
+                - desc: "Micro"
+                - desc: "Superscript"
+                - desc: "Degree"
+                - desc: "Vulgar fractions"
+          - test:
               id: e997a1a0-4f96-4212-a565-31565c87a7a2
               name: tests/parser/ok/id-01.exec
               descriptions:

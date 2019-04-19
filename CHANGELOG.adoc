@@ -36,6 +36,12 @@ New features and changes in this release:
 
 Fixes in this release:
 
+ * Account and Commodity Names: Accept signs which were left unintentionally outside in the cold
+ ** Currency symbols `$` `¢` `£` `¤` `¥` from Latin-1 Base and Supplement blocks
+ ** Micro and Degree (`µ`, `°`) from Latin-1 Supplement block
+ ** Vulgar Fractions (`¼`, `½`, `¾`) from Latin-1 Supplement block
+ ** Superscripts (`¹`, `²`, `³`) from Latin-1 Supplement block
+
 ==== Development
 
 Updated deps and tools:

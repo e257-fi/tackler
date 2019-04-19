@@ -293,4 +293,27 @@ features:
                 - ref: balance-group
                 - ref: register
 
+  - feature:
+      id: 38a3851f-a9ba-478a-a01b-bcfa75fc536f
+      parent: b6013748-102c-4632-ada1-5b3c8dcc3b42
+      subject: Currency symbols
+      tests:
+        operations:
+          - test:
+              id: aadbdf7c-c1d0-4e1e-a02f-9ca1b5ab2afc
+              name: TacklerParserCommoditiesTest
+              desc: "commodity names with currency symbols"
+          - test:
+              id: 5f5dcb57-792d-49df-a491-2923612a0e2f
+              name: TacklerParserCommoditiesTest
+              desc: "closing position with currency symbols"
+          - test:
+              refid: 9f711991-c9ae-4558-923c-95a69faff8bc
+              name: TacklerParserCommoditiesTest
+              desc: "opening  with PnL with currency symbols"
+          - test:
+              refid: 84d81380-8664-45d7-a9e1-523c38c7a963
+              name: TacklerParserCommoditiesTest
+              desc: "closing position with PnL with currency symbols"
+
 ### Units and Commodities END
