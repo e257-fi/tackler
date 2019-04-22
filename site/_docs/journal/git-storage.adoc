@@ -1,6 +1,6 @@
 = Git Storage Guide
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-04-22 00:00:00 Z
 
 Tackler has integrated and native support for link:https://git-scm.com/[GIT] version control system.
 
@@ -234,7 +234,7 @@ Total processing time: 2879, parse: 600, reporting: 73
 Notice that Tackler warns you (`FIXED by commit`)
 that you are not anymore following ref and ref's head.
 
-See xref:../usage.adoc#git-storagegit[Usage Manual] for general instructions
+See xref:../usage.adoc#git-storage[Usage Manual] for general instructions
 how to use tackler with git.
 
 === Difference between refs and commits
