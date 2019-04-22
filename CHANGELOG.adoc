@@ -2,14 +2,14 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.24.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.24.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.30.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.30.0"
 
 
 == Release history
 
 
-=== 0.30.0-SNAPSHOT
+=== 0.30.0
 
 [WARNING]
 .Phase 2 support for new Journal Format Version v2
@@ -37,7 +37,7 @@ New features and changes in this release:
 Fixes in this release:
 
  * Account and Commodity Names: Accept signs which were left unintentionally outside in the cold
- ** Currency symbols `$` `¢` `£` `¤` `¥` from Latin-1 Base and Supplement blocks
+ ** Currency symbols `$`, `¢`, `£`, `¤`, `¥` from Latin-1 Base and Supplement blocks
  ** Micro and Degree (`µ`, `°`) from Latin-1 Supplement block
  ** Vulgar Fractions (`¼`, `½`, `¾`) from Latin-1 Supplement block
  ** Superscripts (`¹`, `²`, `³`) from Latin-1 Supplement block
