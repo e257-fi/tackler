@@ -1,4 +1,6 @@
 = JSON report format
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 JSON is treated as Human Machine Interface, e.g. values etc.
 are truncated the same way as with text output, and all data is represented 

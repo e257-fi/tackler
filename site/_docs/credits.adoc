@@ -1,4 +1,6 @@
 = Credits
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 
 Tackler has been originally written by e257.fi from scratch.
@@ -26,6 +28,7 @@ Documentation and Site:
  * link:https://jekyllrb.com/[Jekyll]
  * link:https://github.com/jekyll/jekyll/tree/master/docs[Jekyll Site and Themes]
  * link:http://www.latofonts.com/[Lato Font]
+ * link:https://fonts.google.com/specimen/Cousine[Cousine Font]
 
 Code samples and examples:
 

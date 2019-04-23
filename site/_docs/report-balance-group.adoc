@@ -1,4 +1,6 @@
 = Balance Group report
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Balance Group report is combined report of multiple balance reports 
 which are done out of sets of transactions.
@@ -38,14 +40,59 @@ See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance-group.*` for ful
 information of balance group report configuration options.
 
 
-=== Account filtering
+=== Account selectors
 
-Accounts for Balance Group report can be filtered with global
-`reporting.accounts` (conf- and cli-option) or report specific `reports.balance-group.accounts`
-setting (conf-only).
+By default all accounts are included into balance-Group report, but that's not very
+interesting balance group report because balance over all accounts will be zero always.
 
-If there are no accounts matched with selected regexs with some balance group time period,
-then that balance group is not is not printed or included into output at all.
+Balance-Group report accounts can be selected by Accounts Selectors. This can be done
+either by using global `reporting.accounts` (conf+cli) option or by using report specific
+`reports.balance-group.accounts` setting (conf-only). If report specific account selector
+is defined in configuration, it can not be overridden from command line.
+
+[NOTE]
+====
+If there are no accounts selected within some balance group time period,
+then that balance group is not is not reported (e.g. not included into reports).
+====
+
+Balance delta is based and calculated only by values reported on the first column.
+This means that if sub-account is not listed by balance-group report,
+it will *not* be part of balance calculations.
+
+[WARNING]
+====
+If Accounts Selector is used balance-group report, please be make sure that all intended accounts
+and especially *sub-accounts* are listed for report. +
+ +
+For example: select only top-level "Assets" and all its sub-accounts: `"Assets(:.*)?"`
+====
+
+Compare following two reports:
+
+.`--reporting.accounts "e1(:.*)?"`
+----
+BALANCE GROUPS
+--------------
+2019-01Z
+--------
+                 1.00    6.00  e1
+                 2.00    5.00  e1:e2
+                 3.00    3.00  e1:e2:e3
+=====================
+                 6.00
+----
+
+.`--reporting.accounts "e1"`
+----
+BALANCE GROUPS
+--------------
+2019-01Z
+--------
+                 1.00    6.00  e1
+=====================
+                 1.00
+----
 
 
 == Example report

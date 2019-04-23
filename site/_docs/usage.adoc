@@ -1,4 +1,6 @@
 = Usage Guide
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 This is general usage guide for tackler reporting engine.
 
@@ -398,11 +400,17 @@ See xref:./tackler-conf.adoc[tackler.conf] full documentation.
 Accounts can be selected for reports either by setting global `reporting.accounts`
 (conf-setting and command line) setting or with report specific selector.
 
-Default selection for reports is "all accounts" and it can be selected with empty setting.
+Default selection for reports is "all accounts" and it can be done with empty setting.
+
+[NOTE]
+====
+See xref:./report-balance.adoc[Balance] and xref:./report-balance-group.adoc[Balance Group]
+for details how account selectors affects reports.
+====
 
 Command line example:
 
-  --reporting.accounts "^Assets:.*" "^Expenses:.*"
+  --reporting.accounts "Assets(:.*)?" "Expenses(:.*)?"
 
 All accounts:
 
@@ -413,7 +421,7 @@ Configuration example:
 
 ....
 reporting {
-  accounts = [ "^Assets:.*", "^Expenses:.*" ]
+  accounts = [ "Assets(:.*)?", "^Expenses(:.*)?" ]
 }
 ....
 
@@ -425,8 +433,10 @@ reporting {
 }
 ....
 
+
 If There are no accounts matched for report then report's sub-section
 is not printed / outputted at all (balance Group, register report).
+
 
 ===== Balance Group Report and GroupBy
 

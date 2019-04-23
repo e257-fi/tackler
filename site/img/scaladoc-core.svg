@@ -12,9 +12,9 @@
 <path fill="url(#b)" d="M0  0h120v20H0z"/>
 </g>
 <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
-<text x="350" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="630">doc: core</text>
+<text x="350" y="140" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="630">Docs: core</text>
 <text x="350" y="140" transform="scale(.1)" textLength="630">Docs: core</text>
-<text x="950" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="350">0.24.0</text>
+<text x="950" y="140" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="350">0.24.0</text>
 <text x="950" y="140" transform="scale(.1)" textLength="350">0.24.0</text>
 </g>
 </svg>

@@ -1,4 +1,6 @@
 = Tackler releases
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 
 For full changelog see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.

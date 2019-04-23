@@ -1,10 +1,7 @@
 @font-face {
   font-family: 'FontAwesome';
-  src:  url('/fonts/FontAwesome.eot?ri2xfu');
-  src:  url('/fonts/FontAwesome.eot?ri2xfu#iefix') format('embedded-opentype'),
-    url('/fonts/FontAwesome.ttf?ri2xfu') format('truetype'),
-    url('/fonts/FontAwesome.woff?ri2xfu') format('woff'),
-    url('/fonts/FontAwesome.svg?ri2xfu#FontAwesome') format('svg');
+  src:
+    url('/fonts/FontAwesome.woff?m0wx87') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +21,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.fa-gitter:before {
+  content: "\e902";
+}
 .fa-bulb:before {
   content: "\e901";
 }

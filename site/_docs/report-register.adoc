@@ -1,4 +1,6 @@
 = Register report
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Register report is report with running total of transactions for selected accounts.
 

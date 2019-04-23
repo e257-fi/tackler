@@ -1,4 +1,6 @@
 = Performance
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 
 Tackler-CLI can parse and process one million (1E6) transactions under 20 seconds,
 with processing speed of over 56 000 transactions per second. 

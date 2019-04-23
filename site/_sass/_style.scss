@@ -16,7 +16,7 @@
  }
 
 body {
-  font: 400 21px LatoLatinWeb, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 400 21px LatoLatinWeb, sans-serif;
   color: #ddd;
   background-color: #333;
   @include box-shadow(inset 0 3px 30px rgba(0,0,0,.3));
@@ -72,15 +72,15 @@ header {
     img { margin-top: -7px }
   }
 
-  .gl-top-hdr {
+  .icons-top-hdr {
     display: inline-block;
     vertical-align: middle;
-    margin-left: 0px;
-    margin-right: 10px;
-    padding: 1px;
-  }
 
-  .search .svg-icons { display: none }
+    height: 24px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+  }
 }
 
 nav, .meta {
@@ -343,7 +343,7 @@ li:before {
   .code {
     display: block;
     padding: 0;
-    font-family: Menlo, Consolas, "Courier New", Courier, "Liberation Mono", monospace;
+    font-family: Cousine, monospace;
     line-height: 1.3em;
 
     .title {
@@ -700,7 +700,7 @@ code {
   white-space: pre;
   display: inline-block;
   margin: 0;
-  font: 14px/1.8em Menlo, Consolas, "Courier New", Courier, "Liberation Mono", monospace;
+  font: 14px/1.8em Cousine, monospace;
   padding: 0 0.5em;
 }
 

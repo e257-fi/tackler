@@ -1,4 +1,6 @@
 = Quickstart
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
 :page-permalink: /docs/quickstart/
 
 
@@ -6,7 +8,6 @@ The minimum steps to create usable tackler setup is:
 
 ----
 # Create demo-setup
-mkdir -p tackler
 mkdir -p tackler/txns
 
 # Change current working directory to tackler demo folder
@@ -16,8 +17,8 @@ cd tackler
 cp /path/to/tackler-cli-x.y.z.jar ./tackler-cli.jar
 ----
 
-The journal data file can not be empty (`txns/journal.txn` in below),
-hence we have to create some demo data into it.
+The journal data file (`txns/journal.txn`) can not be empty,
+hence we have to create some transactions to play with it.
 
 ----
 # Create some transactions
@@ -84,3 +85,4 @@ See xref:./journal/format.adoc[Journal Format],
 xref:./installation.adoc[Installation Manual]
 and xref:./usage.adoc[Usage Guide] how to
 configure and use tackler.
+
