@@ -12,6 +12,10 @@ There are options to configure directory setup from where tackler will scan jour
 See xref:./journal/sharding.adoc[Transaction data sharding] for information of possible ways to 
 shard transaction data, and xref:./journal/format.adoc[Journal Format] for description of journal syntax.
 
+Tackler accepts over 130 different languages, script and sign unicode blocks as valid account
+and commodity names, see xref:./journal/charsets.adoc[Character Set] document for detailed information about
+valid character sets.
+
 
 == Git storage
 

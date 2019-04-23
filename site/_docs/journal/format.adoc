@@ -25,28 +25,6 @@ how to define used storage system and ideas for different sharding schemes.
 
 == Journal Format Syntax
 
-[NOTE]
-.New Journal Format Version v2
-====
-
-[horizontal]
-Transaction description:: in v2, description must start with `'` -prefix
-
-Transaction code:: in v2, code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
-
-Transaction metadata (uuid):: in v2, metadata must start by ``#`` character with space
-====
-
-Tackler v0.24.0 has Phase 1 support for new Journal Format Version v2.
-This means that it will accept both old deprecated xref:./format/v1.adoc[version v1]
-and new version v2 of journal format. All exports
-(xref:../export-equity.adoc[Equity] and xref:../export-identity.adoc[Identity])
-are in new format.
-
-[WARNING]
-====
-Support for old Journal Format Version v1 will be dropped in future release of Tackler.
-====
 
 [cols="1,5a,3a", options="header"]
 |===
@@ -177,8 +155,10 @@ Expenses:アイスクリーム
 Expenses:風:空
 Credit_Card:1234567890
 ----
-| Top-account names begin with a UTF-8 letter. Then
-letters, digits, middle dot `·`, hyphen `-` and underscore `_` are allowed in account names,
+| Top-account names begin with a UTF-8 letter or sign
+(xref:./charsets.adoc[cover 130 languages and code blocks are supported]).
+
+Then letters, digits, middle dot `·`, hyphen `-`, underscore `_` are allowed in account names,
 but no spaces. +
  +
 Sub-accounts are separated by `:`. Sub-accounts can start with numbers and be all numeric. +

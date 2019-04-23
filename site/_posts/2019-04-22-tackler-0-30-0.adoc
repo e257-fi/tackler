@@ -1,0 +1,42 @@
+= Tackler 0.30.0 released
+:page-date: 2019-04-22 22:26:00 +0200
+:page-author: 35vlg84
+:page-version: 0.30.0
+:page-category: release
+
+
+[NOTE]
+.Phase 2 (full) support for Journal Format Version v2
+====
+
+[horizontal]
+Transaction description:: description must start with `'` -prefix
+
+Transaction code:: code can not contain  `'` `(` `)` `[` `]` `{` `}` `<` `>` characters
+
+Transaction metadata (uuid):: metadata must start by ``#`` character with space
+====
+
+
+== New features and changes in this release:
+
+ * Phase 2 (full) support for link:/docs/journal/format/v2/[Journal Format Version v2]
+ ** Dropped support for link:/docs/journal/format/v1/[old format version v1]
+ * CLI switch `input.storage` to
+   link:/docs/usage/#storage-selector[change on the fly used storage type]
+
+=== Fixes
+
+ * Account and Commodity Names: Accept signs which were left unintentionally outside in the cold
+ ** Currency symbols `$`, `¢`, `£`, `¤`, `¥` from Latin-1 Base and Supplement blocks
+ ** Micro and Degree (`µ`, `°`) from Latin-1 Supplement block
+ ** Vulgar Fractions (`¼`, `½`, `¾`) from Latin-1 Supplement block
+ ** Superscripts (`¹`, `²`, `³`) from Latin-1 Supplement block
+
+See link:/docs/journal/charsets/[Charset document] for
+full list of supported language, scripts and signs as account name characters
+(there are over 130 supported Unicode code blocks).
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.

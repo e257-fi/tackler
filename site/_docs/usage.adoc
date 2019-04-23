@@ -1,6 +1,6 @@
 = Usage Guide
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-04-23 00:00:00 Z
 
 This is general usage guide for tackler reporting engine.
 
@@ -58,6 +58,7 @@ Input can be based on:
  ** (Journal is in single file)
  ** Journal data is in multiple files inside directory structure
 
+[[storage-selector]]
 ==== Storage selector
 
 If there are valid configurations for filesystem and git storage,
@@ -481,5 +482,3 @@ Exports are special reports, which are valid input for Tackler.
 
 See document xref:./auditing.adoc[Accounting Auditing and Assurance] for information how Tackler reports could support
 accounting auditing and assurance actions.
-
-
