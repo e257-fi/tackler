@@ -1,6 +1,6 @@
 = Accounts.conf
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-04-24 00:00:00 Z
 
 accounts.conf contains Chart of Accounts (CoA) for Tackler,
 and other accounts and commodities related settings.
@@ -58,6 +58,8 @@ accounts {
   # Characters can be a wide range of
   # international UTF-8 characters.
   #
+  # See https://tackler.e257.fi/docs/journal/charsets/ for full list.
+  #
   # Or in other words:
   #
   #    account
@@ -70,7 +72,12 @@ accounts {
   #       = (NameStartChar | '0'..'9') (NameChar)*
   #
   #    NameStartChar
-  #       = 'A'..'Z' | 'a'..'z'
+  #       = '$' | '¢' | '£' | '¤' | '¥' // not in block 20A0-20CF
+  #       | '\u00B5' //  Micro Sign
+  #       | '\u00B9' | '\u00B2' | '\u00B3' // not in block 2070-209F
+  #       | '\u00B0' // Degree Sign
+  #       | '\u00BC' | '\u00BD' | '\u00BE' // not in block 2150-218F
+  #       | 'A'..'Z' | 'a'..'z'
   #       | '\u00C0'..'\u00D6'
   #       | '\u00D8'..'\u00F6'
   #       | '\u00F8'..'\u02FF'
@@ -123,6 +130,8 @@ accounts {
   # Characters can be a wide range of
   # international UTF-8 characters.
   #
+  # See https://tackler.e257.fi/docs/journal/charsets/ for full list.
+  #
   # Or in other words:
   #
   #    commodity
@@ -136,6 +145,9 @@ accounts {
   #
   # Example list of commodities:
   commodities = [
+    "€",
+    "$",
+    "¥",
     "EUR",
     "USD",
     "He·bar",
