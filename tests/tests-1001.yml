@@ -175,18 +175,6 @@ features:
       tests:
         errors:
           - error:
-              id: 3152ec2f-4d5f-4a0a-b88c-68f17bccf7c6
-              name: TacklerParserCommoditiesTest
-              desc: missing value
-          - error:
-              id: 0d1beaf2-c30c-4008-943f-46aaf44e4f76
-              name: TacklerParserCommoditiesTest
-              desc: missing commodity
-          - error:
-              id: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
-              name: TacklerParserCommoditiesTest
-              desc: invalid commodity (duplicate commodity)
-          - error:
               id: 20b89e3e-a987-4e83-bd89-2cbf288caecc
               name: TacklerParserCommoditiesTest
               desc: "discrepancy of commodities '='"
@@ -194,6 +182,30 @@ features:
               id: fe246259-2280-4d42-8360-6dd3e280b30a
               name: TacklerParserCommoditiesTest
               desc: "discrepancy of commodities '@'"
+          - error:
+              id: 6d1868da-3b9f-45e4-a2c6-db003da4c720
+              name: TacklerParserCommoditiesTest
+              desc: "value pos: same primary and secondary commodity '@'"
+          - error:
+              id: aa52ac0a-278a-49e4-abad-fc2f00416a41
+              name: TacklerParserCommoditiesTest
+              desc: "value pos: same primary and secondary commodity '='"
+          - error:
+              id: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
+              name: TacklerParserCommoditiesTest
+              desc: "perr: duplicate commodity"
+          - error:
+              id: e24aacdf-fba2-4dc7-8165-4270c8822559
+              name: TacklerParserCommoditiesTest
+              desc: "perr: value position, no primary commodity"
+          - error:
+              id: 0d1beaf2-c30c-4008-943f-46aaf44e4f76
+              name: TacklerParserCommoditiesTest
+              desc: "perr: value position, no secondary commodity"
+          - error:
+              id: 3152ec2f-4d5f-4a0a-b88c-68f17bccf7c6
+              name: TacklerParserCommoditiesTest
+              desc: "perr: missing value pos value"
           - error:
               id: edf1c7b6-fac6-4b58-8b5b-6c37b59609f5
               name: tests/commodity/ex/CommodityException-mixed-valpos-01.exec

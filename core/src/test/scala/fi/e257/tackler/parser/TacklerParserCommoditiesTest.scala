@@ -322,11 +322,46 @@ class TacklerParserCommoditiesTest extends FlatSpec {
     assert(ex.getMessage.startsWith("Different commodities without"))
   }
 
+  /**
+    * test:uuid: 6d1868da-3b9f-45e4-a2c6-db003da4c720
+    */
+  it should "value pos: same primary and secondary commodity ('@')" in {
+    val txnStr =
+      """
+        |2019-01-01
+        | e 1 € @ 1 €
+        | a
+        |
+        |""".stripMargin
+
+    val ex = intercept[CommodityException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.startsWith("Error on line: 3; Both commodities are same for value position [€]"))
+  }
+
+  /**
+    * test:uuid: aa52ac0a-278a-49e4-abad-fc2f00416a41
+    */
+  it should "value pos: same primary and secondary commodity  ('=')" in {
+    val txnStr =
+      """
+        |2019-01-01
+        | e 1 € = 1 €
+        | a
+        |
+        |""".stripMargin
+
+    val ex = intercept[CommodityException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.startsWith("Error on line: 3; Both commodities are same for value position [€]"))
+  }
 
   /**
    * test:uuid: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
    */
-  it should "perr: with commodity" in {
+  it should "perr: duplicate commodity" in {
     val txnStr =
       """
         |2017-01-01
@@ -342,9 +377,27 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
+    * test:uuid: e24aacdf-fba2-4dc7-8165-4270c8822559
+    */
+  it should "perr: value position, no primary commodity" in {
+    val txnStr =
+      """
+        |2017-01-01
+        | e   1 @ 1 EUR
+        | a
+        |
+        |""".stripMargin
+
+    val ex = intercept[TacklerParseException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.contains("on line: 3"))
+  }
+
+  /**
    * test:uuid: 0d1beaf2-c30c-4008-943f-46aaf44e4f76
    */
-  it should "perr: with closing (comm)" in {
+  it should "perr: value position, no secondary commodity" in {
     val txnStr =
       """
         |2017-01-01
@@ -362,7 +415,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   /**
    * test:uuid: 3152ec2f-4d5f-4a0a-b88c-68f17bccf7c6
    */
-  it should "perr: with closing (value)" in {
+  it should "perr: missing value pos value" in {
     val txnStr =
       """
         |2017-01-01

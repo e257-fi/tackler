@@ -112,7 +112,7 @@ abstract class CtxHandler {
     BigDecimal(Option(amountCtx.INT()).getOrElse(amountCtx.NUMBER()).getText())
   }
 
-  protected def handleClosingPosition(postingCtx: PostingContext): (
+  protected def handleValuePosition(postingCtx: PostingContext): (
     BigDecimal,
     BigDecimal,
     Boolean,
@@ -131,8 +131,19 @@ abstract class CtxHandler {
 
       Option(u.opt_position()).fold(Option(Commodity(u.unit().getText))){pos =>
         Option(pos.closing_pos()).map(cp => {
-          // Ok, we have closing position, use its commodity
-          Commodity(cp.unit().getText)
+          // Ok, we have value position, use its commodity
+          val valPosCommodity = Commodity(cp.unit().getText)
+
+          postCommodity.foreach(c => {
+            // postCommodity is always defined by grammar
+            if (c.name === valPosCommodity.name) {
+              val lineNro = postingCtx.start.getLine
+              val msg = "Error on line: " + lineNro.toString + "; Both commodities are same for value position [" + valPosCommodity.name + "]"
+              log.error(msg)
+              throw new CommodityException(msg)
+            }
+          })
+          valPosCommodity
         })
       }
     })
@@ -198,7 +209,9 @@ abstract class CtxHandler {
    * @return Post
    */
   protected def handleRawPosting(postingCtx: PostingContext): Posting = {
-    val foo = handleClosingPosition(postingCtx)
+
+
+    val foo = handleValuePosition(postingCtx)
 
     if (settings.Accounts.strict) {
       val lineNro = postingCtx.start.getLine

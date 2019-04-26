@@ -18,7 +18,9 @@ New features and changes in this release:
 
 ==== Fixes
 
-Fixes in this release: None
+Fixes in this release:
+
+* Reject "identity" (e.g. `1 € @ 2 €` and `1 € = 2 €`) value positions as invalid construct
 
 
 ==== Development
