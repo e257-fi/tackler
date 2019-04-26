@@ -49,30 +49,42 @@ Position tells valuation of that posting at the time of transaction.
 When you exchange currency, close stock position or define value to commodity,
 you can provide value (closing) position to the posting.
 
-For example following purchases made in foreign currencies, which are later converted to EUR.
+Closing position can be provided either with Unit Price `@` or with Total Price `=`.
+
+For example following purchases are made in foreign currencies,
+which are later converted to EUR.
 
 ....
-2017-04-01 'stuff in Finland with Credit Card
-    expenses        20 EUR
-    l:credit·card
-
-2017-04-01 'stuff in Sweden with Credit Card
+2017-04-01 'Ice cream in Sweden with Credit Card
     expenses        200 SEK
     l:credit·card
 
-2017-04-01 'stuff in Norway with Credit Card
+2017-04-01 'Ice cream in Norway with Credit Card
     expenses        500 NOK
     l:credit·card
 
-2017-04-01 'SEK/EUR exchange transaction by CC-company
-    l:Credit·Card  200 SEK @ 0.1039 EUR
-    l:Credit·Card  -20.78 EUR
+2017-04-01 'SEK/EUR exchange transaction by CC-company with Unit Price '@'
+    ; Unit Price with '@'
+    l:Credit·Card    200 SEK @ 0.1039 EUR
+    l:Credit·Card -20.78 EUR
 
-2017-04-01 'NOK/EUR exchange transaction by CC-company
-    l:credit·card    500 NOK @ 0.1065 EUR
+2017-04-01 'NOK/EUR exchange transaction by CC-company with Total Price '='
+    ; Total Price with '='
+    l:credit·card    500 NOK = 53.25 EUR
     l:credit·card -53.25 EUR
 ....
 
+If you know used exchange ratio, you can record that in single transaction:
+
+....
+2017-04-01 'Ice cream in Sweden with Credit Card
+    expenses        200 SEK = 20.78 EUR
+    l:credit·card
+
+2017-04-01 'Ice cream in Norway with Credit Card
+    expenses         500 NOK
+    l:credit·card -53.25 EUR = -500 NOK
+....
 
 === Opening position
 

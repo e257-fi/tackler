@@ -85,6 +85,7 @@ L_ANGLE: '<';
 R_ANGLE: '>';
 HASH: '#';
 AT: '@';
+EQUAL: '=';
 SPACE: ' ';
 TAB: '\t';
 SEMICOLON: ';';

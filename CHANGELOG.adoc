@@ -13,7 +13,7 @@ Current published release is:
 
 New features and changes in this release:
 
- * ...
+ * link:https://tackler.e257.fi/docs/journal/format/#value-pos[Closing position with total amount (`=` syntax)]
 
 
 ==== Fixes

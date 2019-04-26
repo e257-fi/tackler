@@ -69,7 +69,7 @@ opt_position: opt_opening_pos
 
 opt_opening_pos: sp '{' opt_sp amount sp unit opt_sp '}';
 
-closing_pos: sp '@' sp amount sp unit;
+closing_pos: sp ('@' | '=') sp amount sp unit;
 
 account: ID (':' (ID|SUBID|INT))*;
 

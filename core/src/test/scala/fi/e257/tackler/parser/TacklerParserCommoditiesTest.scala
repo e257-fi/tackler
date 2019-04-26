@@ -17,8 +17,7 @@
 package fi.e257.tackler.parser
 
 import org.scalatest.FlatSpec
-
-import fi.e257.tackler.core.Settings
+import fi.e257.tackler.core.{CommodityException, Settings}
 
 class TacklerParserCommoditiesTest extends FlatSpec {
 
@@ -287,6 +286,43 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   behavior of "with invalid input"
+  /**
+    * test:uuid: 20b89e3e-a987-4e83-bd89-2cbf288caecc
+    */
+  it should "discrepancy of commodities '='" in {
+    val txnStr =
+      """
+        |2019-01-01
+        | e 1 € = 1 $
+        | a 1 € = 1 £
+        |
+        |""".stripMargin
+
+    val ex = intercept[CommodityException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.startsWith("Different commodities without"))
+  }
+
+  /**
+    * test:uuid: fe246259-2280-4d42-8360-6dd3e280b30a
+    */
+  it should "discrepancy of commodities '@'" in {
+    val txnStr =
+      """
+        |2019-01-01
+        | e 1 € @ 1 $
+        | a 1 € @ 1 £
+        |
+        |""".stripMargin
+
+    val ex = intercept[CommodityException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.startsWith("Different commodities without"))
+  }
+
+
   /**
    * test:uuid: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
    */

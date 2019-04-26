@@ -1,6 +1,7 @@
 = Commodities
 
-For user documentation please see xref:../../commodities.adoc[Commodities].
+For user documentation see
+link:https://tackler.e257.fi/docs/commodities/[Commodities].
 
 
 == Special notes

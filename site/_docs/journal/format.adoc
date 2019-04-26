@@ -214,11 +214,15 @@ See xref:../commodities.adoc[Commodities] for general info.
 
 
 | Value positions
-|
+| [[value-pos]]
 ----
-2017-05-01 'In Sweden
- Expences:Ice·Cream  200 SEK @ 0.1039 EUR
- Assets:Cash  -20.78 EUR
+2017-05-01 'Value pos. with unit price (SEK -> €)
+ Expences:Ice·Cream  200 SEK @ 0.1039 €
+ Assets:Cash  -20.78 €
+
+2017-05-01 'Value pos. with total price (SEK -> €)
+ Expences:Ice·Cream  200 SEK = 20.78 €
+ Assets:Cash  -20.78 €
 ----
 | Optional value position for posting +
 This is mandatory for mixed commodity transaction,

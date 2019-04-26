@@ -1,9 +1,12 @@
 = Docs TODO
 
+== Generic
+
  * [ ] Examples
  ** [ ] Timetracking
  * [ ] docs: gitlab logo for repository urls?
 
-= Site
+== Site
 
  * [ ] Logo?
+

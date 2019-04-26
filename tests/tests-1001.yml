@@ -187,6 +187,14 @@ features:
               name: TacklerParserCommoditiesTest
               desc: invalid commodity (duplicate commodity)
           - error:
+              id: 20b89e3e-a987-4e83-bd89-2cbf288caecc
+              name: TacklerParserCommoditiesTest
+              desc: "discrepancy of commodities '='"
+          - error:
+              id: fe246259-2280-4d42-8360-6dd3e280b30a
+              name: TacklerParserCommoditiesTest
+              desc: "discrepancy of commodities '@'"
+          - error:
               id: edf1c7b6-fac6-4b58-8b5b-6c37b59609f5
               name: tests/commodity/ex/CommodityException-mixed-valpos-01.exec
               desc: Mixed commodities with value position (third commodity)
@@ -195,6 +203,22 @@ features:
               name: tests/commodity/ex/CommodityException-mixed-valpos-02.exec
               desc: Mixed commodities with value position (original commodity)
         operations:
+          - test:
+              id: 16b54e8c-5ea6-420c-bd72-157dbcc06a49
+              name: PostingTest
+              desc: "handle unit price"
+          - test:
+              id: 22059d1d-7c10-42dc-831f-03bd1f1d6257
+              name: PostingTest
+              desc: "handle unit price with comment"
+          - test:
+              id: 0fef204a-19da-418f-b7d0-86b5211c2182
+              name: PostingTest
+              desc: "handle total price"
+          - test:
+              id: 718dd25c-aebc-4f29-9903-67942c6ba531
+              name: PostingTest
+              desc: "handle total price with comment"
           - test:
               id: 54cb6baa-6c3d-4196-94bc-b6fd37ed0b57
               name: tests/commodity/ok/valpos-01.exec
@@ -211,6 +235,39 @@ features:
               name: tests/commodity/ok/valpos-01-01.exec
               descriptions:
                 - desc: value position identity report as input for test
+              references:
+                - ref: identity
+                - ref: equity
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+          - test:
+              id: 2501f96c-46d8-4711-9e7e-dc70e4af329d
+              name: tests/commodity/ok/valpos-02.exec
+              descriptions:
+                - desc: Total amount value position with and without inferred last posting
+              references:
+                - ref: identity
+                - ref: equity
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+          - test:
+              id: d37de2c1-61bf-4ffc-8f7a-933ce8380b2f
+              name: tests/commodity/ok/valpos-02-01.exec
+              descriptions:
+                - desc: Total amount value position identity report as input for test
+              references:
+                - ref: identity
+                - ref: equity
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+          - test:
+              id: d0dd6b75-238e-49cf-a048-a77baafba9bd
+              name: tests/commodity/ok/valpos-03.exec
+              descriptions:
+                - desc: Value positions with C1->C2; C3->C2
               references:
                 - ref: identity
                 - ref: equity

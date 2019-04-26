@@ -115,6 +115,7 @@ abstract class CtxHandler {
   protected def handleClosingPosition(postingCtx: PostingContext): (
     BigDecimal,
     BigDecimal,
+    Boolean,
     Option[Commodity],
     Option[Commodity]) = {
 
@@ -139,17 +140,30 @@ abstract class CtxHandler {
     val postAmount = handleAmount(postingCtx.amount())
 
     val txnAmount = Option(postingCtx.opt_unit())
-      .fold(postAmount) { u =>
-        Option(u.opt_position()).fold(postAmount) { pos =>
-          Option(pos.closing_pos()).fold(postAmount)(cp => {
-            // Ok, we have closing position, use its value
-            postAmount * handleAmount(cp.amount())
+      .fold({
+        (postAmount, false)
+      }) { u =>
+        Option(u.opt_position()).fold({
+          (postAmount, false)
+        }) { pos =>
+          Option(pos.closing_pos()).fold({
+            // plain value, no closing position
+            (postAmount, false)
+          })(cp => {
+            // Ok, we have closing position
+            Option(cp.AT()).fold({
+              // this is '=', e.g. total price
+              (handleAmount(cp.amount()), true)
+            })(_ => {
+              // this is '@', e.g. unit price
+              (postAmount * handleAmount(cp.amount()), false)
+            })
           })
         }
       }
 
     // todo: fix this silliness, see other todo on Posting
-    (postAmount, txnAmount, postCommodity, txnCommodity)
+    (postAmount, txnAmount._1, txnAmount._2, postCommodity, txnCommodity)
   }
 
   /**
@@ -188,14 +202,14 @@ abstract class CtxHandler {
 
     if (settings.Accounts.strict) {
       val lineNro = postingCtx.start.getLine
-      checkCommodity(foo._3, lineNro)
       checkCommodity(foo._4, lineNro)
+      checkCommodity(foo._5, lineNro)
     }
 
-    val acctn = handleAccount(postingCtx.account(), foo._3)
+    val acctn = handleAccount(postingCtx.account(), foo._4)
     val comment = Option(postingCtx.opt_comment()).map(c => c.comment().text().getText)
     // todo: fix this silliness, see other todo on Posting
-    Posting(acctn, foo._1, foo._2, foo._4, comment)
+    Posting(acctn, foo._1, foo._2, foo._3, foo._5, comment)
   }
 
   /**
@@ -266,7 +280,7 @@ abstract class CtxHandler {
       val amount = Posting.txnSum(posts)
       val comment = Option(lp.opt_comment()).map(c => c.comment().text().getText)
 
-      List(Posting(ate, -amount, -amount, posts.head.txnCommodity, comment))
+      List(Posting(ate, -amount, -amount, false, posts.head.txnCommodity, comment))
     })
 
     Transaction(TxnHeader(date, code, desc, uuid, comments), posts ++ last_posting.getOrElse(Nil))

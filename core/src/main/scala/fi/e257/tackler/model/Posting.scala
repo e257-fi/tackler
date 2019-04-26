@@ -30,6 +30,7 @@ import fi.e257.tackler.core.TxnException
  * @param acctn account information
  * @param amount of this posting (in posting's own commodity)
  * @param txnAmount mixed commodity txn, this is amount as converted to Txn's commodity (see note)
+ * @param isTotalAmount true if closing position was total amount, not unit price
  * @param txnCommodity mixed commodity txn, this txn's commodity (see note)
  * @param comment  of this posting, if any
  */
@@ -38,6 +39,7 @@ final case class Posting(
   amount: BigDecimal,
   // todo: fix / rename these (position?, exchange? amount, commodity)
   txnAmount: BigDecimal,
+  isTotalAmount: Boolean,
   txnCommodity: Option[Commodity],
   comment: Option[String]) {
 
@@ -57,7 +59,11 @@ final case class Posting(
         if (txnC.name === acctn.commStr) {
           ""
         } else {
-          " @ " + (txnAmount / amount).toString() + " " + txnC.name
+          if (isTotalAmount) {
+            " = " + txnAmount.toString() + " " + txnC.name
+          } else {
+            " @ " + (txnAmount / amount).toString() + " " + txnC.name
+          }
         }
       }).getOrElse("") +
       comment.map(c => " ; " + c).getOrElse("")

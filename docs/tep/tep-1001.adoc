@@ -2,8 +2,8 @@
 
 == User documentation
 
-* xref:../commodities.adoc[Commodities]
-* xref:../currencies.adoc[Currencies]
+* link:https://tackler.e257.fi/docs/commodities/[Commodities]
+* link:https://tackler.e257.fi/docs/currencies/[Currencies]
 
 
 == TEP docs
