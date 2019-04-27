@@ -112,7 +112,7 @@ lazy val core = (project in file("core")).
   settings(commonSettings: _*).
   settings(
     name := "tackler-core",
-    run / fork := true,
+    fork := true,
     antlr4Version in Antlr4 := "4.7.2",
     antlr4GenListener in Antlr4 := false,
     antlr4GenVisitor in Antlr4 := false,
@@ -126,7 +126,6 @@ lazy val cli = (project in file("cli")).
   settings(noPublishSettings).
   settings(commonSettings: _*).
   settings(
-    run / fork := true,
     fork := true,
     Test / baseDirectory := file((Test / baseDirectory).value + "/.."),
     Test / testOptions += {

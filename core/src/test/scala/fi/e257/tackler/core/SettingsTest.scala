@@ -23,17 +23,22 @@ import org.scalatest.FunSpec
 
 class SettingsTest extends FunSpec {
 
+   /*
+    * "./"  := non-forked JVM
+    * "../" := forked JVM
+    */
+  val testbase = "../"
   val respath = "core/target/scala-2.12/test-classes/"
 
   describe("Configuration and path handling") {
 
     it("combine cfg-path with relative basedir") {
-      val cfg = Settings(Paths.get(respath + "cfg-as-ext-file-rel.conf"), ConfigFactory.empty())
+      val cfg = Settings(Paths.get(testbase + respath + "cfg-as-ext-file-rel.conf"), ConfigFactory.empty())
       assert(cfg.basedir.endsWith(respath + "cfg/as/ext/file") === true, cfg.basedir)
     }
 
     it("not change abs basedir ") {
-      val cfg = Settings(Paths.get(respath + "cfg-as-ext-file-abs.conf"), ConfigFactory.empty())
+      val cfg = Settings(Paths.get(testbase + respath + "cfg-as-ext-file-abs.conf"), ConfigFactory.empty())
       assert(cfg.basedir === Paths.get("/basedir/as/abs/path/by/ext/conf"))
     }
 

@@ -26,7 +26,9 @@ class TacklerTxnsGitTest extends FunSpec{
   val cfg = ConfigFactory.parseString(
     """
       |{
-      |   basedir = "tests/audit/"
+      |   #  ./ = non-forked JVM
+      |   # ../ = forked JVM
+      |   basedir = "../tests/audit/"
       |   input {
       |     storage = git
       |     git {
