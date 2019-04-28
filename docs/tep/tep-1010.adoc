@@ -1,0 +1,278 @@
+= TEP-1010: Transaction Geo Location
+
+Add support for Geo Location of Transaction as Txn metadata
+
+
+== Summary
+
+link:https://tools.ietf.org/html/rfc5870[RFC 5870: A Uniform Resource Identifier for Geographic Locations]
+
+Only supported Coordinate Reference System is WGS84 (EPSG:4326).
+
+Only point is supported (not area)
+
+
+=== Geo Filter
+
+Bounding Box definition
+
+[horizontal]
+BBoxXYZ:: left,bottom [,depth]; right,top [,height];
+left::   min longitude
+bottom:: min latitude
+depth::  min altitude
+right::  max longitude
+top::    max latitude
+height:: max altitude
+
+
+If BBoxXYZ is missing Z-component, then following defaults are used:
+
+Missing Z-min:: All values below or at Z-max are included
+Missing Z-max:: All values at Z-min or above are included
+
+
+== Journal file format
+
+Add support for optional location field.  Location field is subset of
+geo URI definition link:https://tools.ietf.org/html/rfc5870[RFC 5870].
+
+Currently only coordinates (lat, lon and alt) are accepted. Used CRS is WGS 84.
+
+Parameters (`p`) part of
+link:https://tools.ietf.org/html/rfc5870#section-3.3[geo URI scheme]
+is not accepted at all, and MUST NOT be present with location field's value.
+
+[horizontal]
+location:: `#` `location` `:` <geo-uri>
+
+geo-uri:: `geo` `:` <lat> `,` <lon>  [`,` <alt>]
+
+lat:: latitude
+
+lon:: longitude
+
+alt:: altitude
+
+latitude:: `[ '-' ] DIGIT [DIGIT] [ '.' DIGIT+ ]` (value: -90 - 90)
+
+longitude:: `[ '-' ] DIGIT [DIGIT [DIGIT]] [ '.' DIGIT+ ]` (value: -180 - 180)
+
+altitude:: `[ '-' ] DIGIT+ [ '.' DIGIT+ ]` (in meteres)
+
+
+
+== CLI changes
+
+This has no changes to CLI with initial implementation.
+
+
+== CONF changes
+
+This has no changes to configuration values nor configuration setup
+with initial implementation.
+
+
+== Machinery
+
+Changes to machinery
+
+* [ ] Grammar (parser and lexer)
+* [ ] Filters
+** [ ] New GEO filter (Bounding Box)
+
+
+
+=== API changes
+
+Api changes to server or client interfaces.
+
+
+==== Server API changes
+
+Changes to server API
+
+* [ ] Filters
+** [ ] API: New GEO filter (Bounding Box) definition
+** [ ] Server: GEO filter Bounding Box filter code
+
+
+==== Client API changes
+
+Changes to client API or JSON model
+
+* [ ] TxnHeader has new optional field `location`
+** [ ] New type: `Coordinate`
+*** [ ] fields: Latitude (Y), Longitude (X), optional Altitude (Z)
+
+
+=== New dependencies
+
+* [ ] link / url of new dependency
+** [ ] Add and check licenses: link / url
+** [ ] Is there NOTICE file(s)?
+** [ ] Add license under link:../licenses/[doc/licenses]
+*** [ ] Add NOTICES under link:../licenses/[doc/licenses]
+** [ ] Add link of license to xref:../readme.adoc[index]
+** [ ] Add link to xref:../../site/_docs/credits.adoc[THANKS]
+** [ ] Add license material to binary distribution
+
+
+== Reporting
+
+Changes to reports or reporting
+
+
+=== Balance report
+
+No changes to balance report.
+
+
+=== Balance Group report
+
+No changes to balance group report.
+
+
+=== Register report
+
+Changes to register report
+
+* [ ] Report geo-field with Txn
+
+
+== Exporting
+
+Changes to exports or exporting
+
+=== Equity export
+
+No changes to equity export.
+
+
+=== Identity export
+
+Changes to identity export
+
+* [ ] Output geo-field with Txn Header
+
+
+== Documentation
+
+* [ ] xref:./readme.adoc[]: Update TEP index
+* [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
+* [ ] link:../../CHANGELOG[]: add new item
+* [ ] Does it warrant own T3DB file?
+** [ ] update xref:../../tests/tests.adoc[]
+** [ ] update xref:../../tests/check-tests.sh[]
+** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [ ] User docs
+** [ ] user manual
+** [ ] examples
+* [ ] Developer docs
+** [ ] API changes
+*** [ ] Server API changes
+*** [ ] Client API changes
+
+
+== Future plans and Postponed (PP) features
+
+How and where to go from here?
+
+=== Postponed (PP) features
+
+Anything which wasn't implemented?
+
+
+== Tests
+
+=== Geo URI
+
+Normal, ok-case tests to validate functionality:
+
+* [ ] Parse tests
+** [ ] lat, lon
+** [ ] lat, lon, alt
+*** [ ] lat.deg, lon.deg, alt.deg
+** [ ] -lat, -lon, -alt
+** [ ] -lat.deg, -lon.deg, -alt.deg
+
+Various special values
+* [ ] Poles
+** [ ] lat: -90 or lat:90, lon:0
+** [ ] lat: -90 or lat:90, lon:-180 - 0
+** [ ] lat: -90 or lat:90, lon:180 - 0
+* [ ] lat:0, lon:0
+* [ ] lat:Y, lon:X, alt:-120
+
+
+==== Errors
+
+Various error cases:
+
+* [ ] e: missing lat/lon
+* [ ] e: Values outside of specification
+** [ ] e: lat < -90 || lat > 90
+** [ ] e: lon < -180 || lon > 180
+** [ ] e: altitude < -6378137 m (WGS 84: Semi-major axis 6 378 137 m)
+
+
+=== Geo Filter
+
+Normal, ok-case tests to validate functionality:
+
+* [ ] Normal filter
+
+Various special values
+* [ ] BBox around Equator
+* [ ] BBox around Lon:0 and lon:180
+* [ ] BBox whole Earth (-180,-90 to 180,90)
+* [ ] BBox is point
+* [ ] Missing Z
+** [ ] Missing Z-min (ceiling)
+** [ ] Missing Z-max (flooring)
+
+
+==== Errors
+
+Various error cases:
+
+* [ ] e: Not correctly minX, minY, minZ; maxX,maxY,maxZ
+** [ ] e: minX vs. maxX
+** [ ] e: minY vs. maxY
+** [ ] e: minZ vs. maxZ
+
+
+=== Perf
+
+Is there need to run or create new perf tests?
+
+* [ ] perf test
+
+
+=== Feature and Test case tracking
+
+Feature-id::
+
+* name: Transaction Geo Location
+* uuid: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
+
+Feature-id::
+
+* name: Geo URI
+* parent: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
+* uuid: c7e45a7b-5295-4dbb-bcda-bdc0990b9e14
+
+Feature-id::
+
+* name: Geo Filter
+* parent: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
+* uuid: cfa92a0d-a8af-4fb5-a3c6-723029febc5a
+
+
+link:../../tests/tests-1010.yml[TEP-1010 T3DB]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].
