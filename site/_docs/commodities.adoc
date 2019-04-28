@@ -1,6 +1,6 @@
 = Commodities
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-04-24 00:00:00 Z
 
 Commodity is something which doesn't have value without unit of measurement.
 
@@ -12,46 +12,64 @@ Typically it is possible to transform commodity transactions between same commod
 but with different unit of measurement as long as there is well defined,
 constant conversion between those units.
 
-For example: `42 oz Au` -> `1306.3460256 g Au` -> `1.3063460256 kg Au`.
+For example: `42 Au oz` -> `1306.3460256 Au g` -> `1.3063460256 Au kg`.
 
 However, at the moment automatic commodity unit conversions are not supported with Tackler,
 but this is something which will be implemented in the future.
 
 Commodity name (and combined unit) has to be  a valid `ID` element (same rules applies as with account names).
 
-For example, tracking Helium and Oxygen, you could use units `bar·He` and `bar·O2`:
+For example, tracking Helium and Oxygen, you could use units `He·bar` and `O2·bar`:
 
 ....
-   Gas:Tank·102  298 bar·He
-   Gas:Tank·208  195 bar·O2
+   Gas:Tank·102  298 He·bar
+   Gas:Tank·208  195 O2·bar
 ....
+
+if your tank sizes are known and fixed.
+
 
 == Transactions with mixed commodities
 
 Transactions with mixed commodities without value positions are not allowed.
 
-Example of mixed commodity transaction without value positions:
+Example of invalid mixed commodity transaction without value positions:
 
 ....
-2017-05-01 'this is not valid
- Vault:Bullion 1 g·Au
- Vault:Bullion 4 g·Ag
+2017-05-01 'This is invalid
+ Vault:Bullion 1 Au·g
+ Vault:Bullion 4 Ag·g
  Assets:Cash
 ....
 
 Mixed commodities must be converted to common commodity with value positions:
 
 ....
-2017-05-01 'this is valid
- Vault:Bullion 1 g·Au @ 37.00 EUR
- Vault:Bullion 1 g·Ag @ 0.495 EUR
+2017-05-01 'This is valid
+ Vault:Bullion 1 Au·g @ 37.00 EUR
+ Vault:Bullion 1 Ag·g @ 0.495 EUR
  Assets:Cash
 ....
 
+=== About He·bar and O2·bar
+
+Strictly speaking it doesn't make sense to track gas pressures,
+because you have to also know tank size to figure out actual amount of gas.
+
+So original example of He and O2 tanks could be written in following way:
+
+....
+2019-04-01 'Gas amount in liters
+   Gas:Tank·102  298 He·bar @ 50 He·l
+   Gas:Tank·208  195 O2·bar @ 50 O2·l
+....
+
+assuming that 50 liter storage tanks are used.
 
 
 == Example
 
 For example see an accounting example for scuba diving
-xref:./examples/trimix-filling-station.adoc[Trimix Filling and Mixing Station]. It demonstrates how to track different
-commodities and how to convert those commodities to monetary values.
+xref:./examples/trimix-filling-station.adoc[Trimix Filling and Mixing Station].
+It demonstrates how to track different commodities
+and how to convert those commodities to monetary values.
