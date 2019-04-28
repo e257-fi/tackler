@@ -17,6 +17,7 @@
 package fi.e257.tackler.parser
 
 import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
+import java.util.UUID
 
 import cats.implicits._
 
@@ -250,8 +251,10 @@ abstract class CtxHandler {
     })
 
 
-    val uuid = Option(txnCtx.txn_meta()).map(meta => {
-      java.util.UUID.fromString(meta.txn_meta_uuid().UUID_VALUE().getText)
+    val uuid: Option[UUID] = Option(txnCtx.txn_meta()).flatMap(meta => {
+      Option(meta.txn_meta_uuid()).map(muuid => {
+        java.util.UUID.fromString(muuid.UUID_VALUE().getText)
+      })
     })
 
     if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {

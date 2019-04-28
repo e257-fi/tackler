@@ -17,6 +17,7 @@
 lexer grammar TxnLexer;
 
 UUID_NAME: 'uuid';
+LOCATION_NAME: 'location';
 
 UUID_VALUE: HEX HEX HEX HEX  HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX HEX HEX HEX HEX  HEX HEX HEX HEX;
 
@@ -24,9 +25,11 @@ DATE: DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT;
 TS: DATE 'T' TIME;
 TS_TZ: TS TZ;
 
+GEO_URI: 'geo' ':' LATITUDE ',' LONGITUDE (',' NUMBER)?;
+
 INT: DIGIT+;
 
-NUMBER: ('+' | '-')? (INT | FLOAT);
+NUMBER: '-'? (INT | FLOAT);
 
 ID: NameStartChar (NameChar)*;
 
@@ -35,6 +38,10 @@ SUBID: (NameStartChar | DIGIT) (NameChar)*;
 fragment TIME: DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT+)?;
 
 fragment TZ: 'Z' | (('+' | '-') DIGIT DIGIT ':' DIGIT DIGIT);
+
+fragment LATITUDE:   '-'? DIGIT DIGIT? ('.' DIGIT+)?;
+fragment LONGITUDE:  '-'? DIGIT DIGIT? DIGIT? ('.' DIGIT+)?;
+
 
 fragment FLOAT: DIGIT+ '.' DIGIT+;
 

@@ -189,27 +189,28 @@ Anything which wasn't implemented?
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] Parse tests
-** [ ] lat, lon
-** [ ] lat, lon, alt
-*** [ ] lat.deg, lon.deg, alt.deg
-** [ ] -lat, -lon, -alt
-** [ ] -lat.deg, -lon.deg, -alt.deg
+* [x] Parse tests
+** [x] lat, lon
+** [x] lat, lon, alt
+*** [x] lat.deg, lon.deg, alt.deg
+** [x] -lat, -lon, -alt
+** [x] -lat.deg, -lon.deg, -alt.deg
 
 Various special values
-* [ ] Poles
-** [ ] lat: -90 or lat:90, lon:0
-** [ ] lat: -90 or lat:90, lon:-180 - 0
-** [ ] lat: -90 or lat:90, lon:180 - 0
-* [ ] lat:0, lon:0
-* [ ] lat:Y, lon:X, alt:-120
+* [x] Poles
+** [x] lat: -90 or lat:90, lon:0
+** [x] lat: -90 or lat:90, lon:-180 - 0
+** [x] lat: -90 or lat:90, lon:180 - 0
+* [x] lat:0, lon:0
+* [x] lat:Y, lon:X, alt:-120
 
 
 ==== Errors
 
 Various error cases:
 
-* [ ] e: missing lat/lon
+* [x] e: comma (`,`) as decimal separator (especially for altitude (internally using NUMBER at the moment))
+* [x] e: missing lat/lon
 * [ ] e: Values outside of specification
 ** [ ] e: lat < -90 || lat > 90
 ** [ ] e: lon < -180 || lon > 180

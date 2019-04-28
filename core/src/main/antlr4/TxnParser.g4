@@ -39,10 +39,11 @@ description: sp '\'' text;
 
 text: ~(NL)*;
 
-txn_meta: indent '#' sp txn_meta_uuid NL;
-
+txn_meta: indent '#' sp (txn_meta_uuid | txn_meta_location) NL;
 
 txn_meta_uuid: UUID_NAME ':' sp UUID_VALUE opt_sp;
+
+txn_meta_location: LOCATION_NAME ':' sp GEO_URI opt_sp;
 
 txn_comment: indent comment NL;
 
