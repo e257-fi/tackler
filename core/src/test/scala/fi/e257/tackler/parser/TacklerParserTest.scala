@@ -106,8 +106,8 @@ class TacklerParserTest extends FlatSpec {
         |
         |], msg:
         |   Can not parse input
-        |   on line: 3
-        |   no viable alternative at input '${"\n"}'""".stripMargin)
+        |   on line: 3, at position: 8
+        |   no viable alternative at input ' # uuid:\\n'""".stripMargin)
   }
 
   /**

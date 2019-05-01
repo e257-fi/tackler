@@ -19,7 +19,7 @@ package fi.e257.tackler.parser
 import fi.e257.tackler.core.Settings
 import org.scalatest.FunSpec
 
-class TacklerParserMetadataTest extends FunSpec {
+class TacklerParserUUIDTest extends FunSpec {
 
   describe("Metadata (uuid)") {
 
@@ -37,7 +37,7 @@ class TacklerParserMetadataTest extends FunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input 'uid'"""
+          """at input ' # uid'"""
         ),
         (
           """
@@ -48,7 +48,7 @@ class TacklerParserMetadataTest extends FunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input ':'"""
+          """at input ' #:'"""
         ),
         (
           """
@@ -59,7 +59,7 @@ class TacklerParserMetadataTest extends FunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input 'uuid'"""
+          """at input ' #uuid'"""
         ),
         (
           """
@@ -70,7 +70,7 @@ class TacklerParserMetadataTest extends FunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input ':'"""
+          """at input ' # uuid::'"""
         ),
         (
           """
@@ -81,7 +81,7 @@ class TacklerParserMetadataTest extends FunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input 'uuid'"""
+          """at input ' # uuid '"""
         ),
         (
           """
@@ -95,6 +95,7 @@ class TacklerParserMetadataTest extends FunSpec {
           """at input ';'"""
         ),
       )
+
       val count = perrStrings.map(perrStr => {
         val ex = intercept[TacklerParseException]({
           val _ = TacklerParser.txnsText(perrStr._1)
@@ -164,7 +165,6 @@ class TacklerParserMetadataTest extends FunSpec {
              |""".stripMargin,
           "4c5bab64-edf9-4972-bce6-09cdd666f89d"
         ),
-
       )
 
       val tt = new TacklerTxns(Settings())
