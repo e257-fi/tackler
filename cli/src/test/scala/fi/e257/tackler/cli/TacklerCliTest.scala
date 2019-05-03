@@ -215,13 +215,17 @@ class DirsuiteCoreTest extends DirSuiteLike {
 class DirsuiteLocationTest extends DirSuiteLike {
   val basedir = Paths.get("tests")
 
-  /*
+  runDirSuiteTestCases(basedir, Glob("location/ex/TacklerParseException-*.exec")) { args: Array[String] =>
+    assertThrows[TacklerParseException] {
+      TacklerCli.runExceptions(args)
+    }
+  }
+
   runDirSuiteTestCases(basedir, Glob("location/ex/TacklerException-*.exec")) { args: Array[String] =>
     assertThrows[TacklerException] {
       TacklerCli.runExceptions(args)
     }
   }
-  */
 
   runDirSuiteTestCases(basedir, Glob("location/ok/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.SUCCESS) {

@@ -18,8 +18,7 @@ package fi.e257.tackler.report
 
 import io.circe.optics.JsonPath
 import org.scalatest.FlatSpec
-
-import fi.e257.tackler.api.{BalanceGroupReport, BalanceReport, RegisterReport}
+import fi.e257.tackler.api.{BalanceGroupReport, BalanceReport, RegisterReport, TxnHeader}
 import fi.e257.tackler.core.{GroupByIsoWeek, Settings}
 import fi.e257.tackler.parser.TacklerTxns
 
@@ -48,7 +47,7 @@ class ReportApiTest extends FlatSpec {
   val _title = JsonPath.root.title.string
 
 
-  behavior of "Balance report"
+  behavior of "Balance report API"
   val _accountTreeSum = JsonPath.root.balances.index(0).accountTreeSum.string
   val _delta = JsonPath.root.deltas.index(0).delta.string
 
@@ -87,7 +86,7 @@ class ReportApiTest extends FlatSpec {
   }
 
 
-  behavior of "BalanceGroup report"
+  behavior of "BalanceGroup report API"
   val _balgrp_title = JsonPath.root.groups.index(0).title.string
   val _balgrp_accountTreeSum = JsonPath.root.groups.index(0).balances.index(0).accountTreeSum.string
   val _balgrp_delta = JsonPath.root.groups.index(0).deltas.index(0).delta.string
@@ -129,7 +128,7 @@ class ReportApiTest extends FlatSpec {
   }
 
 
-  behavior of "Register report"
+  behavior of "Register report API"
   val _reg_txn_idx1_desc = JsonPath.root.transactions.index(1).txn.description.string
 
   /**
@@ -162,5 +161,99 @@ class ReportApiTest extends FlatSpec {
 
     val foo = report.as[RegisterReport]
     assert(foo.right.toOption.map(_.title) === Some("Test-Register"))
+  }
+
+  /**
+    * test: 04d83aba-4d19-4add-bff4-b79180b8b726
+    */
+  it must "metadata: uuid" in {
+    val uuidTxnStr =
+      """
+        |2019-01-01 'uuid = 78436575-3613-483d-a7ed-d9917b1d5c80
+        | # uuid: 78436575-3613-483d-a7ed-d9917b1d5c80
+        | e 1
+        | a
+        |
+        |""".stripMargin
+
+    val uuidTxnData = tt.string2Txns(uuidTxnStr)
+
+    val regCfg = RegisterSettings(settings, Some("UUID"), None)
+    val reporter = new RegisterReporter(regCfg)
+
+    //
+    // Report -> JSON
+    //
+    val jsonRpt = reporter.jsonReport(uuidTxnData)
+
+    val _reg_txn_idx0_desc = JsonPath.root.transactions.index(0).txn.description.string
+    val _reg_txn_idx0_uuid = JsonPath.root.transactions.index(0).txn.uuid.string
+
+    assert(_reg_txn_idx0_desc.getOption(jsonRpt) === Some("uuid = 78436575-3613-483d-a7ed-d9917b1d5c80"))
+    assert(_reg_txn_idx0_uuid.getOption(jsonRpt) === Some("78436575-3613-483d-a7ed-d9917b1d5c80"))
+
+    //
+    // JSON -> Report
+    //
+    val jsonResult = jsonRpt.as[RegisterReport]
+    assert(jsonResult.isRight)
+
+    val rptFromJson = jsonResult.right.get
+    assert(rptFromJson.title === "UUID")
+
+    assert(rptFromJson.transactions.head.txn.description.get.toString === "uuid = 78436575-3613-483d-a7ed-d9917b1d5c80")
+    assert(rptFromJson.transactions.head.txn.uuid.get.toString === "78436575-3613-483d-a7ed-d9917b1d5c80")
+  }
+
+  /**
+    * test: f3409965-68ae-4964-a73b-e46e0a2d8304
+    */
+  it must "metadata: location" in {
+
+    val geoTxnStr =
+      """
+        |2019-02-02 'geo = geo:61,25.1,2
+        | # location: geo:61,25.1,2
+        | e 1
+        | a
+        |
+        |""".stripMargin
+
+    val geoTxnData = tt.string2Txns(geoTxnStr)
+
+    val regCfg = RegisterSettings(settings, Some("location"), None)
+    val reporter = new RegisterReporter(regCfg)
+
+    //
+    // Report -> JSON
+    //
+    val jsonRpt = reporter.jsonReport(geoTxnData)
+
+    val _reg_txn_idx0_desc         = JsonPath.root.transactions.index(0).txn.description.string
+    val _reg_txn_idx0_location_lat = JsonPath.root.transactions.index(0).txn.location.lat.double
+    val _reg_txn_idx0_location_lon = JsonPath.root.transactions.index(0).txn.location.lon.double
+    val _reg_txn_idx0_location_alt = JsonPath.root.transactions.index(0).txn.location.alt.double
+
+    assert(_reg_txn_idx0_desc.getOption(jsonRpt) === Some("geo = geo:61,25.1,2"))
+
+    assert(_reg_txn_idx0_location_lat.getOption(jsonRpt) === Some(61))
+    assert(_reg_txn_idx0_location_lon.getOption(jsonRpt) === Some(25.1))
+    assert(_reg_txn_idx0_location_alt.getOption(jsonRpt) === Some(2))
+
+    //
+    // JSON -> Report
+    //
+    val jsonResult = jsonRpt.as[RegisterReport]
+    assert(jsonResult.isRight)
+
+    val rptFromJson = jsonResult.right.get
+    assert(rptFromJson.title === "location")
+
+    val txnHdr: TxnHeader = rptFromJson.transactions.head.txn
+
+    assert(txnHdr.description.get.toString === "geo = geo:61,25.1,2")
+    assert(txnHdr.location.get.lat === 61)
+    assert(txnHdr.location.get.lon === 25.1)
+    assert(txnHdr.location.get.alt === Some(2))
   }
 }

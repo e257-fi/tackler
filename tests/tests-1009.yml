@@ -77,13 +77,13 @@ features:
         errors:
           - error:
               id: 49f73bec-afd9-4bef-bf5b-f9439ab2ea47
-              name: "TacklerParserMetadataTest"
+              name: "TacklerParserUUIDTest"
               descriptions:
                 - desc: "invalid metadata constructs"
                 - desc: "format version v1 metadata uuid"
         operations:
           - test:
               id: 546e4368-dcfa-44d5-a21d-13f3b8bf51b6
-              name: "TacklerParserMetadataTest"
+              name: "TacklerParserUUIDTest"
               descriptions:
                 - desc: "valid metadata constructs"

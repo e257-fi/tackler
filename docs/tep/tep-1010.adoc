@@ -14,20 +14,23 @@ Only point is supported (not area)
 
 === Geo Filter
 
-Bounding Box definition
+Used Bounding Box definition is (lat, lon, alt) based, instead of X, Y, Z bbox (lon, lat, alt).
+This is compatible with OpenStreetMap's link:https://wiki.openstreetmap.org/wiki/Overpass_API[Overpass API]
 
 [horizontal]
-BBoxXYZ:: left,bottom [,depth]; right,top [,height];
-left::   min longitude
-bottom:: min latitude
-depth::  min altitude
-right::  max longitude
-top::    max latitude
-height:: max altitude
+BBoxLatLonAlt:: south, west [,depth]; north, east [,height];
+South::  min latitude
+West::   min longitude
+Depth::  min altitude
+
+Nort::   max latitude
+East::   max longitude
+Height:: max altitude
 
 
-If BBoxXYZ is missing Z-component, then following defaults are used:
+If BBox is missing Z-component, then following defaults are used:
 
+Missing Z: z component is ignored
 Missing Z-min:: All values below or at Z-max are included
 Missing Z-max:: All values at Z-min or above are included
 
@@ -162,13 +165,13 @@ Changes to identity export
 
 == Documentation
 
-* [ ] xref:./readme.adoc[]: Update TEP index
+* [x] xref:./readme.adoc[]: Update TEP index
 * [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
 * [ ] link:../../CHANGELOG[]: add new item
-* [ ] Does it warrant own T3DB file?
-** [ ] update xref:../../tests/tests.adoc[]
-** [ ] update xref:../../tests/check-tests.sh[]
-** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [x] Does it warrant own T3DB file?
+** [x] update xref:../../tests/tests.adoc[]
+** [x] update xref:../../tests/check-tests.sh[]
+** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
 * [ ] User docs
 ** [ ] user manual
 ** [ ] examples
@@ -188,52 +191,57 @@ Anything which wasn't implemented?
 
 * [x] Changes to journal
 ** [x] identity to input test
+* [x] API test
+** [x] Server API (to JSON)
+** [x] Client API (from JSON)
 
 === Geo URI
 
 Normal, ok-case tests to validate functionality:
 
-* [x] Parse tests
-** [x] lat, lon
-** [x] lat, lon, alt
-*** [x] lat.deg, lon.deg, alt.deg
-** [x] -lat, -lon, -alt
-** [x] -lat.deg, -lon.deg, -alt.deg
+* [X] Parse tests
+** [X] lat, lon
+** [X] lat, lon, alt
+*** [X] lat.deg, lon.deg, alt.deg
+** [X] -lat, -lon, -alt
+** [X] -lat.deg, -lon.deg, -alt.deg
 
 Various special values
-* [x] Poles
-** [x] lat: -90 or lat:90, lon:0
-** [x] lat: -90 or lat:90, lon:-180 - 0
-** [x] lat: -90 or lat:90, lon:180 - 0
-* [x] lat:0, lon:0
-* [x] lat:Y, lon:X, alt:-120
+* [X] Poles
+** [X] lat: -90 or lat:90, lon:0
+** [X] lat: -90 or lat:90, lon:-180 - 0
+** [X] lat: -90 or lat:90, lon:180 - 0
+* [X] lat:0, lon:0
+* [X] lat:Y, lon:X, alt:-120
 
 Metadata tests
 
-* [x] both `uuid` and `location`
-** [x] different order
-*** [x] `uuid`, `location`
-*** [x] `location`, `uuid`
+* [X] both `uuid` and `location`
+** [X] different order
+*** [X] `uuid`, `location`
+*** [X] `location`, `uuid`
 
 
 ==== Errors
 
 Various error cases:
 
-* [x] e: comma (`,`) as decimal separator (especially for altitude (internally using NUMBER at the moment))
-* [x] e: missing lat/lon
-* [x] e: Values outside of specification
-** [x] e: lat < -90 || lat > 90
-** [x] e: lon < -180 || lon > 180
-** [x] e: altitude < -6378137 m (WGS 84: Semi-major axis 6 378 137 m)
+* [X] e: missing geo-uri
+* [X] e: missing geo
+* [X] e: comma (`,`) as decimal separator (especially for altitude (internally using NUMBER at the moment))
+* [X] e: missing lat/lon
+* [X] e: Values outside of specification
+** [X] e: lat < -90 || lat > 90
+** [X] e: lon < -180 || lon > 180
+** [X] e: altitude < -6378137 m (WGS 84: Semi-major axis 6 378 137 m)
 
 Metadata tests
 
-* [x] multiple `location`
-* [x] multiple `uuid`
-* [x] both `uuid` and `location`
-** [x] multiple `location`
-** [x] multiple `uuid`
+* [X] multiple `location`
+* [X] multiple `uuid`
+* [X] both `uuid` and `location`
+** [X] multiple `location`
+** [X] multiple `uuid`
 
 
 === Geo Filter
@@ -278,7 +286,7 @@ Feature-id::
 
 Feature-id::
 
-* name: Geo URI
+* name: Geo URI support
 * parent: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
 * uuid: c7e45a7b-5295-4dbb-bcda-bdc0990b9e14
 

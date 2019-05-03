@@ -158,12 +158,17 @@ sealed abstract class TxnFilterRegex(regex: String) extends TxnFilter {
     Seq(indent +  target + ": " + "\"" + s"${regex}" + "\"")
   }
 }
-/**
- * Selects transaction if txn timestamp is on or after specified time.
- *
- * @param begin txn timestamp must be on or after this
- */
 
+/**
+  * Select transaction if regular expression matches txn code.
+  *
+  * Used regular expression engine is java.util.regex.Pattern.
+  *
+  * @param regex to match txn code.
+  */
+final case class TxnFilterTxnCode(regex: String) extends TxnFilterRegex(regex) {
+  val target = "Txn Code"
+}
 
 /**
  * Select transaction if regular expression matches txn description.
@@ -175,17 +180,6 @@ sealed abstract class TxnFilterRegex(regex: String) extends TxnFilter {
 final case class TxnFilterTxnDescription(regex: String) extends TxnFilterRegex(regex) {
   val target = "Txn Description"
 
-}
-
-/**
- * Select transaction if regular expression matches txn code.
- *
- * Used regular expression engine is java.util.regex.Pattern.
- *
- * @param regex to match txn code.
- */
-final case class TxnFilterTxnCode(regex: String) extends TxnFilterRegex(regex) {
-  val target = "Txn Code"
 }
 
 /**

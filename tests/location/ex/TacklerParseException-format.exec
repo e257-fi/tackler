@@ -1,0 +1,4 @@
+# format: exec
+# test:uuid: f1951382-c746-4be0-b367-f903c8c9fb18
+# desc: cli: error propagation in case of format error
+exec:--cfg;tests/location/ex.conf;--input.file;format.txn;

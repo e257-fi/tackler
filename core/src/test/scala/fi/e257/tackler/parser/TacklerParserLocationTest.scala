@@ -143,12 +143,12 @@ class TacklerParserLocationTest extends FunSpec {
         (
           """
             |2019-04-01
-            | # location: geo:-66.56,-180,0
+            | # location: geo:-66.56,-180.0,0
             | e 1
             | a
             |
             |""".stripMargin,
-          "geo:-66.56,-180,0",
+          "geo:-66.56,-180.0,0",
         )
       )
 
@@ -170,6 +170,7 @@ class TacklerParserLocationTest extends FunSpec {
     it("perr: detect invalid geo uris") {
       val perrStrings: List[(String, String, String)] = List(
         (
+          // perr: missing geo-uri
           """
             |2019-05-01
             | # location:

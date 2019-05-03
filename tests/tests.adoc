@@ -65,6 +65,15 @@ link:./tests-1008.yml[T3DB for TEP-1008]::
 * Account names
 * Numerical Account names
 
+link:./tests-1009.yml[T3DB for TEP-1009]::
+
+* Txn Header Syntax (v2)
+
+link:./tests-1010.yml[T3DB for TEP-1010]::
+
+* Txn Geo Location
+* Geo Location Filter
+
 
 link:./tests-tmpl.yml[Template for T3DB entry]
 
