@@ -1,6 +1,7 @@
 = TEP-1010: Transaction Geo Location
 
-Add support for Geo Location of Transaction as Txn metadata
+Add support for Geo Location of Transaction as Txn metadata,
+and add support for selecting Transactions based on Geo Location information.
 
 
 == Summary
@@ -12,13 +13,31 @@ Only supported Coordinate Reference System is WGS84 (EPSG:4326).
 Only point is supported (not area)
 
 
-=== Geo Filter
+=== Geo Filter (Bounding Box - BBox)
 
-Used Bounding Box definition is (lat, lon, alt) based, instead of X, Y, Z bbox (lon, lat, alt).
+Used Bounding Box (BBox) definition is Y, X (lat, lon) based, instead of X, Y (lon, lat).
 This is compatible with OpenStreetMap's link:https://wiki.openstreetmap.org/wiki/Overpass_API[Overpass API]
 
+First coordinate pair is lower-left, and second is top-right.
+
+==== 2D BBox (Latitude, Longitude)
+
 [horizontal]
-BBoxLatLonAlt:: south, west [,depth]; north, east [,height];
+BBoxLatLon:: south, west; north, east;
+South::  min latitude
+West::   min longitude
+
+Nort::   max latitude
+East::   max longitude
+
+`BBoxLatLon` will ignore altitude, e.g. it will select 3D transaction if it fits 2D BBox.
+If transaction doesn't have location information, it will not be selected.
+
+
+==== 3D BBox (Latitude, Longitude, Altitude)
+
+[horizontal]
+BBoxLatLonAlt:: south, west, depth; north, east, height;
 South::  min latitude
 West::   min longitude
 Depth::  min altitude
@@ -27,12 +46,10 @@ Nort::   max latitude
 East::   max longitude
 Height:: max altitude
 
+`BBoxLatLonAlt` will select only transactions with altitude, e.g. it will *not* select any 2D transaction,
+even if it fits 2D BBox.
 
-If BBox is missing Z-component, then following defaults are used:
-
-Missing Z: z component is ignored
-Missing Z-min:: All values below or at Z-max are included
-Missing Z-max:: All values at Z-min or above are included
+If transaction doesn't have location information, it will not be selected.
 
 
 == Journal file format
@@ -85,8 +102,8 @@ with initial implementation.
 Changes to machinery
 
 * [x] Grammar (parser and lexer)
-* [ ] Filters
-** [ ] New GEO filter (Bounding Box)
+* [x] Filters
+** [x] New GEO filter (Bounding Box)
 
 
 
@@ -99,9 +116,9 @@ Api changes to server or client interfaces.
 
 Changes to server API
 
-* [ ] Filters
-** [ ] API: New GEO filter (Bounding Box) definition
-** [ ] Server: GEO filter Bounding Box filter code
+* [x] Filters
+** [x] API: New GEO filter (Bounding Box) definition
+** [x] Server: GEO filter Bounding Box filter code
 
 
 ==== Client API changes
@@ -111,18 +128,6 @@ Changes to client API or JSON model
 * [x] TxnHeader has new optional field `location`
 ** [x] New type: `GeoPoint`
 *** [x] fields: Latitude (lat), Longitude (lon), optional Altitude (alt)
-
-
-=== New dependencies
-
-* [ ] link / url of new dependency
-** [ ] Add and check licenses: link / url
-** [ ] Is there NOTICE file(s)?
-** [ ] Add license under link:../licenses/[doc/licenses]
-*** [ ] Add NOTICES under link:../licenses/[doc/licenses]
-** [ ] Add link of license to xref:../readme.adoc[index]
-** [ ] Add link to xref:../../site/_docs/credits.adoc[THANKS]
-** [ ] Add license material to binary distribution
 
 
 == Reporting
@@ -248,26 +253,29 @@ Metadata tests
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] Normal filter
+* [x] Normal filter
+** [x] Northern hemisphere
+** [x] Southern hemisphere
 
 Various special values
-* [ ] BBox around Equator
-* [ ] BBox around Lon:0 and lon:180
-* [ ] BBox whole Earth (-180,-90 to 180,90)
-* [ ] BBox is point
-* [ ] Missing Z
-** [ ] Missing Z-min (ceiling)
-** [ ] Missing Z-max (flooring)
+* [x] BBox around poles
+** [x] North pole
+** [x] South pole
+* [x] BBox over 180th meridian
+
+* [x] BBox whole Earth (-180,-90 to 180,90)
+* [x] BBox is point
+* [x] Missing Z
 
 
 ==== Errors
 
 Various error cases:
 
-* [ ] e: Not correctly minX, minY, minZ; maxX,maxY,maxZ
-** [ ] e: minX vs. maxX
-** [ ] e: minY vs. maxY
-** [ ] e: minZ vs. maxZ
+* [x] e: Not correctly minX, minY, minZ; maxX,maxY,maxZ
+** [x] e: south vs. north
+** [x] e: west vs. east
+** [x] e: depth vs. height
 
 
 === Perf

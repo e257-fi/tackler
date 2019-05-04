@@ -16,8 +16,8 @@
  */
 package fi.e257.tackler.api
 
-import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
 
 import scala.util.{Failure, Success, Try}
 
@@ -32,12 +32,22 @@ import scala.util.{Failure, Success, Try}
   */
 class GeoPoint protected (val lat: BigDecimal, val lon: BigDecimal, val alt: Option[BigDecimal]) {
 
+  if (lat < -90 || 90 < lat) {
+    throw new IllegalArgumentException("Value out of specification for Latitude: " + GeoPoint.frmt(lat))
+  }
+  if (lon < -180 || 180 < lon) {
+    throw new IllegalArgumentException("Value out of specification for Longitude: " + GeoPoint.frmt(lon))
+  }
+
+  alt.foreach(z => {
+    if (z < -6378137) {
+      // Jules Verne: Voyage au centre de la Terre
+      throw new IllegalArgumentException("Value Out of specification for Altitude: " + GeoPoint.frmt(z))
+    }
+  })
+
   override def toString: String = {
-    alt.fold(
-      "geo:" + GeoPoint.frmt(lat) + "," + GeoPoint.frmt(lon)
-    )(z =>
-      "geo:" + GeoPoint.frmt(lat) + "," + GeoPoint.frmt(lon) + "," + GeoPoint.frmt(z)
-    )
+    "geo:" + GeoPoint.frmt(lat) + "," + GeoPoint.frmt(lon) + alt.map("," + GeoPoint.frmt(_)).getOrElse("")
   }
 }
 
@@ -55,21 +65,10 @@ object  GeoPoint {
     * @return Success with GeoPoint or Failure
     */
   def toPoint(lat: BigDecimal, lon: BigDecimal, alt: Option[BigDecimal]): Try[GeoPoint] = {
-
-    val z = alt.getOrElse(BigDecimal(0))
-
-    if (lat < -90 || 90 < lat) {
-      Failure[GeoPoint](new IllegalArgumentException("Value out of specification for Latitude: " + GeoPoint.frmt(lat)))
-    }
-    else if (lon < -180 || 180 < lon) {
-      Failure[GeoPoint](new IllegalArgumentException("Value out of specification for Longitude: " + GeoPoint.frmt(lon)))
-    }
-    else if (z < -6378137) {
-      // Jules Verne: Voyage au centre de la Terre
-      Failure[GeoPoint](new IllegalArgumentException("Value Out of specification for Altitude: " + GeoPoint.frmt(z)))
-    }
-    else {
+    try {
       Success(new GeoPoint(lat, lon, alt))
+    } catch {
+      case ex: IllegalArgumentException => Failure[GeoPoint](ex)
     }
   }
 

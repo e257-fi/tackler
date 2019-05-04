@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
  */
 package fi.e257.tackler
 
+import cats.implicits._
 import fi.e257.tackler.api._
 import fi.e257.tackler.model.Transaction
-import cats.implicits._
 
 package object filter {
 
@@ -41,6 +41,8 @@ package object filter {
         case tf: TxnFilterTxnCode => TxnFilterTxnCodeF.filter(tf, txn)
         case tf: TxnFilterTxnDescription => TxnFilterTxnDescriptionF.filter(tf, txn)
         case tf: TxnFilterTxnUUID => TxnFilterTxnUUIDF.filter(tf, txn)
+        case tf: TxnFilterBBoxLatLon => TxnFilterBBoxLatLonF.filter(tf, txn)
+        case tf: TxnFilterBBoxLatLonAlt => TxnFilterBBoxLatLonAltF.filter(tf, txn)
         case tf: TxnFilterTxnComments => TxnFilterTxnCommentsF.filter(tf, txn)
 
         // TXN Postings
@@ -134,6 +136,42 @@ package object filter {
 
     override def filter(tf: TxnFilterTxnUUID, txn: Transaction): Boolean = {
       txn.header.uuid.exists(_ === tf.uuid)
+    }
+  }
+
+  implicit object TxnFilterBBoxLatLonF
+    extends CanTxnFilter[TxnFilterBBoxLatLon]
+      with CanBBoxLatLonFilter[TxnFilterBBoxLatLon]  {
+
+    override def filter(tf: TxnFilterBBoxLatLon, txn: Transaction): Boolean = {
+      txn.header.location match {
+        case Some(geo) => bbox2d(tf, geo)
+        case None => false
+      }
+    }
+  }
+
+  implicit object TxnFilterBBoxLatLonAltF
+    extends CanTxnFilter[TxnFilterBBoxLatLonAlt]
+      with CanBBoxLatLonFilter[TxnFilterBBoxLatLonAlt] {
+
+    override def filter(tf: TxnFilterBBoxLatLonAlt, txn: Transaction): Boolean = {
+      txn.header.location match {
+        case Some(geo) => {
+          geo.alt match {
+            case Some(z) => {
+              if (bbox2d(tf, geo) === false) {
+                false
+              }
+              else {
+                tf.depth <= z && z <= tf.height
+              }
+            }
+            case None => false // geo but no alt
+          }
+        }
+        case None => false // no geo
+      }
     }
   }
 

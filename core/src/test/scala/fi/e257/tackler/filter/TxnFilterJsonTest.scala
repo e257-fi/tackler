@@ -63,6 +63,24 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
       |                }
       |              },
       |              {
+      |                "TxnFilterBBoxLatLon" : {
+      |                  "south" : 59.85,
+      |                  "west" : 24,
+      |                  "north" : 60.8,
+      |                  "east" : 27.5
+      |                }
+      |              },
+      |              {
+      |                "TxnFilterBBoxLatLonAlt" : {
+      |                  "south" : -1,
+      |                  "west" : -2,
+      |                  "depth" : -3,
+      |                  "north" : 1,
+      |                  "east" : 2,
+      |                  "height" : 3
+      |                }
+      |              },
+      |              {
       |                "TxnFilterTxnComments" : {
       |                  "regex" : "txn.comments"
       |                }
@@ -147,6 +165,12 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
       |      Txn Code: "txn.code"
       |      Txn Description: "txn.desc"
       |      Txn UUID: 29c548db-deb7-44bd-a6a2-e5e4258d256a
+      |      Txn Bounding Box 2D
+      |        North, East: geo:60.8,27.5
+      |        South, West: geo:59.85,24
+      |      Txn Bounding Box 3D
+      |        North, East, Height: geo:1,2,3
+      |        South, West, Depth:  geo:-1,-2,-3
       |      Txn Comments: "txn.comments"
       |    OR
       |      Posting Account: "posting:account"
@@ -319,6 +343,8 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
           TxnFilterTxnCode("txn.code"),
           TxnFilterTxnDescription("txn.desc"),
           TxnFilterTxnUUID(UUID.fromString("29c548db-deb7-44bd-a6a2-e5e4258d256a")),
+          TxnFilterBBoxLatLon(59.85, 24, 60.8, 27.5),
+          TxnFilterBBoxLatLonAlt(-1, -2, -3, 1, 2, 3),
           TxnFilterTxnComments("txn.comments"),
         )),
         TxnFilterOR(List[TxnFilter](
@@ -391,6 +417,24 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
           |                      {
           |                        "TxnFilterTxnUUID" : {
           |                          "uuid" : "29c548db-deb7-44bd-a6a2-e5e4258d256a"
+          |                        }
+          |                      },
+          |                      {
+          |                        "TxnFilterBBoxLatLon" : {
+          |                          "south" : 59.85,
+          |                          "west" : 24,
+          |                          "north" : 60.8,
+          |                          "east" : 27.5
+          |                        }
+          |                      },
+          |                      {
+          |                        "TxnFilterBBoxLatLonAlt" : {
+          |                          "south" : -1,
+          |                          "west" : -2,
+          |                          "depth" : -3,
+          |                          "north" : 1,
+          |                          "east" : 2,
+          |                          "height" : 3
           |                        }
           |                      },
           |                      {
