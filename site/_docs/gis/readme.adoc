@@ -1,0 +1,23 @@
+= Plaintext accounting with GIS
+:page-date: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-05-05 00:00:00 Z
+:page-permalink: /docs/gis/
+
+Tackler supports recording geo location with accounting journal and it can use that GIS data
+for generating accounting reports.
+
+See xref:./gis/txn-geo-location.adoc[Transaction Geo Location] for how to store geographic location with
+accounting transactions, and xref:./gis/txn-geo-filters.adoc[Transaction Geo Filter] how to select transactions based
+on that geographic information. Together these two features make it possible to do
+accounting and reporting based on area and place.
+
+
+[[use-cases]]
+== Use cases for GIS data with plaintext accounting
+
+Tackler supports also xref:./journal/format.adoc#timestamps[real timestamps] and not just dates with transaction data.
+Combining GIS data and timestamps with accounting transactions creates all kind of new possibilities
+for plaintext accounting.  It could be travel journals, tracking outdoor activities,
+to account farming related information or record forestry data.
+
+There is no need to account only monetary things, so possibilities are pretty much endless what to do with GIS data.

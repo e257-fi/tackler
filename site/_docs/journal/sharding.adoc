@@ -47,7 +47,7 @@ Regardless of used sharding scheme, it is possible to group txns by different
 `group-by` operators with xref:../report-balance-group.adoc[Balance Group] report.
 
 
-
+[[shard-filters]]
 == Using shards to select subset of transaction data 
 
 Selecting subset of transactions can be by using 

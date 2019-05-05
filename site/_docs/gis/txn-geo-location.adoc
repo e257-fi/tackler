@@ -1,0 +1,51 @@
+= Transaction Geo Location
+:page-date: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-05-05 00:00:00 Z
+
+
+Tackler supports `location` metadata with transaction data and this makes it possible to record
+location data for that transaction.  This location data could be used later to select transaction
+for reports or plot transactions on map. link:/docs/gis/#use-cases[Plaintext accounting with GIS]
+has ideas for some use cases.
+
+See xref:txn-geo-filters.adoc[Transaction Geo Filters]
+for information how to select transactions based on location data.
+
+
+== Geo Location Syntax
+
+Transaction location is recorded by using `location` metadata field, and actual location is provided by geo URI.
+
+----
+2019-05-01 'Ice cream at Helsinki's market square
+ # location: geo:60.167,24.955,5
+ Expenses:Ice_cream 2.50 €
+ Assets:Cash
+----
+
+Supported geo URI scheme is simplified version of link:https://tools.ietf.org/html/rfc5870[RFC 5870]:
+
+* Only coordinates (lat, lon, and alt) are supported
+* Only supported Coordinate Reference System is WGS84 (EPSG:4326).
+* Any of `p` (parameters) part of
+link:https://tools.ietf.org/html/rfc5870#section-3.3[geo URI scheme]
+is not accepted at all, including `u`,
+and none of these can be present with location field's value.
+
+
+.Supported geo-uri syntax
+[horizontal]
+geo-uri:: `geo` `:` <lat> `,` <lon>  [`,` <alt>]
+
+lat:: latitude
+
+lon:: longitude
+
+alt:: altitude
+
+latitude:: `[ '-' ] DIGIT+ [ '.' DIGIT+ ]` (valid values: -90 ... 90)
+
+longitude:: `[ '-' ] DIGIT+ [ '.' DIGIT+ ]` (valid values: -180 ... 180)
+
+altitude:: `[ '-' ] DIGIT+ [ '.' DIGIT+ ]` (in meters)
+

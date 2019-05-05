@@ -171,19 +171,19 @@ Changes to identity export
 == Documentation
 
 * [x] xref:./readme.adoc[]: Update TEP index
-* [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
-* [ ] link:../../CHANGELOG[]: add new item
+* [x] xref:../../README.adoc[]: is it a new noteworthy feature?
+* [x] link:../../CHANGELOG[]: add new item
 * [x] Does it warrant own T3DB file?
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update xref:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
-* [ ] User docs
-** [ ] user manual
-** [ ] examples
-* [ ] Developer docs
-** [ ] API changes
-*** [ ] Server API changes
-*** [ ] Client API changes
+* [x] User docs
+** [x] user manual
+** [x] examples
+* [x] Developer docs
+** [x] API changes
+*** [x] Server API changes
+*** [x] Client API changes
 
 
 === Postponed (PP) features

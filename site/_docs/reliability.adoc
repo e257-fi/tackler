@@ -18,9 +18,9 @@ logical test sets to ensure that all logical code paths are covered.
 
 At the moment, Tackler test coverage is better than *99.7%*.
 
-Tackler has *84* tracked features. For those 84 features, tackler has 
-over *270* test cases, tackler-cli is executed over *140* times by test setup, 
-and results are verified by over *380* reference reports. 
+Tackler has *99* tracked features. For those 99 features, tackler has
+over *500* test cases, tackler-cli is executed over *160* times by test setup,
+and results are verified by over *400* reference reports.
 
 Accounting Journal with size of *one hundred thousand* (1E5) transactions 
 is used with *unit tests*
@@ -39,4 +39,3 @@ possible of overlapping tests and prevent  duplicate test cases.
 
 T3DB also provides reverse mapping from a test case back to the feature,
 which is validated by that test case.
-

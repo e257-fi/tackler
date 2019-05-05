@@ -1,12 +1,13 @@
 = Transaction Filters
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-05-06 00:00:00 Z
 
 Transaction stream can be filtered to select which transactions are part of reports and calculations.
 
 Transaction stream can be filtered based on several attributes of single transaction.
 If transaction is not included into stream and it is filtered out,
 then all data regarding that transaction will not be used with any calculation.
+It is also possible to filter transactions based on xref:journal/sharding.adoc#shard-filters[sharding scheme].
 
 Transaction filters can be combined with logical `AND`, `OR` and `NOT` operations and
 it is possible to create filter trees by combining logical filters and filters
@@ -39,6 +40,7 @@ properties and attributes.
 ** Code
 ** Description
 ** UUID
+** Geo Location
 ** Txn Comments
 * Postings
 ** Account
@@ -181,6 +183,46 @@ Txn UUID filter selects transactions which UUID is same as specified.
   }
 },
 ----
+
+
+===== Geo Location
+
+Transaction Geo Filters selects transactions which geographic location is inside Bounding Box defined by the filter.
+See xref:gis/txn-geo-filters.adoc[Transaction Geo Filters] documentation for how these filters selects transactions.
+
+.2D Bounding Box (Latitude, Longitude)
+[source,json]
+----
+# BBoxLatLon will ignore altitude,
+# e.g. it will select 3D transaction if it fits 2D BBox.
+{
+  "TxnFilterBBoxLatLon" : {
+    "south" : <number: min latitude>,
+    "west" :  <number: min longitude>,
+    "north" : <number: max latitude>,
+    "east" :  <number: max longitude>
+  }
+}
+----
+
+
+.3D Bounding Box (Latitude, Longitude, Altitude)
+[source,json]
+----
+# BBoxLatLonAlt will select only 3D transactions with altitude,
+# e.g. it will not select any 2D txn.
+{
+  "TxnFilterBBoxLatLonAlt" : {
+    "south" :  <number: min latitude>,
+    "west" :   <number: min longitude>,
+    "depth" :  <number: min altitude>,
+    "north" :  <number: max latitude>,
+    "east" :   <number: max longitude>,
+    "height" : <number: max altitude>
+  }
+}
+----
+
 
 ===== Txn Comments
 

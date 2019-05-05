@@ -1,11 +1,13 @@
 = Git Storage Guide
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-04-22 00:00:00 Z
+:page-last_modified_at: 2019-05-05 00:00:00 Z
 
 Tackler has integrated and native support for link:https://git-scm.com/[GIT] version control system.
 
-Tackler has integrated support for git as storage backend.  This means that Tackler can include version metadata
-directly to the generated reports, and generated reports are always made out of well known state of accounting data.
+This means that tackler will process accounting data directly from Git repository, which could be "bare".
+Point of history for accounting data could be selected by all normal Git's way of references, and
+version metadata will be included directly to the generated reports. This also means that  generated reports
+are always made out of well known and well defined state of accounting data.
 
 This provides one key of the immutable audit trail of used accounting data. This audit trail can be printed e.g.
 on paper or transferred directly to accountant or escrow agent. See xref:../auditing.adoc[Accounting Auditing]

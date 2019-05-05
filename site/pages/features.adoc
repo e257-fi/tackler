@@ -1,29 +1,49 @@
 = Features
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-05-05 00:00:00 Z
 :page-permalink: /features/
 
+
 * Tackler's xref:docs/reliability.adoc[all features are extensively tested]
+
 * Native support for xref:docs/journal/git-storage.adoc[GIT based journal storage]
+
 * Support for xref:docs/auditing.adoc[Accounting Auditing and Assurance]
+
 * Support for xref:docs/commodities.adoc[Commodities] and xref:docs/currencies.adoc[Currencies]
+
+* Support for link:/docs/gis/[Accounting with Geo Location (GIS)]
+
 * Strict xref:docs/accounts-conf.adoc[account and commodity name validation] with Chart of Accounts
+
 * Clean and simple xref:docs/journal/format.adoc[journal format]
+
 * Multiple report and export types:
+
 ** xref:docs/report-balance.adoc[Balance], xref:docs/report-balance-group.adoc[Balance Groups] and xref:docs/report-register.adoc[Register] Reports
+
 ** xref:docs/export-equity.adoc[Equity] and xref:docs/export-identity.adoc[Identity] Exports
+
+
 * Support for xref:docs/txn-filters.adoc[Transaction Filters]
-* Supports UTF-8 characters in transaction data (
-{repolink}/tests/parser/ok/par-02.ref.identity.txn/[descriptions],
-{repolink}/tests/parser/ok/par-02.ref.reg.txt/[comments],
-{repolink}/tests/parser/ok/id-chars-01.ref.identity.txn/[account names])
-* Supports ISO 8601 timestamps with {repolink}/tests/core/ok/time-dst-01.ref.identity.txn/[timezones]
-  and {repolink}/tests/core/ok/time-nano-01.ref.identity.txn/[nanosecond] resolution
+
+* Supports xref:docs/journal/charsets.adoc[wide range of UTF-8 characters, scripts and languages]
+
+* Supports ISO 8601 xref:docs/journal/format.adoc#timestamps[timestamps with timezones and nanosecond] resolution
+
 * Text and xref:docs/json.adoc[JSON] output formats for reports
+
 ** xref:docs/server-api.adoc[Server API] for embedding Tackler core
+
 ** xref:docs/client-api.adoc[Client API] for JVM and JS environments
+
+
 * Has good performance with xref:docs/performance.adoc[large transaction set]
+
 ** Tackler is {gitlink}/perf/results/perf-hw00.adoc[tested up to one million (1E6)] transactions
+
 ** Tackler can parse and process {gitlink}/perf/results/readme.adoc[56000 txn/s] on Quad Core system
-* link:../docs/[Extensive documentation]
+
+
+* link:/docs/[Extensive documentation]
 

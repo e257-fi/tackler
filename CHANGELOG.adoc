@@ -13,7 +13,10 @@ Current published release is:
 
 New features and changes in this release:
 
- * link:https://tackler.e257.fi/docs/journal/format/#value-pos[Closing position with total amount (`=` syntax)]
+ * Support for link:https://tackler.e257.fi/docs/gis/[Geographic Information System (GIS)]
+ ** See link:https://tackler.e257.fi/docs/gis/txn-geo-location/[Transaction Geo Location]
+ ** See link:https://tackler.e257.fi/docs/gis/txn-geo-filter/[Transaction Geo Filter]
+ * Add support for Value Position with link:https://tackler.e257.fi/docs/journal/format/#value-pos[total amount (`=` syntax)]
 
 
 ==== Fixes

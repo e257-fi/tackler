@@ -70,7 +70,7 @@ If compatibility with other systems is needed, then two spaces should be used.
 
 
 | Dates and Timestamps
-|
+| [[timestamps]]
 ----
 YYYY-MM-DD
 YYYY-MM-DDTHH:MM:SS[.SSS]
@@ -88,7 +88,7 @@ e.g.
 2016-12-31T13:01:01+02:00
 2016-12-31T13:01:01.123456789+02:00
 ----
-| These are link:https://en.wikipedia.org/wiki/ISO_8601[ISO-8601] dates and times with nanosecond resolution.
+| These are link:https://en.wikipedia.org/wiki/ISO_8601[ISO-8601] dates and times with up to nanosecond resolution.
 
 * If time part is missing then `00:00:00` is used.
 * If Offset is missing then offset based on xref:../tackler-conf.adoc[configured] timezone/offset is used.
@@ -240,7 +240,7 @@ Currently opening position is valid input, but it is not used.
 This is planned feature. See xref:../currencies.adoc[Currencies]
 
 
-| Transaction metadata
+| Metadata: UUID
 |
 ----
 2017-01-01 'Txn with UUID
@@ -260,6 +260,16 @@ Transactions must have UUIDs, if fully deterministic, stable
 and "distributed transaction producers"-safe sort order is needed
 for xref:../report-register.adoc[register report]
 or xref:../export-identity.adoc[identity export].
+
+| Metadata: Location
+|
+----
+2019-05-01 'Txn with Location
+ # location: geo:60.167,24.955,5
+ Expenses:Ice_cream 2.12
+ Assets:Cash
+----
+| Optional xref:../gis/txn-geo-location.adoc[Geo Location for Transaction]
 
 
 | Comments

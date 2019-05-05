@@ -1,0 +1,87 @@
+= Transaction Geo Filter
+:page-date: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-05-05 00:00:00 Z
+
+Transaction Geo Filters selects transactions which geographic location is inside Bounding Box defined by the filter.
+
+Using location based transaction filters makes it possible to generate reports for certain geographic areas.
+Currently supported filter geometry is bounding box.
+
+See xref:txn-geo-location.adoc[Transaction Geo Location] how to record location data.
+
+
+== Bounding Box
+
+Used Bounding Box (BBox) definition is Y, X (lat, lon) based, instead of X, Y (lon, lat).
+This is compatible with OpenStreetMap's link:https://wiki.openstreetmap.org/wiki/Overpass_API[Overpass API]
+
+First coordinate pair is lower-left (south-west) corner of bbox and second is top-right (north-east) corner of bbox.
+
+
+=== 2D BBox (Latitude, Longitude)
+
+[horizontal]
+BBoxLatLon:: south, west; north, east;
+South::  min latitude
+West::   min longitude
+
+Nort::   max latitude
+East::   max longitude
+
+2D BBoxLatLon will ignore altitude, e.g. it will select 3D transaction if it fits 2D BBox.
+If transaction doesn't have location information, it will not be selected.
+
+
+==== 2D BBox JSON syntax
+
+----
+{
+  "TxnFilterBBoxLatLon" : {
+    "south" : 59.667,
+    "west" : 18,
+    "north" : 70.19,
+    "east" : 31.6
+  }
+}
+----
+
+
+=== 3D BBox (Latitude, Longitude, Altitude)
+
+[horizontal]
+BBoxLatLonAlt:: south, west, depth; north, east, height;
+South::  min latitude
+West::   min longitude
+Depth::  min altitude
+
+Nort::   max latitude
+East::   max longitude
+Height:: max altitude
+
+3D BBoxLatLonAlt will select only 3D transactions with altitude, e.g. it will not select any 2D transaction,
+even if it fits 2D BBox.
+
+If transaction doesn't have location information, it will not be selected.
+
+
+==== 3D BBox JSON syntax
+
+----
+{
+  "TxnFilterBBoxLatLonAlt" : {
+    "south" : 59.667,
+    "west" : 18,
+    "depth" : -1444,
+    "north" : 70.19,
+    "east" : 31.6,
+    "height" 1324
+  }
+}
+----
+
+
+== 180th meridian
+
+BBox over 180th meridian is also supported, in that case bbox:west is max longitude and bbox:east is min longitude.
+However, this is corner case around certain parts of Pacific, and if you do not live in Fiji, then bbox:west is almost
+always min longitude and bbox:east is max longitude.
