@@ -31,7 +31,7 @@ are in new v2 format.
 Support for old Journal Format Version v1 will be dropped in future release of Tackler.
 ====
 
-New features and changes in this release are:
+== New features and changes in this release are:
 
  * support for New Journal Format Version v2 (phase 1), see:
  ** link:/docs/journal/format/v2/[New Journal Format v2]

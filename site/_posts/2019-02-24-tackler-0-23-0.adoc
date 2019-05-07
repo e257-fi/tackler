@@ -6,8 +6,7 @@
 
 
 
-
-=== New features
+== New features
 
  * Support Account Auditing, see:
  ** link:/docs/auditing/[Accounting Auditing and Asssurance]

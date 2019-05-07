@@ -1,6 +1,6 @@
 = Transaction Geo Location
 :page-date: 2019-05-05 00:00:00 Z
-:page-last_modified_at: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-05-07 00:00:00 Z
 
 
 Tackler supports `location` metadata with transaction data and this makes it possible to record

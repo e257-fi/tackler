@@ -6,7 +6,7 @@
 
 
 
-=== New features
+== New features
 
 * Strict validation of commodities and currencies. This is turned on by default,
   if `accounts.strict = true`.  See link:/docs/accounts-conf/[accounts.conf]

@@ -1,6 +1,6 @@
-= Transaction Geo Filter
+= Transaction Geo Filters
 :page-date: 2019-05-05 00:00:00 Z
-:page-last_modified_at: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-05-07 00:00:00 Z
 
 Transaction Geo Filters selects transactions which geographic location is inside Bounding Box defined by the filter.
 

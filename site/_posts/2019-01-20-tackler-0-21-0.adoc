@@ -6,7 +6,7 @@
 
 
 
-=== New features
+== New features
 
 * Configuration settings `reporting.scale` and `reports.<report>.scale`
   for report output scale. Defaults are not changed (min=2, max=7). See:

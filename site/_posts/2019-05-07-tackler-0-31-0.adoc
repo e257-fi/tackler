@@ -1,0 +1,27 @@
+= Tackler 0.31.0 released
+:page-date: 2019-05-07 22:30:00 +0300
+:page-author: 35vlg84
+:page-version: 0.31.0
+:page-category: release
+
+
+
+== New features and changes in this release:
+
+New features and changes in this release:
+
+ * Support for link:/docs/gis/[Geographic Information System (GIS)]
+ ** See link:/docs/gis/txn-geo-location/[Transaction Geo Location]
+ ** See link:/docs/gis/txn-geo-filters/[Transaction Geo Filter]
+ * Support for Value Position with
+   link:/docs/journal/format/#value-pos[total amount (`1 € = 1.2 $`) syntax]
+
+
+=== Fixes
+
+* Reject "identity" (e.g. `1 € @ 2 €`) value positions as invalid construct
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
