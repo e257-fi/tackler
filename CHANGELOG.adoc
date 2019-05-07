@@ -2,14 +2,14 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.30.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.30.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.31.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.31.0"
 
 
 == Release history
 
 
-=== 0.31.0-SNAPSHOT
+=== 0.31.0
 
 New features and changes in this release:
 
