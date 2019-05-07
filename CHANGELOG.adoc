@@ -23,7 +23,7 @@ New features and changes in this release:
 
 Fixes in this release:
 
-* Reject "identity" (e.g. `1 € @ 2 €` and `1 € = 2 €`) value positions as invalid construct
+* Reject "identity" (e.g. `1 € @ 2 €`) value positions as invalid construct
 
 
 ==== Development
@@ -31,11 +31,7 @@ Fixes in this release:
 Updated deps and tools:
 
  * Dependencies
- ** ...
- * Build
- ** ...
- * Tests
- ** ...
+ ** jgit: 5.3.1.201904271842-r
 
 
 
