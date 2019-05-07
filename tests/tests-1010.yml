@@ -1,0 +1,203 @@
+features:
+  - feature:
+      id: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
+      subject: Transaction Geo Location
+
+  - feature:
+      id: c7e45a7b-5295-4dbb-bcda-bdc0990b9e14
+      parent: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
+      subject: Geo URI support
+      tests:
+        errors:
+          - error:
+              id: b88d6733-2acf-4021-a3d7-deaf58b518a6
+              name: TacklerParserMetadataTests
+              descriptions:
+                - desc: "rejects invalid metadata constructions"
+                - desc: "metadata must be first"
+                - desc: "no comments between metadata"
+                - desc: "multiple uuid"
+                - desc: "multiple location"
+                - desc: "both: uuid and location, multiple locations"
+                - desc: "both: uuid and location, multiple uuids"
+          - error:
+              id: c8e7cdf6-3b30-476c-84f0-f5a19812cd28
+              name: TacklerParserLocationTest
+              descriptions:
+                - desc: "perr: detect invalid geo uris"
+                - desc: "perr: missing geo-uri"
+                - desc: "perr: missing geo"
+                - desc: "perr: decimal ','"
+                - desc: "perr: missing lat/lon"
+          - error:
+              id: fc711c0d-2820-4f72-8b4c-1219ef578363
+              name: TacklerParserLocationTest
+              descriptions:
+                - desc: "detect semantically invalid geo uris"
+                - desc: "out of spec lat < -90 || 90 < lat"
+                - desc: "out of spec lon < -180 || 180 < lat"
+                - desc: "out of spec: alt < -6378137"
+          - error:
+              id: f1951382-c746-4be0-b367-f903c8c9fb18
+              name: tests/location/ex/TacklerParseException-format.exec
+              descriptions:
+                - desc: "cli: error propagation in case of format error"
+          - error:
+              id: d948d0cd-d06c-4772-be5c-46e8875e4910
+              name: tests/location/ex/TacklerException-values.exec
+              descriptions:
+                - desc: "cli: error propagation in case of invalid value"
+        reports:
+          registry:
+            - test:
+                refid: 8adbd77d-dd49-41a7-9412-fa9189ce3db6
+          identity:
+            - test:
+                refid: 8adbd77d-dd49-41a7-9412-fa9189ce3db6
+        operations:
+          - test:
+              id: 5bb95c2e-2fad-4584-9380-e6cafe732cf6
+              name: TacklerParserMetadataTests
+              descriptions:
+                - desc: "accepts multiple metadata items"
+                - desc: "uuid and location"
+                - desc: "location and uuid"
+          - test:
+              id: bc98cc89-d3b2-468d-9508-8d7a55924178
+              name: TacklerParserLocationTest
+              descriptions:
+                - desc: "various valid geo uris"
+                - desc: "decimal: lat, -lat"
+                - desc: "decimal: lon, -lon"
+                - desc: "decimal: alt, -alt"
+                - desc: "int: lat, -lat"
+                - desc: "int: lon, -lon"
+                - desc: "int: alt, -alt"
+                - desc: "lat: -90 or 90"
+                - desc: "lon: -180 or 180"
+                - desc: "lat: 0 or lon: 0"
+                - desc: "negative altitude"
+          - test:
+              id: f3409965-68ae-4964-a73b-e46e0a2d8304
+              name: ReportApiTest
+              references:
+                - ref: register
+              descriptions:
+                - desc: "Serialize location to register report JSON"
+                - desc: "Deserialize location from Register report JSON"
+          - test:
+              id: 8adbd77d-dd49-41a7-9412-fa9189ce3db6
+              name: tests/location/ok/basic-01.exec
+              descriptions:
+                - desc: "int"
+                - desc: "decimal"
+                - desc: "preserve precision"
+                - desc: "neg / pos value printing"
+                - desc: "location + uuid"
+                - desc: "uuid + location"
+              references:
+                - ref: identity
+                  formats: txn
+                - ref: register
+                  formats: txt, json
+          - test:
+              id: bb9cee1f-a0e6-45fc-9815-9ad9875e4bd4
+              name: tests/location/ok/identity-01.exec
+              desc: "identity-to-input test for location"
+              references:
+                - ref: identity
+                  formats: txn
+                - ref: register
+                  formats: txt, json
+
+  - feature:
+      id: cfa92a0d-a8af-4fb5-a3c6-723029febc5a
+      parent: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
+      subject: Geo Filter
+
+  - feature:
+      id: a78fa9ce-160b-4c24-ba1a-30df5c2b3ea8
+      parent: cfa92a0d-a8af-4fb5-a3c6-723029febc5a
+      subject: "2D Txn Geo Filter (BBoxLatLon)"
+      tests:
+        operations:
+          - test:
+              id: 320d92b9-f8e7-4283-9296-74ff4340fff1
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "Filter 2D Txns"
+          - test:
+              id: 05983503-0aa4-42e1-a1c9-cc5df93285f7
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "Filter 3D Txns"
+          - test:
+              id: 37063f39-0796-44bd-a300-511f36db8f48
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "detects illegal arguments"
+                - desc: "North vs. south, northern hemisphere"
+                - desc: "North vs. south, southern hemisphere"
+                - desc: "Over equator"
+                - desc: "South beyond pole"
+                - desc: "North beyond pole"
+                - desc: "West beyond 180th meridian, east"
+                - desc: "west beyond 180th meridian, west"
+                - desc: "East beyond 180th meridian, east"
+                - desc: "East beyond 180th meridian, west"
+          - test:
+              id: e690ce1d-4e0c-4f73-9b71-5a6a84dc52b8
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "detects illegal arguments via JSON"
+          - test:
+              id: 8f7e0c4e-a4b5-4f33-aad9-adaae1df1c5e
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "Check edge cases (points and/or BBoxes)"
+  - feature:
+      id: aee868fa-63b4-4bc0-879f-1d6272ae6e39
+      parent: cfa92a0d-a8af-4fb5-a3c6-723029febc5a
+      subject: "3D Txn Geo Filter (BBoxLatLonAlt)"
+      tests:
+        operations:
+          - test:
+              id: 00d5f743-4eca-4d06-a5e5-4de035909828
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "Filter 2D Txns"
+          - test:
+              id: 607d4e0e-e05b-43cf-87b6-d3cad309be73
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "Filter 3D Txns"
+          - test:
+              id: 1d6f4fb9-bcfd-41ae-8720-2584ec2f4087
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "detects illegal arguments"
+                - desc: "North vs. south, northern hemisphere"
+                - desc: "North vs. south, southern hemisphere"
+                - desc: "Over equator"
+                - desc: "South beyond pole"
+                - desc: "North beyond pole"
+                - desc: "West beyond 180th meridian, east"
+                - desc: "west beyond 180th meridian, west"
+                - desc: "East beyond 180th meridian, east"
+                - desc: "East beyond 180th meridian, west"
+          - test:
+              id: 92232872-cea2-4787-8ba4-892d958796cb
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "detects illegal arguments via JSON"
+          - test:
+              id: 9aa6d324-3bcc-4fcd-ac75-2447f3a65d3b
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "Check edge cases (points and/or BBoxes)"
+          - test:
+              id: d6764e33-f20c-4c50-8452-d249d1f0c902
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "check altitude functionality"
+

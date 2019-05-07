@@ -66,7 +66,7 @@ class TacklerParserHeaderDescriptionTest extends FunSpec {
             |
             |""".stripMargin,
           "on line: 2",
-          """at input ' +02'"""
+          """at input ' +'"""
         ),
         (
           """

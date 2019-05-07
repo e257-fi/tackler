@@ -200,5 +200,13 @@ features:
                 - desc: deserialize by Client API
               references:
                 - ref: register
+          - test:
+              id: 04d83aba-4d19-4add-bff4-b79180b8b726
+              name: ReportApiTest
+              references:
+                - ref: register
+              descriptions:
+                - desc: "Serialize UUID to register report JSON"
+                - desc: "Deserialize UUID from Register report JSON"
 
 ### JSON output END

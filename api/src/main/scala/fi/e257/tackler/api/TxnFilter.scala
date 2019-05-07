@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 E257.FI
+ * Copyright 2018-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,12 +158,17 @@ sealed abstract class TxnFilterRegex(regex: String) extends TxnFilter {
     Seq(indent +  target + ": " + "\"" + s"${regex}" + "\"")
   }
 }
-/**
- * Selects transaction if txn timestamp is on or after specified time.
- *
- * @param begin txn timestamp must be on or after this
- */
 
+/**
+  * Select transaction if regular expression matches txn code.
+  *
+  * Used regular expression engine is java.util.regex.Pattern.
+  *
+  * @param regex to match txn code.
+  */
+final case class TxnFilterTxnCode(regex: String) extends TxnFilterRegex(regex) {
+  val target = "Txn Code"
+}
 
 /**
  * Select transaction if regular expression matches txn description.
@@ -178,17 +183,6 @@ final case class TxnFilterTxnDescription(regex: String) extends TxnFilterRegex(r
 }
 
 /**
- * Select transaction if regular expression matches txn code.
- *
- * Used regular expression engine is java.util.regex.Pattern.
- *
- * @param regex to match txn code.
- */
-final case class TxnFilterTxnCode(regex: String) extends TxnFilterRegex(regex) {
-  val target = "Txn Code"
-}
-
-/**
  * Select transaction if txn UUID is same as specified uuid.
  *
  * @param uuid
@@ -197,6 +191,119 @@ final case class TxnFilterTxnUUID(uuid: UUID) extends TxnFilter {
 
   override def text(indent: String): Seq[String] = {
     Seq(indent +  "Txn UUID: " + uuid.toString)
+  }
+}
+
+sealed abstract class BBoxLatLon extends TxnFilter {
+  val south: BigDecimal
+  val west: BigDecimal
+  val north: BigDecimal
+  val east: BigDecimal
+
+  if (north < south) {
+    throw new IllegalArgumentException("Invalid Bounding Box: North is below South. " +
+      "South: " + GeoPoint.frmt(south) + "; North: " + GeoPoint.frmt(north))
+  }
+
+  // east < west case is needed for filter over 180th meridian
+
+  // other pole is tested by north < south check
+  if (south < -90) {
+    throw new IllegalArgumentException("Invalid Bounding Box: South is beyond pole. " +
+      "South: " + GeoPoint.frmt(south))
+  }
+
+  // other pole is tested by north < south check
+  if (90 < north) {
+    throw new IllegalArgumentException("Invalid Bounding Box: North is beyond pole. " +
+      "North: " + GeoPoint.frmt(north))
+  }
+
+  if (west < -180 || 180 < west) {
+    throw new IllegalArgumentException("Invalid Bounding Box: West is beyond 180th Meridian. " +
+      "West: " + GeoPoint.frmt(west))
+  }
+
+  if (east < -180 || 180 < east) {
+    throw new IllegalArgumentException("Invalid Bounding Box: East is beyond 180th Meridian. " +
+      "East: " + GeoPoint.frmt(east))
+  }
+}
+
+/**
+ * Select Transaction if it has location attribute,
+ * and it's geo location is inside Bounding Box.
+ *
+ * This will ignore altitude, e.g. it will select 3D transaction if it fits 2D BBox.
+ * If transaction doesn't have location information, it will not be selected.
+ *
+ * @param south bbox bottom edge
+ * @param west  bbox left edge
+ * @param north bbox top edge
+ * @param east  bbox right edge
+ */
+final case class TxnFilterBBoxLatLon(
+  south: BigDecimal,
+  west: BigDecimal,
+  north: BigDecimal,
+  east: BigDecimal
+) extends BBoxLatLon {
+
+  override def text(indent: String): Seq[String] = {
+    val myIndent = indent + "  "
+
+    Seq(
+      indent + "Txn Bounding Box 2D",
+      myIndent + "North, East: " + "geo:" + GeoPoint.frmt(north) + "," + GeoPoint.frmt(east),
+      myIndent + "South, West: " + "geo:" + GeoPoint.frmt(south) + "," + GeoPoint.frmt(west),
+    )
+  }
+}
+
+/**
+ * Select Transaction if it has location attribute,
+ * and it's geo location is inside Bounding Box.
+ *
+ * This will select only transactions with altitude,
+ * e.g. it will not select any 2D transaction, even if it fits 2D BBox.
+ *
+ * If transaction doesn't have location information, it will not be selected.
+ *
+ * @param south  bbox bottom edge
+ * @param west   bbox left dege
+ * @param depth  bbox floor
+ * @param north  bbox top edge
+ * @param east   bbox right edge
+ * @param height bbox ceiling
+ */
+final case class TxnFilterBBoxLatLonAlt(
+  south: BigDecimal,
+  west: BigDecimal,
+  depth: BigDecimal,
+  north: BigDecimal,
+  east: BigDecimal,
+  height: BigDecimal
+) extends BBoxLatLon {
+
+  if (height < depth) {
+    throw new IllegalArgumentException("Invalid Bounding Box: height is less than depth. " +
+      "Depth: " + GeoPoint.frmt(depth) + "; Height: " + GeoPoint.frmt(height))
+  }
+
+  // height is tested by height < depth test
+  if (depth < -6378137) {
+    throw new IllegalArgumentException("Invalid Bounding Box: Depth is beyond center of Earth. " +
+      "Depth: " + GeoPoint.frmt(depth))
+  }
+
+  override def text(indent: String): Seq[String] = {
+    val myIndent = indent + "  "
+
+    Seq(
+      indent + "Txn Bounding Box 3D",
+      myIndent + "North, East, Height: " + "geo:" + GeoPoint.frmt(north) + "," + GeoPoint.frmt(east) + "," + GeoPoint.frmt(height),
+      myIndent + "South, West, Depth:  " + "geo:" + GeoPoint.frmt(south) + "," + GeoPoint.frmt(west) + "," + GeoPoint.frmt(depth)
+    )
   }
 }
 

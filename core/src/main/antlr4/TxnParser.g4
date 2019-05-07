@@ -39,10 +39,24 @@ description: sp '\'' text;
 
 text: ~(NL)*;
 
-txn_meta: indent '#' sp txn_meta_uuid NL;
+txn_meta:
+      txn_meta_uuid NL
+    | txn_meta_uuid NL txn_meta_location NL
+    | txn_meta_location NL
+    | txn_meta_location NL txn_meta_uuid NL
+    ;
 
+txn_meta_uuid:     indent '#' sp UUID_NAME ':' sp UUID_VALUE opt_sp;
 
-txn_meta_uuid: UUID_NAME ':' sp UUID_VALUE opt_sp;
+txn_meta_location: indent '#' sp LOCATION_NAME ':' sp geo_uri opt_sp;
+
+geo_uri: GEO_NAME ':' lat ',' lon (',' alt)?;
+
+lat: INT | NUMBER;
+
+lon: INT | NUMBER;
+
+alt: INT | NUMBER;
 
 txn_comment: indent comment NL;
 
@@ -71,9 +85,9 @@ opt_opening_pos: sp '{' opt_sp amount sp unit opt_sp '}';
 
 closing_pos: sp ('@' | '=') sp amount sp unit;
 
-account: ID (':' (ID|SUBID|INT))*;
+account: ID (':' (ID | SUBID | INT))*;
 
-amount: INT|NUMBER;
+amount: INT | NUMBER;
 
 unit: ID;
 

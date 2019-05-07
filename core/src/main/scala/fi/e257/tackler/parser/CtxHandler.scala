@@ -17,16 +17,18 @@
 package fi.e257.tackler.parser
 
 import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
+import java.util.UUID
 
 import cats.implicits._
 
 import scala.collection.JavaConverters
-import fi.e257.tackler.api.TxnHeader
-import fi.e257.tackler.core.{AccountException, CfgKeys, CommodityException, Settings, TxnException}
+import fi.e257.tackler.api.{GeoPoint, TxnHeader}
+import fi.e257.tackler.core.{AccountException, CfgKeys, CommodityException, Settings, TacklerException, TxnException}
 import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transaction, Txns}
 import fi.e257.tackler.parser.TxnParser._
 import org.slf4j.{Logger, LoggerFactory}
 
+import scala.util.{Failure, Success}
 import scala.util.control.NonFatal
 
 /**
@@ -109,7 +111,7 @@ abstract class CtxHandler {
   }
 
   protected def handleAmount(amountCtx: AmountContext): BigDecimal = {
-    BigDecimal(Option(amountCtx.INT()).getOrElse(amountCtx.NUMBER()).getText())
+    BigDecimal(amountCtx.getText())
   }
 
   protected def handleValuePosition(postingCtx: PostingContext): (
@@ -164,7 +166,15 @@ abstract class CtxHandler {
             // Ok, we have closing position
             Option(cp.AT()).fold({
               // this is '=', e.g. total price
-              (handleAmount(cp.amount()), true)
+              val total_price = handleAmount(cp.amount())
+              if ((total_price < 0 && 0 <= postAmount) || (postAmount < 0 && 0 <= total_price)) {
+                val lineNro = postingCtx.start.getLine
+                val msg = "Error on line: " + lineNro.toString +
+                 "; Value position (total price) has different sign than primary posting value"
+                log.error(msg)
+                throw new CommodityException(msg)
+              }
+              (total_price, true)
             })(_ => {
               // this is '@', e.g. unit price
               (postAmount * handleAmount(cp.amount()), false)
@@ -225,6 +235,26 @@ abstract class CtxHandler {
     Posting(acctn, foo._1, foo._2, foo._3, foo._5, comment)
   }
 
+  protected def handleMeta(metaCtx: Txn_metaContext): (Option[UUID], Option[GeoPoint]) = {
+    val uuid = Option(metaCtx.txn_meta_uuid()).map(muuid => {
+        java.util.UUID.fromString(muuid.UUID_VALUE().getText)
+      })
+    val geo = Option(metaCtx.txn_meta_location()).map(geoCtx => {
+      GeoPoint.toPoint(
+        BigDecimal(geoCtx.geo_uri().lat().getText),
+        BigDecimal(geoCtx.geo_uri().lon().getText()),
+        Option(geoCtx.geo_uri().alt()).map(a => BigDecimal(a.getText))
+        ) match {
+        case Success(g) => g
+        case Failure(ex) => {
+          log.error("Invalid geo-uri:" + ex.getMessage)
+          throw new TacklerException("Invalid geo-uri: " + ex.getMessage)
+        }
+      }
+    })
+    (uuid, geo)
+  }
+
   /**
    * Handle one Transaction (txn -rule).
    *
@@ -250,9 +280,12 @@ abstract class CtxHandler {
     })
 
 
-    val uuid = Option(txnCtx.txn_meta()).map(meta => {
-      java.util.UUID.fromString(meta.txn_meta_uuid().UUID_VALUE().getText)
+    val meta = Option(txnCtx.txn_meta())
+      .fold[(Option[UUID], Option[GeoPoint])]((None, None))(metaCtx => {
+      handleMeta(metaCtx)
     })
+    val uuid: Option[UUID] = meta._1
+    val geo: Option[GeoPoint] = meta._2
 
     if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {
       val msg = "" +
@@ -296,7 +329,7 @@ abstract class CtxHandler {
       List(Posting(ate, -amount, -amount, false, posts.head.txnCommodity, comment))
     })
 
-    Transaction(TxnHeader(date, code, desc, uuid, comments), posts ++ last_posting.getOrElse(Nil))
+    Transaction(TxnHeader(date, code, desc, uuid, geo, comments), posts ++ last_posting.getOrElse(Nil))
   }
 
   /**

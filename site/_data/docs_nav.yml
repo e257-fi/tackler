@@ -25,6 +25,9 @@
     - link: /docs/txn-filters/
     - link: /docs/commodities/
     - link: /docs/currencies/
+    - link: /docs/gis/
+    - link: /docs/gis/txn-geo-location/
+    - link: /docs/gis/txn-geo-filters/
     - link: /docs/auditing/
     - link: /docs/reliability/
     - link: /docs/performance/

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 E257.FI
+ * Copyright 2018-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,22 @@
  */
 package fi.e257.tackler.filter
 
+import fi.e257.tackler.api.{BBoxLatLon, GeoPoint}
 import fi.e257.tackler.model.Transaction
 
 trait CanTxnFilter[A] {
   def filter(tf: A, txn: Transaction): Boolean
+}
+
+trait CanBBoxLatLonFilter[A <: BBoxLatLon] {
+  def bbox2d(tf: A, geo: GeoPoint): Boolean = {
+    if (tf.east < tf.west) {
+      // BBox is over 180th meridian
+      tf.south <= geo.lat && geo.lat <= tf.north &&
+        (tf.west <= geo.lon || geo.lon <= tf.east)
+    } else {
+      tf.south <= geo.lat && geo.lat <= tf.north &&
+        tf.west <= geo.lon && geo.lon <= tf.east
+    }
+  }
 }

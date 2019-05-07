@@ -15,6 +15,7 @@ do high level plans for new features and changes to Tackler.
 * xref:./tep-1007.adoc[TEP-1007: Txn set checksum]
 * xref:./tep-1008.adoc[TEP-1008: Numeric account names]
 * xref:./tep-1009.adoc[TEP-1009: Txn header syntax]
+* xref:./tep-1010.adoc[TEP-1010: Txn Geo Location support]
 
 
 === TEPs in implementation phase

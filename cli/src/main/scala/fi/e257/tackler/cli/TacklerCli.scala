@@ -21,13 +21,13 @@ import java.nio.file.{Files, NoSuchFileException, Path, Paths}
 import java.util.Base64
 
 import better.files._
-import org.slf4j.{Logger, LoggerFactory}
-import io.circe.parser.decode
 import fi.e257.tackler.api.TxnFilterDefinition
-import fi.e257.tackler.core.{FilesystemStorageType, GitStorageType, Settings, TacklerException, TxnException}
+import fi.e257.tackler.core._
 import fi.e257.tackler.model.TxnData
 import fi.e257.tackler.parser.{TacklerParseException, TacklerTxns}
 import fi.e257.tackler.report.Reports
+import io.circe.parser.decode
+import org.slf4j.{Logger, LoggerFactory}
 
 
 

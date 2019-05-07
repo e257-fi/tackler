@@ -20,7 +20,7 @@ import org.scalatest.Assertions._
 
 import fi.e257.tackler.model.TxnData
 
-abstract class TxnFilterSpec  {
+trait TxnFilterSpec  {
   def checkUUID(txnData: TxnData, uuid: String) = {
     txnData.txns.exists(txn => txn.header.uuid.map(u => u.toString).getOrElse("") === uuid)
   }

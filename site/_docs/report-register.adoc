@@ -55,10 +55,17 @@ then that transaction is not is not printed / outputted at all.
 
 == Example reports
 
-Below are links to example register reports with full auditing metadata.
+Register report with location data:
 
-* {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.txt/[Register report with audit metadata]
-* {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register JSON report with audit metadata]
+
+Below are links to example register reports:
+
+* Register reports with link:/docs/gis/[geo location information]
+** {repolink}/tests/location/ok/basic-01.ref.reg.txt[Register report with Geo Location]
+** {repolink}/tests/location/ok/basic-01.ref.reg.json[Register JSON report with Geo Location]
+* Register reports with xref:auditing.adoc[audit metadata]
+** {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.txt/[Register report with audit metadata]
+** {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register JSON report with audit metadata]
 
 
 === Example output of register report

@@ -14,20 +14,24 @@ See following documents to get up and speed with Tackler.
 
 * xref:docs/installation.adoc[Installation Manual]
 
-
-== Daily usage
-
-* xref:docs/journal/git-storage.adoc[Git Storage Guide]
-
 * xref:docs/usage.adoc[Usage Guide]
+
+
+== Advanced topics
+
+* xref:docs/journal/git-storage.adoc[Version Control Storage Guide]
+
+* link:/docs/gis/[Accounting with Geo Location (GIS)]
 
 * xref:docs/txn-filters.adoc[Transaction filters]
 
 * xref:docs/currencies.adoc[Currencies, shares ...]
 
+
 == Examples
 
 * xref:docs/examples/trimix-filling-station.adoc[Trimix Filling Station]
+
 
 == Embedding Tackler
 

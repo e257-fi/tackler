@@ -17,6 +17,8 @@
 lexer grammar TxnLexer;
 
 UUID_NAME: 'uuid';
+LOCATION_NAME: 'location';
+GEO_NAME: 'geo';
 
 UUID_VALUE: HEX HEX HEX HEX  HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX '-' HEX HEX HEX HEX HEX HEX HEX HEX  HEX HEX HEX HEX;
 
@@ -26,7 +28,7 @@ TS_TZ: TS TZ;
 
 INT: DIGIT+;
 
-NUMBER: ('+' | '-')? (INT | FLOAT);
+NUMBER: '-'? (INT | FLOAT);
 
 ID: NameStartChar (NameChar)*;
 
@@ -88,6 +90,7 @@ AT: '@';
 EQUAL: '=';
 SPACE: ' ';
 TAB: '\t';
+COMMA: ',';
 SEMICOLON: ';';
 COLON: ':';
 NL: '\r'? '\n';
