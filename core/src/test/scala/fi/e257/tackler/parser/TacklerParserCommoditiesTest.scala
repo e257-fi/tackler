@@ -158,7 +158,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   behavior of "Profit and Loss parsing"
 
   /**
-   * test:uuid: 9f711991-c9ae-4558-923c-95a69faff8bc
+   * test: 9f711991-c9ae-4558-923c-95a69faff8bc
    */
   it should "opening with PnL" in {
     val txnStr =
@@ -202,7 +202,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 92f75975-061b-4867-87f5-e25cf5b13d40
+   * test: 92f75975-061b-4867-87f5-e25cf5b13d40
    */
   it should "opening with PnL ; comment" in {
     val txnStr =
@@ -222,7 +222,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 84d81380-8664-45d7-a9e1-523c38c7a963
+   * test: 84d81380-8664-45d7-a9e1-523c38c7a963
    */
   it should "closing position with PnL" in {
     val txnStr =
@@ -266,7 +266,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: c1fbac7b-e924-4eee-aed3-b11b51116f1a
+   * test: c1fbac7b-e924-4eee-aed3-b11b51116f1a
    */
   it should "closing position with PnL ; comment" in {
     val txnStr =
@@ -287,7 +287,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
 
   behavior of "with invalid input"
   /**
-    * test:uuid: 20b89e3e-a987-4e83-bd89-2cbf288caecc
+    * test: 20b89e3e-a987-4e83-bd89-2cbf288caecc
     */
   it should "discrepancy of commodities '='" in {
     val txnStr =
@@ -305,7 +305,44 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-    * test:uuid: fe246259-2280-4d42-8360-6dd3e280b30a
+   * test: 6f45f594-c4e6-449a-b6d2-7f25e9479bd5
+   */
+  it should "Value position (total price) with different sign (-1st vs. +2nd)" in {
+    val txnStr =
+      """
+        |2019-01-01
+        | e -1 $ = 1 €
+        | a
+        |
+        |""".stripMargin
+
+    val ex = intercept[CommodityException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.contains("different sign"))
+  }
+
+  /**
+   * test: aaf50217-1d04-49bd-a873-43a53be1c99f
+   */
+  it should "Value position (total price) with different sign (+1st vs. -2nd)" in {
+    val txnStr =
+      """
+        |2019-01-01
+        | e 1 $ = -1 €
+        | a
+        |
+        |""".stripMargin
+
+    val ex = intercept[CommodityException] {
+      tt.string2Txns(txnStr)
+    }
+    assert(ex.getMessage.contains("different sign"))
+  }
+
+
+  /**
+    * test: fe246259-2280-4d42-8360-6dd3e280b30a
     */
   it should "discrepancy of commodities '@'" in {
     val txnStr =
@@ -323,7 +360,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-    * test:uuid: 6d1868da-3b9f-45e4-a2c6-db003da4c720
+    * test: 6d1868da-3b9f-45e4-a2c6-db003da4c720
     */
   it should "value pos: same primary and secondary commodity ('@')" in {
     val txnStr =
@@ -341,7 +378,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-    * test:uuid: aa52ac0a-278a-49e4-abad-fc2f00416a41
+    * test: aa52ac0a-278a-49e4-abad-fc2f00416a41
     */
   it should "value pos: same primary and secondary commodity  ('=')" in {
     val txnStr =
@@ -359,7 +396,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
+   * test: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
    */
   it should "perr: duplicate commodity" in {
     val txnStr =
@@ -377,7 +414,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-    * test:uuid: e24aacdf-fba2-4dc7-8165-4270c8822559
+    * test: e24aacdf-fba2-4dc7-8165-4270c8822559
     */
   it should "perr: value position, no primary commodity" in {
     val txnStr =
@@ -395,7 +432,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 0d1beaf2-c30c-4008-943f-46aaf44e4f76
+   * test: 0d1beaf2-c30c-4008-943f-46aaf44e4f76
    */
   it should "perr: value position, no secondary commodity" in {
     val txnStr =
@@ -413,7 +450,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 3152ec2f-4d5f-4a0a-b88c-68f17bccf7c6
+   * test: 3152ec2f-4d5f-4a0a-b88c-68f17bccf7c6
    */
   it should "perr: missing value pos value" in {
     val txnStr =
@@ -431,7 +468,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: bed02ea9-4191-4c98-b847-6b4e2a0fcb2d
+   * test: bed02ea9-4191-4c98-b847-6b4e2a0fcb2d
    */
   it should "perr: with opening (comm)" in {
     val txnStr =
@@ -449,7 +486,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: ac4a6183-fb21-4847-8b3e-912f21fe5a6b
+   * test: ac4a6183-fb21-4847-8b3e-912f21fe5a6b
    */
   it should "perr: with opening (value)" in {
     val txnStr =
@@ -467,7 +504,7 @@ class TacklerParserCommoditiesTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 436d9ed5-b7a0-4e37-a7b4-86b00eb60e83
+   * test: 436d9ed5-b7a0-4e37-a7b4-86b00eb60e83
    */
   it should "perr: with missing @" in {
     val txnStr =

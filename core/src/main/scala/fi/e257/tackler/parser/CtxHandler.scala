@@ -166,7 +166,15 @@ abstract class CtxHandler {
             // Ok, we have closing position
             Option(cp.AT()).fold({
               // this is '=', e.g. total price
-              (handleAmount(cp.amount()), true)
+              val total_price = handleAmount(cp.amount())
+              if ((total_price < 0 && 0 <= postAmount) || (postAmount < 0 && 0 <= total_price)) {
+                val lineNro = postingCtx.start.getLine
+                val msg = "Error on line: " + lineNro.toString +
+                 "; Value position (total price) has different sign than primary posting value"
+                log.error(msg)
+                throw new CommodityException(msg)
+              }
+              (total_price, true)
             })(_ => {
               // this is '@', e.g. unit price
               (postAmount * handleAmount(cp.amount()), false)

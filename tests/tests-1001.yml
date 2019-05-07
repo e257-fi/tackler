@@ -191,6 +191,14 @@ features:
               name: TacklerParserCommoditiesTest
               desc: "value pos: same primary and secondary commodity '='"
           - error:
+              id: 6f45f594-c4e6-449a-b6d2-7f25e9479bd5
+              name: TacklerParserCommoditiesTest
+              desc: "Value position (total price) with different sign (-1st vs. +2nd)"
+          - error:
+              id: aaf50217-1d04-49bd-a873-43a53be1c99f
+              name: TacklerParserCommoditiesTest
+              desc: "Value position (total price) with different sign (+1st vs. -2nd)"
+          - error:
               id: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
               name: TacklerParserCommoditiesTest
               desc: "perr: duplicate commodity"
