@@ -115,54 +115,89 @@ features:
       parent: 415d0acb-8441-4dce-aa81-e99e5b2f2e49
       subject: Geo Filter
 
+  - feature:
+      id: a78fa9ce-160b-4c24-ba1a-30df5c2b3ea8
+      parent: cfa92a0d-a8af-4fb5-a3c6-723029febc5a
+      subject: "2D Txn Geo Filter (BBoxLatLon)"
+      tests:
+        operations:
+          - test:
+              id: 320d92b9-f8e7-4283-9296-74ff4340fff1
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "Filter 2D Txns"
+          - test:
+              id: 05983503-0aa4-42e1-a1c9-cc5df93285f7
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "Filter 3D Txns"
+          - test:
+              id: 37063f39-0796-44bd-a300-511f36db8f48
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "detects illegal arguments"
+                - desc: "North vs. south, northern hemisphere"
+                - desc: "North vs. south, southern hemisphere"
+                - desc: "Over equator"
+                - desc: "South beyond pole"
+                - desc: "North beyond pole"
+                - desc: "West beyond 180th meridian, east"
+                - desc: "west beyond 180th meridian, west"
+                - desc: "East beyond 180th meridian, east"
+                - desc: "East beyond 180th meridian, west"
+          - test:
+              id: e690ce1d-4e0c-4f73-9b71-5a6a84dc52b8
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "detects illegal arguments via JSON"
+          - test:
+              id: 8f7e0c4e-a4b5-4f33-aad9-adaae1df1c5e
+              name: TxnFilterBBoxLatLonTest
+              descriptions:
+                - desc: "Check edge cases (points and/or BBoxes)"
+  - feature:
+      id: aee868fa-63b4-4bc0-879f-1d6272ae6e39
+      parent: cfa92a0d-a8af-4fb5-a3c6-723029febc5a
+      subject: "3D Txn Geo Filter (BBoxLatLonAlt)"
+      tests:
+        operations:
+          - test:
+              id: 00d5f743-4eca-4d06-a5e5-4de035909828
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "Filter 2D Txns"
+          - test:
+              id: 607d4e0e-e05b-43cf-87b6-d3cad309be73
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "Filter 3D Txns"
+          - test:
+              id: 1d6f4fb9-bcfd-41ae-8720-2584ec2f4087
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "detects illegal arguments"
+                - desc: "North vs. south, northern hemisphere"
+                - desc: "North vs. south, southern hemisphere"
+                - desc: "Over equator"
+                - desc: "South beyond pole"
+                - desc: "North beyond pole"
+                - desc: "West beyond 180th meridian, east"
+                - desc: "west beyond 180th meridian, west"
+                - desc: "East beyond 180th meridian, east"
+                - desc: "East beyond 180th meridian, west"
+          - test:
+              id: 92232872-cea2-4787-8ba4-892d958796cb
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "detects illegal arguments via JSON"
+          - test:
+              id: 9aa6d324-3bcc-4fcd-ac75-2447f3a65d3b
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "Check edge cases (points and/or BBoxes)"
+          - test:
+              id: d6764e33-f20c-4c50-8452-d249d1f0c902
+              name: TxnFilterBBoxLatLonAltTest
+              descriptions:
+                - desc: "check altitude functionality"
 
-#features:
-#  - feature:
-#      id:
-#      subject:
-#
-#  - feature:
-#      id:
-#      parent:
-#      subject:
-#      tests:
-#        errors:
-#          - error:
-#              id:
-#              refid:
-#              name:
-#              desc:
-#              desciptions:
-#                - desc:
-#                - desc:
-#        reports:
-#          balance:
-#            - test:
-#                refid:
-#          balance-group:
-#            - test:
-#                refid:
-#          registry:
-#            - test:
-#                refid:
-#          identity:
-#            - test:
-#                refid:
-#          equity:
-#            - test:
-#                refid:
-#        operations:
-#          - test:
-#              id:
-#              refid:
-#              name:
-#              desc:
-#              descriptions:
-#                - desc:
-#                - desc:
-#              references:
-#                - ref: identity
-#                - ref: equity
-#                - ref: balance
-#                - ref: balance-group
-#                - ref: register

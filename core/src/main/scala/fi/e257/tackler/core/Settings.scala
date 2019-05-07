@@ -281,8 +281,8 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
       val accounts: List[String] = getReportAccounts(keys.accounts)
       // todo: this is lazy evaluated?
       // to trigger, remove output from
-      // tests/reporting/ex/GroupByException-unknown-group-by.exec
-      // test:uuid: 31e0bd80-d4a9-4d93-915d-fa2424aedb84
+      // test: 31e0bd80-d4a9-4d93-915d-fa2424aedb84
+      // exec: tests/reporting/ex/GroupByException-unknown-group-by.exec
       val groupBy: GroupBy = GroupBy(cfg.getString(keys.groupBy))
     }
 

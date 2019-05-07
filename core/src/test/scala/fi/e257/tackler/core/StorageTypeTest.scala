@@ -33,7 +33,7 @@ class StorageTypeTest extends FlatSpec {
   }
 
   /**
-   * test:uuid: 195971d7-f16f-4c1c-a761-6764b28fd4db
+   * test: 195971d7-f16f-4c1c-a761-6764b28fd4db
    */
   it should "handle unknown type" in {
     assertThrows[TacklerException]{

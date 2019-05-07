@@ -26,7 +26,7 @@ class TxnFilterBBoxLatLonTest extends FunSpec with TxnFilterBBoxSpec {
   describe("BBox 2D (Latitude, Longitude) basic tests") {
 
     /**
-     * test:
+     * test: 320d92b9-f8e7-4283-9296-74ff4340fff1
      */
     it("Filter 2D Txns") {
       val geo2DTxnData = tt.string2Txns(geo2DTxnStr)
@@ -42,7 +42,7 @@ class TxnFilterBBoxLatLonTest extends FunSpec with TxnFilterBBoxSpec {
     }
 
     /**
-     * test:
+     * test: 05983503-0aa4-42e1-a1c9-cc5df93285f7
      */
     it("Filter 3D Txns") {
 
@@ -62,14 +62,14 @@ class TxnFilterBBoxLatLonTest extends FunSpec with TxnFilterBBoxSpec {
 
   describe("BBox 2D (Latitude, Longitude) error cases") {
     /**
-     * test:
+     * test: 37063f39-0796-44bd-a300-511f36db8f48
      */
     it("detects illegal arguments") {
       val errBBoxes: List[(BigDecimal, BigDecimal, BigDecimal, BigDecimal, String)] =
         List(
           (65.0, 0, 40, 0, "North is below South. South: 65.0; North: 40"),
           (-2, 0, -30.0, 0, "North is below South. South: -2; North: -30.0"),
-          (25, 0, -25, 0, "North is below South. South: 25; North: -25"),
+          (22, 0, -25, 0, "North is below South. South: 22; North: -25"),
 
           (-90.1, 0, 0, 0, "South is beyond pole. South: -90.1"),
           (0, 0, 90.1, 0,  "North is beyond pole. North: 90.1"),
@@ -94,7 +94,7 @@ class TxnFilterBBoxLatLonTest extends FunSpec with TxnFilterBBoxSpec {
     }
 
     /**
-     * test:
+     * test: e690ce1d-4e0c-4f73-9b71-5a6a84dc52b8
      */
     it("detects illegal arguments via JSON") {
       val errBBoxFilterJson =
@@ -121,6 +121,9 @@ class TxnFilterBBoxLatLonTest extends FunSpec with TxnFilterBBoxSpec {
 
   describe("BBox 2D (Latitude, Longitude) verification tests") {
 
+    /**
+     * test: 8f7e0c4e-a4b5-4f33-aad9-adaae1df1c5e
+     */
     it ("Check edge cases (points and/or BBoxes)") {
 
       val count = geo2d3dTests.map(t => {

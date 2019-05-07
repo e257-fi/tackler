@@ -26,7 +26,7 @@ class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
   describe("BBox 3D (Latitude, Longitude, Altitude)") {
 
     /**
-     * test:
+     * test: 00d5f743-4eca-4d06-a5e5-4de035909828
      */
     it("Filter 2D Txns") {
       val geo2DTxnStr =
@@ -51,7 +51,7 @@ class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
     }
 
     /**
-     * test:
+     * test: 607d4e0e-e05b-43cf-87b6-d3cad309be73
      */
     it ("Filter 3D Txns") {
 
@@ -70,7 +70,7 @@ class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
 
   describe("BBox 3D errors") {
     /**
-     * test:
+     * test: 1d6f4fb9-bcfd-41ae-8720-2584ec2f4087
      */
     it("detects illegal arguments") {
       val errBBoxes: List[(BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, String)] =
@@ -108,7 +108,7 @@ class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
     }
 
     /**
-     * test:
+     * test: 92232872-cea2-4787-8ba4-892d958796cb
      */
     it("detects illegal arguments via JSON") {
       val errBBoxFilterJson =
@@ -137,7 +137,10 @@ class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
 
   describe("BBox 3D (Latitude, Longitude, Altitude) verification tests") {
 
-    it ("Check edge cases (points and/or BBoxes)") {
+    /**
+     * test: 9aa6d324-3bcc-4fcd-ac75-2447f3a65d3b
+     */
+    it("Check edge cases (points and/or BBoxes)") {
 
       val count = geo2d3dTests.map(t => {
         val expectedCount = t._1
@@ -163,84 +166,87 @@ class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
 
       assert(count === 7, ", e.g. test count for filter is wrong")
     }
-  }
 
-  it ("check altitude functionality") {
+    /**
+     * test: d6764e33-f20c-4c50-8452-d249d1f0c902
+     */
+    it("check altitude functionality") {
 
-    val altTests = List[
-      (Int, // test count
-        (BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal), // 3D GEO Filter
-        List[(BigDecimal, BigDecimal, Option[BigDecimal], Boolean)]) // Test vectors and result
-      ](
-      (4,
-        (20, 10, 22, 45, 25, 22),
-        List(
-          (30, 15, Some(22), true),
+      val altTests = List[
+        (Int, // test count
+          (BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal, BigDecimal), // 3D GEO Filter
+          List[(BigDecimal, BigDecimal, Option[BigDecimal], Boolean)]) // Test vectors and result
+        ](
+        (4,
+          (20, 10, 22, 45, 25, 22),
+          List(
+            (30, 15, Some(22), true),
 
-          (30, 15, Some(-22), false),
-          (30, 15, Some(22.1), false),
-          (30, 15, Some(21.9), false),
-        )
-      ),
-      (4,
-        (20, 10, -22, 45, 25, -22),
-        List(
-          (30, 15, Some(-22), true),
+            (30, 15, Some(-22), false),
+            (30, 15, Some(22.1), false),
+            (30, 15, Some(21.9), false),
+          )
+        ),
+        (4,
+          (20, 10, -22, 45, 25, -22),
+          List(
+            (30, 15, Some(-22), true),
 
-          (30, 15, Some(22), false),
-          (30, 15, Some(-22.1), false),
-          (30, 15, Some(-21.9), false),
-        )
-      ),
-      (7,
-        (20, 10, -10, 45, 25, 10),
-        List(
-          (30, 15, Some(0), true),
-          (30, 15, Some(5), true),
-          (30, 15, Some(-5), true),
-          (30, 15, Some(-10), true),
-          (30, 15, Some(10), true),
+            (30, 15, Some(22), false),
+            (30, 15, Some(-22.1), false),
+            (30, 15, Some(-21.9), false),
+          )
+        ),
+        (7,
+          (20, 10, -10, 45, 25, 10),
+          List(
+            (30, 15, Some(0), true),
+            (30, 15, Some(5), true),
+            (30, 15, Some(-5), true),
+            (30, 15, Some(-10), true),
+            (30, 15, Some(10), true),
 
-          (30, 15, Some(-11), false),
-          (30, 15, Some(11), false),
-        )
-      ),
-      (6,
-        (20, 10, -10, 45, 25, -1),
-        List(
-          (30, 15, Some(0), false),
-          (30, 15, Some(-5), true),
-          (30, 15, Some(-10), true),
-          (30, 15, Some(-1), true),
+            (30, 15, Some(-11), false),
+            (30, 15, Some(11), false),
+          )
+        ),
+        (6,
+          (20, 10, -10, 45, 25, -1),
+          List(
+            (30, 15, Some(0), false),
+            (30, 15, Some(-5), true),
+            (30, 15, Some(-10), true),
+            (30, 15, Some(-1), true),
 
-          (30, 15, Some(-11), false),
-          (30, 15, Some(0), false),
-        )
-      ),
-    )
-
-    val count = altTests.map(t => {
-      val expectedCount = t._1
-
-      val bbox = t._2
-      val txnFilter = TxnFilterBBoxLatLonAlt(
-        bbox._1, bbox._2, bbox._3, bbox._4, bbox._5, bbox._6
+            (30, 15, Some(-11), false),
+            (30, 15, Some(0), false),
+          )
+        ),
       )
 
-      val tvecs = t._3
+      val count = altTests.map(t => {
+        val expectedCount = t._1
 
-      val count = tvecs.map(v => {
-        val geo = GeoPoint.toPoint(v._1, v._2, v._3).get
-        val txn = Transaction(TxnHeader(date, None, None, None, Some(geo), None), posts)
+        val bbox = t._2
+        val txnFilter = TxnFilterBBoxLatLonAlt(
+          bbox._1, bbox._2, bbox._3, bbox._4, bbox._5, bbox._6
+        )
 
-        assert(TxnFilterBBoxLatLonAltF.filter(txnFilter, txn) === v._4)
+        val tvecs = t._3
+
+        val count = tvecs.map(v => {
+          val geo = GeoPoint.toPoint(v._1, v._2, v._3).get
+          val txn = Transaction(TxnHeader(date, None, None, None, Some(geo), None), posts)
+
+          assert(TxnFilterBBoxLatLonAltF.filter(txnFilter, txn) === v._4)
+          1
+        }).foldLeft(0)(_ + _)
+
+        assert(count === expectedCount, ", e.g. test vector size for one filter is wrong")
         1
       }).foldLeft(0)(_ + _)
 
-      assert(count === expectedCount, ", e.g. test vector size for one filter is wrong")
-      1
-    }).foldLeft(0)(_ + _)
-
-    assert(count === 4, ", e.g. test count for filter is wrong")
+      assert(count === 4, ", e.g. test count for filter is wrong")
+    }
   }
 }
