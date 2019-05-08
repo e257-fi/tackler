@@ -77,12 +77,10 @@ class TacklerTxnsGitTest extends FunSpec{
     /**
      * test: fae31eb0-bd4a-483e-9eb7-9e4c36e7f785
      */
-    //it("survives looping (ref: txns-1E1) x 10_000 loops") {
-    it("survives looping (ref: txns-1E1) x 100 loops") {
-      val loops = 100
+    val loops = 1000
+    it(s"survives looping (ref: txns-1E1) x ${loops} loops") {
 
-      var i = 0
-      for (_ <- 1 to loops) {
+      val i = (1 to loops).map(_ => {
         val tt = new TacklerTxns(settings)
         val txns = tt.git2Txns(TacklerTxns.gitReference("txns-1E1"))
 
@@ -92,8 +90,9 @@ class TacklerTxnsGitTest extends FunSpec{
         }
 
         assert(txns.txns.size === 10)
-        i += 1
-      }
+        1
+      }).sum
+
       assert(i === loops)
     }
 
