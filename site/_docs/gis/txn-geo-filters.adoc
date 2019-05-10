@@ -1,13 +1,14 @@
 = Transaction Geo Filters
 :page-date: 2019-05-05 00:00:00 Z
-:page-last_modified_at: 2019-05-07 00:00:00 Z
+:page-last_modified_at: 2019-05-09 00:00:00 Z
 
 Transaction Geo Filters selects transactions which geographic location is inside Bounding Box defined by the filter.
 
 Using location based transaction filters makes it possible to generate reports for certain geographic areas.
 Currently supported filter geometry is bounding box.
 
-See xref:txn-geo-location.adoc[Transaction Geo Location] how to record location data.
+See xref:txn-geo-location.adoc[Transaction Geo Location] how to record location data
+and xref:example.adoc[Travel Journal with Geo Location] for full example of GIS data and reports.
 
 
 == Bounding Box

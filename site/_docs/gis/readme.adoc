@@ -1,13 +1,13 @@
 = Plaintext accounting with GIS
 :page-date: 2019-05-05 00:00:00 Z
-:page-last_modified_at: 2019-05-07 00:00:00 Z
+:page-last_modified_at: 2019-05-09 00:00:00 Z
 :page-permalink: /docs/gis/
 
 Tackler supports geographic location with accounting journal and it can use transaction GIS data
 for generating accounting reports.
 
 See xref:./gis/txn-geo-location.adoc[Transaction Geo Location] for how to store geographic location with
-accounting transactions, and xref:./gis/txn-geo-filters.adoc[Transaction Geo Filter] how to select transactions based
+accounting transactions, and xref:./gis/txn-geo-filters.adoc[Transaction Geo Filters] how to select transactions based
 on that information. Together these two features make it possible to do
 accounting and reporting based on area and place.
 
@@ -22,3 +22,9 @@ to account farming related information or record forestry data.
 
 There is no need to account only monetary things, so possibilities are pretty much endless what to do with GIS data
 and plaintext accounting.
+
+[[example]]
+== Travel journal example
+
+See xref:./gis/example.adoc[Travel Journal with Geo Location] example how to utilize plaintext accounting with
+geographic location data and reports.

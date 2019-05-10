@@ -1,0 +1,213 @@
+= Travel Journal with Geo Location
+:page-date: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-05-09 00:00:00 Z
+:page-layout: page
+
+This is a travel journal example how to utilize plaintext accounting with
+geographic location data.
+
+See xref:txn-geo-location.adoc[Transaction Geo Location] and
+xref:txn-geo-filters.adoc[Transaction Geo Filters]
+for full documentation of tackler's GIS features.
+
+
+== Journal with GIS data
+
+Below is an example travel journal from ice cream spree around the world.
+Four transactions in total, with one transaction missing geo location.
+
+....
+2019-05-01 'Ice cream at Helsinki's market square
+  # location: geo:60.167,24.955,5
+  Expenses:Ice_cream  2.50 €
+  Assets:Cash
+
+2019-05-02 'Surreal ice cream at Miro Museum
+  # location: geo:41.368611,2.16
+  Expenses:Ice_cream  5 €
+  Assets:Cash
+
+2019-05-03 'Matcha ice cream!
+  # location: geo:35.7101,139.8107
+  Expenses:Ice_cream  800 ¥
+  Assets:Cash
+
+2019-05-04 'I am so lost, but I have ice cream
+  Expenses:Ice_cream  2 €
+  Assets:Cash
+
+....
+
+== Reports based on GIS features
+
+
+=== Basic Balance and Register reports without any filter
+
+....
+bin/report.sh
+
+Txns size: 4
+
+BALANCE
+-------
+                 0.00      800.00 ¥  Expenses
+               800.00      800.00 ¥  Expenses:Ice_cream
+                 0.00        9.50 €  Expenses
+                 9.50        9.50 €  Expenses:Ice_cream
+=======================
+               800.00 ¥
+                 9.50 €
+
+
+REGISTER
+--------
+2019-05-01Z 'Ice cream at Helsinki's market square
+            # location: geo:60.167,24.955,5
+            Expenses:Ice_cream                             2.50               2.50 €
+------------------------------------------------------------------------------------
+2019-05-02Z 'Surreal ice cream at Miro Museum
+            # location: geo:41.368611,2.16
+            Expenses:Ice_cream                             5.00               7.50 €
+------------------------------------------------------------------------------------
+2019-05-03Z 'Matcha ice cream!
+            # location: geo:35.7101,139.8107
+            Expenses:Ice_cream                           800.00             800.00 ¥
+------------------------------------------------------------------------------------
+2019-05-04Z 'I am so lost, but I have ice cream!
+            Expenses:Ice_cream                             2.00               9.50 €
+------------------------------------------------------------------------------------
+
+....
+
+
+=== Any ice cream in Europe?
+
+....
+bin/report.sh --api-filter-def \
+'{ "txnFilter" : { "TxnFilterBBoxLatLon" : { "south" : 34, "west": -28, "north": 72, "east": 56 } } }'
+
+Txns size: 2
+
+Filter:
+  Txn Bounding Box 2D
+    North, East: geo:72,56
+    South, West: geo:34,-28
+
+
+BALANCE
+-------
+                 0.00      7.50 €  Expenses
+                 7.50      7.50 €  Expenses:Ice_cream
+=======================
+                 7.50 €
+
+Filter:
+  Txn Bounding Box 2D
+    North, East: geo:72,56
+    South, West: geo:34,-28
+
+
+REGISTER
+--------
+2019-05-01Z 'Ice cream at Helsinki's market square
+            # location: geo:60.167,24.955,5
+            Expenses:Ice_cream                             2.50               2.50 €
+------------------------------------------------------------------------------------
+2019-05-02Z 'Surreal ice cream at Miro Museum
+            # location: geo:41.368611,2.16
+            Expenses:Ice_cream                             5.00               7.50 €
+------------------------------------------------------------------------------------
+....
+
+
+=== Any ice cream in Japan?
+
+
+....
+bin/report.sh --api-filter-def \
+'{ "txnFilter" : { "TxnFilterBBoxLatLon" : { "south" : 25, "west": 126, "north": 47, "east": 151 } } }'
+
+Txns size: 1
+
+Filter:
+  Txn Bounding Box 2D
+    North, East: geo:47,151
+    South, West: geo:25,126
+
+
+BALANCE
+-------
+                 0.00      800.00 ¥  Expenses
+               800.00      800.00 ¥  Expenses:Ice_cream
+=======================
+               800.00 ¥
+
+Filter:
+  Txn Bounding Box 2D
+    North, East: geo:47,151
+    South, West: geo:25,126
+
+
+REGISTER
+--------
+2019-05-03Z 'Matcha ice cream!
+            # location: geo:35.7101,139.8107
+            Expenses:Ice_cream                           800.00             800.00 ¥
+------------------------------------------------------------------------------------
+....
+
+
+=== All transactions with geo location
+
+
+Last of our queries is a special one. Bounding box is defined covering whole Earth
+so that all geo location transactions are included into reports.
+Transactions without geo location are left outside of these reports.
+
+....
+bin/report.sh --api-filter-def \
+'{ "txnFilter" : { "TxnFilterBBoxLatLon" : { "south" : -90, "west": -180, "north": 90, "east": 180 } } }'
+
+Txns size: 3
+
+Filter:
+  Txn Bounding Box 2D
+    North, East: geo:90,180
+    South, West: geo:-90,-180
+
+
+BALANCE
+-------
+                 0.00      800.00 ¥  Expenses
+               800.00      800.00 ¥  Expenses:Ice_cream
+                 0.00        7.50 €  Expenses
+                 7.50        7.50 €  Expenses:Ice_cream
+=======================
+               800.00 ¥
+                 7.50 €
+
+Filter:
+  Txn Bounding Box 2D
+    North, East: geo:90,180
+    South, West: geo:-90,-180
+
+
+REGISTER
+--------
+2019-05-01Z 'Ice cream at Helsinki's market square
+            # location: geo:60.167,24.955,5
+            Expenses:Ice_cream                             2.50               2.50 €
+------------------------------------------------------------------------------------
+2019-05-02Z 'Surreal ice cream at Miro Museum
+            # location: geo:41.368611,2.16
+            Expenses:Ice_cream                             5.00               7.50 €
+------------------------------------------------------------------------------------
+2019-05-03Z 'Matcha ice cream!
+            # location: geo:35.7101,139.8107
+            Expenses:Ice_cream                           800.00             800.00 ¥
+------------------------------------------------------------------------------------
+....
+
+
+Usage guide has xref:../usage.adoc#txn-filters-shell[multiple examples] how to use more conveniently
+xref:../txn-filters.adoc[transaction filters] from shell with `base64` ascii armor.

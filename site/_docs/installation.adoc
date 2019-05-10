@@ -1,6 +1,6 @@
 = Installation Manual
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-05-09 00:00:00 Z
 
 This is installation manual for tackler command line.
 
@@ -12,7 +12,7 @@ To use tackler cli you will need
 
 == Minimal setup
 
-For minimal initial installation you should follow xref:/docs/[Quickstart Guide].
+Minimal initial installation and setup is described in xref:quickstart.adoc[Quickstart Guide].
 
 
 === Minimal setup with account name validation (Chart of Accounts)

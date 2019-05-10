@@ -1,14 +1,15 @@
 = Quickstart
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-05-09 00:00:00 Z
 :page-permalink: /docs/quickstart/
 
 
-The minimum steps to create usable tackler setup is:
+Minimal tackler setup can be created by following four steps:
 
+.1. Create directory structure for demo setup
 ----
-# Create demo-setup
-mkdir -p tackler/txns
+mkdir tackler
+mkdir tackler/txns
 
 # Change current working directory to tackler demo folder
 cd tackler
@@ -20,8 +21,8 @@ cp /path/to/tackler-cli-x.y.z.jar ./tackler-cli.jar
 The journal data file (`txns/journal.txn`) can not be empty,
 hence we have to create some transactions to play with it.
 
+.2. Create some transactions
 ----
-# Create some transactions
 cat > txns/journal.txn << EOF
 2018-06-01 'First transaction
  Expenses:Ice_cream  2
@@ -36,17 +37,19 @@ EOF
 
 After these steps, content of tackler demo folder should be:
 
+.3. Verify setup
 ----
 ./tackler-cli.jar
 ./txns/
 ./txns/journal.txn
 ----
 
-With above setup, following command will generate balance and register reports
-by using default embedded configuration.
+With above setup we are ready to generate default reports based
+on tackler's embedded configuration.
 
+.4. Generate default Balance and Register reports
 ----
-# run inside tackler demo folder
+# This command must be run inside 'tackler' folder, which was created abobe
 java -jar ./tackler-cli.jar --accounts.strict=false
 
 # ... Log lines suppressed ...
@@ -81,8 +84,10 @@ REGISTER
 Total processing time: 1284, parse: 464, reporting: 80
 ----
 
+This minimal setup is based on default embedded configuration
+and tackler's auto-discovery mechanism for journal data.
+
 See xref:./journal/format.adoc[Journal Format],
 xref:./installation.adoc[Installation Manual]
 and xref:./usage.adoc[Usage Guide] how to
-configure and use tackler.
-
+further configure tackler and use it with more production like setup.

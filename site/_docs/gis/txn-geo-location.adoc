@@ -9,7 +9,8 @@ for reports or plot transactions on map. link:/docs/gis/#use-cases[Plaintext acc
 has ideas for some use cases.
 
 See xref:txn-geo-filters.adoc[Transaction Geo Filters]
-for information how to select transactions based on location data.
+for information how to select transactions based on location data
+and xref:example.adoc[Travel Journal with Geo Location] for full example of GIS data and reports.
 
 
 == Geo Location Syntax

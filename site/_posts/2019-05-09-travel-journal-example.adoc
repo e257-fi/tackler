@@ -1,0 +1,9 @@
+= Travel journal with Geo Location
+:page-date: 2019-05-09 00:00:00 +0300
+:page-author: 35vlg84
+:page-category: examples
+
+There is a new example how to combine plaintext accounting with geographic location information.
+
+
+Check out link:/docs/gis/example/[Travel journal and accounting statements of Ice Cream Spree] around the World.

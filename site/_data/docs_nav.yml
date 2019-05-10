@@ -38,6 +38,7 @@
 - title: Examples
   docs:
     - link: /docs/examples/trimix-filling-station/
+    - link: /docs/gis/example/
 
 - title: Embedding Tackler
   docs:
