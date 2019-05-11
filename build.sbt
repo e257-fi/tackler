@@ -118,6 +118,15 @@ lazy val core = (project in file("core")).
     antlr4GenVisitor in Antlr4 := false,
     antlr4TreatWarningsAsErrors in Antlr4 := true,
     antlr4PackageName in Antlr4 := Some("fi.e257.tackler.parser")
+  ).
+  settings(
+    libraryDependencies += betterFiles,
+    libraryDependencies += cats_core,
+    libraryDependencies ++= circe_deps,
+    libraryDependencies += typesafeConfig,
+    libraryDependencies += jgit,
+    libraryDependencies += scalatest % "test",
+    libraryDependencies ++= circe_deps_test,
   )
 
 lazy val cli = (project in file("cli")).
@@ -142,4 +151,14 @@ lazy val cli = (project in file("cli")).
     buildInfoPackage := "fi.e257.tackler.cli",
     buildInfoUsePackageAsPath := true,
     buildInfoObject := "BuildInfo"
+  ).
+  settings(
+    libraryDependencies += betterFiles,
+    libraryDependencies += logback,
+    libraryDependencies += scallop,
+    libraryDependencies += typesafeConfig,
+    libraryDependencies += logback,
+    libraryDependencies += scalatest % "test",
+    libraryDependencies += dirsuite % "test"
   )
+
