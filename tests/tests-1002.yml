@@ -95,15 +95,19 @@ features:
           - test:
               id: ce2e6523-ee83-46e7-a767-441c5b9f2802
               name: TacklerTxnsGitTest
-              desc: "handle ref with 1E3 txns"
+              desc: "handled ref with 10 (1E1) txns"
           - test:
               id: 074f5549-346c-4780-90a1-07d60ae0e79d
               name: TacklerTxnsGitTest
-              desc: "handle ref with 1E5 txns"
+              desc: "handled ref with 100_000 (1E5) txns"
           - test:
               id: fae31eb0-bd4a-483e-9eb7-9e4c36e7f785
               name: TacklerTxnsGitTest
-              desc: "survive looping"
+              desc: "made 10000 loops with txns-1E1"
+          - test:
+              id: 33d85471-a04c-49b9-b7a0-9d7f7f5762eb
+              name: TacklerTxnsGitTest
+              desc: "made 10 loops with txns-1E5"
           - test:
               id: c2f39ef7-c085-4ff4-af4d-85a50d0ee203
               name: tests/core/ok/git-utf8-01.exec

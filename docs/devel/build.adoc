@@ -12,14 +12,18 @@ link:https://gitlab.com/e257/accounting/tackler[GitLab / E257 / Accounting / Tac
 == Building and testing
 
 ----
-LC_ALL=C.UTF-8 sbt clean test it:test
+LC_ALL=C.UTF-8 sbt clean compile
 ----
 
 === Running tests
 
+----
+LC_ALL=C.UTF-8 sbt test it:test
+----
+
 Some of the integration tests generate lots of output or take several minutes run.
 
-Especially `cli/it:test` generates lots of output and `core/it:test` takes long time to run.
+Especially `cli/it:test` generates lots of output and `core/it:test` takes few minutes to run.
 
 It might be helpful to run tests selectively, especially in case of errors:
 
@@ -34,8 +38,8 @@ Start `LC_ALL=C.UTF-8 sbt` and run on sbt shell:
 
 ==== Running integration tests
 
-You could run integration tests all at once (`core/it:test` and `cli/it:test`) or step-by-step.
-cli intergration tests (Dirsuite-tests) will generate supstantial amount of output.
+You could run integration tests all at once (`core/it:test`, `cli/it:test`)
+or by step-by-step. `core/it:test` contains some performance tests.
 
 ----
 > core/it:test
@@ -47,13 +51,14 @@ cli intergration tests (Dirsuite-tests) will generate supstantial amount of outp
 
 == Generating binaries
 
- sbt cli/assembly
-
+----
+sbt cli/assembly
+----
 
 == Code coverage
 
 ----
-LC_ALL=C.UTF-8 sbt clean coveraOn test coverageAggregate
+LC_ALL=C.UTF-8 sbt clean coverage test it:test && sbt coverageAggregate
 ----
 
 == IntelliJ
