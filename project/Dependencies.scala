@@ -48,7 +48,7 @@ object Dependencies {
 
   val circe_deps_test = Seq(
     "io.circe" %% "circe-optics"
-  ).map(_ % circeOpticsVersion % "test")
+  ).map(_ % circeOpticsVersion % "it,test")
 
   val scalatest = "org.scalatest" %% "scalatest" % scalatestVersion
   val scallop = "org.rogach" %% "scallop" % scallopVersion

@@ -12,29 +12,36 @@ link:https://gitlab.com/e257/accounting/tackler[GitLab / E257 / Accounting / Tac
 == Building and testing
 
 ----
-LC_ALL=C.UTF-8 sbt clean test
+LC_ALL=C.UTF-8 sbt clean test it:test
 ----
 
 === Running tests
 
-Some of the tests generate lots of output,
-especially `cli/test` (and especially `fi.e257.tackler.cli.Dirsuite*` tests).
+Some of the integration tests generate lots of output or take several minutes run.
+
+Especially `cli/it:test` generates lots of output and `core/it:test` takes long time to run.
+
 It might be helpful to run tests selectively, especially in case of errors:
 
-Start `sbt` and run on sbt shell:
+Start `LC_ALL=C.UTF-8 sbt` and run on sbt shell:
 
 ....
 > apiJVM/test
 > core/test
+> cli/test
 ....
 
-For cli tests you could run all at once (`cli/test`), or step-by-step. Last test target, 
-Dirsuite-tests will generate supstantial amount of output.
+
+==== Running integration tests
+
+You could run integration tests all at once (`core/it:test` and `cli/it:test`) or step-by-step.
+cli intergration tests (Dirsuite-tests) will generate supstantial amount of output.
 
 ----
-> cli/testOnly fi.e257.tackler.cli.BuildInfoTest
-> cli/testOnly fi.e257.tackler.cli.TacklerCli*
-> cli/testOnly fi.e257.tackler.cli.Dirsuite*
+> core/it:test
+> cli/it:test
+# or select wanted Dirsuite
+> cli/it:testOnly fi.e257.tackler.cli.Dirsuite...
 ----
 
 
@@ -45,9 +52,9 @@ Dirsuite-tests will generate supstantial amount of output.
 
 == Code coverage
 
- sbt clean coveraOn test coverateReport
- sbt coverageAggregate
-
+----
+LC_ALL=C.UTF-8 sbt clean coveraOn test coverageAggregate
+----
 
 == IntelliJ
 

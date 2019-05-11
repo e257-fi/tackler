@@ -234,7 +234,7 @@ object TacklerCli {
 
       case org.rogach.scallop.exceptions.Version =>
         // do not report success
-        Console.out.println("Version: " + BuildInfo.version + " [" + BuildInfo.builtAtString + "]")
+        Console.out.println("Version: " + BuildInfo.version)
         FAILURE
 
       case _: org.rogach.scallop.exceptions.ScallopException =>

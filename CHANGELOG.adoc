@@ -29,7 +29,8 @@ Updated deps and tools:
  * Dependencies
  ** ...
  * Build
- ** ...
+ ** sbt-scoverage: 1.6.0-RC1
+ ** sbt-coveralls: drop
  * Tests
  ** ...
 

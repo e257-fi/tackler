@@ -20,7 +20,7 @@ test·jdk11:
   stage: "test"
 
   script:
-    - sbt clean test
+    - sbt clean test it:test
 
 
 test·jdk8:
@@ -32,7 +32,7 @@ test·jdk8:
   stage: "test"
 
   script:
-    - sbt clean coverageOn test coverageReport
+    - sbt clean coverage test it:test
     - sbt coverageAggregate
 
   coverage: '/All done. Coverage was \[\d+.\d+%\]/'

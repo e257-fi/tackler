@@ -109,6 +109,8 @@ lazy val apiJS = api.js
 lazy val core = (project in file("core")).
   dependsOn(apiJVM).
   enablePlugins(Antlr4Plugin).
+  configs(IntegrationTest).
+  settings(Defaults.itSettings).
   settings(commonSettings: _*).
   settings(
     name := "tackler-core",
@@ -125,19 +127,23 @@ lazy val core = (project in file("core")).
     libraryDependencies ++= circe_deps,
     libraryDependencies += typesafeConfig,
     libraryDependencies += jgit,
-    libraryDependencies += scalatest % "test",
+    libraryDependencies += scalatest % "it,test",
     libraryDependencies ++= circe_deps_test,
   )
+
 
 lazy val cli = (project in file("cli")).
   enablePlugins(BuildInfoPlugin).
   dependsOn(core).
+  configs(IntegrationTest).
+  settings(Defaults.itSettings).
   settings(noPublishSettings).
   settings(commonSettings: _*).
   settings(
     fork := true,
     Test / baseDirectory := file((Test / baseDirectory).value + "/.."),
-    Test / testOptions += {
+    IntegrationTest / baseDirectory := (Test / baseDirectory).value,
+    IntegrationTest / testOptions += {
       // The evaluation of `streams` inside an anonymous function is prohibited.
       // https://github.com/sbt/sbt/issues/3266
       // https://github.com/jeffwilde/sbt-dynamodb/commit/109ea03837b1c1b4f45723c200d7aa5c34bb6e8b
@@ -147,7 +153,10 @@ lazy val cli = (project in file("cli")).
     assembly / test := {},
     assemblyJarName in assembly := "tackler-cli" + "-" + version.value + ".jar",
     buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
-    buildInfoOptions += BuildInfoOption.BuildTime,
+    // Do not enable BuildInfoOption.BuildTime, it breaks coverage analysis of test + it:test
+    // targets because it causes recompilation, which in turn causes scoverage to clear instrumentation cache
+    // https://github.com/scoverage/sbt-scoverage/issues/277
+    // BuildInfo.BuildTime is also more hashle than what it is worth -> remove it altogether
     buildInfoPackage := "fi.e257.tackler.cli",
     buildInfoUsePackageAsPath := true,
     buildInfoObject := "BuildInfo"
@@ -158,7 +167,7 @@ lazy val cli = (project in file("cli")).
     libraryDependencies += scallop,
     libraryDependencies += typesafeConfig,
     libraryDependencies += logback,
-    libraryDependencies += scalatest % "test",
-    libraryDependencies += dirsuite % "test"
+    libraryDependencies += scalatest % "it,test",
+    libraryDependencies += dirsuite % "it,test"
   )
 

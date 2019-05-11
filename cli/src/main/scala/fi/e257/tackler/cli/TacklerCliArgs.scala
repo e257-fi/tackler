@@ -61,7 +61,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
     ConfigFactory.parseMap(JavaConverters.mapAsJavaMap(optsAsMap))
   }
 
-  version("Version: " + BuildInfo.version + " [" + BuildInfo.builtAtString + "]")
+  version("Version: " + BuildInfo.version)
 
   /**
    * Pure CLI-args (e.g. these don't have a setting in Config)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,6 @@ class BuildInfoTest extends FlatSpec {
 
   behavior of "BuildInfo"
 
-  it should "builtAtString" in {
-    assert(BuildInfo.builtAtString.startsWith("20"))
-  }
-
   it should "scalaVersion" in {
     assert(BuildInfo.scalaVersion.startsWith("2.12.8"))
   }
@@ -36,10 +32,6 @@ class BuildInfoTest extends FlatSpec {
 
   it should "sbtVersion" in {
     assert(BuildInfo.sbtVersion.startsWith("1.2.8"))
-  }
-
-  it should "builtAtMillis" in {
-    assert(BuildInfo.builtAtMillis > 1547830076000L)
   }
 
   it should "toString" in {

@@ -15,8 +15,8 @@ see xref:../../CONTRIBUTING.adoc[Contributor's Guide].
 
 Documentation for external systems, see:
 
- * xref:../server-api.adoc[Server API]
- * xref:../client-api.adoc[Client API]
+ * link:https://tackler.e257.fi/docs/server-api/[Server API]
+ * link:https://tackler.e257.fi/docs/client-api/[Client API]
 
 
 
