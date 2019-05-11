@@ -20,7 +20,7 @@ import java.nio.file.{Files, NoSuchFileException, Path, Paths}
 import java.util.regex.PatternSyntaxException
 
 import better.files._
-import fi.e257.tackler.core.{AccountException, CommodityException, GroupByException, ReportException, TacklerException, TxnException}
+import fi.e257.tackler.core.{AccountException, CommodityException, ConfigurationException, GroupByException, ReportException, TacklerException, TxnException}
 import fi.e257.tackler.parser.TacklerParseException
 import fi.e257.testing.{DirSuiteLike, Glob}
 import org.rogach.scallop.exceptions.{ExcessArguments, RequiredOptionNotFound, UnknownOption, ValidationFailure}
@@ -88,6 +88,13 @@ class DirsuiteAllExceptionsTest extends DirSuiteLike {
  */
 class DirsuiteExceptionsTest extends DirSuiteLike {
   val basedir = Paths.get("tests")
+
+
+  runDirSuiteTestCases(basedir, Glob("cli/ex/ConfigurationException-*.exec")) { args: Array[String] =>
+    assertThrows[ConfigurationException] {
+      TacklerCli.runExceptions(args)
+    }
+  }
 
   runDirSuiteTestCases(basedir, Glob("cli/ex/NoSuchFileException-*.exec")) { args: Array[String] =>
     assertThrows[NoSuchFileException] {

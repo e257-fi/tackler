@@ -149,7 +149,17 @@ object Settings {
   def apply(cfgPath: Path, initialConfig: Config): Settings = {
 
     File(cfgPath).verifiedExists(File.LinkOptions.follow) match {
-      case Some(true) => new Settings(Some(cfgPath), initialConfig)
+      case Some(true) => {
+        try {
+          new Settings(Some(cfgPath), initialConfig)
+        } catch {
+          case ex: com.typesafe.config.ConfigException => {
+            val msg = "CFG: error: " + ex.getMessage
+            log.error(msg)
+            throw  new ConfigurationException(msg)
+          }
+        }
+      }
       case _ => {
         log.error("CFG: Configuration file is not found or it is not readable: [" + cfgPath.toString + "]")
         log.warn("CFG: Settings will NOT use configuration file, only provided and embedded configuration will be used")
@@ -177,7 +187,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
 
   val cfg: Config = optPath match {
     case Some(path) => {
-      log.info("CFG: Loading configuration by file {}", path.toString)
+      log.info("CFG: using file: {}", path.toString)
 
       providedConfig
         .withFallback(ConfigFactory.parseFile(path.toFile).getConfig(cfgBasename))

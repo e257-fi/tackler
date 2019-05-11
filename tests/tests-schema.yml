@@ -11,6 +11,12 @@ mapping:
             mapping:
               id: { type: str }
               parent: { type: str }
+              parents:
+                type: seq
+                sequence:
+                  - type: map
+                    mapping:
+                      parent: { type: str }
               subject: { type: str }
               tests:
                 type: map

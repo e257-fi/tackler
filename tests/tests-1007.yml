@@ -5,7 +5,9 @@ features:
 
   - feature:
       id: ed1537a5-494c-4a86-b65c-d2a010297d17
-      parent: 6278f9b8-3f98-4926-aa21-d660e03a34e0
+      parents:
+        - parent: 6278f9b8-3f98-4926-aa21-d660e03a34e0
+        - parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "configuration settings for audit hash function"
       tests:
         errors:
@@ -63,7 +65,7 @@ features:
               id: 0e76295f-aee6-47bc-ae6f-7fba5ce6d818
               name: TxnDataTest
               descriptions:
-                - desc: "Uppercase txn UUIDs resul same txn set checksum as lowercase"
+                - desc: "Uppercase txn UUIDs result same txn set checksum as lowercase"
                 - desc: "reports correct checksum after multiple filtering steps"
 
           - test:

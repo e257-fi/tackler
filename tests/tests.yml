@@ -154,9 +154,23 @@ features:
               references:
                 - ref: identity
 
+###
+### Configuration settings
+###
+  - feature:
+      id: 75b0fc6d-0af7-4244-b8df-e99019678818
+      subject: "Setup by configuration"
+      tests:
+        errors:
+          - error:
+              id: c096f7a8-a87c-4b3c-ad37-b860775597a0
+              name: cli/ex/ConfigurationException-empty-conf.exec
+              desc: "Existing cfg-file, empty content"
+
 ### conf: timezone
   - feature:
       id: b01b4c9b-ebb9-4e38-b910-fb932374057c
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: timezone"
       tests:
         operations:
@@ -178,6 +192,7 @@ features:
 ### conf: basedir
   - feature:
       id: 4d7f9feb-2d2f-4c50-b195-60b024bc9999
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: basedir"
       tests:
         operations:
@@ -187,6 +202,7 @@ features:
 ### conf: input.txn
   - feature:
       id: b3f82d40-1e18-4457-8050-61759a0c0cac
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: input.fs.dir"
       tests:
         errors:
@@ -200,6 +216,7 @@ features:
 
   - feature:
       id: cf543686-e36f-4f5f-91ed-06498e37c4bb
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: input.fs.glob"
       tests:
         operations:
@@ -209,6 +226,7 @@ features:
 ### conf: reporting.
   - feature:
       id: 048dca18-eba8-4875-baa5-524ff8c8f903
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reporting.reports"
       tests:
         operations:
@@ -219,6 +237,7 @@ features:
 
   - feature:
       id: 57cd42b2-7319-42dd-a0be-809927f66bdd
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reporting.formats"
       tests:
         operations:
@@ -235,6 +254,7 @@ features:
 
   - feature:
       id: 4f83e4ad-4bc9-46a1-9f1e-b4863e8a2839
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reporting.accounts"
       tests:
         operations:
@@ -251,6 +271,7 @@ features:
 
   - feature:
       id: ebc16b71-b5df-46f7-bba6-e0d9ac37d6ee
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reporting.console"
       tests:
         operations:
@@ -273,6 +294,7 @@ features:
 ### conf: reports.balance
   - feature:
       id: 9f348a4c-7d6d-4c64-8f67-da34b63b916a
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.balance.title"
       tests:
         operations:
@@ -281,6 +303,7 @@ features:
 
   - feature:
       id: 8aa7e91d-b738-44af-af72-4ef160e1f87f
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.balance.accounts"
       tests:
         operations:
@@ -290,6 +313,7 @@ features:
 ### conf reports.balance-group
   - feature:
       id: c7e846f8-ba22-47be-9e02-c76badc42a65
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.balance-group.title"
       tests:
         operations:
@@ -298,6 +322,7 @@ features:
 
   - feature:
       id: 33ba3703-7232-4974-8e5d-23b567413bcd
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.balance-group.accounts"
       tests:
         operations:
@@ -306,6 +331,7 @@ features:
 
   - feature:
       id: 1957610a-5ea2-4582-8114-e6fe87986adf
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.balance-group.group-by"
       tests:
         errors:
@@ -326,6 +352,7 @@ features:
 ### conf: reports.register
   - feature:
       id: 11eaf2b4-b55c-4bb0-bd63-8de82aed62a9
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.register.title"
       tests:
         operations:
@@ -334,6 +361,7 @@ features:
 
   - feature:
       id: a65cc023-93e3-4b19-a9aa-9a35f590bea7
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: reports.register.accounts"
       tests:
         operations:
@@ -343,6 +371,7 @@ features:
 ### conf: accounts
   - feature:
       id: acfee245-078c-45c6-8a87-e3d47598a3ef
+      parent: 75b0fc6d-0af7-4244-b8df-e99019678818
       subject: "conf: accounts.strict"
       tests:
         operations:

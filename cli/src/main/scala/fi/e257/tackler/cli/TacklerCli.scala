@@ -217,7 +217,7 @@ object TacklerCli {
         new OutputStreamWriter(Console.err, StandardCharsets.UTF_8))
 
       con.write(msg)
-      con.write("\n")
+      con.write("\n\n")
       con.flush()
       con.write("Error while running Tackler, see above for reason.\n")
       con.flush()
@@ -241,26 +241,39 @@ object TacklerCli {
         // Error message is already printed by CliArgs
         FAILURE
 
+      case ex: ConfigurationException =>
+        val msg = "" +
+          "Error: \n" +
+          "   Invalid tackler configuration\n" +
+          "   message: " + ex.getMessage
+        reportFailure(msg)
+
       case ex: NoSuchFileException =>
-        val msg="Error: File not found: " + ex.getMessage
+        val msg = "" +
+          "Error: \n" +
+          "   File not found\n" +
+          "   message: " + ex.getMessage
         reportFailure(msg)
 
       case ex: java.util.regex.PatternSyntaxException =>
-        val msg = "Error: regexp syntax error: " + ex.getMessage
+        val msg = "" +
+          "Error: \n" +
+          "   Syntax error with regular expression\n" +
+          "   message: " + ex.getMessage
         reportFailure(msg)
 
       case ex: TacklerParseException =>
         val msg = "" +
           "Exception: \n" +
           "   class: " + ex.getClass.toString + "\n" +
-          "   msg: " + ex.getMessage + "\n"
+          "   message: " + ex.getMessage
         reportFailure(msg)
 
       case ex: TacklerException =>
         val msg = "" +
           "Exception: \n" +
           "   class: " + ex.getClass.toString + "\n" +
-          "   msg: " + ex.getMessage + "\n"
+          "   message: " + ex.getMessage
         reportFailure(msg)
     }
   }
