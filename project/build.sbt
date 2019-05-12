@@ -19,6 +19,6 @@
 
 scalaVersion := "2.12.8"
 
-libraryDependencies += "com.github.pathikrit" %% "better-files" % "3.7.0"
+libraryDependencies += "com.github.pathikrit" %% "better-files" % "3.8.0"
 libraryDependencies += "com.typesafe" % "config" % "1.3.4"
 

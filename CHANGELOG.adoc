@@ -13,6 +13,9 @@ Current published release is:
 
 New features and changes in this release:
 
+ * Update better-files to 3.8.0
+ ** 3.8.0 is not binary compatible with
+    link:https://github.com/pathikrit/better-files/issues/301[better-files 3.7.0]
  * ...
  ** ...
 
@@ -27,12 +30,13 @@ Fixes in this release: None
 Updated deps and tools:
 
  * Dependencies
- ** ...
+ ** better-files: 3.8.0
  * Build
- ** sbt-scoverage: 1.6.0-RC1
  ** sbt-coveralls: drop
+ ** sbt-scoverage: 1.6.0-RC1
+ ** sbt-wartremover: 2.4.2
  * Tests
- ** ...
+ ** dirsuite: 0.30.0
 
 
 
