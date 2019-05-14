@@ -52,8 +52,8 @@ features:
               refid: 1d731709-1e85-4fe6-b209-aad46cca5551
               desc: shard with non-matching files
           - test:
-              id: tests/core/ok/shard-glob-01.exec
-              name: b6dee458-ac8a-461b-a3a3-e598f85d869c
+              id: b6dee458-ac8a-461b-a3a3-e598f85d869c
+              name: tests/core/ok/shard-glob-01.exec
               descriptions:
                 - desc: "testing effective glob (it could be something else than *.txn)"
               references:

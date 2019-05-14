@@ -1,16 +1,16 @@
 #!/bin/bash
 # vim: tabstop=4 shiftwidth=4 softtabstop=4 smarttab expandtab autoindent
 #
-# This tool checks meta information of tests
+# This is a tool to check T3DB and test records
 #
 # Included checks are:
-# - check syntax of test-db (tests.yaml)
-# - check duplicate test-ids (test-db)
-# - check refid's targets 
-# - check test with missing id
-# - check duplicate id's in test-vectors (exec-files)
-# - check that all tests are recorded in test-db
-# - check that all JSON is valid (references and output)
+# - Check tests for missing ids (exec-files):
+# - Check tests for duplicate ids (scalatest + exec-files):
+# - Check T3DB YAML validity:
+# - Check T3DB for duplicate test ids:
+# - Check T3DB for non-exist refids:
+# - Cross check T3DB and tests ids:
+# - Check JSON validity:
 #
 sh_pykwalify=pykwalify
 
@@ -35,43 +35,78 @@ T3DBs="$t3db_00 $t3db_01 $t3db_02 $t3db_04 $t3db_05 $t3db_06 $t3db_07 $t3db_08 $
 
 get_t3db_content () {
 
-    egrep -v '^[[:space:]]*#' $T3DBs
+    egrep -hv '^[[:space:]]*#' $T3DBs
 }
 
-echo "Check test DB YAML validity:"
+get_t3db_test_ids () {
+    get_t3db_content | egrep -A1 ' (error|test):' | egrep '[[:space:]]+id:' | sed -E 's/[[:space:]]+id: +//'
+}
+
+get_test_ids () {
+
+    # exec-based tests
+    find "$exe_dir" -name '*.exec' |\
+        xargs grep 'test:uuid:' |\
+        sed -E 's/.*test:uuid: +//'
+
+    # unit and integration tests
+    find "$exe_dir/../api/src/" "$exe_dir/../core/src/" "$exe_dir/../cli/src/" -name '*.scala' |\
+        xargs egrep -h '\* +test: +[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+ *' |\
+        sed -E 's/ +\* +test: +//'
+}
+
+echo "Check tests for missing ids (exec-files):"
+$exe_dir/find-missing.sh
+
+# this is already checked by diff, but print dups again here
+echo "Check tests for duplicate ids (scalatest + exec-files):"
+get_test_ids | sort | uniq -d
+
+
+echo "Check T3DB YAML validity:"
 for test_db in $T3DBs
 do
     $sh_pykwalify -v -s  "$exe_dir/tests-schema.yml" -d  "$test_db"
 done
 
-get_t3db_content | grep ' id:' | sed 's/.*id: //' | sort | uniq -d
+echo "Check T3DB for duplicate test ids:"
+get_t3db_test_ids | sort | uniq -d
 
-
+echo "Check T3DB for non-exist refids:"
 get_t3db_content | grep ' refid:' | sed 's/.*refid: //' | while read refid;
 do  
     egrep -q -L '.* id: +'$refid' *$' $T3DBs || echo $refid
 done
 
-echo "Check missing uuid:"
-$exe_dir/find-missing.sh
 
-echo "Check for duplicates:"
-find "$exe_dir" -name '*.exec' | xargs sed -n 's/.*test:uuid: \(.*\)/\1/p' | sort | uniq -d
+echo "Cross check T3DB and tests ids:"
 
-echo "Check tests with missing test-db records:"
-lonelies=$(mktemp /tmp/exists-no-test-db.XXXXXX)
-trap "rm -f $lonelies" 0
+t3db_id_lst=$(mktemp /tmp/t3db_id_lst.XXXXXX)
+trap "rm -f $t3db_id_lst" 0
+test_id_lst=$(mktemp /tmp/test_id_lst.XXXXXX)
+trap "rm -f $test_id_lst" 0
 
-find "$exe_dir" -name '*.exec' |\
-    xargs grep 'test:uuid:' |\
-    sed 's/.*test:uuid: //' |\
-    while read uuid; do
-        echo "$(grep -c $uuid $T3DBs): $uuid"
-    done |\
-    grep '^0:' |\
-    sed 's/^0: //' > $lonelies
+get_t3db_test_ids | sort > $t3db_id_lst
+get_test_ids | sort > $test_id_lst
 
-find . -name '*.exec' | xargs grep -f $lonelies -l
+diff -u $t3db_id_lst $test_id_lst | grep -v -- '---' | grep '^-' |\
+    while read raw_uuid; do
+        uuid=$(echo $raw_uuid | sed 's/^-//')
+        echo "In T3DB, no test: $(echo $uuid | sed 's/^-//')"
+        grep $uuid $T3DBs
+    done
+
+diff -u $t3db_id_lst $test_id_lst | grep -v '+++' | grep '^\+' |\
+    while read raw_uuid; do
+        uuid=$(echo $raw_uuid | sed 's/^+//')
+        echo "In test, no T3DB: $uuid"
+        (
+            find $exe_dir/ -name '*.exec'
+            find $exe_dir/../api/src/ $exe_dir/../core/src/ $exe_dir/../cli/src/ -type f
+        ) | xargs grep $uuid
+    done
+
+
 
 echo "Check JSON validity:"
 find "$exe_dir" -name '*.json' -exec "$exe_dir/json_lint.py" {} \;
