@@ -155,4 +155,36 @@ class TacklerCliArgsTest extends FunSpec {
       }
     }
   }
+  describe("fs.glob") {
+
+    /**
+     * test: 7d4984c7-633f-4403-a2b7-5ea0cd4f07e8
+     */
+    it("err: git.ref") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.fs.glob", "**.txn", "--input.git.ref", "ref"))
+      }
+    }
+
+    /**
+     * test: 6ec6431e-a443-4633-8f26-df3218a8657c
+     */
+    it("err: git.commit") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.fs.glob", "**.txn", "--input.git.commit", "id"))
+      }
+    }
+
+    /**
+     * test: f150df09-dd9b-4240-9191-df1029c698e9
+     */
+    it("err: git.dir") {
+      assertThrows[ValidationFailure] {
+        TacklerCli.runExceptions(
+          Array[String]("--input.fs.glob", "**.txn", "--input.git.dir", "path/to/dir"))
+      }
+    }
+  }
 }
