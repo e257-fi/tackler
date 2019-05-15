@@ -1,5 +1,5 @@
 # format: exec
-# test:uuid: fd2e49c0-bb60-4f5b-8ddd-f3745fcc6015
+# test: fd2e49c0-bb60-4f5b-8ddd-f3745fcc6015
 #
 # Follow / Sandwitch error txn with ok
 # txn. If code is too eager, it will resync

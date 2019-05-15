@@ -1,5 +1,5 @@
 # format: exec
-# test:uuid: f8c0fe2b-f189-4338-b75e-3c8e68a8c7e2
+# test: f8c0fe2b-f189-4338-b75e-3c8e68a8c7e2
 # desc: use audit settings with FS input storage
 # desc: each report has different account selector
 exec:--cfg;tests/audit/fs-audit.conf;--output;out.audit-1E1-02;

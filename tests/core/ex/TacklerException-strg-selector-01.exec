@@ -1,4 +1,4 @@
 # format: exec
-# test:uuid: 9c9b341f-2ffe-4cad-8c24-174334e39a17
+# test: 9c9b341f-2ffe-4cad-8c24-174334e39a17
 # desc: unknown storage type from command line
 exec:--cfg;tests/core/git-ok.conf;--input.storage;boo;

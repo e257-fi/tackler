@@ -1,5 +1,5 @@
 # format: exec
-# test:uuid: c7d115a7-664c-479d-8bf4-c1a85a06d5ba
+# test: c7d115a7-664c-479d-8bf4-c1a85a06d5ba
 # desc: This is also testing equite else-branch when there is no uuid with last txn
 exec:--cfg;tests/commodity/ok.conf;--input.file;basic-03.txn;--output;out.basic-03-02-step1;
 #

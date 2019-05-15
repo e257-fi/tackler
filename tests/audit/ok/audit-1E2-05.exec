@@ -1,4 +1,4 @@
 # format: exec
-# test:uuid: 7a887956-a350-4663-9638-715bfa3c9040
+# test: 7a887956-a350-4663-9638-715bfa3c9040
 # desc: metadata: subset by filter, non-matching regex account selector e.g. empty reports
 exec:--cfg;tests/audit/audit.conf;--reporting.console;off;--input.git.ref;txns-1E2;--output;out.audit-1E2-05;--reporting.accounts;none-matching;--api-filter-def;{ "txnFilter": { "TxnFilterTxnDescription": { "regex": "1E2 txn-(1|17|100)" }}};

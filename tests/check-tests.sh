@@ -9,6 +9,7 @@
 # - Check T3DB YAML validity:
 # - Check T3DB for duplicate test ids:
 # - Check T3DB for non-exist refids:
+# - Check T3DB for non-exist parents:
 # - Cross check T3DB and tests ids:
 # - Check JSON validity:
 #
@@ -33,9 +34,14 @@ t3db_10="$db_dir/tests-1010.yml"
 
 T3DBs="$t3db_00 $t3db_01 $t3db_02 $t3db_04 $t3db_05 $t3db_06 $t3db_07 $t3db_08 $t3db_09 $t3db_10"
 
-get_t3db_content () {
+rgx_test=' +test: +[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+ *$'
 
+get_t3db_content () {
     egrep -hv '^[[:space:]]*#' $T3DBs
+}
+
+get_t3db_feature_ids () {
+    get_t3db_content | egrep -A1 ' feature:' | egrep '[[:space:]]+id:' | sed -E 's/[[:space:]]+id: +//'
 }
 
 get_t3db_test_ids () {
@@ -43,20 +49,34 @@ get_t3db_test_ids () {
 }
 
 get_test_ids () {
+    (
+        # exec-based tests
+        find "$exe_dir" -name '*.exec' |\
+            xargs egrep -h '^#'"$rgx_test"
 
-    # exec-based tests
-    find "$exe_dir" -name '*.exec' |\
-        xargs grep 'test:uuid:' |\
-        sed -E 's/.*test:uuid: +//'
-
-    # unit and integration tests
-    find "$exe_dir/../api/src/" "$exe_dir/../core/src/" "$exe_dir/../cli/src/" -name '*.scala' |\
-        xargs egrep -h '\* +test: +[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+ *' |\
-        sed -E 's/ +\* +test: +//'
+        # unit and integration tests
+        find "$exe_dir/../api/src/" "$exe_dir/../core/src/" "$exe_dir/../cli/src/" -name '*.scala' |\
+            xargs egrep -h '\*'"$rgx_test"
+    )|\
+        sed -E 's/ +\* +test: +//' |\
+        sed -E 's/^# +test: +//'
 }
 
+t3db_feature_id_lst=$(mktemp /tmp/t3db_feature_lst.XXXXXX)
+trap "rm -f $t3db_feature_id_lst" 0
+
+t3db_id_lst=$(mktemp /tmp/t3db_id_lst.XXXXXX)
+trap "rm -f $t3db_id_lst" 0
+
+test_id_lst=$(mktemp /tmp/test_id_lst.XXXXXX)
+trap "rm -f $test_id_lst" 0
+
+get_t3db_feature_ids | sort > $t3db_feature_id_lst
+get_t3db_test_ids | sort > $t3db_id_lst
+get_test_ids | sort > $test_id_lst
+
 echo "Check tests for missing ids (exec-files):"
-$exe_dir/find-missing.sh
+find "$exe_dir" -name '*.exec' | xargs egrep '#'"$rgx_test" -L
 
 # this is already checked by diff, but print dups again here
 echo "Check tests for duplicate ids (scalatest + exec-files):"
@@ -70,24 +90,21 @@ do
 done
 
 echo "Check T3DB for duplicate test ids:"
-get_t3db_test_ids | sort | uniq -d
+cat $t3db_id_lst | uniq -d
 
 echo "Check T3DB for non-exist refids:"
 get_t3db_content | grep ' refid:' | sed 's/.*refid: //' | while read refid;
-do  
-    egrep -q -L '.* id: +'$refid' *$' $T3DBs || echo $refid
+do
+    egrep -q -L "$refid" $t3db_id_lst || echo $refid
 done
 
+echo "Check T3DB for non-exist parents:"
+get_t3db_content | grep ' parent:' | sed 's/.*parent: //' | while read parent;
+do
+    egrep -q -L "$parent" $t3db_feature_id_lst || echo $parent
+done
 
 echo "Cross check T3DB and tests ids:"
-
-t3db_id_lst=$(mktemp /tmp/t3db_id_lst.XXXXXX)
-trap "rm -f $t3db_id_lst" 0
-test_id_lst=$(mktemp /tmp/test_id_lst.XXXXXX)
-trap "rm -f $test_id_lst" 0
-
-get_t3db_test_ids | sort > $t3db_id_lst
-get_test_ids | sort > $test_id_lst
 
 diff -u $t3db_id_lst $test_id_lst | grep -v -- '---' | grep '^-' |\
     while read raw_uuid; do
