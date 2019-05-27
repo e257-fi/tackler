@@ -37,6 +37,14 @@ object TacklerCli {
   val SUCCESS: Int = 0
   val FAILURE: Int = 127
 
+  def yesno(b: Boolean): String = { if (b) "Yes" else "No" }
+
+  def version() : String = {
+    s"""Version:  ${BuildInfo.version}
+       |Commit:   ${BuildInfo.gitCommit}
+       |Modified: ${yesno(BuildInfo.gitUncommittedChanges)}
+     """.stripMargin
+  }
 
   /**
    * Get CFG path either by optional arg, or if arg is not provided
@@ -234,7 +242,7 @@ object TacklerCli {
 
       case org.rogach.scallop.exceptions.Version =>
         // do not report success
-        Console.out.println("Version: " + BuildInfo.version)
+        Console.out.println(version())
         FAILURE
 
       case _: org.rogach.scallop.exceptions.ScallopException =>

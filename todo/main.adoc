@@ -2,8 +2,6 @@
 
 == Build + tools
 
- * Embedded proper GIT commit + dirty-state flag into build info
-
 
 == Machinery
 

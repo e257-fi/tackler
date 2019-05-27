@@ -16,6 +16,7 @@ New features and changes in this release:
  * Update better-files to 3.8.0
  ** 3.8.0 is not binary compatible with
     link:https://github.com/pathikrit/better-files/issues/301[better-files 3.7.0]
+ * CLI: Raport Git commit id and working copy state with version info for  `--help` and `--version` commands
  * ...
  ** ...
 
@@ -34,6 +35,7 @@ Updated deps and tools:
  ** scallop: 3.3.0
  * Build
  ** sbt-coveralls: drop
+ ** sbt-git: 1.0.0 (new)
  ** sbt-scoverage: 1.6.0-RC1
  ** sbt-wartremover: 2.4.2
  * Tests
