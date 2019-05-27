@@ -73,6 +73,11 @@ class TacklerCliArgsTest extends FunSpec {
       }
     }
 
+    it("checked yes-no for Modified-status") {
+      assert(TacklerCli.yesno(true) === "Yes")
+      assert(TacklerCli.yesno(false) === "No")
+    }
+
     it("reject unknown args") {
       assertThrows[UnknownOption] {
         TacklerCli.runExceptions(Array[String]("--not-an-argument"))

@@ -61,7 +61,9 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
     ConfigFactory.parseMap(JavaConverters.mapAsJavaMap(optsAsMap))
   }
 
-  version("Version: " + BuildInfo.version)
+  version(TacklerCli.version())
+
+  banner("Tackler CLI is accounting tool for text based double entry accounting.")
 
   /**
    * Pure CLI-args (e.g. these don't have a setting in Config)

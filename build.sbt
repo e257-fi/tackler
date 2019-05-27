@@ -131,6 +131,8 @@ lazy val core = (project in file("core")).
     libraryDependencies ++= circe_deps_test,
   )
 
+val gitCommitId = SettingKey[String]("gitCommit")
+val gitLocalChanges = SettingKey[Boolean]("gitUncommittedChanges")
 
 lazy val cli = (project in file("cli")).
   enablePlugins(BuildInfoPlugin).
@@ -152,7 +154,9 @@ lazy val cli = (project in file("cli")).
     },
     assembly / test := {},
     assemblyJarName in assembly := "tackler-cli" + "-" + version.value + ".jar",
-    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    gitCommitId := git.gitHeadCommit.value.getOrElse("Not available"),
+    gitLocalChanges := git.gitUncommittedChanges.value,
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion, gitCommitId, gitLocalChanges),
     // Do not enable BuildInfoOption.BuildTime, it breaks coverage analysis of test + it:test
     // targets because it causes recompilation, which in turn causes scoverage to clear instrumentation cache
     // https://github.com/scoverage/sbt-scoverage/issues/277
