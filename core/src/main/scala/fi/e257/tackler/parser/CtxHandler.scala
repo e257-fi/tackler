@@ -159,6 +159,17 @@ abstract class CtxHandler {
         Option(u.opt_position()).fold({
           (postAmount, false)
         }) { pos =>
+          Option(pos.opt_opening_pos()).foreach(opening_pos => {
+            val opening_price = handleAmount(opening_pos.amount())
+            if (opening_price < 0) {
+              val lineNro = postingCtx.start.getLine
+              val msg = "Error on line: " + lineNro.toString +
+                "; Unit cost '{ ... }' is negative"
+              log.error(msg)
+              throw new CommodityException(msg)
+            }
+          })
+
           Option(pos.closing_pos()).fold({
             // plain value, no closing position
             (postAmount, false)
@@ -166,18 +177,26 @@ abstract class CtxHandler {
             // Ok, we have closing position
             Option(cp.AT()).fold({
               // this is '=', e.g. total price
-              val total_price = handleAmount(cp.amount())
-              if ((total_price < 0 && 0 <= postAmount) || (postAmount < 0 && 0 <= total_price)) {
+              val total_cost = handleAmount(cp.amount())
+              if ((total_cost < 0 && 0 <= postAmount) || (postAmount < 0 && 0 <= total_cost)) {
                 val lineNro = postingCtx.start.getLine
                 val msg = "Error on line: " + lineNro.toString +
-                 "; Value position (total price) has different sign than primary posting value"
+                 "; Total cost '=' has different sign than primary posting value"
                 log.error(msg)
                 throw new CommodityException(msg)
               }
-              (total_price, true)
+              (total_cost, true)
             })(_ => {
               // this is '@', e.g. unit price
-              (postAmount * handleAmount(cp.amount()), false)
+              val unit_price = handleAmount(cp.amount())
+              if (unit_price < 0) {
+                val lineNro = postingCtx.start.getLine
+                val msg = "Error on line: " + lineNro.toString +
+                  "; Unit price '@' is negative"
+                log.error(msg)
+                throw new CommodityException(msg)
+              }
+              (postAmount * unit_price, false)
             })
           })
         }

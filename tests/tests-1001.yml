@@ -175,29 +175,37 @@ features:
       tests:
         errors:
           - error:
-              id: 20b89e3e-a987-4e83-bd89-2cbf288caecc
+              id: 5af5d0d8-ca6e-4a03-a939-99d9d2a4ec43
               name: TacklerParserCommoditiesTest
-              desc: "discrepancy of commodities '='"
+              desc: "Unit cost '{ ... }' with negative value"
           - error:
-              id: fe246259-2280-4d42-8360-6dd3e280b30a
+              id: a27b166c-e9c9-432c-bb9d-91915b51d76b
               name: TacklerParserCommoditiesTest
-              desc: "discrepancy of commodities '@'"
+              desc: "Unit price '@' with negative value"
           - error:
               id: 6d1868da-3b9f-45e4-a2c6-db003da4c720
               name: TacklerParserCommoditiesTest
-              desc: "value pos: same primary and secondary commodity '@'"
+              desc: "Unit price '@' with same primary and secondary commodity"
           - error:
-              id: aa52ac0a-278a-49e4-abad-fc2f00416a41
+              id: fe246259-2280-4d42-8360-6dd3e280b30a
               name: TacklerParserCommoditiesTest
-              desc: "value pos: same primary and secondary commodity '='"
+              desc: "Unit price '@' with discrepancy of commodities"
           - error:
               id: 6f45f594-c4e6-449a-b6d2-7f25e9479bd5
               name: TacklerParserCommoditiesTest
-              desc: "Value position (total price) with different sign (-1st vs. +2nd)"
+              desc: "Total cost '=' with different sign (-1st vs. +2nd)"
           - error:
               id: aaf50217-1d04-49bd-a873-43a53be1c99f
               name: TacklerParserCommoditiesTest
-              desc: "Value position (total price) with different sign (+1st vs. -2nd)"
+              desc: "Total cost '=' with different sign (+1st vs. -2nd)"
+          - error:
+              id: aa52ac0a-278a-49e4-abad-fc2f00416a41
+              name: TacklerParserCommoditiesTest
+              desc: "Total cost '=' with same primary and secondary commodity"
+          - error:
+              id: 20b89e3e-a987-4e83-bd89-2cbf288caecc
+              name: TacklerParserCommoditiesTest
+              desc: "Total cost '=' with discrepancy of commodities"
           - error:
               id: 4babf379-9d88-49f3-8158-b9b7ff4e6eed
               name: TacklerParserCommoditiesTest
@@ -303,15 +311,15 @@ features:
           - error:
               id: bed02ea9-4191-4c98-b847-6b4e2a0fcb2d
               name: TacklerParserCommoditiesTest
-              desc: "parse-only: missing commodity with opening position"
+              desc: "perr: with opening (comm)"
           - error:
               id: ac4a6183-fb21-4847-8b3e-912f21fe5a6b
               name: TacklerParserCommoditiesTest
-              desc: "parse-only: missing value with opening position"
+              desc: "perr: with opening (value)"
           - error:
               id: 436d9ed5-b7a0-4e37-a7b4-86b00eb60e83
               name: TacklerParserCommoditiesTest
-              desc: "parse-only: missing @"
+              desc: "perr: with missing @"
         operations:
           - test:
               id: 9f711991-c9ae-4558-923c-95a69faff8bc

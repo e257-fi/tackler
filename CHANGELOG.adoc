@@ -23,7 +23,9 @@ New features and changes in this release:
 
 ==== Fixes
 
-Fixes in this release: None
+Fixes in this release:
+
+* Reject semantically wrong negative unit costs (e.g. `{ -2 € }`) and unit prices (e.g. `@ -2 €`)
 
 
 ==== Development

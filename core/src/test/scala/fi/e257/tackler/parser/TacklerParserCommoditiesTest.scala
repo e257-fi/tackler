@@ -168,6 +168,10 @@ class TacklerParserCommoditiesTest extends FunSpec {
           | e   1 USD {1.20 EUR}
           | a
           |
+          |2017-01-01
+          | e   -1 USD {1.20 EUR}
+          | a
+          |
           |2019-01-01
           | e   1 USD {1 €}
           | a
@@ -199,7 +203,7 @@ class TacklerParserCommoditiesTest extends FunSpec {
           |""".stripMargin
 
       val txns = tt.string2Txns(txnStr)
-      assert(txns.txns.size === 8)
+      assert(txns.txns.size === 9)
     }
 
     /**
@@ -230,6 +234,10 @@ class TacklerParserCommoditiesTest extends FunSpec {
         """
           |2017-01-01
           | e   1 USD {1.20 EUR} @ 1.09 EUR
+          | a
+          |
+          |2017-01-01
+          | e   -1 USD {1.20 EUR} @ 1.09 EUR
           | a
           |
           |2019-01-01
@@ -263,7 +271,7 @@ class TacklerParserCommoditiesTest extends FunSpec {
           |""".stripMargin
 
       val txns = tt.string2Txns(txnStr)
-      assert(txns.txns.size === 8)
+      assert(txns.txns.size === 9)
     }
 
     /**
@@ -288,113 +296,157 @@ class TacklerParserCommoditiesTest extends FunSpec {
   }
 
   describe("Invalid inputs and errors") {
-    /**
-     * test: 20b89e3e-a987-4e83-bd89-2cbf288caecc
-     */
-    it("discrepancy of commodities '='") {
-      val txnStr =
-        """
-          |2019-01-01
-          | e 1 € = 1 $
-          | a 1 € = 1 £
-          |
-          |""".stripMargin
 
-      val ex = intercept[CommodityException] {
-        tt.string2Txns(txnStr)
+    describe("Logical errors") {
+      /**
+       * test: 5af5d0d8-ca6e-4a03-a939-99d9d2a4ec43
+       */
+      it("Unit cost '{ ... }' with negative value") {
+        val txnStr =
+          """
+            |2017-01-01
+            | e   1.12 USD {-1.00 EUR}
+            | a
+            |
+            |""".stripMargin
+
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+
+        assert(ex.getMessage.contains("Unit cost"))
+        assert(ex.getMessage.contains("is negative"))
       }
-      assert(ex.getMessage.startsWith("Different commodities without"))
-    }
 
-    /**
-     * test: 6f45f594-c4e6-449a-b6d2-7f25e9479bd5
-     */
-    it("Value position (total price) with different sign (-1st vs. +2nd)") {
-      val txnStr =
-        """
-          |2019-01-01
-          | e -1 $ = 1 €
-          | a
-          |
-          |""".stripMargin
+      /**
+       * test: a27b166c-e9c9-432c-bb9d-91915b51d76b
+       */
+      it("Unit price '@' with negative value") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e 1 € @ -1.2 $
+            | a 1.2 $
+            |
+            |""".stripMargin
 
-      val ex = intercept[CommodityException] {
-        tt.string2Txns(txnStr)
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.contains("Unit price"))
+        assert(ex.getMessage.contains("is negative"))
       }
-      assert(ex.getMessage.contains("different sign"))
-    }
 
-    /**
-     * test: aaf50217-1d04-49bd-a873-43a53be1c99f
-     */
-    it("Value position (total price) with different sign (+1st vs. -2nd)") {
-      val txnStr =
-        """
-          |2019-01-01
-          | e 1 $ = -1 €
-          | a
-          |
-          |""".stripMargin
+      /**
+       * test: 6d1868da-3b9f-45e4-a2c6-db003da4c720
+       */
+      it("Unit price '@' with same primary and secondary commodity") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e 1 € @ 1 €
+            | a
+            |
+            |""".stripMargin
 
-      val ex = intercept[CommodityException] {
-        tt.string2Txns(txnStr)
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.startsWith("Error on line: 3; Both commodities are same for value position [€]"))
       }
-      assert(ex.getMessage.contains("different sign"))
-    }
 
+      /**
+       * test: fe246259-2280-4d42-8360-6dd3e280b30a
+       */
+      it("Unit price '@' with discrepancy of commodities") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e 1 € @ 1 $
+            | a 1 € @ 1 £
+            |
+            |""".stripMargin
 
-    /**
-     * test: fe246259-2280-4d42-8360-6dd3e280b30a
-     */
-    it("discrepancy of commodities '@'") {
-      val txnStr =
-        """
-          |2019-01-01
-          | e 1 € @ 1 $
-          | a 1 € @ 1 £
-          |
-          |""".stripMargin
-
-      val ex = intercept[CommodityException] {
-        tt.string2Txns(txnStr)
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.startsWith("Different commodities without"))
       }
-      assert(ex.getMessage.startsWith("Different commodities without"))
-    }
 
-    /**
-     * test: 6d1868da-3b9f-45e4-a2c6-db003da4c720
-     */
-    it("value pos: same primary and secondary commodity ('@')") {
-      val txnStr =
-        """
-          |2019-01-01
-          | e 1 € @ 1 €
-          | a
-          |
-          |""".stripMargin
+      /**
+       * test: 6f45f594-c4e6-449a-b6d2-7f25e9479bd5
+       */
+      it("Total cost '=' with different sign (-1st vs. +2nd)") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e -1 $ = 1 €
+            | a
+            |
+            |""".stripMargin
 
-      val ex = intercept[CommodityException] {
-        tt.string2Txns(txnStr)
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.contains("Total cost"))
+        assert(ex.getMessage.contains("different sign"))
       }
-      assert(ex.getMessage.startsWith("Error on line: 3; Both commodities are same for value position [€]"))
-    }
 
-    /**
-     * test: aa52ac0a-278a-49e4-abad-fc2f00416a41
-     */
-    it ("value pos: same primary and secondary commodity  ('=')") {
-      val txnStr =
-        """
-          |2019-01-01
-          | e 1 € = 1 €
-          | a
-          |
-          |""".stripMargin
+      /**
+       * test: aaf50217-1d04-49bd-a873-43a53be1c99f
+       */
+      it("Total cost '=' with different sign (+1st vs. -2nd)") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e 1 $ = -1 €
+            | a
+            |
+            |""".stripMargin
 
-      val ex = intercept[CommodityException] {
-        tt.string2Txns(txnStr)
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.contains("Total cost"))
+        assert(ex.getMessage.contains("different sign"))
       }
-      assert(ex.getMessage.startsWith("Error on line: 3; Both commodities are same for value position [€]"))
+
+
+      /**
+       * test: aa52ac0a-278a-49e4-abad-fc2f00416a41
+       */
+      it("Total cost '=' with same primary and secondary commodity") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e 1 € = 1 €
+            | a
+            |
+            |""".stripMargin
+
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.startsWith("Error on line: 3; Both commodities are same for value position [€]"))
+      }
+
+      /**
+       * test: 20b89e3e-a987-4e83-bd89-2cbf288caecc
+       */
+      it("Total cost '=' with discrepancy of commodities") {
+        val txnStr =
+          """
+            |2019-01-01
+            | e 1 € = 1 $
+            | a 1 € = 1 £
+            |
+            |""".stripMargin
+
+        val ex = intercept[CommodityException] {
+          tt.string2Txns(txnStr)
+        }
+        assert(ex.getMessage.startsWith("Different commodities without"))
+      }
     }
 
     /**
