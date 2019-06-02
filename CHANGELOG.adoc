@@ -36,12 +36,13 @@ Updated deps and tools:
  ** better-files: 3.8.0
  ** scallop: 3.3.0
  * Build
- ** sbt-coveralls: drop
  ** sbt-git: 1.0.0 (new)
- ** sbt-scoverage: 1.6.0-RC1
+ ** sbt-scalajs: 0.6.28
  ** sbt-wartremover: 2.4.2
  * Tests
  ** dirsuite: 0.30.0
+ ** sbt-coveralls: drop
+ ** sbt-scoverage: 1.6.0-RC3
 
 
 
