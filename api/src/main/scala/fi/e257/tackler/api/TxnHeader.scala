@@ -21,7 +21,6 @@ import java.util.UUID
 
 import cats.implicits._
 
-import io.circe.java8.time._
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 

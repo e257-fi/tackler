@@ -39,14 +39,8 @@ lazy val commonSettings = Seq(
     "-Xcheckinit",
     "-Xfatal-warnings",
     "-Xlint",
-    "-Yno-adapted-args",
-    "-Ypartial-unification",
     "-Ywarn-dead-code",
     "-Ywarn-extra-implicit",
-    "-Ywarn-inaccessible",
-    "-Ywarn-infer-any",
-    "-Ywarn-nullary-override",
-    "-Ywarn-nullary-unit",
     "-Ywarn-numeric-widen",
     "-Ywarn-unused:implicits",
     "-Ywarn-unused:imports",
@@ -89,7 +83,6 @@ lazy val api = crossProject(JSPlatform, JVMPlatform).
     name := "tackler-api",
     libraryDependencies += "io.circe" %%% "circe-core" % circeVersion,
     libraryDependencies += "io.circe" %%% "circe-generic" % circeVersion,
-    libraryDependencies += "io.circe" %%% "circe-java8" % circeVersion,
     libraryDependencies += "io.circe" %%% "circe-parser" % circeVersion,
     libraryDependencies += "org.scalatest" %%% "scalatest" % scalatestVersion % Test
   ).

@@ -22,14 +22,14 @@ object Dependencies {
    * Versions
    */
   val betterFilesVersion = "3.8.0"
-  val catsVersion = "1.6.0"
-  val circeVersion = "0.11.1"
+  val catsVersion = "2.0.0-M4"
+  val circeVersion = "0.12.0-M3"
   val circeOpticsVersion = "0.11.0"
-  val scalatestVersion = "3.0.7"
-  val scallopVersion = "3.3.0"
+  val scalatestVersion = "3.0.8"
+  val scallopVersion = "3.3.1"
   val configVersion = "1.3.4"
-  val dirsuiteVersion = "0.30.0"
-  val jgitVersion = "5.3.1.201904271842-r"
+  val dirsuiteVersion = "0.30.1"
+  val jgitVersion = "5.4.0.201906121030-r"
   val logbackVersion = "1.2.3"
 
 
@@ -43,7 +43,6 @@ object Dependencies {
     "io.circe" %% "circe-core",
     "io.circe" %% "circe-generic",
     "io.circe" %% "circe-parser",
-    "io.circe" %% "circe-java8"
   ).map(_ % circeVersion)
 
   val circe_deps_test = Seq(

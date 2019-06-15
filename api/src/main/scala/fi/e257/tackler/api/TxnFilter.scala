@@ -22,10 +22,6 @@ import java.util.UUID
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
-// Circe with java8 time: https://github.com/circe/circe/issues/378
-import io.circe.java8.time.decodeZonedDateTime
-import io.circe.java8.time.encodeZonedDateTime
-
 sealed trait TxnFilter {
   def text(indent: String): Seq[String]
 }
@@ -121,7 +117,6 @@ sealed case class TxnFilterNOT(txnFilter: TxnFilter) extends TxnFilter {
 }
 
 sealed abstract class TxnFilterTxnTS(ts: ZonedDateTime) extends TxnFilter {
-  // Circe with java8 time: https://github.com/circe/circe/issues/378
   val opTxt: String
 
   override def text(indent: String): Seq[String] = {
@@ -135,7 +130,6 @@ sealed abstract class TxnFilterTxnTS(ts: ZonedDateTime) extends TxnFilter {
  * @param begin txn timestamp must be on or after this
  */
 final case class TxnFilterTxnTSBegin(begin: ZonedDateTime) extends TxnFilterTxnTS(begin) {
-  // Circe with java8 time: https://github.com/circe/circe/issues/378
   val opTxt = "begin"
 }
 
@@ -145,7 +139,6 @@ final case class TxnFilterTxnTSBegin(begin: ZonedDateTime) extends TxnFilterTxnT
  * @param end txn timestamp is before of specified time.
  */
 final case class TxnFilterTxnTSEnd(end: ZonedDateTime) extends TxnFilterTxnTS(end) {
-  // Circe with java8 time: https://github.com/circe/circe/issues/378
   val opTxt = "end  "
 }
 
