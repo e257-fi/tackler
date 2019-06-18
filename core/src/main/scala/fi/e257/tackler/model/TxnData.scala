@@ -123,7 +123,7 @@ object TxnData {
 
     if (dup._3 =!= 0) {
       val msg =
-        s"""Found ${dup._3 + 1} duplicate txn uuids with txn set checksum. """ +
+        f"""Found ${dup._3 + 1}%d duplicate txn uuids with txn set checksum. """ +
         s"""At least "${dup._2}" is duplicate, there could be others."""
       throw new TxnException(msg)
     }

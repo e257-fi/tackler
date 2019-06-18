@@ -28,7 +28,9 @@ import fi.e257.tackler.core.Settings
  * CLI args and Settings (conf-file).
  */
 class TacklerCliSettingsTest extends FlatSpec  with Matchers with Inside {
-  val respath = "core/target/scala-2.12/test-classes/"
+
+  val scalaVer = util.Properties.versionString.substring(8,12)
+  val respath = "core/target/scala-" + scalaVer + "/test-classes/"
 
   it should "respect *ALL* cli args (input.txn)" in {
     val absBasepath = File(respath)
@@ -36,7 +38,8 @@ class TacklerCliSettingsTest extends FlatSpec  with Matchers with Inside {
       "--basedir", absBasepath.toString, // this must be real path so that --input.fs.dir works correctly with rel-path
       "--input.fs.dir", "cli-args-txns/",
       "--input.fs.glob", "**/cliargs*.txn"
-    )
+    ).toIndexedSeq
+
     val cliCfg = new TacklerCliArgs(args)
 
     val settings = Settings(Paths.get("/not/there/cfg.conf"), cliCfg.toConfig)
@@ -52,7 +55,8 @@ class TacklerCliSettingsTest extends FlatSpec  with Matchers with Inside {
       "--basedir", absBasepath.toString, // this must be real path so that --input.fs.dir works correctly with rel-path
       "--input.file", (absBasepath / "filename.txn").toString,
       "--accounts.strict", "false"
-    )
+    ).toIndexedSeq
+
     val cliCfg = new TacklerCliArgs(args)
 
     val settings = Settings(Paths.get("/not/there/cfg.conf"), cliCfg.toConfig)
@@ -67,7 +71,8 @@ class TacklerCliSettingsTest extends FlatSpec  with Matchers with Inside {
   it should "merge configs (cli, ext-conf, embedded conf)" in {
     val args = Array(
       "--input.fs.glob", "**/cli-args*.txn"
-    )
+    ).toIndexedSeq
+
     val cliCfg = new TacklerCliArgs(args)
 
     val settings = Settings(Paths.get(respath + "cfg-as-ext-file-rel.conf"), cliCfg.toConfig)

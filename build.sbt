@@ -19,6 +19,10 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
+lazy val scala_12 = "2.12.8"
+lazy val scala_13 = "2.13.0"
+lazy val supportedScalaVersions = List(scala_12, scala_13)
+
 lazy val noPublishSettings = Seq(
   publish := {},
   publishLocal := {},
@@ -28,7 +32,8 @@ lazy val noPublishSettings = Seq(
 lazy val commonSettings = Seq(
   organization := "fi.e257",
   version := "0.32.0-SNAPSHOT",
-  scalaVersion := "2.12.8",
+  scalaVersion := scala_13,
+  crossScalaVersions := supportedScalaVersions,
   compileOrder := CompileOrder.JavaThenScala,
   scalacOptions ++= Seq(
     "-deprecation",
@@ -37,19 +42,38 @@ lazy val commonSettings = Seq(
     "-feature",
     "-unchecked",
     "-Xcheckinit",
-    "-Xfatal-warnings",
     "-Xlint",
     "-Ywarn-dead-code",
     "-Ywarn-extra-implicit",
     "-Ywarn-numeric-widen",
     "-Ywarn-unused:implicits",
-    "-Ywarn-unused:imports",
     "-Ywarn-unused:locals",
     "-Ywarn-unused:params",
     "-Ywarn-unused:patvars",
     "-Ywarn-unused:privates",
     "-Ywarn-value-discard"
   ),
+  scalacOptions ++= {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, 12)) =>
+        Seq(
+          //"-Xfatal-warnings",
+          // These won't work with 2.13
+          "-Ywarn-inaccessible",
+          "-Ywarn-infer-any",
+          "-Ywarn-nullary-override",
+          "-Ywarn-nullary-unit",
+          "-Yno-adapted-args",
+          "-Ypartial-unification",
+        )
+      case Some((2, 13)) =>
+        Seq(
+          // WIP: Disable fatal-warnings for Scala 2.13 "-Xfatal-warnings",
+          "-Ywarn-unused:imports",
+	)
+      case _ => Nil
+    }
+  },
   Compile / console / scalacOptions --= Seq(
     "-Ywarn-unused:imports",
     "-Xfatal-warnings"
@@ -73,6 +97,8 @@ lazy val tackler = (project in file(".")).
   settings(noPublishSettings).
   settings(commonSettings: _*).
   settings(
+    // crossScalaVersions must be set to Nil on the aggregating project
+    crossScalaVersions := Nil,
     run / fork := true
   )
 
@@ -116,8 +142,19 @@ lazy val core = (project in file("core")).
     libraryDependencies ++= circe_deps,
     libraryDependencies += typesafeConfig,
     libraryDependencies += jgit,
+    libraryDependencies += scalaCollCompat,
+    libraryDependencies ++= {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, 12)) =>
+          circe_deps_test
+        case Some((2, 13)) =>
+          // workaround until Monocle and Circe-Optics are released for Scala 2.13
+          // circe_deps_tests
+          Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0")
+        case _ => Nil
+      }
+    },
     libraryDependencies += scalatest % "it,test",
-    libraryDependencies ++= circe_deps_test,
   )
 
 val gitCommitId = SettingKey[String]("gitCommit")
@@ -168,6 +205,7 @@ lazy val cli = (project in file("cli")).
     libraryDependencies += scallop,
     libraryDependencies += typesafeConfig,
     libraryDependencies += logback,
+    libraryDependencies += scalaCollCompat,
     libraryDependencies += scalatest % "it,test",
     libraryDependencies += dirsuite % "it,test"
   )

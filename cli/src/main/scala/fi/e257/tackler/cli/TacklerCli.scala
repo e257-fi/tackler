@@ -26,6 +26,7 @@ import fi.e257.tackler.core._
 import fi.e257.tackler.model.TxnData
 import fi.e257.tackler.parser.{TacklerParseException, TacklerTxns}
 import fi.e257.tackler.report.Reports
+import io.circe
 import io.circe.parser.decode
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -135,7 +136,7 @@ object TacklerCli {
   def runExceptions(args: Array[String]): Unit = {
     val tsStart = System.currentTimeMillis()
 
-    val cliCfg = new TacklerCliArgs(args)
+    val cliCfg = new TacklerCliArgs(args.toIndexedSeq)
     val settings = Settings(getCfgPath(cliCfg.cfg.toOption), cliCfg.toConfig)
 
     val output: Option[Path] = cliCfg.output.toOption.map(o => settings.getPathWithSettings(o))
@@ -174,10 +175,9 @@ object TacklerCli {
         decode[TxnFilterDefinition](filterStr)
       }
 
-      if (jsonDecodeResult.isLeft) {
-        val err = jsonDecodeResult.left.get
+      jsonDecodeResult.left.foreach[circe.Error](err => {
         throw new TxnException("JSON parse error: " + err.getMessage())
-      }
+      })
 
       jsonDecodeResult.toOption.map(txnFilterRoot => {
         txnDataAll.filter(txnFilterRoot)

@@ -53,7 +53,7 @@ class GeoPoint protected (val lat: BigDecimal, val lon: BigDecimal, val alt: Opt
 
 object  GeoPoint {
   def frmt(v: BigDecimal): String = {
-    s"%.${v.scale}f".format(v)
+    f"""%%.${v.scale}%df""".format(v)
   }
 
   /**
