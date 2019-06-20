@@ -146,7 +146,15 @@ lazy val cli = (project in file("cli")).
       Tests.Setup(() => TacklerTests.setup("tests", log))
     },
     assembly / test := {},
-    assemblyJarName in assembly := "tackler-cli" + "-" + version.value + ".jar",
+    assembly / assemblyJarName := "tackler-cli" + "-" + version.value + ".jar",
+    assembly / assemblyMergeStrategy := {
+      // Fix module-info.class with JDK 8 vs. JDK 11,
+      // it's not needed, this is app, not lib
+      case "module-info.class" => MergeStrategy.discard
+      case x =>
+        val oldStrategy = (assembly / assemblyMergeStrategy).value
+        oldStrategy(x)
+    },
     gitCommitId := git.gitHeadCommit.value.getOrElse("Not available"),
     gitLocalChanges := git.gitUncommittedChanges.value,
     buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion, gitCommitId, gitLocalChanges),
