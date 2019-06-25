@@ -1,16 +1,16 @@
-2019-04-02T00:00:00Z 'Equity
- e  1 €
- Equity:Balance
-
-2019-04-02T00:00:00Z 'Equity
+2019-04-02T00:00:00Z 'Equity for $
  a  -1.2 $
  Equity:Balance
 
-2019-04-02T00:00:00Z 'Equity
+2019-04-02T00:00:00Z 'Equity for EUR
  e  100 EUR
  Equity:Balance
 
-2019-04-02T00:00:00Z 'Equity
+2019-04-02T00:00:00Z 'Equity for USD
  a  -120 USD
+ Equity:Balance
+
+2019-04-02T00:00:00Z 'Equity for €
+ e  1 €
  Equity:Balance
 

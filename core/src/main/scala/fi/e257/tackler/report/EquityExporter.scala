@@ -37,22 +37,32 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
       Nil
     } else {
       val lastTxn = txnData.txns.last
-      val eqTxnHeader = TxnTS.isoZonedTS(lastTxn.header.timestamp) + " " + lastTxn.header.uuid.map(u => "'Equity: last txn (uuid): " + u.toString).getOrElse("'Equity")
+      def eqTxnHeader(commStr: String) = {
+        val c = if (commStr.isEmpty) {
+          ""
+        } else {
+          " for " + commStr
+        }
+        TxnTS.isoZonedTS(lastTxn.header.timestamp) + " " + "'Equity" + c + lastTxn.header.uuid.map(u => ": last txn (uuid): " + u.toString).getOrElse("")
+      }
 
-      bal.bal.groupBy(b => b.acctn.commStr).flatMap({ case (_, bs) =>
+      bal.bal
+        .groupBy(b => b.acctn.commStr)
+        .toSeq.sortBy({ case (commStr, _) => commStr }) // Scala 2.12 vs. 2.13: fix order sorting by commodity
+        .flatMap({ case (commStr, bs) =>
         val eqBalRow = if (bs.map(b => b.accountSum).sum === 0.0) {
           Nil
         } else {
           List(" " + "Equity:Balance")
         }
 
-        List(eqTxnHeader) ++
+        List(eqTxnHeader(commStr)) ++
           bal.metadata.map(md => md.mkString(" ; ", "\n ; ", "")).toList ++
           bs.map(acc => {
             " " + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
           }) ++ eqBalRow ++ List("")
 
-      }).toSeq
+      })
     }
   }
 

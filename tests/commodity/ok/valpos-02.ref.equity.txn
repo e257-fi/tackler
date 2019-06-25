@@ -1,16 +1,16 @@
-2019-04-05T00:00:00Z 'Equity
- a  -321 €
- Equity:Balance
-
-2019-04-05T00:00:00Z 'Equity
+2019-04-05T00:00:00Z 'Equity for $
  e  351 $
  Equity:Balance
 
-2019-04-05T00:00:00Z 'Equity
+2019-04-05T00:00:00Z 'Equity for ACME
+ Assets:Stocks  3 ACME
+ Equity:Balance
+
+2019-04-05T00:00:00Z 'Equity for EUR
  Assets:Cash  -111.6 EUR
  Equity:Balance
 
-2019-04-05T00:00:00Z 'Equity
- Assets:Stocks  3 ACME
+2019-04-05T00:00:00Z 'Equity for €
+ a  -321 €
  Equity:Balance
 
