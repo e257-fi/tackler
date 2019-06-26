@@ -31,10 +31,7 @@ import scala.collection.JavaConverters
 import scala.util.control.NonFatal
 import scala.util.{Failure, Success}
 
-// TODO: Switch to scala.jdk when this is released
-// https://github.com/scala/scala-collection-compat/pull/217
-// import scala.jdk.CollectionConverters._
-import fi.e257.tackler.JDKCollectionConvertersCompat.Converters._
+import scala.jdk.CollectionConverters._
 
 /**
  * Handler utilities for ANTLR Parser Contexts.

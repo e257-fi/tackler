@@ -25,10 +25,7 @@ import org.slf4j.{Logger, LoggerFactory}
 
 import fi.e257.tackler.model.AccountTreeNode
 
-// TODO: Switch to scala.jdk when this is released
-// https://github.com/scala/scala-collection-compat/pull/217
-// import scala.jdk.CollectionConverters._
-import fi.e257.tackler.JDKCollectionConvertersCompat.Converters._
+import scala.jdk.CollectionConverters._
 
 /**
  * Config keys / paths. All of these keys / paths
