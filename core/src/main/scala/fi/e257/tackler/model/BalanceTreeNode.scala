@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,12 @@
  */
 package fi.e257.tackler.model
 
+import fi.e257.tackler.math.TacklerReal
+
 final case class BalanceTreeNode(
   acctn: AccountTreeNode,
-  subAccTreeSum: BigDecimal,
-  accountSum: BigDecimal
+  subAccTreeSum: TacklerReal,
+  accountSum: TacklerReal
 )
 
 object OrderByPost extends Ordering[BalanceTreeNode] {

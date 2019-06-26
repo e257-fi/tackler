@@ -15,11 +15,12 @@
  *
  */
 package fi.e257.tackler.model
+
 import java.time.ZonedDateTime
 
-import cats.implicits._
 import fi.e257.tackler.api.{TxnHeader, TxnTS}
 import fi.e257.tackler.core.TxnException
+import fi.e257.tackler.math._
 
 object OrderByTxn extends Ordering[Transaction] {
   def compare(before: Transaction, after: Transaction): Int = {
@@ -31,7 +32,7 @@ final case class Transaction(
   header: TxnHeader,
   posts: Posts) {
 
-  if (BigDecimal(0).compareTo(Posting.txnSum(posts)) =!= 0) {
+  if (!Posting.txnSum(posts).isZero) {
     throw new TxnException("TXN postings do not zero: " + Posting.txnSum(posts).toString())
   }
 

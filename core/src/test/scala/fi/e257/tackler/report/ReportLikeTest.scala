@@ -16,9 +16,10 @@
  */
 package fi.e257.tackler.report
 
+import fi.e257.tackler.math.TacklerReal
+import fi.e257.tackler.model.TxnData
 import io.circe.Json
 import org.scalatest.FunSpec
-import fi.e257.tackler.model.TxnData
 
 class ReportLikeTest extends FunSpec {
 
@@ -35,23 +36,23 @@ class ReportLikeTest extends FunSpec {
 
   val defaultFrmt = new Frmt("", new DefaultReportSettings())
 
-  val sc0: scala.math.BigDecimal = 1
-  val sc1: scala.math.BigDecimal = 1.1
-  val sc2: scala.math.BigDecimal = 1.12
-  val sc3: scala.math.BigDecimal = 1.123
-  val sc6: scala.math.BigDecimal = 1.123456
-  val sc8_tr7: scala.math.BigDecimal = 1.12345677
-  val sc8_tr5: scala.math.BigDecimal = 1.12345675
-  val sc8_tr4: scala.math.BigDecimal = 1.12345674
+  val sc0 = TacklerReal(1)
+  val sc1 = TacklerReal(1.1)
+  val sc2 = TacklerReal(1.12)
+  val sc3 = TacklerReal(1.123)
+  val sc6 = TacklerReal(1.123456)
+  val sc8_tr7 =  TacklerReal(1.12345677)
+  val sc8_tr5 = TacklerReal(1.12345675)
+  val sc8_tr4 = TacklerReal(1.12345674)
 
-  val sc10_2: scala.math.BigDecimal = 1234567890.12
-  val sc14_4: scala.math.BigDecimal = 12345678901234.1234
+  val sc10_2 = TacklerReal(1234567890.12)
+  val sc14_4 = TacklerReal(12345678901234.1234)
 
-  val sc18_2 = BigDecimal(123456789123456789l) + BigDecimal(.12)
-  val sc18_9 = BigDecimal("123456789123456789.123456789")
+  val sc18_2 = TacklerReal(123456789123456789L) + TacklerReal(.12)
+  val sc18_9 = TacklerReal("123456789123456789.123456789")
 
   //                                                                 1         2         3         4         5         6         7         8         9        10        11        12        13
-  val sc30_130 = BigDecimal("123456789012345678901234567890.0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")
+  val sc30_130 = TacklerReal("123456789012345678901234567890.0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")
 
   describe("scaleFormat String") {
 
@@ -169,17 +170,17 @@ class ReportLikeTest extends FunSpec {
       val frmt = new Frmt("", new RoundingScale())
 
       // https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
-      val valrefs: List[(scala.math.BigDecimal, String, String)] = List(
-        (BigDecimal( "5.5"),  "6", " 6"),
-        (BigDecimal( "2.5"),  "3", " 3"),
-        (BigDecimal( "1.6"),  "2", " 2"),
-        (BigDecimal( "1.1"),  "1", " 1"),
-        (BigDecimal( "1.0"),  "1", " 1"),
-        (BigDecimal("-1.0"), "-1", "-1"),
-        (BigDecimal("-1.1"), "-1", "-1"),
-        (BigDecimal("-1.6"), "-2", "-2"),
-        (BigDecimal("-2.5"), "-3", "-3"),
-        (BigDecimal("-5.5"), "-6", "-6"),
+      val valrefs: List[(TacklerReal, String, String)] = List(
+        (TacklerReal( "5.5"),  "6", " 6"),
+        (TacklerReal( "2.5"),  "3", " 3"),
+        (TacklerReal( "1.6"),  "2", " 2"),
+        (TacklerReal( "1.1"),  "1", " 1"),
+        (TacklerReal( "1.0"),  "1", " 1"),
+        (TacklerReal("-1.0"), "-1", "-1"),
+        (TacklerReal("-1.1"), "-1", "-1"),
+        (TacklerReal("-1.6"), "-2", "-2"),
+        (TacklerReal("-2.5"), "-3", "-3"),
+        (TacklerReal("-5.5"), "-6", "-6"),
       )
 
       valrefs.foreach({ case (value, scaleRef, fillRef) =>
@@ -199,17 +200,17 @@ class ReportLikeTest extends FunSpec {
       val frmt = new Frmt("", new DecimalRoundingScale())
 
       // https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
-      val valrefs: List[(scala.math.BigDecimal, String, String)] = List(
-        (BigDecimal( "0.055"),  "0.06", " 0.06"),
-        (BigDecimal( "0.025"),  "0.03", " 0.03"),
-        (BigDecimal( "0.016"),  "0.02", " 0.02"),
-        (BigDecimal( "0.011"),  "0.01", " 0.01"),
-        (BigDecimal( "0.010"),  "0.01", " 0.01"),
-        (BigDecimal("-0.010"), "-0.01", "-0.01"),
-        (BigDecimal("-0.011"), "-0.01", "-0.01"),
-        (BigDecimal("-0.016"), "-0.02", "-0.02"),
-        (BigDecimal("-0.025"), "-0.03", "-0.03"),
-        (BigDecimal("-0.055"), "-0.06", "-0.06"),
+      val valrefs: List[(TacklerReal, String, String)] = List(
+        (TacklerReal( "0.055"),  "0.06", " 0.06"),
+        (TacklerReal( "0.025"),  "0.03", " 0.03"),
+        (TacklerReal( "0.016"),  "0.02", " 0.02"),
+        (TacklerReal( "0.011"),  "0.01", " 0.01"),
+        (TacklerReal( "0.010"),  "0.01", " 0.01"),
+        (TacklerReal("-0.010"), "-0.01", "-0.01"),
+        (TacklerReal("-0.011"), "-0.01", "-0.01"),
+        (TacklerReal("-0.016"), "-0.02", "-0.02"),
+        (TacklerReal("-0.025"), "-0.03", "-0.03"),
+        (TacklerReal("-0.055"), "-0.06", "-0.06"),
       )
 
       valrefs.foreach({ case (value, scaleRef, fillRef) =>

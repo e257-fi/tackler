@@ -16,12 +16,13 @@
  */
 package fi.e257.tackler.report
 
+import fi.e257.tackler.api.{BalanceItem, BalanceReport, Delta, OrderByDelta}
+import fi.e257.tackler.core._
+import fi.e257.tackler.math.TacklerReal
+import fi.e257.tackler.model.{BalanceTreeNode, TxnData}
 import io.circe._
 import io.circe.syntax._
 
-import fi.e257.tackler.api.{BalanceItem, BalanceReport, Delta, OrderByDelta}
-import fi.e257.tackler.core._
-import fi.e257.tackler.model.{BalanceTreeNode, TxnData}
 
 abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(cfg) {
 
@@ -31,7 +32,7 @@ abstract class BalanceReporterLike(cfg: ReportConfiguration) extends ReportLike(
      * param f, select which balance sum type to use, account or accountTree
      * return max needed width of selected balance sum type
      */
-    def getMaxSumLen()(f: (BalanceTreeNode => BigDecimal)): Int = {
+    def getMaxSumLen()(f: (BalanceTreeNode => TacklerReal)): Int = {
       balance.bal.map(b => ("% " + getScaleFormat(f(b))).format(f(b)).length).foldLeft(0)(math.max)
     }
 

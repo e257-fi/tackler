@@ -16,11 +16,11 @@
  */
 package fi.e257.tackler.filter
 
-import org.scalatest.FlatSpecLike
-
 import fi.e257.tackler.api._
 import fi.e257.tackler.core.Settings
+import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.parser.TacklerTxns
+import org.scalatest.FlatSpecLike
 
 class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
   val tt = new TacklerTxns(Settings())
@@ -119,7 +119,7 @@ class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
    * test: de72fb67-14a7-4032-b2c2-b1049ecd0c35
    */
   it must "filter by posting amount (exact)" in {
-    val txnFilter = TxnFilterPostingAmountEqual("e:.*", BigDecimal(1.000000001))
+    val txnFilter = TxnFilterPostingAmountEqual("e:.*", TacklerReal(1.000000001))
 
     val txnData = txnsAll.filter(TxnFilterDefinition(txnFilter))
 
@@ -131,7 +131,7 @@ class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
    * test: 315d5ac3-28cf-417e-98bb-b738f209f5da
    */
   it must "filter by posting amount (less)" in {
-    val txnFilter = TxnFilterPostingAmountLess("e:.*", BigDecimal(2))
+    val txnFilter = TxnFilterPostingAmountLess("e:.*", TacklerReal(2))
 
     val txnData = txnsAll.filter(TxnFilterDefinition(txnFilter))
 
@@ -144,7 +144,7 @@ class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
    * test: b94b99d7-acfa-4a4b-871f-c1b6282738ff
    */
   it must "filter by posting amount (greater)" in {
-    val txnFilter = TxnFilterPostingAmountGreater("e:.*", BigDecimal(2))
+    val txnFilter = TxnFilterPostingAmountGreater("e:.*", TacklerReal(2))
 
     val txnData = txnsAll.filter(TxnFilterDefinition(txnFilter))
 

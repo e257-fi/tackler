@@ -15,9 +15,10 @@
  *
  */
 package fi.e257.tackler.model
-import cats.implicits._
 
+import cats.implicits._
 import fi.e257.tackler.core.TxnException
+import fi.e257.tackler.math._
 
 /**
  * Note about commodity support:
@@ -36,14 +37,14 @@ import fi.e257.tackler.core.TxnException
  */
 final case class Posting(
   acctn: AccountTreeNode,
-  amount: BigDecimal,
+  amount: TacklerReal,
   // todo: fix / rename these (position?, exchange? amount, commodity)
-  txnAmount: BigDecimal,
+  txnAmount: TacklerReal,
   isTotalAmount: Boolean,
   txnCommodity: Option[Commodity],
   comment: Option[String]) {
 
-  if (amount.compareTo(BigDecimal(0)) === 0) {
+  if (amount.isZero) {
     throw new TxnException("Zero sum postings are not allowed (is it typo?): " + acctn.account)
   }
 
@@ -72,7 +73,7 @@ final case class Posting(
 
 object Posting {
 
-  def txnSum(posts: Posts): BigDecimal = {
-    posts.foldLeft(BigDecimal(0))(_ + _.txnAmount)
+  def txnSum(posts: Posts): TacklerReal = {
+    posts.map(_.txnAmount).realSum
   }
 }

@@ -19,14 +19,14 @@ package fi.e257.tackler.filter
 import java.time.ZonedDateTime
 import java.util.UUID
 
-import io.circe.syntax._
-import io.circe.parser.decode
-import org.scalatest.FunSpecLike
-
 import fi.e257.tackler.api._
 import fi.e257.tackler.core.Settings
+import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.model.TxnData
 import fi.e257.tackler.parser.TacklerTxns
+import io.circe.parser.decode
+import io.circe.syntax._
+import org.scalatest.FunSpecLike
 
 class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
   val filterJsonStr =
@@ -352,7 +352,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
           TxnFilterPostingAmountEqual("posting:amount:equal", 1),
           TxnFilterPostingAmountLess("posting.amount:less", 2),
           TxnFilterPostingAmountGreater("posting.amount:greater",
-            BigDecimal("123456789123456789.012345678901234567890123456789")),
+            TacklerReal("123456789123456789.012345678901234567890123456789")),
           TxnFilterPostingCommodity("posting.commodity"),
           TxnFilterPostingComment("posting.comment"),
         )),

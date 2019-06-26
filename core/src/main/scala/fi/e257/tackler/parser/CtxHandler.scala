@@ -20,16 +20,16 @@ import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
 import java.util.UUID
 
 import cats.implicits._
-
-import scala.collection.JavaConverters
 import fi.e257.tackler.api.{GeoPoint, TxnHeader}
-import fi.e257.tackler.core.{AccountException, CfgKeys, CommodityException, Settings, TacklerException, TxnException}
-import fi.e257.tackler.model.{AccountTreeNode, Commodity, Posting, Posts, Transaction, Txns}
+import fi.e257.tackler.core._
+import fi.e257.tackler.math.TacklerReal
+import fi.e257.tackler.model._
 import fi.e257.tackler.parser.TxnParser._
 import org.slf4j.{Logger, LoggerFactory}
 
-import scala.util.{Failure, Success}
+import scala.collection.JavaConverters
 import scala.util.control.NonFatal
+import scala.util.{Failure, Success}
 
 /**
  * Handler utilities for ANTLR Parser Contexts.
@@ -110,13 +110,13 @@ abstract class CtxHandler {
     }
   }
 
-  protected def handleAmount(amountCtx: AmountContext): BigDecimal = {
-    BigDecimal(amountCtx.getText())
+  protected def handleAmount(amountCtx: AmountContext): TacklerReal = {
+    TacklerReal(amountCtx.getText())
   }
 
   protected def handleValuePosition(postingCtx: PostingContext): (
-    BigDecimal,
-    BigDecimal,
+    TacklerReal,
+    TacklerReal,
     Boolean,
     Option[Commodity],
     Option[Commodity]) = {
@@ -260,9 +260,9 @@ abstract class CtxHandler {
       })
     val geo = Option(metaCtx.txn_meta_location()).map(geoCtx => {
       GeoPoint.toPoint(
-        BigDecimal(geoCtx.geo_uri().lat().getText),
-        BigDecimal(geoCtx.geo_uri().lon().getText()),
-        Option(geoCtx.geo_uri().alt()).map(a => BigDecimal(a.getText))
+        TacklerReal(geoCtx.geo_uri().lat().getText),
+        TacklerReal(geoCtx.geo_uri().lon().getText()),
+        Option(geoCtx.geo_uri().alt()).map(a => TacklerReal(a.getText))
         ) match {
         case Success(g) => g
         case Failure(ex) => {

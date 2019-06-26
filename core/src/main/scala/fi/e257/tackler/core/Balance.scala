@@ -18,12 +18,14 @@ package fi.e257.tackler.core
 
 import cats.implicits._
 import fi.e257.tackler.api.Metadata
+import fi.e257.tackler.math._
 import fi.e257.tackler.model._
 
 
-class Balance(val title: String,
+class Balance(
+  val title: String,
   val bal: Seq[BalanceTreeNode],
-  val deltas: Map[Option[Commodity], BigDecimal],
+  val deltas: Map[Option[Commodity], TacklerReal],
   val metadata: Option[Metadata]) {
 
   def isEmpty: Boolean = bal.isEmpty
@@ -39,9 +41,9 @@ object Balance {
    * @return list of balance tree nodes
    */
   @SuppressWarnings(Array("org.wartremover.warts.Recursion"))
-   protected def getBalanceTreeNodes(
-    me: (AccountTreeNode, BigDecimal),
-    accSums: Seq[(AccountTreeNode, BigDecimal)])
+  protected def getBalanceTreeNodes(
+    me: (AccountTreeNode, TacklerReal),
+    accSums: Seq[(AccountTreeNode, TacklerReal)])
   : Seq[BalanceTreeNode] = {
 
     val (myAccTN, mySum) = me
@@ -59,7 +61,7 @@ object Balance {
     val myChildsSum = childsBalanceTrees
       .filter(btn => btn.acctn.parent === myAccTN.account)
       .map(btn => btn.subAccTreeSum)
-      .sum
+      .realSum
 
     val myBTN = BalanceTreeNode(myAccTN, myChildsSum + mySum, mySum)
 
@@ -78,9 +80,9 @@ object Balance {
     "org.wartremover.warts.Recursion",
     "org.wartremover.warts.TraversableOps"))
   protected def bubbleUpAccTN(
-    myAccTNSum: (AccountTreeNode, BigDecimal),
-    accSums: Seq[(AccountTreeNode, BigDecimal)])
-  : Seq[(AccountTreeNode, BigDecimal)] = {
+    myAccTNSum: (AccountTreeNode, TacklerReal),
+    accSums: Seq[(AccountTreeNode, TacklerReal)])
+  : Seq[(AccountTreeNode, TacklerReal)] = {
 
     val myAccTN = myAccTNSum._1
 
@@ -103,7 +105,7 @@ object Balance {
           val name = myAccTN.parent.split(":").last
 
           val newParent = AccountTreeNode(myAccTN.depth - 1, myAccTN.root, par, account, name, myAccTN.commodity)
-          bubbleUpAccTN((newParent, BigDecimal(0)), accSums) ++ List(myAccTNSum)
+          bubbleUpAccTN((newParent, ZERO), accSums) ++ List(myAccTNSum)
         } else {
           // I am depth 2 and I don't have parent, => let's create root account
           // end of recursion
@@ -113,7 +115,7 @@ object Balance {
           val name = myAccTN.parent
 
           val newParent = AccountTreeNode(myAccTN.depth - 1, myAccTN.root, par, account, name, myAccTN.commodity)
-          List((newParent, BigDecimal(0)), myAccTNSum)
+          List((newParent, ZERO), myAccTNSum)
         }
       } else {
         // my parent exists, just bubble up together
@@ -129,12 +131,12 @@ object Balance {
     //    resulting size of this set is "small"
     //    e.g. max size is size of Chart of Accounts
     // TODO: AccountTreeNode: provide default groupBy machinery
-    val accountSums: Seq[(AccountTreeNode, BigDecimal)] = txns
+    val accountSums: Seq[(AccountTreeNode, TacklerReal)] = txns
       .flatMap(txn => txn.posts)
       .groupBy(p => AccountTreeNode.groupBy(p.acctn))
       .map((kv: (String, Seq[Posting])) => {
         val post = kv._2.head
-        val accSum = kv._2.map(_.amount).sum
+        val accSum  = kv._2.map(_.amount).realSum
         (post.acctn, accSum)
       }).toSeq
 
@@ -150,7 +152,7 @@ object Balance {
     }).distinct
 
     //    Get all root accounts
-    val roots: Seq[(AccountTreeNode, BigDecimal)] =
+    val roots: Seq[(AccountTreeNode, TacklerReal)] =
       completeCoASumTree.filter({case (acctn, _) => acctn.depth === 1})
 
     //    Start from root's and get all subtree BalanceTreeNodes
@@ -167,20 +169,20 @@ object Balance {
     val fbal = bal.filter(accounts.predicate)
     if (fbal.nonEmpty) {
 
-      val deltas: Map[Option[Commodity], BigDecimal] = fbal
+      val deltas: Map[Option[Commodity], TacklerReal] = fbal
         .groupBy(_.acctn.commStr)
         .map({ case (c, bs) =>
           if (c === "") {
-            (None, bs.map(_.accountSum).sum)
+            (None, bs.map(_.accountSum).realSum)
           } else {
-            (Some(new Commodity(c)), bs.map(_.accountSum).sum)
+            (Some(new Commodity(c)), bs.map(_.accountSum).realSum)
           }
         })
 
       new Balance(title, fbal, deltas, txnData.getMetadata(accounts))
     } else {
       new Balance(title, Seq.empty[BalanceTreeNode],
-        Map.empty[Option[Commodity], BigDecimal], txnData.getMetadata(accounts))
+        Map.empty[Option[Commodity], TacklerReal], txnData.getMetadata(accounts))
     }
   }
 }

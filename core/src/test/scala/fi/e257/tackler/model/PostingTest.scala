@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
  */
 package fi.e257.tackler.model
 
-import org.scalatest.FlatSpec
-
 import fi.e257.tackler.core.TxnException
+import fi.e257.tackler.math.TacklerReal
+import org.scalatest.FlatSpec
 
 class PostingTest extends FlatSpec {
 
@@ -31,12 +31,12 @@ class PostingTest extends FlatSpec {
    */
   it should "not accept zero postings" in {
     assertThrows[TxnException]{
-      Posting(acctn, BigDecimal(0), BigDecimal(0), false, None, None)
+      Posting(acctn, TacklerReal(0), TacklerReal(0), false, None, None)
     }
     assertThrows[TxnException]{
       // check that difference precision doesn't mess up
       // bigdecimal comparisions
-      Posting(acctn, BigDecimal(0.00), BigDecimal(0.00), false, None, None)
+      Posting(acctn, TacklerReal(0.00), TacklerReal(0.00), false, None, None)
     }
   }
 
@@ -46,7 +46,7 @@ class PostingTest extends FlatSpec {
   it should "preserve precision" in {
    val v =
       //          3         2         1                   1         2         3         4
-      BigDecimal("123456789012345678901234567890.123456789012345678901234567890123456789012")
+      TacklerReal("123456789012345678901234567890.123456789012345678901234567890123456789012")
     val p = Posting(acctn, v, v, false, None, None)
 
     assert(p.toString === "a:b   123456789012345678901234567890.123456789012345678901234567890123456789012")
@@ -56,7 +56,7 @@ class PostingTest extends FlatSpec {
    * test: 6ce68af4-5349-44e0-8fbc-35bebd8ac1ac
    */
   it should "toString" in {
-    val v = BigDecimal("123.01")
+    val v = TacklerReal("123.01")
     val p = Posting(acctn, v, v, false, None, Some("comment"))
 
     assert(p.toString === "a:b   123.01 ; comment")
@@ -66,8 +66,8 @@ class PostingTest extends FlatSpec {
     * test: 16b54e8c-5ea6-420c-bd72-157dbcc06a49
     */
   it should "handle unit price" in {
-    val pv = BigDecimal("123.00")
-    val tv = BigDecimal("246.00")
+    val pv = TacklerReal("123.00")
+    val tv = TacklerReal("246.00")
     val p = Posting(acctn, pv, tv, false, Some(Commodity("€")), None)
 
     assert(p.toString === "a:b   123.00 @ 2 €")
@@ -77,8 +77,8 @@ class PostingTest extends FlatSpec {
     * test: 22059d1d-7c10-42dc-831f-03bd1f1d6257
     */
   it should "handle unit price with comment" in {
-    val pv = BigDecimal("123.00")
-    val tv = BigDecimal("246.00")
+    val pv = TacklerReal("123.00")
+    val tv = TacklerReal("246.00")
     val p = Posting(acctn, pv, tv, false, Some(Commodity("€")), Some("comment"))
 
     assert(p.toString === "a:b   123.00 @ 2 € ; comment")
@@ -88,8 +88,8 @@ class PostingTest extends FlatSpec {
     * test: 0fef204a-19da-418f-b7d0-86b5211c2182
     */
   it should "handle total price" in {
-    val pv = BigDecimal("123.00")
-    val tv = BigDecimal("246.00")
+    val pv = TacklerReal("123.00")
+    val tv = TacklerReal("246.00")
     val p = Posting(acctn, pv, tv, true, Some(Commodity("€")), None)
 
     assert(p.toString === "a:b   123.00 = 246.00 €")
@@ -99,8 +99,8 @@ class PostingTest extends FlatSpec {
     * test: 718dd25c-aebc-4f29-9903-67942c6ba531
     */
   it should "handle total price with comment" in {
-    val pv = BigDecimal("123.00")
-    val tv = BigDecimal("246.00")
+    val pv = TacklerReal("123.00")
+    val tv = TacklerReal("246.00")
     val p = Posting(acctn, pv, tv, true, Some(Commodity("€")), Some("comment"))
 
     assert(p.toString === "a:b   123.00 = 246.00 € ; comment")

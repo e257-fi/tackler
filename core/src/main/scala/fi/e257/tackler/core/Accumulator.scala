@@ -16,6 +16,7 @@
  */
 package fi.e257.tackler.core
 
+import fi.e257.tackler.math.{TacklerReal, ZERO}
 import fi.e257.tackler.model._
 
 import scala.collection.mutable
@@ -37,11 +38,11 @@ object Accumulator {
 
   def registerStream[T](txns: Txns, accounts: Filtering[AccumulatorPosting])(reporter: (RegisterEntry => Seq[T])): Seq[T] = {
 
-    val registerEngine = new mutable.HashMap[String, BigDecimal]()
+    val registerEngine = new mutable.HashMap[String, TacklerReal]()
 
     txns.flatMap(txn => {
       val registerPostings = txn.posts.map({ p =>
-        val newTotal = registerEngine.getOrElse(p.atnKey, BigDecimal(0)) + p.amount
+        val newTotal = registerEngine.getOrElse(p.atnKey, ZERO) + p.amount
         registerEngine.update(p.atnKey, newTotal)
 
         AccumulatorPosting(p, newTotal)

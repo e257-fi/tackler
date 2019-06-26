@@ -18,6 +18,7 @@ package fi.e257.tackler.report
 import cats.implicits._
 import fi.e257.tackler.api.TxnTS
 import fi.e257.tackler.core._
+import fi.e257.tackler.math._
 import fi.e257.tackler.model.TxnData
 
 class EquityExporter(val settings: Settings) extends ExporterLike {
@@ -50,7 +51,7 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
         .groupBy(b => b.acctn.commStr)
         .toSeq.sortBy({ case (commStr, _) => commStr }) // Scala 2.12 vs. 2.13: fix order sorting by commodity
         .flatMap({ case (commStr, bs) =>
-        val eqBalRow = if (bs.map(b => b.accountSum).sum === 0.0) {
+        val eqBalRow = if (bs.map(b => b.accountSum).realSum.isZero) {
           Nil
         } else {
           List(" " + "Equity:Balance")

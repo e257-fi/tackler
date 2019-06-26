@@ -16,9 +16,9 @@
  */
 package fi.e257.tackler.report
 
-import io.circe.{Json, Printer}
-
+import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.model.TxnData
+import io.circe.{Json, Printer}
 
 abstract class ReportLike(cfg: ReportConfiguration) extends OutputLike {
 
@@ -46,7 +46,7 @@ abstract class ReportLike(cfg: ReportConfiguration) extends OutputLike {
    * @param v value to be formatted
    * @return decimal part of format string (e.g. ".2f")
    */
-  def getScaleFormat(v: BigDecimal): String = {
+  def getScaleFormat(v: TacklerReal): String = {
     ".%df".format(
       if (v.scale <= minScale) {
         minScale
@@ -65,7 +65,7 @@ abstract class ReportLike(cfg: ReportConfiguration) extends OutputLike {
    * @param v value
    * @return formatted value without filling
    */
-  def scaleFormat(v: BigDecimal): String = {
+  def scaleFormat(v: TacklerReal): String = {
     ("%" + getScaleFormat(v)).format(v)
   }
 
@@ -77,7 +77,7 @@ abstract class ReportLike(cfg: ReportConfiguration) extends OutputLike {
    * @param v value
    * @return format string (e.g. "% 12.2f")
    */
-  def getFillFormat(width: Int, v: BigDecimal): String = {
+  def getFillFormat(width: Int, v: TacklerReal): String = {
     "% " + "%d".format(width) + getScaleFormat(v)
   }
 
@@ -89,7 +89,7 @@ abstract class ReportLike(cfg: ReportConfiguration) extends OutputLike {
    * @param v value to be formatted
    * @return value formatted as string
    */
-  def fillFormat(width: Int, v: BigDecimal): String = {
+  def fillFormat(width: Int, v: TacklerReal): String = {
     getFillFormat(width, v).format(v)
   }
 

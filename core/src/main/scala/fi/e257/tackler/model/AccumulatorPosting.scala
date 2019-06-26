@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
  */
 package fi.e257.tackler.model
 
+import fi.e257.tackler.math.TacklerReal
+
 object OrderByAccumulatorPosting extends Ordering[AccumulatorPosting] {
   def compare(before: AccumulatorPosting, after: AccumulatorPosting): Int = {
     before.post.acctn.account.compareTo(after.post.acctn.account)
@@ -24,9 +26,9 @@ object OrderByAccumulatorPosting extends Ordering[AccumulatorPosting] {
 
 final case class AccumulatorPosting(
   post: Posting,
-  runningTotal: BigDecimal
+  runningTotal: TacklerReal
 ) {
   def account: String = post.acctn.account
-  def amount: BigDecimal = post.amount
+  def amount: TacklerReal = post.amount
   def commodity: Option[Commodity] = post.acctn.commodity
 }

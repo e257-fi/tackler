@@ -20,6 +20,8 @@ New features and changes in this release:
  * Equity export
  ** Create equity transactions in sorting order of commodities
  ** Record commodity on equity txn's subject line
+ * Prepare for BigDecimal changes in Scala 2.13
+ ** New type `TacklerReal` with explicit `MathContext` constructor argument
  ** ...
 
 
