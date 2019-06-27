@@ -7,32 +7,40 @@ cache:
   key: "$CI_BUILD_REF_NAME"
   untracked: true
   paths:
+    - "sbt-cache/sbt/1.0"
+    - "sbt-cache/sbt/boot"
     - "sbt-cache/ivy/cache"
-    - "sbt-cache/boot"
-    - "sbt-cache/sbtboot"
+
+variables:
+  SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbt/1.0 -Dsbt.boot.directory=sbt-cache/sbt/boot -Dsbt.ivy.home=sbt-cache/ivy"
+
 
 test·jdk11:
   image: "hseeberger/scala-sbt:11.0.2_2.12.8_1.2.8"
 
-  variables:
-    SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy"
-
   stage: "test"
 
   script:
-    - sbt clean test it:test
+    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
 
 
 test·jdk8:
-  image: "hseeberger/scala-sbt:8u181_2.12.8_1.2.8"
-
-  variables:
-    SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy"
+  image: "hseeberger/scala-sbt:8u212_2.12.8_1.2.8"
 
   stage: "test"
 
   script:
-    - sbt clean coverage test it:test
-    - sbt coverageAggregate
+    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
+
+
+codecov:
+  image: "hseeberger/scala-sbt:8u212_2.12.8_1.2.8"
+
+  stage: "test"
+
+  script:
+    - sbt "+clean" coverage "++2.12.8! test" "++2.12.8! it:test"
+    - sbt "++2.12.8! coverageAggregate"
 
   coverage: '/All done. Coverage was \[\d+.\d+%\]/'
+
