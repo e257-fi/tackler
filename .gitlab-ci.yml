@@ -3,6 +3,15 @@
 ### E257.FI: tackler
 ### https://gitlab.com/e257/accounting/tackler
 ###
+
+# hseeberger images have ready-to-go sbt and scala at user's home, 
+# but that location and especially ~/.ivy2 is not cache-able by GitLab:
+# https://gitlab.com/gitlab-org/gitlab-runner/issues/327
+before_script:
+  - mkdir -p sbt-cache
+  - "[ -d sbt-cache/sbt ] || cp -a $HOME/.sbt/  sbt-cache/sbt/"
+  - "[ -d sbt-cache/ivy ] || cp -a $HOME/.ivy2/ sbt-cache/ivy/"
+
 cache:
   key: "$CI_BUILD_REF_NAME"
   untracked: true
@@ -12,10 +21,20 @@ cache:
     - "sbt-cache/ivy/cache"
 
 variables:
-  SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbt/1.0 -Dsbt.boot.directory=sbt-cache/sbt/boot -Dsbt.ivy.home=sbt-cache/ivy"
+  SBT_OPTS: "-Dsbt.log.noformat=true -Dsbt.global.base=sbt-cache/sbt/1.0 -Dsbt.boot.directory=sbt-cache/sbt/boot -Dsbt.ivy.home=sbt-cache/ivy"
 
 
 test·jdk11:
+  # Avoid permission problems between root vs. sbtuser 
+  # Once jdk8 and jdk11 images have same user, then these can be combined
+  cache:
+    key: "$CI_BUILD_REF_NAME-jdk11"
+    untracked: true
+    paths:
+      - "sbt-cache/sbt/1.0"
+      - "sbt-cache/sbt/boot"
+      - "sbt-cache/ivy/cache"
+
   image: "hseeberger/scala-sbt:11.0.2_2.12.8_1.2.8"
 
   stage: "test"
