@@ -68,8 +68,8 @@ lazy val commonSettings = Seq(
   * circular dependencies with sub-projects
   */
 lazy val tackler = (project in file(".")).
-  aggregate(apiJS, apiJVM, core, cli).
-  dependsOn(apiJS, apiJVM, core, cli).
+  aggregate(api.js, api.jvm, core, cli).
+  dependsOn(api.js, api.jvm, core, cli).
   settings(noPublishSettings).
   settings(commonSettings: _*).
   settings(
@@ -94,13 +94,9 @@ lazy val api = crossProject(JSPlatform, JVMPlatform).
     Test / test := {}
 )
 
-lazy val apiJVM = api.jvm
-lazy val apiJS = api.js
-
-
 
 lazy val core = (project in file("core")).
-  dependsOn(apiJVM).
+  dependsOn(api.jvm).
   enablePlugins(Antlr4Plugin).
   configs(IntegrationTest).
   settings(Defaults.itSettings).

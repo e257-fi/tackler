@@ -4,8 +4,8 @@ addSbtPlugin("com.simplytyped" % "sbt-antlr4" % "0.8.2")
 
 // ScalaJS
 addSbtPlugin("org.scala-js"       % "sbt-scalajs"              % "0.6.28")
-addSbtPlugin("org.portable-scala" % "sbt-crossproject"         % "0.6.0")
-addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "0.6.0")
+addSbtPlugin("org.portable-scala" % "sbt-crossproject"         % "0.6.1")
+addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "0.6.1")
 
 // build & release
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.9")
