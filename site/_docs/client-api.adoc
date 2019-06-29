@@ -1,12 +1,23 @@
 = Client API
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-06-29 00:00:00 Z
 
-image:/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://javadoc.io/page/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
-image:/img/scaladoc-api.svg["ScalaDoc: tackler-api", link="https://javadoc.io/page/fi.e257/tackler-api_2.12/latest/fi/e257/tackler/api/index.html"]
+image:/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
+image:/img/scaladoc-api.svg[ "ScalaDoc: tackler-api",  link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-api_2.12/latest/fi/e257/tackler/api/index.html"]
 image:/img/scalajs-0.6.17.svg["Scala.js",link="https://www.scala-js.org"]
 
 This document explains how to use Tackler API on JVM and JS environments.
+
+== tackler-api
+
+Dependency settings for SBT are:
+
+    libraryDependencies += "fi.e257" %%% "tackler-api"  % "version-number"
+
+This is released on Maven Central Repository.
+
+
+== API data models
 
 Tackler's client side api (`tackler-api`) has data models of reports which can be used on the client side.
 This api is provided for both  JVM and JS environments via ScalaJS.
@@ -43,14 +54,5 @@ available filters.
 
 There are several examples of how to define complex transaction filters in the test suite:
 {gitlink}/core/src/test/scala/fi/e257/tackler/filter[core -> tests -> filter]
-
-
-== tackler-api
-
-Dependency settings for SBT are:
-
-    libraryDependencies += "fi.e257" %%% "tackler-api"  % "version-number"
-
-This is released on Maven Central Repository.
 
 
