@@ -25,17 +25,7 @@ variables:
 
 
 test·jdk11:
-  # Avoid permission problems between root vs. sbtuser 
-  # Once jdk8 and jdk11 images have same user, then these can be combined
-  cache:
-    key: "$CI_BUILD_REF_NAME-jdk11"
-    untracked: true
-    paths:
-      - "sbt-cache/sbt/1.0"
-      - "sbt-cache/sbt/boot"
-      - "sbt-cache/ivy/cache"
-
-  image: "hseeberger/scala-sbt:11.0.2_2.12.8_1.2.8"
+  image: "hseeberger/scala-sbt:11.0.3_1.2.8_2.12.8"
 
   stage: "test"
 
@@ -44,7 +34,7 @@ test·jdk11:
 
 
 test·jdk8:
-  image: "hseeberger/scala-sbt:8u212_2.12.8_1.2.8"
+  image: "hseeberger/scala-sbt:8u212_1.2.8_2.12.8"
 
   stage: "test"
 
@@ -53,7 +43,7 @@ test·jdk8:
 
 
 codecov:
-  image: "hseeberger/scala-sbt:8u212_2.12.8_1.2.8"
+  image: "hseeberger/scala-sbt:8u212_1.2.8_2.12.8"
 
   stage: "test"
 
