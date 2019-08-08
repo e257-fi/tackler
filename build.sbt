@@ -140,16 +140,13 @@ lazy val core = (project in file("core")).
     libraryDependencies += betterFiles,
     libraryDependencies += cats_core,
     libraryDependencies ++= circe_deps,
+    libraryDependencies ++= circe_deps_test,
     libraryDependencies += typesafeConfig,
     libraryDependencies += jgit,
     libraryDependencies += scalaCollCompat,
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, 12)) =>
-          circe_deps_test
         case Some((2, 13)) =>
-          // workaround until Monocle and Circe-Optics are released for Scala 2.13
-          // circe_deps_tests
           Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0")
         case _ => Nil
       }
