@@ -31,6 +31,8 @@ import scala.collection.JavaConverters
 import scala.util.control.NonFatal
 import scala.util.{Failure, Success}
 
+import scala.jdk.CollectionConverters._
+
 /**
  * Handler utilities for ANTLR Parser Contexts.
  *
@@ -91,7 +93,7 @@ abstract class CtxHandler {
     "org.wartremover.warts.ListOps"))
   protected def handleAccount(accountCtx: AccountContext, commodity: Option[Commodity]): AccountTreeNode = {
 
-    val account: String = JavaConverters.asScalaIterator(accountCtx.children.iterator())
+    val account: String = accountCtx.children.iterator().asScala
       .map(_.getText)
       .mkString("")
 
@@ -316,7 +318,7 @@ abstract class CtxHandler {
     // txnCtx.txn_comment is never null, even when there aren't any comments
     // (in that case it will be an empty list)
     val comments = {
-      val l = JavaConverters.asScalaIterator(txnCtx.txn_comment().iterator())
+      val l = txnCtx.txn_comment().iterator().asScala
         .map(c => c.comment().text().getText).toList
       if (l.isEmpty) {
         None
@@ -326,7 +328,7 @@ abstract class CtxHandler {
     }
 
     val posts: Posts =
-      JavaConverters.asScalaIterator(txnCtx.postings().posting().iterator()).map(p => {
+      txnCtx.postings().posting().iterator().asScala.map(p => {
         handleRawPosting(p)
       }).toList
 
@@ -358,7 +360,7 @@ abstract class CtxHandler {
    * @return sequence of Transactions.
    */
   protected def handleTxns(txnsCtx: TxnsContext): Txns = {
-    JavaConverters.asScalaIterator(txnsCtx.txn().iterator())
+    txnsCtx.txn().iterator().asScala
       .map({ case (txnCtx) =>
         try {
           handleTxn(txnCtx)

@@ -37,6 +37,7 @@ import org.eclipse.jgit.treewalk.filter.{AndTreeFilter, PathFilter, PathSuffixFi
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.control.NonFatal
+import fi.e257.tackler.Scala12to13.Converters._
 
 /**
  * Helper methods for [[TacklerTxns]] and Txns Input handling.

@@ -20,7 +20,7 @@ import com.typesafe.config.{Config, ConfigFactory, ConfigValueFactory}
 import org.rogach.scallop.exceptions.{Help, ScallopException, Version}
 import org.rogach.scallop.{ScallopConf, ScallopOption}
 
-import scala.collection.JavaConverters
+import scala.jdk.CollectionConverters._
 
 import fi.e257.tackler.core.CfgKeys
 
@@ -58,7 +58,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
 
     val optsAsMap: Map[String, String] = opts.flatMap(o => opt2MapItem(o)).toMap
 
-    ConfigFactory.parseMap(JavaConverters.mapAsJavaMap(optsAsMap))
+    ConfigFactory.parseMap(optsAsMap.asJava)
   }
 
   version(TacklerCli.version())
@@ -117,7 +117,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
       case Some(reports) =>
         stringArgsConf.withValue(
           CfgKeys.reporting_reports,
-          ConfigValueFactory.fromIterable(JavaConverters.asJavaIterable(reports)))
+          ConfigValueFactory.fromIterable(reports.asJava))
       case None =>
         stringArgsConf
     }
@@ -126,7 +126,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
       case Some(exports) =>
         reportsConfig.withValue(
           CfgKeys.reporting_exports,
-          ConfigValueFactory.fromIterable(JavaConverters.asJavaIterable(exports)))
+          ConfigValueFactory.fromIterable(exports.asJava))
       case None =>
         reportsConfig
     }
@@ -135,7 +135,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
       case Some(accounts) =>
         exportsConfig.withValue(
           CfgKeys.reporting_accounts,
-          ConfigValueFactory.fromIterable(JavaConverters.asJavaIterable(accounts)))
+          ConfigValueFactory.fromIterable(accounts.asJava))
       case None =>
         exportsConfig
     }
@@ -144,7 +144,7 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
       case Some(formats) =>
         reportingAccountsConfig.withValue(
           CfgKeys.reporting_formats,
-          ConfigValueFactory.fromIterable(JavaConverters.asJavaIterable(formats)))
+          ConfigValueFactory.fromIterable(formats.asJava))
       case None =>
         reportingAccountsConfig
     }

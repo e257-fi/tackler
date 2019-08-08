@@ -23,7 +23,7 @@ class BuildInfoTest extends FlatSpec {
   behavior of "BuildInfo"
 
   it should "scalaVersion" in {
-    assert(BuildInfo.scalaVersion.startsWith("2.12.8"))
+    assert(BuildInfo.scalaVersion.startsWith(util.Properties.versionString.substring(8)))
   }
 
   it should "name" in {

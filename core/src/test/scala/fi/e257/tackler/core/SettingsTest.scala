@@ -23,12 +23,13 @@ import org.scalatest.FunSpec
 
 class SettingsTest extends FunSpec {
 
+  val scalaVer = util.Properties.versionString.substring(8,12)
    /*
     * "./"  := non-forked JVM
     * "../" := forked JVM
     */
   val testbase = "../"
-  val respath = "core/target/scala-2.12/test-classes/"
+  val respath = "core/target/scala-" + scalaVer + "/test-classes/"
 
   describe("Configuration and path handling") {
 

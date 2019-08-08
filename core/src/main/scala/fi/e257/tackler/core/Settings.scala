@@ -23,8 +23,9 @@ import better.files._
 import com.typesafe.config.{Config, ConfigFactory}
 import org.slf4j.{Logger, LoggerFactory}
 
-import scala.collection.JavaConverters._
 import fi.e257.tackler.model.AccountTreeNode
+
+import scala.jdk.CollectionConverters._
 
 /**
  * Config keys / paths. All of these keys / paths

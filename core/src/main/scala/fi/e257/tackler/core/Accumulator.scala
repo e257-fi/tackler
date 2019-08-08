@@ -20,6 +20,7 @@ import fi.e257.tackler.math.{TacklerReal, ZERO}
 import fi.e257.tackler.model._
 
 import scala.collection.mutable
+import fi.e257.tackler.Scala12to13.Converters._
 
 object Accumulator {
 
