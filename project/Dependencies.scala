@@ -27,7 +27,7 @@ object Dependencies {
   val circeOpticsVersion = "0.12.0-RC1"
   val scalatestVersion = "3.0.8"
   val scallopVersion = "3.3.1"
-  val scalaCollCompatVersion = "2.1.1"
+  val scalaCollCompatVersion = "2.1.2"
   val configVersion = "1.3.4"
   val dirsuiteVersion = "0.30.1"
   val jgitVersion = "5.4.0.201906121030-r"

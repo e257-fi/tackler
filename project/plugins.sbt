@@ -8,7 +8,7 @@ addSbtPlugin("org.portable-scala" % "sbt-crossproject"         % "0.6.1")
 addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "0.6.1")
 
 // build & release
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.9")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
 
 // QA tools
@@ -16,5 +16,5 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.6.0")
 addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.4.2")
 
 // Publishing
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.3")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.5")
 

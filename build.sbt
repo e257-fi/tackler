@@ -19,7 +19,7 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val scala_12 = "2.12.8"
+lazy val scala_12 = "2.12.9"
 lazy val scala_13 = "2.13.0"
 lazy val supportedScalaVersions = List(scala_12, scala_13)
 
