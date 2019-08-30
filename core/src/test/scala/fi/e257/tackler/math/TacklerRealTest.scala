@@ -155,7 +155,9 @@ class TacklerRealTest extends FunSpec {
         assert(TacklerReal(0).isZero === true)
         assert(TacklerReal(0L).isZero === true)
         assert(TacklerReal(0.0).isZero === true)
+        assert(TacklerReal(0.000000000000000000000).isZero === true)
         assert(TacklerReal("0").isZero === true)
+        assert(TacklerReal("0.000000000000000000000").isZero === true)
         assert(ZERO.isZero === true)
       }
 
