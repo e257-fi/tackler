@@ -1,0 +1,25 @@
+= TEP-1011: Transaction Tags
+
+See branch
+link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1011-txn-tags/docs/tep/tep-1011.adoc[/tep/tep-1011-txn-tags]
+for actual TEP-1011 content.
+
+Add support for Transaction Tags
+
+
+=== Feature and Test case tracking
+
+
+Feature-id::
+
+* name: Transaction Tags
+* uuid: 22eba439-e94d-4f68-a002-e1549a7bab76
+
+
+link:../../tests/tests-1011.yml[TEP-1011 T3DB]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].

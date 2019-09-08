@@ -31,8 +31,9 @@ t3db_07="$db_dir/tests-1007.yml"
 t3db_08="$db_dir/tests-1008.yml"
 t3db_09="$db_dir/tests-1009.yml"
 t3db_10="$db_dir/tests-1010.yml"
+t3db_11="$db_dir/tests-1011.yml"
 
-T3DBs="$t3db_00 $t3db_01 $t3db_02 $t3db_04 $t3db_05 $t3db_06 $t3db_07 $t3db_08 $t3db_09 $t3db_10"
+T3DBs="$t3db_00 $t3db_01 $t3db_02 $t3db_04 $t3db_05 $t3db_06 $t3db_07 $t3db_08 $t3db_09 $t3db_10 $t3db_11"
 
 rgx_test=' +test: +[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+-[[:xdigit:]]+ *$'
 

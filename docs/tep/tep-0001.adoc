@@ -28,6 +28,8 @@ Changes to conf-settings
 
 * [ ] item
 
+== Filtering changes
+
 
 == Machinery
 
