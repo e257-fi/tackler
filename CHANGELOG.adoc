@@ -38,20 +38,21 @@ Updated deps and tools:
 
  * Dependencies
  ** better-files: 3.8.0
- ** cats: 2.0.0-RC2
- ** circe: 0.12.0-RC4
- ** jgit: 5.4.2.201908231537-r
+ ** cats: 2.0.0
+ ** circe: 0.12.1
+ ** jgit: 5.5.0.201909110433-r
  ** scala-collection-compat: 2.1.2
  ** scallop: 3.3.1
  * Build
- ** scala: 2.12.9
+ ** scala: 2.12.10
+ ** scala: 2.13.1
  ** sbt-assembly: 0.14.10
  ** sbt-git: 1.0.0 (new)
- ** sbt-scalajs: 0.6.28
+ ** sbt-scalajs: 0.6.29
  ** sbt-crossproject: 0.6.1
  ** sbt-scalajs-crossproject: 0.6.1
  ** sbt-sonatype: 2.5
- ** sbt-wartremover: 2.4.2
+ ** sbt-wartremover: 2.4.3
  * Tests
  ** dirsuite: 0.30.1
  ** scalatest: 3.0.8

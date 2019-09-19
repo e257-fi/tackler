@@ -19,8 +19,8 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val scala_12 = "2.12.9"
-lazy val scala_13 = "2.13.0"
+lazy val scala_12 = "2.12.10"
+lazy val scala_13 = "2.13.1"
 lazy val supportedScalaVersions = List(scala_12, scala_13)
 
 lazy val noPublishSettings = Seq(
