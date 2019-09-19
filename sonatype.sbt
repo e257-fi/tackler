@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 E257.FI
+ * Copyright 2017-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ inThisBuild(
     ),
     scmInfo := Some(
       ScmInfo(
-        url("https://gitlab.com/e257/accounting/tackler"),
-        "scm:git:https://gitlab.com/e257/accounting/tackler.git"
+        url("https://github.com/e257-fi/tackler"),
+        "scm:git:https://github.com/e257-fi/tackler.git"
       )
     ),
     developers := List(
