@@ -30,6 +30,7 @@ grep \
 
         echo "= $src" > $trg_adoc
         echo ":page-permalink: /$trg/" >> $trg_adoc
+        echo ":page-robots: noindex" >> $trg_adoc
         echo "" >> $trg_adoc
         echo "In repository: {gitlink}/$fsname[$fsname]" >> $trg_adoc
         echo '....' >> $trg_adoc

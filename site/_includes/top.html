@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+{% if page.robots %}
+  <meta name="robots" content="{{page.robots}}" />
+{% endif %}
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="generator" content="Jekyll v{{ jekyll.version }}"/>
   <link rel="preload" href="{{ "/fonts/LatoLatin-Regular.woff2" | relative_url }}" as="font" type="font/woff2" crossorigin />
