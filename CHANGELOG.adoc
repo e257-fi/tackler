@@ -2,17 +2,18 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.31.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.31.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.32.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.32.0"
 
 
 == Release history
 
 
-=== 0.32.0-SNAPSHOT
+=== 0.32.0
 
 New features and changes in this release:
 
+ * Support for Scala 2.12 and 2.13
  * Update better-files to 3.8.0
  ** 3.8.0 is not binary compatible with
     link:https://github.com/pathikrit/better-files/issues/301[better-files 3.7.0]
@@ -22,7 +23,6 @@ New features and changes in this release:
  ** Record commodity on equity txn's subject line
  * Prepare for BigDecimal changes in Scala 2.13
  ** New type `TacklerReal` with explicit `MathContext` constructor argument
- ** ...
 
 
 ==== Fixes
