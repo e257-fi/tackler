@@ -1,9 +1,9 @@
 = Server API
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-06-29 00:00:00 Z
+:page-last_modified_at: 2019-09-24 00:00:00 Z
 
-image:/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
-image:/img/scaladoc-api.svg[ "ScalaDoc: tackler-api",  link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-api_2.12/latest/fi/e257/tackler/api/index.html"]
+image:/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-core_2.13/latest/fi/e257/tackler/index.html"]
+image:/img/scaladoc-api.svg[ "ScalaDoc: tackler-api",  link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-api_2.13/latest/fi/e257/tackler/api/index.html"]
 
 This document explains how to embedded Tackler core and use it as a library in other systems.
 
