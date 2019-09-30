@@ -28,8 +28,10 @@ Updated deps and tools:
  * Dependencies
  ** ...
  * Build
+ ** sbt: 1.3.2
  ** ...
  * Tests
+ ** DirSuite: 0.30.2
  ** ...
 
 

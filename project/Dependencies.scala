@@ -29,7 +29,7 @@ object Dependencies {
   val scallopVersion = "3.3.1"
   val scalaCollCompatVersion = "2.1.2"
   val configVersion = "1.3.4"
-  val dirsuiteVersion = "0.30.1"
+  val dirsuiteVersion = "0.30.2"
   val jgitVersion = "5.5.0.201909110433-r"
   val logbackVersion = "1.2.3"
 
