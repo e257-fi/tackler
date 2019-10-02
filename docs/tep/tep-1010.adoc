@@ -204,49 +204,49 @@ Anything which wasn't implemented?
 
 Normal, ok-case tests to validate functionality:
 
-* [X] Parse tests
-** [X] lat, lon
-** [X] lat, lon, alt
-*** [X] lat.deg, lon.deg, alt.deg
-** [X] -lat, -lon, -alt
-** [X] -lat.deg, -lon.deg, -alt.deg
+* [x] Parse tests
+** [x] lat, lon
+** [x] lat, lon, alt
+*** [x] lat.deg, lon.deg, alt.deg
+** [x] -lat, -lon, -alt
+** [x] -lat.deg, -lon.deg, -alt.deg
 
 Various special values
-* [X] Poles
-** [X] lat: -90 or lat:90, lon:0
-** [X] lat: -90 or lat:90, lon:-180 - 0
-** [X] lat: -90 or lat:90, lon:180 - 0
-* [X] lat:0, lon:0
-* [X] lat:Y, lon:X, alt:-120
+* [x] Poles
+** [x] lat: -90 or lat:90, lon:0
+** [x] lat: -90 or lat:90, lon:-180 - 0
+** [x] lat: -90 or lat:90, lon:180 - 0
+* [x] lat:0, lon:0
+* [x] lat:Y, lon:X, alt:-120
 
 Metadata tests
 
-* [X] both `uuid` and `location`
-** [X] different order
-*** [X] `uuid`, `location`
-*** [X] `location`, `uuid`
+* [x] both `uuid` and `location`
+** [x] different order
+*** [x] `uuid`, `location`
+*** [x] `location`, `uuid`
 
 
 ==== Errors
 
 Various error cases:
 
-* [X] e: missing geo-uri
-* [X] e: missing geo
-* [X] e: comma (`,`) as decimal separator (especially for altitude (internally using NUMBER at the moment))
-* [X] e: missing lat/lon
-* [X] e: Values outside of specification
-** [X] e: lat < -90 || lat > 90
-** [X] e: lon < -180 || lon > 180
-** [X] e: altitude < -6378137 m (WGS 84: Semi-major axis 6 378 137 m)
+* [x] e: missing geo-uri
+* [x] e: missing geo
+* [x] e: comma (`,`) as decimal separator (especially for altitude (internally using NUMBER at the moment))
+* [x] e: missing lat/lon
+* [x] e: Values outside of specification
+** [x] e: lat < -90 || lat > 90
+** [x] e: lon < -180 || lon > 180
+** [x] e: altitude < -6378137 m (WGS 84: Semi-major axis 6 378 137 m)
 
 Metadata tests
 
-* [X] multiple `location`
-* [X] multiple `uuid`
-* [X] both `uuid` and `location`
-** [X] multiple `location`
-** [X] multiple `uuid`
+* [x] multiple `location`
+* [x] multiple `uuid`
+* [x] both `uuid` and `location`
+** [x] multiple `location`
+** [x] multiple `uuid`
 
 
 === Geo Filter
