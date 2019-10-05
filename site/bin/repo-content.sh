@@ -7,7 +7,13 @@ echo "<html><body></body></html>" > repo/tests/index.html
 
 grep \
     '{repolink}/' \
-    pages/features.adoc _docs/licenses.adoc _docs/auditing.adoc _docs/examples/trimix-filling-station.adoc _docs/json.adoc _docs/report-*.adoc | \
+    _docs/licenses.adoc \
+    _docs/auditing.adoc \
+    _docs/examples/trimix-filling-station.adoc \
+    _docs/json.adoc \
+    _docs/report-*.adoc \
+    _docs/export-*.adoc \
+    | \
     sed -E 's@.*\{repolink\}/(.*)\[.*@\1@' | \
     while read f;
     do

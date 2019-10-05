@@ -1,15 +1,34 @@
 = Register report
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 Register report is report with running total of transactions for selected accounts.
 
+....
+REGISTER
+--------
+2019-01-04Z 'Strawberry ice cream
+            Assets:Cash                            -2.00         -2.00
+            Expenses:Ice_cream                      2.00          2.00
+----------------------------------------------------------------------
+2019-02-03Z 'Ginger bear
+            Assets:Cash                            -1.50         -3.50
+            Expenses:Lemonade                       1.50          1.50
+----------------------------------------------------------------------
+....
 
 == Format
 
-On the left side of report, first column is posting amount for account on that transaction.
+Register report will list for each transaction its date, code and txn subject (note).
+Also it will report metadata, e.g. `uuid` and `location` if transaction has these.
 
-Second column on the left side is running total of that account for selected transactions.
+Register report will print out xref:./gis/txn-geo-location.adoc[transaction geo location]
+and uuid for xref:./auditing.adoc[accounting auditing] if transaction has set location or uuid.
+
+On the right side of report, first column is posting amount for account on that transaction.
+Second column on the right side is running total of that account with reported transactions.
+
+See below for example reports.
 
 == Transaction ordering
 
@@ -18,7 +37,9 @@ transactions processing order.
 
 Transactions are sorted by using transaction's properties in following order to find correct sort order.
 
- timestamp, code, description, uuid
+....
+timestamp, code, description, uuid
+....
 
 Tackler supports timestamps up to nanosecond resolution, so timestamp could be used to produce stable 
 natural sorting order if transaction producers have syncronized time available
@@ -54,9 +75,6 @@ then that transaction is not is not printed / outputted at all.
 
 
 == Example reports
-
-Register report with location data:
-
 
 Below are links to example register reports:
 

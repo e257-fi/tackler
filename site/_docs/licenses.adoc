@@ -1,6 +1,6 @@
 = License information
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 :page-permalink: /docs/licenses/
 
 Tackler is licensed under the Apache License, Version 2.0.
@@ -11,7 +11,7 @@ Tackler is licensed under the Apache License, Version 2.0.
 [WARNING]
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
 See the {repolink}/LICENSE/[License] for the specific language governing permissions and limitations under
-the License.
+the {repolink}/LICENSE/[License].
 
 
 == Licenses of other components

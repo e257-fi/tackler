@@ -29,23 +29,23 @@ defaults:
   values:
     layout: news_item
 - scope:
-    path: /repo/**
+    path: "repo/**"
   values:
     sitemap: false
 - scope:
-    path: /css/**
+    path: "css/**"
   values:
     sitemap: false
 - scope:
-    path: /img/**
+    path: "img/**"
   values:
     sitemap: false
 - scope:
-    path: /js/**
+    path: "js/**"
   values:
     sitemap: false
 - scope:
-    path: /fonts/**
+    path: "fonts/**"
   values:
     sitemap: false
 
@@ -62,7 +62,7 @@ asciidoctor:
     - relfileprefix=../
     - outfilesuffix=/
     - idseparator=_
-    - source-highlighter=coderay
+    - source-highlighter=rouge
     - icons=font
 
 

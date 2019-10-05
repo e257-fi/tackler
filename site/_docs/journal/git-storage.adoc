@@ -1,6 +1,6 @@
 = Git Storage Guide
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-05-05 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 Tackler has integrated and native support for link:https://git-scm.com/[GIT] version control system.
 
@@ -71,6 +71,7 @@ which is pushed to git repository.  It is possible to use either bare repository
 or git-folder from cloned working copy.
 
 .Demo setup with bare journal
+[source,sh]
 ....
 mkdir tackler
 cd tackler

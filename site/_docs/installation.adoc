@@ -1,6 +1,6 @@
 = Installation Manual
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-05-09 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 This is installation manual for tackler command line.
 
@@ -20,6 +20,7 @@ Minimal initial installation and setup is described in xref:quickstart.adoc[Quic
 To enable account name validation for minimal quickstart setup, there have to be Chart of Accounts, 
 which defines all used account names:
 
+[source,sh]
 ----
 cat >> accounts.conf << EOF
 accounts {

@@ -1,25 +1,29 @@
 = Journal Format
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 :page-layout: page
 :page-redirect_from: /docs/journal/format/v2/
 
-Tacklers journal is based on idea of link:https://plaintextaccounting.org/[plain text files], 
+
+Tacklers journal is based on idea of link:https://plaintextaccounting.org/[plain text files],
 where each accounting record is written in human readable and editable form into those text files. 
 This idea of text based double-entry accounting was 
 link:https://www.ledger-cli.org/[invented and pioneered] by John Wiegley in 2003.
 
 [NOTE]
-Tackler Ain't Calculator and Kernel for link:http://ledger-cli.org/[Ledger] Equivalent Records. + 
+====
+Tackler Ain't Calculator and Kernel for link:http://ledger-cli.org/[Ledger] Equivalent Records. +
 Why not? Because it uses simplified syntax.
+====
+
 
 == Journal files
 
 Journal can be a single file or it can be split on transaction level into multiple files (shards).
-
-See general link:/docs/journal/[Journal Documentation], 
-xref:../usage.adoc[Usage Manual] and 
-xref:../tackler-conf.adoc[tackler.conf] for further defails
+See general link:/docs/journal/[Journal Documentation],
+xref:./sharding.adoc[Transaction Data Sharding],
+xref:../usage.adoc[Usage Manual] and
+xref:../tackler-conf.adoc[tackler.conf] for further details
 how to define used storage system and ideas for different sharding schemes.
 
 
@@ -155,9 +159,8 @@ Expenses:アイスクリーム
 Expenses:風:空
 Credit_Card:1234567890
 ----
-| Top-account names begin with a UTF-8 letter or sign
-(xref:./charsets.adoc[cover 130 languages and code blocks are supported]).
-
+| Top-account names must begin with a UTF-8 letter or sign
+(xref:./charsets.adoc[over 130 languages and code blocks are supported]).
 Then letters, digits, middle dot `·`, hyphen `-`, underscore `_` are allowed in account names,
 but no spaces. +
  +
@@ -182,8 +185,7 @@ Output truncation:
 Default *output* scale is is between 2..7 decimal points.  This is can be configured 
 by `reporting.scale.{min, max}` in xref:../tackler-conf.adoc[tackler.conf].
 
-Tackler uses decimal floating-point numbers of arbitrary precision (Scala BigDecimals) for calculations.
-By default, the precision approximately matches that of IEEE 128-bit floating point numbers (34 decimal digits).
+Tackler uses decimal floating-point numbers of arbitrary precision for calculations.
 
 
 | Commodities
@@ -199,19 +201,14 @@ By default, the precision approximately matches that of IEEE 128-bit floating po
    Gas:He:Stogare·Tank:102 -273 He·bar
    Mixer:diverX:He
 ----
-| Commodity of posting +
-Commodity is mandatory, if `accounts.strict` is set `true` and
-`permit-empty-commodity` is `false`. +
- +
-Commodity names begin with a UTF-8 letter. Then
+|xref:../commodities.adoc[Commodity] names begin with a UTF-8 letter. Then
 letters, digits, middle dot `·`, hyphen `-` and underscore `_` are allowed,
-but no spaces.
-
-In strict-mode, all commodities must be defined.
-See xref:../accounts-conf.adoc[accounts.conf] for full details. +
+but no spaces. +
  +
-See xref:../commodities.adoc[Commodities] for general info.
-
+All commodities must be defined in strict-mode.
+Commodity is mandatory in strict mode if
+`permit-empty-commodity` is not true.
+See xref:../accounts-conf.adoc[accounts.conf] for full details.
 
 | Value positions
 | [[value-pos]]
@@ -252,12 +249,11 @@ This is planned feature. See xref:../currencies.adoc[Currencies]
 This is transaction's unique identifier (link:https://en.wikipedia.org/wiki/Universally_unique_identifier[UUID]). +
  +
 Transaction UUID is mandatory if `txn-set-checksum` calculation is activated.
-See xref:../tackler-conf.adoc[tackler.conf] and
-{gitlink}/docs/tep/tep-1007.adoc[TEP-1007: Txn Set Checksum]
+See xref:../auditing.adoc[Accounting Auditing] and xref:../tackler-conf.adoc[tackler.conf]
 for further information. +
  +
-Transactions must have UUIDs, if fully deterministic, stable
-and "distributed transaction producers"-safe sort order is needed
+Transactions must have UUIDs, if deterministic, stable
+and "distributed transaction producers"-proof sort order is needed
 for xref:../report-register.adoc[register report]
 or xref:../export-identity.adoc[identity export].
 

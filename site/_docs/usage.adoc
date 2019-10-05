@@ -1,6 +1,6 @@
 = Usage Guide
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-04-23 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 This is general usage guide for tackler reporting engine.
 
@@ -123,8 +123,9 @@ Directory which holds `txn` -files (absolute or relative path to basedir).
 
 `--input.fs.glob`:: 
 
-Glob to define which files are used as journals. For flat directory structure use e.g. `*.txn`,
-and directory structure with some sharding scheme, use   `**.txn`.
+Glob to define which files are used as journals. For example:
+* `*.txn` Single folder and shallow directory structure
+* `**.txn` Deep directory structure with some sharding scheme
 
 See xref:./journal/sharding.adoc[Journal Sharding] for discussion of 
 possible sharding schemes.
@@ -422,7 +423,7 @@ Configuration example:
 
 ....
 reporting {
-  accounts = [ "Assets(:.*)?", "^Expenses(:.*)?" ]
+  accounts = [ "Assets(:.*)?", "Expenses(:.*)?" ]
 }
 ....
 

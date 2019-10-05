@@ -1,20 +1,46 @@
 = Balance Group report
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 Balance Group report is combined report of multiple balance reports 
-which are done out of sets of transactions.
+based on time selector.
 
-There are several different operators to select how transaction sets are formed.
 
-Available group operators are:
+....
+BALANCE GROUPS BY MONTH
+-----------------------
+2019-01Z
+--------
+                 0.00   -2.00  Assets
+                -2.00   -2.00  Assets:Cash
+                 0.00    2.00  Expenses
+                 2.00    2.00  Expenses:Ice_cream
+=====================
+                 0.00
+
+2019-02Z
+--------
+                 0.00   -1.00  Assets
+                -1.50   -1.50  Assets:Cash
+                 0.00    1.50  Expenses
+                 1.50    1.50  Expenses:Lemonade
+=====================
+                 0.00
+....
+
+In above we can see that in January 2019 spending was dominated by ice cream
+and during February 2019 by lemonade.
+
+Available group operators to select balance groups are:
 `year`, `month`, `day`, `iso-week` and `iso-week-date`.
 
 link:https://en.wikipedia.org/wiki/ISO_week_date[ISO-8601 week date] rules are used 
 for `iso-week` and `iso-week-date`.
 
 Balance-group report provides handy way to produce subreports over reporting period, 
-for example there could be need of weekly subreports for each monthly reporting period.
+for example weekly balance group reports could be used for detailed weekly reports
+with summarizing  monthly balance report.
+
 
 == Format
 Output format of Balance-group report is same as balance report, 
@@ -28,7 +54,9 @@ Second sum is recursive balance sum for that account tree (account and all its s
 The sum reported under line is balance delta, e.g. value difference of reported accounts.
 
 [NOTE]
+====
 Balance delta is based and calculated only by values reported on the first column.
+====
 
 
 == Balance group report configuration
@@ -93,6 +121,9 @@ BALANCE GROUPS
 =====================
                  1.00
 ----
+
+These two reports demonstrates difference between balance group deltas and
+recursive balance group sums for specific account tree.
 
 
 == Example report

@@ -1,6 +1,6 @@
-= Character sets
+= Supported Character Sets
 :page-date: 2019-04-22 00:00:00 Z
-:page-last_modified_at: 2019-04-23 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 :page-permalink: /docs/journal/charsets/
 
 

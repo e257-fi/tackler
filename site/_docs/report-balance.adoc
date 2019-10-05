@@ -1,9 +1,19 @@
 = Balance report
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 Balance report is sum of selected accounts and sub-accounts.
 
+....
+BALANCE
+-------
+                 0.00   -2.00  Assets
+                -2.00   -2.00  Assets:Cash
+                 0.00    2.00  Expenses
+                 2.00    2.00  Expenses:Ice_cream
+=====================
+                 0.00
+....
 
 == Format
 
@@ -15,7 +25,9 @@ Second sum is recursive balance sum for that account tree (account and all its s
 The sum reported under line is balance delta, e.g. value difference of reported accounts.
 
 [NOTE]
+====
 Balance delta is based and calculated only by values reported on the first column.
+====
 
 
 == Balance report configuration
@@ -67,6 +79,9 @@ BALANCE
 =====================
                  1.00
 ----
+
+These two reports demonstrates difference between balance delta and
+recursive balance sum for specific account tree.
 
 
 == Example report

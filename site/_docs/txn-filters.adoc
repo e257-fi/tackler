@@ -1,6 +1,6 @@
 = Transaction Filters
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-05-06 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 Transaction stream can be filtered to select which transactions are part of reports and calculations.
 
@@ -16,10 +16,10 @@ for single transactions.
 Usage of transaction filters:
 
 * See xref:./usage.adoc#txn-filters[Usage Guide] for using transaction filters with
-`tackler-cli.jar` CLI application.
-* See xref:./server-api.adoc[Server API document] for using transaction filters with embedded `tackler-core`.
-* See xref:./client-api.adoc[Client API document] for data model of transaction filters for JS/JVM `tackler-api`.
-* For actual definition of transaction filters, keep reading this document.
+`tackler-cli.jar` CLI application
+* See xref:./server-api.adoc[Server API document] for using transaction filters with embedded `tackler-core`
+* See xref:./client-api.adoc[Client API document] for data model of transaction filters for JS/JVM `tackler-api`
+* For actual definition of transaction filters, keep reading this document
 
 == Logical transaction filters
 
@@ -116,7 +116,7 @@ Transaction property filters select transactions based on properties of single t
 ===== Txn Timestamp: Begin
 
 Timestamp Begin filter selects transactions which timestamp is
-on specified time or after it.
+on or after specified time (e.g. txn with begin time is selected).
 
 Time is expressed in ISO 8601 format with zone, e.g. 
 `2018-01-01T10:11:22.345+02:00` or `2018-01-01T08:11:22.345Z`.
@@ -124,7 +124,7 @@ Time is expressed in ISO 8601 format with zone, e.g.
 ----
 {
   "TxnFilterTxnTSBegin" : {
-    "begin" : "ISO 8601 timestamp"
+    "begin" : "inclusive timestamp in ISO 8601 format with zone"
   }
 }
 ----
@@ -133,7 +133,7 @@ Time is expressed in ISO 8601 format with zone, e.g.
 ===== Txn Timestamp: End
 
 Timestamp End filter selects transactions which timestamp is
-before specified time.
+before specified time (e.g. txn with end time is not selected).
 
 Time is expressed in ISO 8601 format with zone, e.g. 
 `2018-01-01T10:11:22.345+02:00` or `2018-01-01T08:11:22.345Z`.
@@ -141,7 +141,7 @@ Time is expressed in ISO 8601 format with zone, e.g.
 ----
 {
   "TxnFilterTxnTSEnd" : {
-    "end" : "ISO 8601 timestamp"
+    "end" : "exclusive timestamp in ISO 8601 format with zone"
   }
 }
 ----

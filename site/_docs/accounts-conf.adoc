@@ -1,14 +1,17 @@
 = Accounts.conf
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-04-24 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 
 accounts.conf contains Chart of Accounts (CoA) for Tackler,
 and other accounts and commodities related settings.
+
+See xref:./tackler-conf.adoc[tackler.conf] for tackler's general configuration.
 
 File format is 
 link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
 (Human-Optimized Config Object Notation)
 
+[source,hocon]
 ----
 # Accounts and commodity related settings
 accounts {

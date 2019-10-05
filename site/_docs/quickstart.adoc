@@ -1,12 +1,26 @@
 = Quickstart
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-05-09 00:00:00 Z
+:page-last_modified_at: 2019-10-05 00:00:00 Z
 :page-permalink: /docs/quickstart/
 
 
-Minimal tackler setup can be created by following four steps:
+This is quickstart demo setup for Tackler.
+
+See
+xref:./journal/format.adoc[Journal Format],
+xref:./installation.adoc[Installation Manual],
+xref:./usage.adoc[Usage Guide],
+xref:./tackler-conf.adoc[tackler.conf] and
+xref:./accounts-conf.adoc[accounts.conf]
+for how to configure tackler and use it with full-fledged production setup.
+
+
+== Tackler Quickstart Setup
+
+Minimal tackler setup can be created in following four steps
 
 .1. Create directory structure for demo setup
+[source,sh]
 ----
 mkdir tackler
 mkdir tackler/txns
@@ -18,40 +32,49 @@ cd tackler
 cp /path/to/tackler-cli-x.y.z.jar ./tackler-cli.jar
 ----
 
-The journal data file (`txns/journal.txn`) can not be empty,
-hence we have to create some transactions to play with it.
 
-.2. Create some transactions
+
+.2. Create demo transactions
+[source,sh]
 ----
 cat > txns/journal.txn << EOF
 2018-06-01 'First transaction
- Expenses:Ice_cream  2
- Assets:Cash
+  Expenses:Ice_cream  2
+  Assets:Cash
 
 2018-06-02 'Second transaction
- Expenses:Lemonade  1
- Assets:Cash
-
+  Expenses:Lemonade  1
+  Assets:Cash
 EOF
 ----
 
-After these steps, content of tackler demo folder should be:
+[NOTE]
+====
+The journal data file `txns/journal.txn` can not be empty,
+hence we have to create some transactions to play with it.
+====
 
-.3. Verify setup
+
+.3. Verify setup and content of tackler demo folder
+[source,sh]
 ----
+# Directory listing of tackler folder
 ./tackler-cli.jar
 ./txns/
 ./txns/journal.txn
 ----
 
-With above setup we are ready to generate default reports based
-on tackler's embedded configuration.
 
-.4. Generate default Balance and Register reports
+.4. Generate default reports
+[source,sh]
 ----
 # This command must be run inside 'tackler' folder, which was created abobe
 java -jar ./tackler-cli.jar --accounts.strict=false
+----
 
+.4.1. Resulting xref:./report-balance.adoc[Balance] and xref:./report-register.adoc[Register] Reports
+[source]
+----
 # ... Log lines suppressed ...
 # ... There are legitime ERROR and WARNING about missing configuration ...
 # ... See Installation Manual how to configure tackler ...
@@ -84,10 +107,10 @@ REGISTER
 Total processing time: 1284, parse: 464, reporting: 80
 ----
 
-This minimal setup is based on default embedded configuration
-and tackler's auto-discovery mechanism for journal data.
-
-See xref:./journal/format.adoc[Journal Format],
-xref:./installation.adoc[Installation Manual]
-and xref:./usage.adoc[Usage Guide] how to
-further configure tackler and use it with more production like setup.
+See
+xref:./journal/format.adoc[Journal Format],
+xref:./installation.adoc[Installation Manual],
+xref:./usage.adoc[Usage Guide],
+xref:./tackler-conf.adoc[tackler.conf] and
+xref:./accounts-conf.adoc[accounts.conf]
+how to configure tackler and use it with full-fledged production setup.
