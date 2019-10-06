@@ -61,7 +61,7 @@ but actual value of timestamp is used for determining sort order always.
 
 == Register report configuration
 
-See xref:./tackler-conf.adoc[tackler.conf] and `reports.register.*` for full
+See xref:./configuration/tackler-conf.adoc[tackler.conf] and `reports.register.*` for full
 information of register report configuration options.
 
 === Timestamps in register report

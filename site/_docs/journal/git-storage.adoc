@@ -107,7 +107,7 @@ git push
 cd ..
 ....
 
-Then you have to configure git storage, see xref:../tackler-conf.adoc[tackler.conf] for full explanation, but it could be as simple as:
+Then you have to configure git storage, see xref:../configuration/tackler-conf.adoc[tackler.conf] for full explanation, but it could be as simple as:
 
 ....
 cat >> git-storage.conf << EOF

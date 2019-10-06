@@ -24,8 +24,8 @@ This is released on Maven Central Repository.
 
 Transactions can be read from three different sources
 
- * From filesystem `fs`-storage xref:./tackler-conf.adoc[(conf: tackler.core.input.fs)]
- * From xref:./git-storage.adoc[Git] `git`-storage xref:./tackler-conf.adoc[(conf: tackler.core.input.git)]
+ * From filesystem `fs`-storage xref:./configuration/tackler-conf.adoc[(conf: tackler.core.input.fs)]
+ * From xref:./git-storage.adoc[Git] `git`-storage xref:./configuration/tackler-conf.adoc[(conf: tackler.core.input.git)]
  * Internally directly from string
 
 All of these inputs produce transaction stream and metadata of that stream. This transaction set (`txnData`)

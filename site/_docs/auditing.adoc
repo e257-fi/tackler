@@ -59,7 +59,7 @@ makes it impossible that transaction would leak into unknown account.
 If accounting system allows usage of undefined accounts and doesn't enforce account name validation, it is possible to
 loose or leak value into unknown, not tracked accounts, even when transactions still balance internally perfectly.
 
-See xref:./accounts-conf.adoc[accounts.conf] for further info.
+See xref:./configuration/accounts-conf.adoc[accounts.conf] for further info.
 
 
 === Validation of commodities
@@ -70,7 +70,7 @@ accounts is activated, then it is also activated for commodities at the same tim
 When strict mode is activated, it is possible to set configuration option that allows empty commodities
 (e.g. value posts without unit or commodity).
 
-See xref:./accounts-conf.adoc[accounts.conf] for further info.
+See xref:./configuration/accounts-conf.adoc[accounts.conf] for further info.
 
 
 === Proof of used reporting parameters

@@ -17,8 +17,9 @@
 - title: Documentation
   docs:
     - link: /docs/configuration/
-    - link: /docs/tackler-conf/
-    - link: /docs/accounts-conf/
+    - link: /docs/configuration/tackler-conf/
+    - link: /docs/configuration/accounts-conf/
+    - link: /docs/configuration/examples/
     - link: /docs/journal/
     - link: /docs/journal/sharding/
     - link: /docs/journal/git-storage/

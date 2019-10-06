@@ -1,0 +1,168 @@
+= Configuration Examples
+:page-date: 2019-10-06 00:00:00 Z
+:page-last_modified_at: 2020-12-20 00:00:00 Z
+
+This document has Tackler configuration examples.
+
+== Example of Production Setup Layout
+
+Production Setup Layout is based on two different VCS setup. The first version control setup
+(auxiliary repository) contains all  tools and documentation.
+
+The second version control setup (journal) contains all accounting data
+and all accounting related settings. It is important to have accounting data
+and settings on the same repository so it possible to evolve both in sync.
+
+=== Directory and Version Control Structure
+
+[source,sh]
+.Tackler setup structure for fs and git based journal support
+----
+books/      # This result of: git clone /path/to/books.git
+├── .git/   # and it is for tools and documentation
+│   └── ...
+├── .gitignore
+├── bin/
+│   └── report.sh*
+├── dist/
+│   ├── tackler-cli-x.y.z.jar
+│   └── tackler.conf    # This is only a stub and includes real configuration
+├── docs/
+│   └── readme.txt
+└── journal/    # This is result of: git clone /path/to/journal.git
+    ├── .git/   # and is used for journal data and actual accounting configuration
+    │   └── ...
+    ├── conf/
+    │   ├── accounts.conf
+    │   └── tackler.conf
+    └── txns/
+        └── 2016/
+            ├── 2016-01-01-journal.txn
+            ├── ...
+            └── 2016-12-01-journal.txn
+----
+
+Journal data must not be included into auxiliary repository
+so it should be ignored on `books`-repository.
+
+[source,sh]
+.Content of `books/.gitignore`
+----
+# git-ignore for auxiliary books-repository
+/dist/
+/journal/
+----
+
+Tackler has an auto discovery mechanism for configuration and it can be used to point
+tackler to the real configuration under journal.
+
+[source,hocon]
+.Content of `books/dist/tackler.conf`
+----
+# Parent path for the include path is folder of the tackler's jar file
+# This could also be an absolute path
+include required("../journal/conf/tackler.conf")
+----
+
+If configuration auto discovery methdod is not used, then path to configuration file should be provided
+with `--cfg` command line option.
+
+
+=== Configuration for Filesystem and Git Setup
+
+With this setup it is possible to use either filesystem based backend or git backend at the same time.
+
+Switching between backends can be done on the fly from CLI with options:
+
+- Filesystem (if default is git): `--input.storage=fs`
+- Git backend (if default is fs): `--input.storage=git`
+
+Follow
+[source,hocon]
+----
+tackler {
+  core {
+    # Relative or absolute path to journal-folder
+    # If this is relative path, then parent folder is determined
+    # based on jar-file's location (e.g. dist/ folder with this setup)
+    basedir = ../journal
+
+    input {
+      # This is the default backend, which is used when tackler is
+      # called without any storage options.
+      # Valid values are: fs | git
+      storage = fs
+
+      fs {
+        dir = txns/
+        glob = "**.txn"
+      }
+
+      git {
+        # This is local path of GIT repository for journal data,
+        # e.g. internal git-data of local clone (used for reading)
+        repository = .git
+        # Name of main branch, e.g. "Y2020", "main", "master", etc.
+        ref = "master"
+        # This is path inside *repository*
+        dir = txns/
+        suffix = ".txn"
+      }
+    }
+    include required("./accounts.conf")
+  }
+}
+----
+
+== Configuration with environment variables
+
+Configuration system
+(link:https://github.com/typesafehub/config/blob/master/HOCON.md[Typesafe Config])
+used by Tackler supports using  environment variables as part of configuration.
+
+Below is an example how to use those for setting shard for report and selecting
+xref:../report-balance-group.adoc[Balance-Group]'s title and groupBy operator.
+
+[source,hocon]
+.tackler.conf with environment variables
+----
+tackler {
+  core {
+    basedir = ../journal
+
+    input {
+      storage = fs
+
+      fs {
+        dir = txns/${?TXN_SHARD}
+        glob = "**.txn"
+      }
+
+      git {
+        repository = .git
+        ref = "master"
+        dir = txns/${?TXN_SHARD}
+        suffix = ".txn"
+      }
+    }
+
+    reporting {
+      reports = [ "balance", "balance-group" ]
+
+      accounts = [
+        "Expenses(:.*)?",
+        ]
+    }
+
+    reports {
+      balance-group {
+        title = ${?BALGRP_TITLE}
+        group-by = ${?BALGRP_GROUPBY}
+      }
+    }
+
+    include required("./accounts.conf")
+  }
+}
+----
+

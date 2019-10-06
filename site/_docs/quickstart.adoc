@@ -1,29 +1,34 @@
 = Quickstart
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-10-05 00:00:00 Z
+:page-last_modified_at: 2020-12-20 00:00:00 Z
 :page-permalink: /docs/quickstart/
 
 
-This is quickstart demo setup for Tackler.
+This is minimal quickstart setup for Tackler.
 
+[NOTE]
+====
 See
 xref:./journal/format.adoc[Journal Format],
 xref:./installation.adoc[Installation Manual],
 xref:./usage.adoc[Usage Guide],
-xref:./tackler-conf.adoc[tackler.conf] and
-xref:./accounts-conf.adoc[accounts.conf]
+xref:./configuration/tackler-conf.adoc[tackler.conf],
+xref:./configuration/accounts-conf.adoc[accounts.conf] and
+xref:./configuration/examples.adoc[Configuration Examples]
 for how to configure tackler and use it with full-fledged production setup.
-
-If you don't have tackler-cli.jar, you can download the latest version from
-https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
-https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it by yourself].
+====
 
 
-== Tackler Quickstart Setup
+== Minimal Quickstart Setup
 
-Minimal tackler setup can be created in following four steps
+=== 0. Get tackler-cli.jar
 
-.1. Create directory structure for demo setup
+Download tackler-cli.jar from https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
+https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it yourself].
+
+
+=== 1. Make directory structure for demo setup
+
 [source,sh]
 ----
 mkdir tackler
@@ -38,7 +43,8 @@ cp /path/to/tackler-cli-x.y.z.jar ./tackler-cli.jar
 
 
 
-.2. Create demo transactions
+=== 2. Create few transactions
+
 [source,sh]
 ----
 cat > txns/journal.txn << EOF
@@ -55,11 +61,12 @@ EOF
 [NOTE]
 ====
 The journal data file `txns/journal.txn` can not be empty,
-hence we have to create some transactions to play with it.
+so there must be some transactions to play with it.
 ====
 
 
-.3. Verify setup and content of tackler demo folder
+=== 3. Verify setup and content of tackler demo folder
+
 [source,sh]
 ----
 # Directory listing of tackler folder
@@ -69,14 +76,16 @@ hence we have to create some transactions to play with it.
 ----
 
 
-.4. Generate default reports
+=== 4. Generate default reports
+
 [source,sh]
 ----
 # This command must be run inside 'tackler' folder, which was created abobe
 java -jar ./tackler-cli.jar --accounts.strict=false
 ----
 
-.4.1. Resulting xref:./report-balance.adoc[Balance] and xref:./report-register.adoc[Register] Reports
+==== 4.1. Resulting xref:./report-balance.adoc[Balance] and xref:./report-register.adoc[Register] Reports
+
 [source]
 ----
 # ... Log lines suppressed ...
@@ -115,6 +124,6 @@ See
 xref:./journal/format.adoc[Journal Format],
 xref:./installation.adoc[Installation Manual],
 xref:./usage.adoc[Usage Guide],
-xref:./tackler-conf.adoc[tackler.conf] and
-xref:./accounts-conf.adoc[accounts.conf]
+xref:./configuration/tackler-conf.adoc[tackler.conf] and
+xref:./configuration/accounts-conf.adoc[accounts.conf]
 how to configure tackler and use it with full-fledged production setup.

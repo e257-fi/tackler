@@ -77,5 +77,4 @@ exclude:
 - icomoon-selection.json
 - readme.*
 - todo.*
-- "**_jb_tmp_**"
-
+- "**.adoc___jb_tmp___"

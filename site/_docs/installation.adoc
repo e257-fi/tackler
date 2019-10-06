@@ -1,6 +1,6 @@
 = Installation Manual
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-10-05 00:00:00 Z
+:page-last_modified_at: 2020-12-20 00:00:00 Z
 
 This is installation manual for tackler command line.
 
@@ -9,9 +9,9 @@ To use tackler cli you will need
   * Java Runtime Environment (Java 8 and Java 11 are tested regularly)
   * Tackler command line binary (`tackler-cli.jar`-file)
 
-If you don't have tackler-cli.jar, you can download the latest version from
+Download the latest version of tackler-cli.jar from
 https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
-https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it by yourself].
+https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it yourself].
 
 
 == Minimal setup
@@ -47,7 +47,7 @@ After that it's possible to run tackler with account name validation:
  java -jar ./tackler-cli.jar
 
 If there is missing or mistyped account, that will cause an exception error.
-See xref:./accounts-conf.adoc[example of accounts.conf] for full documentation
+See xref:./configuration/accounts-conf.adoc[example of accounts.conf] for full documentation
 of Chart of Accounts and commodity listing.
 
 
@@ -79,8 +79,8 @@ and xref:./filters.adoc[Transaction Filters] document for overall information ab
 By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
 You can also provide path to configuration file with `--cfg` option.
 
-With recommended setup, configuration file xref:./tackler-conf.adoc[tackler.conf] is located next to the jar-file
-and it is auto-discovered.  There is also xref:./accounts-conf.adoc[accounts.conf] which contains
+With recommended setup, configuration file xref:./configuration/tackler-conf.adoc[tackler.conf] is located next to the jar-file
+and it is auto-discovered.  There is also xref:./configuration/accounts-conf.adoc[accounts.conf] which contains
 accounts and commodity names definitions. This makes it possible to do strict account and commodity name validation.
 
 Minimal `tackler.conf` for above setup could be:
@@ -116,7 +116,7 @@ Please see xref:./configuration.adoc[Configuration Manual] for information about
 
 You can override some of the configuration varibles with CLI arguments.
 These configuration variables, and command line switches are documented
-in xref:./tackler-conf.adoc[tackler.conf].
+in xref:./configuration/tackler-conf.adoc[tackler.conf].
 
 
 === Chart of Accounts and commodities
@@ -143,6 +143,6 @@ With production systems, it is highly recommended to provide valid
 Chart of Accounts and list of valid commodities.
 
 Chart of accounts is defined either as part of main configuration or
-as separate configuration file. See xref:./accounts-conf.adoc[accounts.conf] for example configuration.
+as separate configuration file. See xref:./configuration/accounts-conf.adoc[accounts.conf] for example configuration.
 
 

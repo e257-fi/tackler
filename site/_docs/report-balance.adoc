@@ -32,7 +32,7 @@ Balance delta is based and calculated only by values reported on the first colum
 
 == Balance report configuration
 
-See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance.*` for full
+See xref:./configuration/tackler-conf.adoc[tackler.conf] and `reports.balance.*` for full
 information of balance report configuration options.
 
 

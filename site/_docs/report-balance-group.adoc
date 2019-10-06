@@ -64,7 +64,7 @@ Balance delta is based and calculated only by values reported on the first colum
 
 Balance Groups are selected by `reports.balance-group.group-by` conf-setting.
 
-See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance-group.*` for full
+See xref:./configuration/tackler-conf.adoc[tackler.conf] and `reports.balance-group.*` for full
 information of balance group report configuration options.
 
 If `report-timezone` is set, then transaction timestamps are converted

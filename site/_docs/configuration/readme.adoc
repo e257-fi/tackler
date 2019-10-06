@@ -1,0 +1,31 @@
+= Configuration Manual
+:page-date: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-permalink: /docs/configuration/
+
+Tackler configuration is controlled by configuration files and command line options.
+
+== Reference configuration and examples
+
+* Reference configuration file, xref:./configuration/tackler-conf.adoc[tackler.conf]
+* Account name rules and example account, xref:./configuration/accounts-conf.adoc[accounts.conf]
+* Examples for production systems, xref:./configuration/examples.adoc[Configuration Examples]
+
+
+== Configuration discovery
+
+If path to external configuration file is not provided with `--cfg` option,
+then Tackler will seek file named as  `tackler.conf` next to the location of jar-file.
+If there is any, then this will be used as an external configuration.
+
+=== Merging configurations to active set
+
+Tackler will create an active configuration in following way:
+
+* Baseline is embedded default config
+* Then external configuration, if there is any,  is applied
+* Lastly some cmd-line args can be used to override current configuration
+
+All config's are merged together,
+and the last defined value is what is used
+by configuration (e.g. if there are any cmd-line arguments).

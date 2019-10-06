@@ -7,11 +7,28 @@ values, and only those which would be overridden should be defined.
 
 See xref:./accounts-conf.adoc[accounts.conf] for accounts configuration.
 
-File format is HOCON
+See xref:./examples.adoc[example configurations] for various production setups.
+
+File format is
 link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
 (Human-Optimized Config Object Notation)
 
-"CLI:" will show command line interface option for config option if there is one
+[NOTE]
+====
+Relative basedir-paths are always relative to the used cfg-file.
+
+* External conf-file, then it is conf-file's directory.
+* Embedded conf-file, then it is directory where executed jar is located.
+====
+
+
+== Reference Configuration
+
+[NOTE]
+====
+Some of the configuration settings can be overridden with CLI options.
+Below option is marked with "CLI:" if it can be overridden from CLI.
+====
 
 [source,hocon]
 ----
