@@ -19,9 +19,9 @@ package fi.e257.tackler.cli
 import java.nio.file.NoSuchFileException
 
 import org.rogach.scallop.exceptions.{UnknownOption, ValidationFailure}
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerCliArgsTest extends FunSpec {
+class TacklerCliArgsTest extends AnyFunSpec {
 
   describe("Tackler with cli-args") {
 

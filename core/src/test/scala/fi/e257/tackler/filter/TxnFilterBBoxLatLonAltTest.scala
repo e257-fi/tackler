@@ -19,9 +19,9 @@ package fi.e257.tackler.filter
 import fi.e257.tackler.api.{GeoPoint, TxnFilterBBoxLatLonAlt, TxnFilterDefinition, TxnHeader}
 import fi.e257.tackler.model.Transaction
 import io.circe.parser.decode
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TxnFilterBBoxLatLonAltTest extends FunSpec with TxnFilterBBoxSpec {
+class TxnFilterBBoxLatLonAltTest extends AnyFunSpec with TxnFilterBBoxSpec {
 
   describe("BBox 3D (Latitude, Longitude, Altitude)") {
 

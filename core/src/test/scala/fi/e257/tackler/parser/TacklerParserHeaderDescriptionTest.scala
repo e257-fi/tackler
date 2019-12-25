@@ -17,9 +17,9 @@
 package fi.e257.tackler.parser
 
 import fi.e257.tackler.core.Settings
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerParserHeaderDescriptionTest extends FunSpec {
+class TacklerParserHeaderDescriptionTest extends AnyFunSpec {
 
   describe("Description") {
 

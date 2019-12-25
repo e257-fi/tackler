@@ -18,9 +18,9 @@ package fi.e257.tackler.math
 
 import java.math.MathContext
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerRealTest extends FunSpec {
+class TacklerRealTest extends AnyFunSpec {
 
   val bd1 = TacklerReal("1000000000000000000000000.1")
   val bd2 = TacklerReal("2000000000000000000000.0002")

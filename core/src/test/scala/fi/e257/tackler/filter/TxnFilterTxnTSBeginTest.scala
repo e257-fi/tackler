@@ -18,13 +18,12 @@ package fi.e257.tackler.filter
 
 import java.time.{ZoneId, ZonedDateTime}
 
-import org.scalatest.FlatSpecLike
-
 import fi.e257.tackler.api.{TxnFilterDefinition, TxnFilterTxnTSBegin}
 import fi.e257.tackler.core.Settings
 import fi.e257.tackler.parser.TacklerTxns
+import org.scalatest.flatspec.AnyFlatSpecLike
 
-class TxnFilterTxnTSBeginTest extends TxnFilterSpec with FlatSpecLike {
+class TxnFilterTxnTSBeginTest extends TxnFilterSpec with AnyFlatSpecLike {
 
   val tt = new TacklerTxns(Settings())
 

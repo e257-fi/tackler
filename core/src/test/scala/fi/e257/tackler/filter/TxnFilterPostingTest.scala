@@ -20,9 +20,9 @@ import fi.e257.tackler.api._
 import fi.e257.tackler.core.Settings
 import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.parser.TacklerTxns
-import org.scalatest.FlatSpecLike
+import org.scalatest.flatspec.AnyFlatSpecLike
 
-class TxnFilterPostingTest extends TxnFilterSpec with FlatSpecLike {
+class TxnFilterPostingTest extends TxnFilterSpec with AnyFlatSpecLike {
   val tt = new TacklerTxns(Settings())
 
   val uuidTxn01 = "22e17bf5-3da5-404d-aaff-e3cc668191ee"

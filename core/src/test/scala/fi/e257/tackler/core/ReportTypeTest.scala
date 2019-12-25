@@ -16,9 +16,10 @@
  */
 package fi.e257.tackler.core
 
-import org.scalatest.{FlatSpec, MustMatchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.must.Matchers
 
-class ReportTypeTest extends FlatSpec with MustMatchers {
+class ReportTypeTest extends AnyFlatSpec with Matchers {
   behavior of "ReportType"
 
   it should "accept balance" in {
@@ -43,7 +44,7 @@ class ReportTypeTest extends FlatSpec with MustMatchers {
   }
 }
 
-class ExportTypeTest extends FlatSpec with MustMatchers {
+class ExportTypeTest extends AnyFlatSpec with Matchers {
 
   behavior of "ExportType"
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2017-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
  */
 package fi.e257.tackler.report
 
-import org.scalatest.{FlatSpec, MustMatchers}
-
 import fi.e257.tackler.core.Settings
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.must.Matchers
 
-class BalanceSettingsTest extends FlatSpec with MustMatchers {
+class BalanceSettingsTest extends AnyFlatSpec with Matchers {
   val settings = Settings()
 
   behavior of "BalanceSettings"

@@ -19,9 +19,9 @@ package fi.e257.tackler.parser
 import com.typesafe.config.ConfigFactory
 import fi.e257.tackler.api.GitInputReference
 import fi.e257.tackler.core.{Settings, TacklerException}
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerTxnsGitTest extends FunSpec {
+class TacklerTxnsGitTest extends AnyFunSpec {
 
   val cfg = ConfigFactory.parseString(
     """

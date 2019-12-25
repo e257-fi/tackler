@@ -18,13 +18,12 @@ package fi.e257.tackler.filter
 
 import java.util.UUID
 
-import org.scalatest.FlatSpecLike
-
 import fi.e257.tackler.api.{TxnFilterDefinition, TxnFilterTxnCode, TxnFilterTxnComments, TxnFilterTxnDescription, TxnFilterTxnUUID}
 import fi.e257.tackler.core.Settings
 import fi.e257.tackler.parser.TacklerTxns
+import org.scalatest.flatspec.AnyFlatSpecLike
 
-class TxnFilterTxnHeaderTest extends TxnFilterSpec with FlatSpecLike {
+class TxnFilterTxnHeaderTest extends TxnFilterSpec with AnyFlatSpecLike {
   val tt = new TacklerTxns(Settings())
 
   val uuidTxn01 = "22e17bf5-3da5-404d-aaff-e3cc668191ee"

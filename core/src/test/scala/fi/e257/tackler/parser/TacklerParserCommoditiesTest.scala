@@ -17,9 +17,9 @@
 package fi.e257.tackler.parser
 
 import fi.e257.tackler.core.{CommodityException, Settings}
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerParserCommoditiesTest extends FunSpec {
+class TacklerParserCommoditiesTest extends AnyFunSpec {
 
   val tt = new TacklerTxns(Settings())
 

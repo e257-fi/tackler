@@ -22,9 +22,9 @@ import com.typesafe.config.ConfigFactory
 import fi.e257.tackler.api.{TxnFilterDefinition, TxnFilterTxnTSBegin, TxnFilterTxnTSEnd}
 import fi.e257.tackler.core.{Settings, TxnException}
 import fi.e257.tackler.parser.TacklerTxns
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TxnDataTest extends FunSpec {
+class TxnDataTest extends AnyFunSpec {
 
   val uuid01 = "72f7b85b-42ce-4fa2-971e-5ba5fc196d9d"
 

@@ -191,7 +191,7 @@ class BalanceReporter(val mySettings: BalanceSettings) extends  BalanceReporterL
           doRowOutputs(writers, txtBalanceReport(bal))
         }
         case JsonFormat() => {
-          doRowOutputs(writers, Seq(jsonBalanceReport(bal).pretty(printer)))
+          doRowOutputs(writers, Seq(jsonBalanceReport(bal).printWith(printer)))
         }
       }
     })

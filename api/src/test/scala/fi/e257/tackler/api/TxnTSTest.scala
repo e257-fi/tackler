@@ -18,9 +18,9 @@ package fi.e257.tackler.api
 
 import java.time.ZonedDateTime
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TxnTSTest extends FunSpec {
+class TxnTSTest extends AnyFunSpec {
 
   def txt2ts(txtTS: String): ZonedDateTime = {
     ZonedDateTime.parse(txtTS,

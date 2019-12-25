@@ -19,15 +19,16 @@ package fi.e257.tackler.cli
 import java.nio.file.Paths
 
 import better.files.File
-import org.scalatest.{FlatSpec, Inside, Matchers}
-
+import org.scalatest.Inside
 import fi.e257.tackler.core.Settings
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.must.Matchers
 
 /**
  * Tests to validate interaction between and combination of
  * CLI args and Settings (conf-file).
  */
-class TacklerCliSettingsTest extends FlatSpec  with Matchers with Inside {
+class TacklerCliSettingsTest extends AnyFlatSpec  with Matchers with Inside {
 
   val scalaVer = util.Properties.versionString.substring(8,12)
   val respath = "core/target/scala-" + scalaVer + "/test-classes/"

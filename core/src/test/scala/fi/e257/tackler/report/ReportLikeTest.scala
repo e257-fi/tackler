@@ -19,9 +19,9 @@ package fi.e257.tackler.report
 import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.model.TxnData
 import io.circe.Json
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class ReportLikeTest extends FunSpec {
+class ReportLikeTest extends AnyFunSpec {
 
   class DefaultReportSettings extends ReportConfiguration {
     override val minScale = 2

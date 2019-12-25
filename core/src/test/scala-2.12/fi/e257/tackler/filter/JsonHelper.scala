@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,30 +14,13 @@
  * limitations under the License.
  *
  */
-package fi.e257.tackler.core
+package fi.e257.tackler.filter
 
-import org.scalatest.flatspec.AnyFlatSpec
+import fi.e257.tackler.api.TxnFilterDefinition
+import io.circe
 
-class StorageTypeTest extends AnyFlatSpec {
-
-  behavior of "StorageType"
-
-  it should "apply fs" in {
-    val t = StorageType("fs")
-    assert(t.isInstanceOf[FilesystemStorageType])
-  }
-
-  it should "apply git" in {
-    val t = StorageType("git")
-    assert(t.isInstanceOf[GitStorageType])
-  }
-
-  /**
-   * test: 195971d7-f16f-4c1c-a761-6764b28fd4db
-   */
-  it should "handle unknown type" in {
-    assertThrows[TacklerException]{
-      StorageType("no-such-type")
-    }
+object JsonHelper {
+  def getFilter(json: Either[circe.Error, TxnFilterDefinition]): TxnFilterDefinition = {
+    json.right.get
   }
 }

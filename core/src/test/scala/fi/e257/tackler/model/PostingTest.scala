@@ -18,9 +18,9 @@ package fi.e257.tackler.model
 
 import fi.e257.tackler.core.TxnException
 import fi.e257.tackler.math.TacklerReal
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
-class PostingTest extends FlatSpec {
+class PostingTest extends AnyFlatSpec {
 
   val acctn = AccountTreeNode("a:b", None)
 

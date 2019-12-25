@@ -142,7 +142,7 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
           doRowOutputs(writers, txtRegisterReport(md, rrf, txns))
         }
         case JsonFormat() => {
-          doRowOutputs(writers, Seq(jsonRegisterReport(md, rrf, txns).pretty(printer)))
+          doRowOutputs(writers, Seq(jsonRegisterReport(md, rrf, txns).printWith(printer)))
         }
       }
     })

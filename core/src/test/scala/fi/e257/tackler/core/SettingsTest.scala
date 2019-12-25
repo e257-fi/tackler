@@ -19,9 +19,9 @@ package fi.e257.tackler.core
 import java.nio.file.Paths
 
 import com.typesafe.config.ConfigFactory
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class SettingsTest extends FunSpec {
+class SettingsTest extends AnyFunSpec {
 
   val scalaVer = util.Properties.versionString.substring(8,12)
    /*

@@ -16,9 +16,9 @@
  */
 package fi.e257.tackler.core
 
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
-class ReportFormatTest extends FlatSpec {
+class ReportFormatTest extends AnyFlatSpec {
 
   behavior of "ReportFormatTest"
 

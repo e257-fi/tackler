@@ -18,12 +18,11 @@ package fi.e257.tackler.filter
 
 import java.time.ZonedDateTime
 
-import org.scalatest.FlatSpec
-
 import fi.e257.tackler.api._
 import fi.e257.tackler.model.Transaction
+import org.scalatest.flatspec.AnyFlatSpec
 
-class TxnFilterTest extends FlatSpec {
+class TxnFilterTest extends AnyFlatSpec {
 
 
   val txnFilterFalse = TxnFilterNone()

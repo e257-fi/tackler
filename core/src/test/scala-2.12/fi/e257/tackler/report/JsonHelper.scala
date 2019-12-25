@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 E257.FI
+ * Copyright 2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,19 @@
  * limitations under the License.
  *
  */
-package fi.e257.tackler.cli
+package fi.e257.tackler.report
 
-import org.scalatest.flatspec.AnyFlatSpec
+import fi.e257.tackler.api.{BalanceGroupReport, BalanceReport, RegisterReport}
+import io.circe
 
-class BuildInfoTest extends AnyFlatSpec {
-
-  behavior of "BuildInfo"
-
-  it should "scalaVersion" in {
-    assert(BuildInfo.scalaVersion.startsWith(util.Properties.versionString.substring(8)))
+object JsonHelper {
+  def getBalanceReport(json: Either[circe.Error, BalanceReport]): Option[BalanceReport] = {
+    json.right.toOption
   }
-
-  it should "name" in {
-    assert(BuildInfo.name === "cli")
+  def getBalanceGroupReport(json: Either[circe.Error, BalanceGroupReport]): Option[BalanceGroupReport] = {
+    json.right.toOption
   }
-
-  it should "sbtVersion" in {
-    assert(BuildInfo.sbtVersion.startsWith("1.3.2"))
+  def getRegisterReport(json: Either[circe.Error, RegisterReport]): Option[RegisterReport] = {
+    json.right.toOption
   }
-
-  it should "toString" in {
-    assert(BuildInfo.toString.nonEmpty)
-  }
-
-  it should "version" in {
-    assert(BuildInfo.version.nonEmpty)
-  }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2017-2019 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@
 package fi.e257.tackler.report
 
 import io.circe.optics.JsonPath
-import org.scalatest.FlatSpec
 import fi.e257.tackler.api.{BalanceGroupReport, BalanceReport, RegisterReport, TxnHeader}
 import fi.e257.tackler.core.{GroupByIsoWeek, Settings}
 import fi.e257.tackler.parser.TacklerTxns
+import org.scalatest.flatspec.AnyFlatSpec
 
-class ReportApiTest extends FlatSpec {
+class ReportApiTest extends AnyFlatSpec {
 
   val settings = Settings()
   val txnStr =
@@ -65,7 +65,7 @@ class ReportApiTest extends FlatSpec {
     assert(_delta.getOption(report) === Some("0.00"))
 
     val foo = report.as[BalanceReport]
-    assert(foo.right.toOption.map(_.title) === Some("BALANCE"))
+    assert(JsonHelper.getBalanceReport(foo).map(_.title) === Some("BALANCE"))
   }
 
   /**
@@ -82,7 +82,7 @@ class ReportApiTest extends FlatSpec {
     assert(_delta.getOption(report) === Some("-15.00"))
 
     val foo = report.as[BalanceReport]
-    assert(foo.right.toOption.map(_.title) === Some("Test-Balance"))
+    assert(JsonHelper.getBalanceReport(foo).map(_.title) === Some("Test-Balance"))
   }
 
 
@@ -106,7 +106,7 @@ class ReportApiTest extends FlatSpec {
     assert(_balgrp_delta.getOption(report) === Some("0.00"))
 
     val foo = report.as[BalanceGroupReport]
-    assert(foo.right.toOption.map(_.title) === Some("BALANCE GROUPS"))
+    assert(JsonHelper.getBalanceGroupReport(foo).map(_.title) === Some("BALANCE GROUPS"))
   }
 
   /**
@@ -124,7 +124,7 @@ class ReportApiTest extends FlatSpec {
     assert(_balgrp_delta.getOption(report) === Some("-15.00"))
 
     val foo = report.as[BalanceGroupReport]
-    assert(foo.right.toOption.map(_.title) === Some("Test-BalGrp"))
+    assert(JsonHelper.getBalanceGroupReport(foo).map(_.title) === Some("Test-BalGrp"))
   }
 
 
@@ -144,7 +144,7 @@ class ReportApiTest extends FlatSpec {
     assert(_reg_txn_idx1_desc.getOption(report) === Some("txn-02")) // no filter
 
     val foo = report.as[RegisterReport]
-    assert(foo.right.toOption.map(_.title) === Some("REGISTER"))
+    assert(JsonHelper.getRegisterReport(foo).map(_.title) === Some("REGISTER"))
   }
 
   /**
@@ -160,7 +160,7 @@ class ReportApiTest extends FlatSpec {
     assert(_reg_txn_idx1_desc.getOption(report) === Some("txn-03")) // with filter
 
     val foo = report.as[RegisterReport]
-    assert(foo.right.toOption.map(_.title) === Some("Test-Register"))
+    assert(JsonHelper.getRegisterReport(foo).map(_.title) === Some("Test-Register"))
   }
 
   /**
@@ -198,7 +198,7 @@ class ReportApiTest extends FlatSpec {
     val jsonResult = jsonRpt.as[RegisterReport]
     assert(jsonResult.isRight)
 
-    val rptFromJson = jsonResult.right.get
+    val rptFromJson = JsonHelper.getRegisterReport(jsonResult).get
     assert(rptFromJson.title === "UUID")
 
     assert(rptFromJson.transactions.head.txn.description.get.toString === "uuid = 78436575-3613-483d-a7ed-d9917b1d5c80")
@@ -246,7 +246,7 @@ class ReportApiTest extends FlatSpec {
     val jsonResult = jsonRpt.as[RegisterReport]
     assert(jsonResult.isRight)
 
-    val rptFromJson = jsonResult.right.get
+    val rptFromJson = JsonHelper.getRegisterReport(jsonResult).get
     assert(rptFromJson.title === "location")
 
     val txnHdr: TxnHeader = rptFromJson.transactions.head.txn

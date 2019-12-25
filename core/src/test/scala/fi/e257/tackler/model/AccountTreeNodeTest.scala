@@ -16,11 +16,10 @@
  */
 package fi.e257.tackler.model
 
-import org.scalatest.FlatSpec
-
 import fi.e257.tackler.core.AccountException
+import org.scalatest.flatspec.AnyFlatSpec
 
-class AccountTreeNodeTest extends FlatSpec {
+class AccountTreeNodeTest extends AnyFlatSpec {
 
   behavior of "AccountTreeNodeTest"
 

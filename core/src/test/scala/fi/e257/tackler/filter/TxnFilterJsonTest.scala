@@ -24,11 +24,12 @@ import fi.e257.tackler.core.Settings
 import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.model.TxnData
 import fi.e257.tackler.parser.TacklerTxns
+import io.circe
 import io.circe.parser.decode
 import io.circe.syntax._
-import org.scalatest.FunSpecLike
+import org.scalatest.funspec.AnyFunSpecLike
 
-class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
+class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
   val filterJsonStr =
     """{
       |  "txnFilter" : {
@@ -239,9 +240,9 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
      * test: 4cce4204-16b1-40a4-b1ea-ce11272d5824
      */
     it("decode from JSON and then encode to text") {
-      val txnFilterRoot = decode[TxnFilterDefinition](filterJsonStr)
+      val txnFilterRoot: Either[circe.Error, TxnFilterDefinition] = decode[TxnFilterDefinition](filterJsonStr)
 
-      assert(filterTextStr === txnFilterRoot.right.get.text("").mkString("", "\n", "\n\n"))
+      assert(filterTextStr === JsonHelper.getFilter(txnFilterRoot).text("").mkString("", "\n", "\n\n"))
     }
 
     /**
@@ -273,7 +274,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
 
       val txnFilterRoot = decode[TxnFilterDefinition](filterStr)
 
-      val txnData = txnsAll.filter(txnFilterRoot.right.get)
+      val txnData = txnsAll.filter(JsonHelper.getFilter(txnFilterRoot))
 
       assert(txnData.txns.size === 1)
       assert(checkUUID(txnData, uuidTxn04))
@@ -368,7 +369,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
      * test: 3624a7b3-3668-45ee-9580-aa64fb955a33
      */
     it("encode filter to JSON") {
-      assert(filterJsonStr === txnFilter.asJson + "\n")
+      assert(filterJsonStr === txnFilter.asJson.toString() + "\n")
     }
 
     /**
@@ -517,7 +518,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
           |}
           |""".stripMargin
 
-      assert(metadataJson === txnData.filter(txnFilter).metadata.map(m => m.asJson).getOrElse("") + "\n")
+      assert(metadataJson === txnData.filter(txnFilter).metadata.map(m => m.asJson.toString()).getOrElse("") + "\n")
     }
 
     /**
@@ -527,5 +528,4 @@ class TxnFilterJsonTest extends TxnFilterSpec with FunSpecLike {
       assert(filterTextStr === txnData.filter(txnFilter).metadata.map(m => m.text()).getOrElse(""))
     }
   }
-
 }

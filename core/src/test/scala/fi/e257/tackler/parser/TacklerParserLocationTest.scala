@@ -17,9 +17,9 @@
 package fi.e257.tackler.parser
 
 import fi.e257.tackler.core.{Settings, TacklerException}
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerParserLocationTest extends FunSpec {
+class TacklerParserLocationTest extends AnyFunSpec {
 
   val tt = new TacklerTxns(Settings())
 

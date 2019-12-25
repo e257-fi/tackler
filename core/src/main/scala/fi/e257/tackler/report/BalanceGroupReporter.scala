@@ -105,7 +105,7 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
           doRowOutputs(writers, txtBalanceGroupReport(balGrps._1, balGrps._2))
 
         case JsonFormat() => {
-          doRowOutputs(writers, Seq(jsonBalanceGroupReport(balGrps._1, balGrps._2).pretty(printer)))
+          doRowOutputs(writers, Seq(jsonBalanceGroupReport(balGrps._1, balGrps._2).printWith(printer)))
         }
       }
     })

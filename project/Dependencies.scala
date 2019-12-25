@@ -25,11 +25,11 @@ object Dependencies {
   val catsVersion = "2.0.0"
   val circeVersion = "0.12.1"
   val circeOpticsVersion = "0.12.0"
-  val scalatestVersion = "3.0.8"
+  val scalatestVersion = "3.1.0"
   val scallopVersion = "3.3.1"
   val scalaCollCompatVersion = "2.1.2"
   val configVersion = "1.3.4"
-  val dirsuiteVersion = "0.30.2"
+  val dirsuiteVersion = "0.31.0"
   val jgitVersion = "5.5.0.201909110433-r"
   val logbackVersion = "1.2.3"
 

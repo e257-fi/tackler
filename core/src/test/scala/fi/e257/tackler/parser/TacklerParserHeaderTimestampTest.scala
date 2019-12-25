@@ -18,9 +18,9 @@ package fi.e257.tackler.parser
 
 import fi.e257.tackler.api.TxnTS
 import fi.e257.tackler.core.Settings
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class TacklerParserHeaderTimestampTest extends FunSpec {
+class TacklerParserHeaderTimestampTest extends AnyFunSpec {
 
   describe("Timestamp") {
 
