@@ -26,7 +26,7 @@ variables:
 
 
 test·jdk11:
-  image: "hseeberger/scala-sbt:11.0.4_1.3.2_2.13.1"
+  image: "hseeberger/scala-sbt:11.0.4_1.3.5_2.13.1"
 
   stage: "test"
 
@@ -35,7 +35,7 @@ test·jdk11:
 
 
 test·jdk8:
-  image: "hseeberger/scala-sbt:8u222_1.3.2_2.13.1"
+  image: "hseeberger/scala-sbt:8u222_1.3.5_2.13.1"
 
   stage: "test"
 
@@ -48,13 +48,13 @@ test·jdk8:
 ### https://github.com/scoverage/sbt-scoverage/issues/295
 ### is fixed
 codecov:
-  image: "hseeberger/scala-sbt:8u222_1.3.2_2.13.1"
+  image: "hseeberger/scala-sbt:8u222_1.3.5_2.13.1"
 
   stage: "test"
 
   script:
-    - sbt "+clean" coverage "++2.13.0! test" "++2.13.0! it:test"
-    - sbt "++2.13.0! coverageAggregate"
+    - sbt "+clean" coverage "++2.13.1! test" "++2.13.1! it:test"
+    - sbt "++2.13.1! coverageAggregate"
 
   coverage: '/All done. Coverage was \[\d+.\d+%\]/'
 

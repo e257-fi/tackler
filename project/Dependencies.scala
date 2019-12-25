@@ -22,15 +22,15 @@ object Dependencies {
    * Versions
    */
   val betterFilesVersion = "3.8.0"
-  val catsVersion = "2.0.0"
-  val circeVersion = "0.12.1"
+  val catsVersion = "2.1.0"
+  val circeVersion = "0.12.3"
   val circeOpticsVersion = "0.12.0"
   val scalatestVersion = "3.1.0"
-  val scallopVersion = "3.3.1"
-  val scalaCollCompatVersion = "2.1.2"
-  val configVersion = "1.3.4"
+  val scallopVersion = "3.3.2"
+  val scalaCollCompatVersion = "2.1.3"
+  val configVersion = "1.4.0"
   val dirsuiteVersion = "0.31.0"
-  val jgitVersion = "5.5.0.201909110433-r"
+  val jgitVersion = "5.6.0.201912101111-r"
   val logbackVersion = "1.2.3"
 
 
