@@ -4,9 +4,6 @@
 ### https://gitlab.com/e257/accounting/tackler
 ###
 
-include:
-  template: Dependency-Scanning.gitlab-ci.yml
-
 # hseeberger images have ready-to-go sbt and scala at user's home, 
 # but that location and especially ~/.ivy2 is not cache-able by GitLab:
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/327
@@ -46,10 +43,6 @@ test·jdk8:
     - sbt "+clean" "+test" "+it:test" "+cli/assembly"
 
 
-###
-### Use scala 2.13.0 for coverate until
-### https://github.com/scoverage/sbt-scoverage/issues/295
-### is fixed
 codecov:
   image: "hseeberger/scala-sbt:8u222_1.3.5_2.13.1"
 
