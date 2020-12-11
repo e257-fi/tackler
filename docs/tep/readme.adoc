@@ -26,6 +26,7 @@ None at the moment.
 === TEPs in planning phase
 
 * xref:./tep-1011.adoc[TEP-1011: Txn Tags support]
+* xref:./tep-1012.adoc[TEP-1012: Custom timestamps for reports]
 * xref:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
 
 

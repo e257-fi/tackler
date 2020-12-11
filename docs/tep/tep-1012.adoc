@@ -1,0 +1,23 @@
+= TEP-1012: Custom timestamps for reports
+
+See branch
+link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1012-custom-ts/docs/tep/tep-1012.adoc[/tep/tep-1012-custom-ts]
+for actual TEP-1012 content.
+
+
+=== Feature and Test case tracking
+
+
+Feature-id::
+
+* name: Custom timestamps for reports
+* uuid: c085aec4-8e0f-4571-bf50-0dc16dba411e
+
+
+link:../../tests/tests-1012.yml[TEP-1012 T3DB]
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].
