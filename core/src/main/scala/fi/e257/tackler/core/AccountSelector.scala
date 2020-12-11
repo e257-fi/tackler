@@ -18,7 +18,7 @@ package fi.e257.tackler.core
 
 import java.util.regex.Pattern
 
-import cats.implicits._
+import cats.syntax.all._
 import fi.e257.tackler.api.Checksum
 import fi.e257.tackler.model.{AccumulatorPosting, BalanceTreeNode}
 

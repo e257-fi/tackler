@@ -22,17 +22,17 @@ object Dependencies {
    * Versions
    */
   val betterFilesVersion = "3.9.1"
-  val catsVersion = "2.2.0"
+  val catsVersion = "2.3.0"
   val circeVersion = "0.13.0"
   val circeOpticsVersion = "0.13.0"
   val scalatestVersion = "3.2.3"
   val scallopVersion = "3.5.1"
-  val scalaCollCompatVersion = "2.2.0"
+  val scalaCollCompatVersion = "2.3.1"
   val configVersion = "1.4.1"
   val dirsuiteVersion = "0.31.0"
-  val jgitVersion = "5.9.0.202009080501-r"
+  val jgitVersion = "5.10.0.202012080955-r"
   val logbackVersion = "1.2.3"
-
+  val slf4jVersion = "1.7.30"
 
   /*
    * Libraries
@@ -40,6 +40,7 @@ object Dependencies {
   /* lib: scala */
   val betterFiles = "com.github.pathikrit" %% "better-files" % betterFilesVersion
   val cats_core = "org.typelevel" %% "cats-core" % catsVersion
+  val cats_kernel = "org.typelevel" %% "cats-kernel" % catsVersion
   val circe_deps = Seq(
     "io.circe" %% "circe-core",
     "io.circe" %% "circe-generic",
@@ -59,6 +60,7 @@ object Dependencies {
   /* lib: java */
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % jgitVersion
   val logback = "ch.qos.logback" % "logback-classic" % logbackVersion
+  val slf4j = "org.slf4j" % "slf4j-api" % slf4jVersion
   val typesafeConfig = "com.typesafe" % "config" % configVersion
 
 }

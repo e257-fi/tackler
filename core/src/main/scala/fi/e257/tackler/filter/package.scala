@@ -16,7 +16,8 @@
  */
 package fi.e257.tackler
 
-import cats.implicits._
+import cats.syntax.all._
+
 import fi.e257.tackler.api._
 import fi.e257.tackler.model.Transaction
 

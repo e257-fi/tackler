@@ -27,12 +27,13 @@ Updated deps and tools:
 
  * Dependencies
  ** better-files: 3.9.1
- ** cats: 2.2.0
+ ** cats: 2.3.0
  ** circe: 0.13.0
  ** config: 1.4.1
- ** jgit: 5.9.0.202009080501-r
- ** scala-collection-compat: 2.2.0
+ ** jgit: 5.10.0.202012080955-r
+ ** scala-collection-compat: 2.3.1
  ** scallop: 3.5.1
+ ** slf4j-api: 1.7.30
  * Build
  ** scala: 2.13.4
  ** scala: 2.12.12

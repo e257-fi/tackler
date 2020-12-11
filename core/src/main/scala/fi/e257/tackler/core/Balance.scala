@@ -16,7 +16,7 @@
  */
 package fi.e257.tackler.core
 
-import cats.implicits._
+import cats.syntax.all._
 import fi.e257.tackler.api.Metadata
 import fi.e257.tackler.math._
 import fi.e257.tackler.model._

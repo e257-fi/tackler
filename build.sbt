@@ -107,6 +107,8 @@ lazy val api = crossProject(JSPlatform, JVMPlatform).
   settings(commonSettings: _*).
   settings(
     name := "tackler-api",
+    libraryDependencies += "org.typelevel" %%% "cats-kernel" % catsVersion,
+    libraryDependencies += "org.typelevel" %%% "cats-core" % catsVersion,
     libraryDependencies += "io.circe" %%% "circe-core" % circeVersion,
     libraryDependencies += "io.circe" %%% "circe-generic" % circeVersion,
     libraryDependencies += "io.circe" %%% "circe-parser" % circeVersion,
@@ -139,10 +141,12 @@ lazy val core = (project in file("core")).
   settings(
     libraryDependencies += betterFiles,
     libraryDependencies += cats_core,
+    libraryDependencies += cats_kernel,
     libraryDependencies ++= circe_deps,
     libraryDependencies ++= circe_deps_test,
     libraryDependencies += typesafeConfig,
     libraryDependencies += jgit,
+    libraryDependencies += slf4j,
     libraryDependencies += scalaCollCompat,
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
@@ -199,10 +203,11 @@ lazy val cli = (project in file("cli")).
   ).
   settings(
     libraryDependencies += betterFiles,
+    libraryDependencies ++= circe_deps,
     libraryDependencies += logback,
+    libraryDependencies += slf4j,
     libraryDependencies += scallop,
     libraryDependencies += typesafeConfig,
-    libraryDependencies += logback,
     libraryDependencies += scalaCollCompat,
     libraryDependencies += scalatest % "it,test",
     libraryDependencies += dirsuite % "it,test"

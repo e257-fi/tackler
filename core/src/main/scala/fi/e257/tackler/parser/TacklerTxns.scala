@@ -25,7 +25,7 @@ package fi.e257.tackler.parser
 import java.nio.file.Path
 
 import better.files._
-import cats.implicits._
+import cats.syntax.all._
 import fi.e257.tackler.api.GitInputReference
 import fi.e257.tackler.core.{Settings, TacklerException}
 import fi.e257.tackler.model.{OrderByTxn, TxnData, Txns}

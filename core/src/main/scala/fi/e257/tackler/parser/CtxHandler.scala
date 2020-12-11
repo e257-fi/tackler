@@ -19,7 +19,7 @@ package fi.e257.tackler.parser
 import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
 import java.util.UUID
 
-import cats.implicits._
+import cats.syntax.all._
 import fi.e257.tackler.api.{GeoPoint, TxnHeader}
 import fi.e257.tackler.core._
 import fi.e257.tackler.math.TacklerReal

@@ -19,7 +19,7 @@ package fi.e257.tackler.model
 import fi.e257.tackler.api._
 import fi.e257.tackler.core.{AccountSelector, Hash, Settings, TxnException}
 import fi.e257.tackler.filter._
-import cats.implicits._
+import cats.syntax.all._
 
 /**
  * Transaction data and associated metadata.

@@ -16,7 +16,7 @@
  */
 package fi.e257.tackler.model
 
-import cats.implicits._
+import cats.syntax.all._
 
 import fi.e257.tackler.core.AccountException
 

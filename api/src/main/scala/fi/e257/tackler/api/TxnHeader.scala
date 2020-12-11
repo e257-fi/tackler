@@ -19,7 +19,7 @@ package fi.e257.tackler.api
 import java.time.ZonedDateTime
 import java.util.UUID
 
-import cats.implicits._
+import cats.syntax.all._
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
