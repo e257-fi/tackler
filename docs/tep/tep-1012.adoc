@@ -183,10 +183,10 @@ If reportTZ is activated, there will be following changes to client JSON model
 
 ====== API
 
-* [ ] API TxnTS
-** [ ] deprecate isoXXX methods
-** [ ] new isoOffsetXXX methods (e.g. )
-** [ ] new localXXX methods (without offsets)
+* [x] API TxnTS
+** [x] (deprecate isoXXX methods)
+** [x] new isoOffsetXXX methods (e.g. )
+** [x] new localXXX methods (without offsets)
 
 
 ==== New dependencies
@@ -298,12 +298,16 @@ Normal, ok-case tests to validate functionality:
 *** [ ] `full`
 * TxnTS API
 ** [ ] Basic tests
+*** [ ] localSeconds
+*** [ ] localFull
 *** [ ] localDate
 *** [ ] localMonth
 *** [ ] localYear
 *** [ ] localWeek
 *** [ ] localWeekDate
 ** [ ] Roll under / over by timezone
+*** [ ] localSeconds
+*** [ ] localFull
 *** [ ] localDate
 *** [ ] localMonth
 *** [ ] localYear
