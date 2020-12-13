@@ -61,19 +61,19 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
 
     val groupOp = mySettings.groupBy match {
       case GroupByYear() => { txn: Transaction =>
-        TxnTS.isoYear(txn.header.timestamp)
+        TxnTS.tzYear(txn.header.timestamp)
       }
       case GroupByMonth() => { txn: Transaction =>
-        TxnTS.isoMonth(txn.header.timestamp)
+        TxnTS.tzMonth(txn.header.timestamp)
       }
       case GroupByDate() => { txn: Transaction =>
-        TxnTS.isoDate(txn.header.timestamp)
+        TxnTS.tzDate(txn.header.timestamp)
       }
       case GroupByIsoWeek() => { txn: Transaction =>
-        TxnTS.isoWeek(txn.header.timestamp)
+        TxnTS.tzWeek(txn.header.timestamp)
       }
       case GroupByIsoWeekDate() => { txn: Transaction =>
-        TxnTS.isoWeekDate(txn.header.timestamp)
+        TxnTS.tzWeekDate(txn.header.timestamp)
       }
     }
 

@@ -171,6 +171,7 @@ If reportTZ is activated, there will be following changes to client JSON model
 * [ ] JSON Reports
 ** [ ] BalanceGroupReport
 *** [ ] New metadata item, report time zone
+*** [x] Balance group names will have space between date and zone/offset (reportTZ not set)
 *** [ ] Balance group names (e.g. truncates ts) will not have time zone info, and they will be displayed on reportTZ
         This will change how transactions will be clustered, if there are transactions over multiple timezones
         and/or used reportTZ is different from transactions timezone. This happens because without reportTZ transaction
@@ -179,7 +180,7 @@ If reportTZ is activated, there will be following changes to client JSON model
 
 ** [ ] RegisterReport
 *** [ ] New metadata item, report time zone
-*** [ ] Timestamps on register report rows will not have time zone info, and they will be displayed on reportTZ
+
 
 ====== API
 
@@ -206,15 +207,19 @@ No changes to balance report
 
 ==== Balance Group report
 
+Balance Groups report's default output will be changed so that there is space between date and zone/offset
+in Balance Group names.
+
 ReportTZ will change how transactions will be clustered, if there are transactions over multiple timezones
 and/or used reportTZ is different from transactions timezone. This happens because without reportTZ transaction
 timestamps will be used as-is, e.g. two transactions on different timezones will create two balance groups, even
 if they would be on "same day".
 
-* [ ] If reportTZ is not activated, no changes
+* [x] If reportTZ is not activated, no changes in functionality
+** [x] Space between date and zone/offset
 * [ ] When reportTZ is set:
 ** [ ] Balance group names (e.g. truncates ts) will not have time zone info
-** [ ] Balance group names hey will be displayed on reportTZ
+** [ ] Balance group names will be displayed on reportTZ
 ** [ ] Transactions will be converted to the reportTZ and grouped based on that
 
 
@@ -224,7 +229,7 @@ Register report's default output will be changed so that there is space between 
 There will have configuration option which timestamp fields to output with register report,
 and new reportTZ will be supported by register report.
 
-* [ ] Change: separate zone name or offset from date
+* [x] Change: separate zone name or offset from date
 * [ ] New selector: `timestampFields`, which will control which part of timestamp will be displayed on report
 * [ ] If reportTZ is not activated, display timestamp with zone with fields:
 ** [ ] `date` (default)

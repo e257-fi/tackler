@@ -1,8 +1,8 @@
 
 BALANCE GROUPS
 --------------
-2017-01Z
---------
+2017-01 Z
+---------
                  0.00    7.00  Expenses
                  1.00    1.00  Expenses:crème·glacée
                  1.00    1.00  Expenses:ice_cream

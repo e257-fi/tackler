@@ -43,7 +43,7 @@
   "title" : "BALANCE GROUPS",
   "groups" : [
     {
-      "title" : "2016-01Z",
+      "title" : "2016-01 Z",
       "balances" : [
         {
           "accountSum" : "0.00",
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "title" : "2016-03Z",
+      "title" : "2016-03 Z",
       "balances" : [
         {
           "accountSum" : "0.00",
@@ -133,7 +133,7 @@
       ]
     },
     {
-      "title" : "2016-12Z",
+      "title" : "2016-12 Z",
       "balances" : [
         {
           "accountSum" : "0.00",

@@ -32,7 +32,7 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
 
     val indent = " " * 12
 
-    val txtRegTxnHeader: String = txn.txnHeaderToString(indent, TxnTS.isoDate)
+    val txtRegTxnHeader: String = txn.txnHeaderToString(indent, TxnTS.tzDate)
 
     val txtRegPostings = regEntryPostings
       .map(regPosting => {

@@ -2,7 +2,7 @@
   "title" : "BALANCE GROUP (TEST)",
   "groups" : [
     {
-      "title" : "2017-03-01Z",
+      "title" : "2017-03-01 Z",
       "balances" : [
         {
           "accountSum" : "12345678901234567890.1234568",
