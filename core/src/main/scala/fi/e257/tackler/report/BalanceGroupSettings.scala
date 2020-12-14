@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 E257.FI
+ * Copyright 2017-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import fi.e257.tackler.core.{GroupBy, Settings}
 
 class BalanceGroupSettings(settings: Settings, myTitle: Option[String], myAccounts: Option[List[String]], myGroupBy: Option[GroupBy])
   extends ReportConfiguration {
+
+  val reportTZ = settings.Reporting.reportTZ
 
   val hash = settings.Auditing.hash
 

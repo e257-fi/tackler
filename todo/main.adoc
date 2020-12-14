@@ -9,8 +9,8 @@
  ** [ ] conf: time cfg-group
  ** [ ] conf: timezone -> time.timezone
  ** [ ] conf: mandatory minimum time.resolution = date, timestamp, offset-timestamp
- ** [ ] Time-resolution/accuracy with reports
- *** [ ] conf: reporting.time.resolution = date, timestamp, offset-timestamp
+ ** [x] Time-resolution/accuracy with reports
+ *** [x] conf: reporting.time.resolution = date, timestamp, offset-timestamp
  
 === Settings
 

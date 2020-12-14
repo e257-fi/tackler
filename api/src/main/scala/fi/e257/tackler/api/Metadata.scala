@@ -16,6 +16,10 @@
  */
 package fi.e257.tackler.api
 
+import java.time.ZoneId
+import java.time.format.TextStyle
+import java.util.Locale
+
 import io.circe._
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
@@ -47,6 +51,16 @@ final case class Metadata(items: Seq[MetadataItem]) {
   }
 }
 object Metadata {
+  def append(md: Option[Metadata], item: Option[MetadataItem]): Option[Metadata] = {
+    md.fold(item.fold[Option[Metadata]](None) { mdi =>
+      Some(Metadata(Seq(mdi)))
+    }) { m =>
+      item.fold[Option[Metadata]](Some(m)) { i =>
+        Some(m ++ Seq(i))
+      }
+    }
+  }
+
   implicit val decodeMetadata: Decoder[Metadata] = deriveDecoder[Metadata]
   implicit val encodeMetadata: Encoder[Metadata] = deriveEncoder[Metadata]
 }
@@ -93,6 +107,29 @@ final case class AccountSelectorChecksum(hash: Checksum) extends MetadataItem {
   }
 }
 
+/**
+ * Information about report's timezone
+ */
+final case class TimeZoneInfo(zoneId: ZoneId) extends MetadataItem {
+  override def text(): Seq[String] = {
+    Seq(
+      "Active time zone:",
+      "  " + "TZ name: " + zoneId.getDisplayName(TextStyle.NARROW, Locale.getDefault),
+    )
+  }
+}
+
+object TimeZoneInfo {
+  /**
+   * Build optional TimeZoneInfo item
+   *
+   * @param tz Optional tz zoneId
+   * @return Optional TimeZoneInfo
+   */
+  def apply(zoneId: Option[ZoneId]): Option[TimeZoneInfo] = {
+    zoneId.map(tz => TimeZoneInfo(tz))
+  }
+}
 
 /**
  * Description of used Txn Filters

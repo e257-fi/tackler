@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 E257.FI
+ * Copyright 2016-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package fi.e257.tackler.report
 
 import io.circe.Json
 import io.circe.syntax._
-import fi.e257.tackler.api.{BalanceGroupReport, Metadata, TxnTS}
+import fi.e257.tackler.api.{BalanceGroupReport, Metadata, TimeZoneInfo, TxnTS}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{Transaction, TxnData}
 import fi.e257.tackler.Scala12to13.Converters._
@@ -59,26 +59,50 @@ class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends Balance
       new BalanceFilterByAccount(mySettings.accounts, mySettings.hash)
     }
 
-    val groupOp = mySettings.groupBy match {
-      case GroupByYear() => { txn: Transaction =>
-        TxnTS.tzYear(txn.header.timestamp)
+    val groupOp = mySettings.reportTZ match {
+      case Some(reportTZ) => {
+        mySettings.groupBy match {
+          case GroupByYear() => { txn: Transaction =>
+            TxnTS.localYear(txn.header.timestamp, reportTZ)
+          }
+          case GroupByMonth() => { txn: Transaction =>
+            TxnTS.localMonth(txn.header.timestamp, reportTZ)
+          }
+          case GroupByDate() => { txn: Transaction =>
+            TxnTS.localDate(txn.header.timestamp, reportTZ)
+          }
+          case GroupByIsoWeek() => { txn: Transaction =>
+            TxnTS.localWeek(txn.header.timestamp, reportTZ)
+          }
+          case GroupByIsoWeekDate() => { txn: Transaction =>
+            TxnTS.localWeekDate(txn.header.timestamp, reportTZ)
+          }
+        }
       }
-      case GroupByMonth() => { txn: Transaction =>
-        TxnTS.tzMonth(txn.header.timestamp)
-      }
-      case GroupByDate() => { txn: Transaction =>
-        TxnTS.tzDate(txn.header.timestamp)
-      }
-      case GroupByIsoWeek() => { txn: Transaction =>
-        TxnTS.tzWeek(txn.header.timestamp)
-      }
-      case GroupByIsoWeekDate() => { txn: Transaction =>
-        TxnTS.tzWeekDate(txn.header.timestamp)
+      case None => {
+        mySettings.groupBy match {
+          case GroupByYear() => { txn: Transaction =>
+            TxnTS.tzYear(txn.header.timestamp)
+          }
+          case GroupByMonth() => { txn: Transaction =>
+            TxnTS.tzMonth(txn.header.timestamp)
+          }
+          case GroupByDate() => { txn: Transaction =>
+            TxnTS.tzDate(txn.header.timestamp)
+          }
+          case GroupByIsoWeek() => { txn: Transaction =>
+            TxnTS.tzWeek(txn.header.timestamp)
+          }
+          case GroupByIsoWeekDate() => { txn: Transaction =>
+            TxnTS.tzWeekDate(txn.header.timestamp)
+          }
+        }
       }
     }
 
-    (txnData.getMetadata(balanceFilter),
-      Accumulator.balanceGroups(txnData, groupOp, balanceFilter))
+    val md = Metadata.append(txnData.getMetadata(balanceFilter), TimeZoneInfo(mySettings.reportTZ))
+
+    (md, Accumulator.balanceGroups(txnData, groupOp, balanceFilter))
   }
 
   protected def jsonBalanceGroupReport(metadata: Option[Metadata], balGrps: Seq[Balance]): Json = {

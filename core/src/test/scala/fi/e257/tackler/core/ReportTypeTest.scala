@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 E257.FI
+ * Copyright 2017-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,23 +23,23 @@ class ReportTypeTest extends AnyFlatSpec with Matchers {
   behavior of "ReportType"
 
   it should "accept balance" in {
-    ReportType(Settings.balance) mustBe a[BalanceReportType]
+    ReportType(CfgValues.balance) mustBe a[BalanceReportType]
   }
   it should "accept balance-group" in {
-    ReportType(Settings.balanceGroup) mustBe a[BalanceGroupReportType]
+    ReportType(CfgValues.balanceGroup) mustBe a[BalanceGroupReportType]
   }
   it should "accept register" in {
-    ReportType(Settings.register) mustBe a[RegisterReportType]
+    ReportType(CfgValues.register) mustBe a[RegisterReportType]
   }
 
   it should "not accepts (equity)" in {
     assertThrows[ReportException]{
-      ReportType(Settings.equity)
+      ReportType(CfgValues.equity)
     }
   }
   it should "not accept export (identity)" in {
     assertThrows[ReportException]{
-      ReportType(Settings.identity)
+      ReportType(CfgValues.identity)
     }
   }
 }
@@ -49,26 +49,26 @@ class ExportTypeTest extends AnyFlatSpec with Matchers {
   behavior of "ExportType"
 
   it should "accept equity" in {
-    ExportType(Settings.equity) mustBe a[EquityExportType]
+    ExportType(CfgValues.equity) mustBe a[EquityExportType]
   }
 
   it should "accept identity" in {
-    ExportType(Settings.identity) mustBe a[IdentityExportType]
+    ExportType(CfgValues.identity) mustBe a[IdentityExportType]
   }
 
   it should "not accept reports (balance)" in {
     assertThrows[ExportException]{
-      ExportType(Settings.balance)
+      ExportType(CfgValues.balance)
     }
   }
   it should "not accept reports (balance-group)" in {
     assertThrows[ExportException]{
-      ExportType(Settings.balanceGroup)
+      ExportType(CfgValues.balanceGroup)
     }
   }
   it should "not accept reports (register)" in {
     assertThrows[ExportException]{
-      ExportType(Settings.register)
+      ExportType(CfgValues.register)
     }
   }
 }

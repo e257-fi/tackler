@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,19 +26,19 @@ sealed case class GroupByIsoWeekDate() extends GroupBy
 object GroupBy {
   def apply(groupBy: String): GroupBy = {
     groupBy match {
-      case Settings.year => GroupByYear()
-      case Settings.month => GroupByMonth()
-      case Settings.date => GroupByDate()
-      case Settings.isoWeek => GroupByIsoWeek()
-      case Settings.isoWeekDate => GroupByIsoWeekDate()
+      case CfgValues.year => GroupByYear()
+      case CfgValues.month => GroupByMonth()
+      case CfgValues.date => GroupByDate()
+      case CfgValues.isoWeek => GroupByIsoWeek()
+      case CfgValues.isoWeekDate => GroupByIsoWeekDate()
       /* Error*/
       case _ => throw new GroupByException(
         "Unknown group-by operator. Valid operators are: " +
-          Settings.year + ", " +
-          Settings.month + ", " +
-          Settings.date + ", " +
-          Settings.isoWeek + ", " +
-          Settings.isoWeekDate)
+          CfgValues.year + ", " +
+          CfgValues.month + ", " +
+          CfgValues.date + ", " +
+          CfgValues.isoWeek + ", " +
+          CfgValues.isoWeekDate)
     }
   }
 }
