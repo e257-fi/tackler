@@ -2,11 +2,11 @@
 #
 # Generate test-db entries from ScalaTest-files
 #
-# Expected input format of ScalaTest is:
+# Expected input format of ScalaTest is (func or flat spec):
 #    /**
-#     * test: 11d4409c-93e2-4670-b2d5-65073980ba2d
+#     * test: f0e2f23c-7cc6-4610-80c0-8f1e3a6555c7
 #     */
-#    it should "AND(false, true)" in {
+#     ... ("test description") ... {
 #
 test_file="$1"
 test_class="$2"

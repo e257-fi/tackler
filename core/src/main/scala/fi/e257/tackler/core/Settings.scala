@@ -216,14 +216,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   /**
    * Default timezone to be used in case of missing ZoneId / Offset
    */
-  val timezone: ZoneId = getTimezone(CfgKeys.timezone) match {
-    case Some(tz) => tz
-    case _ => {
-      val msg = "CFG: timezone is mandatory, it's missing or invalid. Setting: '" + CfgKeys.timezone + "'"
-      log.error(msg)
-      throw new ConfigurationException(msg)
-    }
-  }
+  val timezone: ZoneId = getTimezoneEx(CfgKeys.timezone)
 
   /**
    * Default time to be used if time component is missing from Txn
@@ -384,6 +377,16 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
     }
   }
 
+  def getTimezoneEx(key: String): ZoneId = {
+    try {
+      ZoneId.of(cfg.getString(key))
+    } catch {
+      case ex @(_ :java.time.zone.ZoneRulesException | _ : java.time.DateTimeException) =>
+        val msg = "CFG: Invalid time zone for '" + key + "'. Error was: " + ex.getMessage
+        log.error(msg)
+        throw new ConfigurationException(msg)
+    }
+  }
   /**
    * Get optional timezone
    *
@@ -392,14 +395,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
    */
   def getTimezone(key: String): Option[ZoneId] = {
     if (cfg.hasPath(key)) {
-      try {
-        Some(ZoneId.of(cfg.getString(key)))
-      } catch {
-        case ex: java.time.zone.ZoneRulesException =>
-          val msg = "CFG: Invalid time zone for '" + key + "'. Error was: " + ex.getMessage
-          log.error(msg)
-          throw new ConfigurationException(msg)
-      }
+      Some(getTimezoneEx(key))
     } else {
       None
     }

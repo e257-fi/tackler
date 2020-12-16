@@ -166,7 +166,7 @@ If reportTZ is activated, there will be following changes to client JSON model
 
 ====== JSON Model
 
-* [ ] Metadata
+* [x] Metadata
 ** [x] New metadataItem: TimeZoneInfo
 * [x] JSON Reports
 ** [x] BalanceGroupReport
@@ -252,7 +252,7 @@ No changes to exports
 * [x] xref:../../todo/main.adoc[]: Update main todo file
 * [ ] xref:./readme.adoc[]: Update TEP index
 * [ ] link:../../CHANGELOG[]: add new item
-* [ ] Does it warrant own T3DB file?
+* [x] Does it warrant own T3DB file?
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update xref:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
@@ -281,60 +281,63 @@ Anything which wasn't implemented?
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] no reportTZ (old functionality)
-* [ ] Metadata:
-** [ ] reportTZ as zoneId
-** [ ] reportTZ as offset
-* [ ] Reports with reportTZ
-** [ ] Register report
-*** [ ] txt
-** [ ] BalanceGroup report
-*** [ ] Formats
-**** [ ] txt
-**** [ ] json
-*** [ ] Group-by
-**** [ ] year
-**** [ ] month
-**** [ ] date
-**** [ ] week
-**** [ ] week-date
-* [ ] Register report with `timestamp-style`
-** [ ] reportTZ is not set
-*** [ ] `date`
-*** [ ] `seconds`
-*** [ ] `full`
-** [ ] active reportTZ
-*** [ ] `date`
-*** [ ] `seconds`
-*** [ ] `full`
+* [x] no reportTZ (old functionality)
+* [x] Metadata:
+** [x] reportTZ as zoneId
+** [x] reportTZ as offset
+** [x] with other metadata
+** [x] only report-timezone metadata item
+* [x] Reports with reportTZ
+** [x] Register report
+*** [x] txt
+** [x] BalanceGroup report
+*** [x] Formats
+**** [x] txt
+**** [x] json
+*** [x] Group-by
+**** [x] year
+**** [x] month
+**** [x] date
+**** [x] week
+**** [x] week-date
+* [x] Register report with `timestamp-style`
+** [x] reportTZ is not set
+*** [x] `date`
+*** [x] `seconds`
+*** [x] `full`
+** [x] active reportTZ
+*** [x] `date`
+*** [x] `seconds`
+*** [x] `full`
+*** [x] `timestamp-style` is not set
 * TxnTS API
-** [ ] Basic tests
-*** [ ] localSeconds
-*** [ ] localFull
-*** [ ] localDate
-*** [ ] localMonth
-*** [ ] localYear
-*** [ ] localWeek
-*** [ ] localWeekDate
-** [ ] Roll under / over by timezone
-*** [ ] localSeconds
-*** [ ] localFull
-*** [ ] localDate
-*** [ ] localMonth
-*** [ ] localYear
-*** [ ] localWeek
-*** [ ] localWeekDate
+** [x] Basic tests
+*** [x] localSeconds
+*** [x] localFull
+*** [x] localDate
+*** [x] localMonth
+*** [x] localYear
+*** [x] localWeek
+*** [x] localWeekDate
+** [x] Roll under / over by timezone
+*** [x] localSeconds
+*** [x] localFull
+*** [x] localDate
+*** [x] localMonth
+*** [x] localYear
+*** [x] localWeek
+*** [x] localWeekDate
 
 
 ==== Errors
 
 Various error cases:
 
-* [ ] e: invalid reportTZ
-** [ ] e: invalid zone name
-** [ ] e: invalid offset
-* [ ] e: RegisterReport:
-** [ ] e: invalid `timestampStyles`
+* [x] e: invalid reportTZ
+** [x] e: invalid zone name
+** [x] e: invalid offset
+* [x] e: RegisterReport:
+** [x] e: invalid `timestampStyles`
 
 
 ==== Perf
@@ -360,7 +363,7 @@ Feature-id::
 
 Feature-id::
 
-* name: Register report's timestamp style selector
+* name: Timestamp style selector for register report
 * parent: c085aec4-8e0f-4571-bf50-0dc16dba411e
 * uuid: d8d63ca4-9675-4287-ba4e-53b6a329e390
 

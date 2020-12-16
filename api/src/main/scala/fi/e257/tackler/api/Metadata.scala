@@ -123,9 +123,10 @@ object TimeZoneInfo {
   /**
    * Build optional TimeZoneInfo item
    *
-   * @param tz Optional tz zoneId
+   * @param zoneId optional zoneId
    * @return Optional TimeZoneInfo
    */
+  @SuppressWarnings(Array("org.wartremover.warts.Overloading"))
   def apply(zoneId: Option[ZoneId]): Option[TimeZoneInfo] = {
     zoneId.map(tz => TimeZoneInfo(tz))
   }

@@ -1,0 +1,6 @@
+# format: exec
+# test: 982dc27f-674e-47a7-bb20-cef06ea6b5fe
+# desc: local zone: balgrp: year
+# desc: register: date
+# desc: report-timezone as offset
+exec:--cfg;tests/reporting/time-and-zones/year.conf;--output;out.year;

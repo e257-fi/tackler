@@ -54,6 +54,15 @@ class SettingsTest extends AnyFunSpec {
     }
   }
 
+  describe("generic settings tests") {
+    it("rejects invalid zone") {
+      val cfg = ConfigFactory.parseString(s"""{ timezone = "Wizard/Oz" }""")
+      assertThrows[ConfigurationException]{
+        val s = Settings(cfg)
+        assert(s.timezone.toString === "never this")
+      }
+    }
+  }
   /**
    * feature: eb2816e7-7ccf-42a2-9a1a-99223dc431a3
    */
@@ -250,6 +259,91 @@ class SettingsTest extends AnyFunSpec {
           assert(s.Auditing.hash.algorithm === name) // should never be here
         }
       })
+    }
+  }
+  /**
+   * feature: 18e7e5a3-bef5-40a6-a633-31c6b4e41f62
+   */
+  describe("report-timezone"){
+    /**
+     * test: 04016f94-3f5c-49cd-b1a2-cbe66af123c5
+     */
+    it("accepts valid zone name") {
+      val cfg = ConfigFactory.parseString(s"""{ reporting { report-timezone = "Europe/Helsinki" } }""")
+
+      val s = Settings(cfg)
+      assert(s.Reporting.reportTZ.map(_.toString).getOrElse("") === "Europe/Helsinki")
+    }
+
+    /**
+     * test: f641ba2e-5159-40c8-b664-9a34c4854898
+     */
+    it("accepts valid offset") {
+      val cfg = ConfigFactory.parseString(s"""{ reporting { report-timezone = "+02:00" } }""")
+
+      val s = Settings(cfg)
+      assert(s.Reporting.reportTZ.map(_.toString).getOrElse("") === "+02:00")
+    }
+
+    /**
+     * test: d4867598-5a40-405b-b14a-e11ba0085d20
+     */
+    it("rejects invalid zone") {
+      val cfg = ConfigFactory.parseString(s"""{ reporting { report-timezone = "Wizard/Oz" } }""")
+      assertThrows[ConfigurationException]{
+        val s = Settings(cfg)
+        assert(s.Reporting.reportTZ.map(_.toString).getOrElse("") === "never this")
+      }
+    }
+    /**
+     * test: 4f72b1c5-4d8a-4132-bdfa-2ba23cfff9e2
+     */
+    it("rejects invalid offset") {
+      val cfg = ConfigFactory.parseString(s"""{ reporting { report-timezone = "+19:00" } }""")
+      assertThrows[ConfigurationException]{
+        val s = Settings(cfg)
+        assert(s.Reporting.reportTZ.map(_.toString).getOrElse("") === "never this")
+      }
+    }
+  }
+
+  /**
+   * feature: d8d63ca4-9675-4287-ba4e-53b6a329e390
+   */
+  describe("timestamp-style") {
+    /**
+     * test: f0e2f23c-7cc6-4610-80c0-8f1e3a6555c7
+     */
+    it("style: full") {
+      val cfg = ConfigFactory.parseString(s"""{ reports { register { timestamp-style = "full" } } }""")
+      val s = Settings(cfg)
+      assert(s.Reports.Register.tsStyle === FullTsStyle())
+    }
+    /**
+     * test: abec5673-f55e-427d-9db6-cdf865100a21
+     */
+    it("style: seconds") {
+      val cfg = ConfigFactory.parseString(s"""{ reports { register { timestamp-style = "seconds" } } }""")
+      val s = Settings(cfg)
+      assert(s.Reports.Register.tsStyle === SecondsTsStyle())
+    }
+    /**
+     * test: 0b8dd80a-e826-4107-9892-7db04e3a9f59
+     */
+    it("style: date") {
+      val cfg = ConfigFactory.parseString(s"""{ reports { register { timestamp-style = "date" } } }""")
+      val s = Settings(cfg)
+      assert(s.Reports.Register.tsStyle === DateTsStyle())
+    }
+    /**
+     * test: fc6c569a-1ab4-4fde-bed6-1593116f617d
+     */
+    it("rejects invalid style") {
+      val cfg = ConfigFactory.parseString(s"""{ reports { register { timestamp-style = "Oz" } } }""")
+      assertThrows[ConfigurationException]{
+        val s = Settings(cfg)
+        assert(s.Reports.Register.tsStyle.toString === "never this")
+      }
     }
   }
 }

@@ -73,6 +73,7 @@ features:
               name: tests/audit/ok/audit-1E1-01.exec
               descriptions:
                 - desc: "each report has different account selector"
+                - desc: "combined metadata with report-timestamp"
               references:
                 - ref: equity
                   formats: txn

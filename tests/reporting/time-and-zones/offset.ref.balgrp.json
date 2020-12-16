@@ -1,0 +1,74 @@
+{
+  "metadata" : {
+    "items" : [
+      {
+        "TimeZoneInfo" : {
+          "zoneId" : "+02:00"
+        }
+      }
+    ]
+  },
+  "title" : "BALANCE GROUPS",
+  "groups" : [
+    {
+      "title" : "2019-12-30",
+      "balances" : [
+        {
+          "accountSum" : "0.00",
+          "accountTreeSum" : "-40382460030203.04003",
+          "account" : "a"
+        },
+        {
+          "accountSum" : "-40382460030203.04003",
+          "accountTreeSum" : "-40382460030203.04003",
+          "account" : "a:b"
+        },
+        {
+          "accountSum" : "0.00",
+          "accountTreeSum" : "40382460030203.04003",
+          "account" : "e"
+        },
+        {
+          "accountSum" : "40382460030203.04003",
+          "accountTreeSum" : "40382460030203.04003",
+          "account" : "e:b"
+        }
+      ],
+      "deltas" : [
+        {
+          "delta" : "0.00000"
+        }
+      ]
+    },
+    {
+      "title" : "2021-01-01",
+      "balances" : [
+        {
+          "accountSum" : "0.00",
+          "accountTreeSum" : "0.04001",
+          "account" : "a"
+        },
+        {
+          "accountSum" : "0.04001",
+          "accountTreeSum" : "0.04001",
+          "account" : "a:b"
+        },
+        {
+          "accountSum" : "0.00",
+          "accountTreeSum" : "-0.04001",
+          "account" : "e"
+        },
+        {
+          "accountSum" : "-0.04001",
+          "accountTreeSum" : "-0.04001",
+          "account" : "e:b"
+        }
+      ],
+      "deltas" : [
+        {
+          "delta" : "0.00000"
+        }
+      ]
+    }
+  ]
+}
