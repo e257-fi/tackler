@@ -61,19 +61,19 @@ BALANCE
 
 REGISTER
 --------
-2019-05-01Z 'Ice cream at Helsinki's market square
+2019-05-01 'Ice cream at Helsinki's market square
             # location: geo:60.167,24.955,5
             Expenses:Ice_cream                             2.50               2.50 €
 ------------------------------------------------------------------------------------
-2019-05-02Z 'Surreal ice cream at Miro Museum
+2019-05-02 'Surreal ice cream at Miro Museum
             # location: geo:41.368611,2.16
             Expenses:Ice_cream                             5.00               7.50 €
 ------------------------------------------------------------------------------------
-2019-05-03Z 'Matcha ice cream!
+2019-05-03 'Matcha ice cream!
             # location: geo:35.7101,139.8107
             Expenses:Ice_cream                           800.00             800.00 ¥
 ------------------------------------------------------------------------------------
-2019-05-04Z 'I am so lost, but I have ice cream!
+2019-05-04 'I am so lost, but I have ice cream!
             Expenses:Ice_cream                             2.00               9.50 €
 ------------------------------------------------------------------------------------
 
@@ -109,11 +109,11 @@ Filter:
 
 REGISTER
 --------
-2019-05-01Z 'Ice cream at Helsinki's market square
+2019-05-01 'Ice cream at Helsinki's market square
             # location: geo:60.167,24.955,5
             Expenses:Ice_cream                             2.50               2.50 €
 ------------------------------------------------------------------------------------
-2019-05-02Z 'Surreal ice cream at Miro Museum
+2019-05-02 'Surreal ice cream at Miro Museum
             # location: geo:41.368611,2.16
             Expenses:Ice_cream                             5.00               7.50 €
 ------------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ Filter:
 
 REGISTER
 --------
-2019-05-03Z 'Matcha ice cream!
+2019-05-03 'Matcha ice cream!
             # location: geo:35.7101,139.8107
             Expenses:Ice_cream                           800.00             800.00 ¥
 ------------------------------------------------------------------------------------
@@ -194,15 +194,15 @@ Filter:
 
 REGISTER
 --------
-2019-05-01Z 'Ice cream at Helsinki's market square
+2019-05-01 'Ice cream at Helsinki's market square
             # location: geo:60.167,24.955,5
             Expenses:Ice_cream                             2.50               2.50 €
 ------------------------------------------------------------------------------------
-2019-05-02Z 'Surreal ice cream at Miro Museum
+2019-05-02 'Surreal ice cream at Miro Museum
             # location: geo:41.368611,2.16
             Expenses:Ice_cream                             5.00               7.50 €
 ------------------------------------------------------------------------------------
-2019-05-03Z 'Matcha ice cream!
+2019-05-03 'Matcha ice cream!
             # location: geo:35.7101,139.8107
             Expenses:Ice_cream                           800.00             800.00 ¥
 ------------------------------------------------------------------------------------

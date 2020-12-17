@@ -256,16 +256,17 @@ No changes to exports
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update xref:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
-* [ ] User docs
-** [ ] user manual
-** [ ] tackler.conf
-*** [ ] `setting-1`
-*** [ ] `setting-2`
+* [x] User docs
+** [x] user manual
+** [x] tackler.conf
+*** [x] `report-timezone`
+*** [x] `timestamp-style`
 ** [ ] examples
-* [ ] Developer docs
-** [ ] API changes
-*** [ ] Server API changes
-*** [ ] Client API changes
+* [x] Developer docs
+** [x] API changes
+*** [x] Server API changes (no changes)
+*** [x] Client API changes (no changes)
+*** [x] JSON Examples
 
 
 === Future plans and Postponed (PP) features
