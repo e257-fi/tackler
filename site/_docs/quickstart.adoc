@@ -14,6 +14,10 @@ xref:./tackler-conf.adoc[tackler.conf] and
 xref:./accounts-conf.adoc[accounts.conf]
 for how to configure tackler and use it with full-fledged production setup.
 
+If you don't have tackler-cli.jar, you can download the latest version from
+https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
+https://gitlab.com/e257/accounting/tackler/blob/master/docs/devel/build.adoc[build it by yourself].
+
 
 == Tackler Quickstart Setup
 
@@ -94,11 +98,11 @@ BALANCE
 
 REGISTER
 --------
-2018-06-01Z 'First transaction
+2018-06-01 Z 'First transaction
             Assets:Cash                                   -2.00              -2.00
             Expenses:Ice_cream                             2.00               2.00
 ----------------------------------------------------------------------------------
-2018-06-02Z 'Second transaction
+2018-06-02 Z 'Second transaction
             Assets:Cash                                   -1.00              -3.00
             Expenses:Lemonade                              1.00               1.00
 ----------------------------------------------------------------------------------

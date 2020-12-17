@@ -1,6 +1,6 @@
 = Tackler.conf
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-10-05 00:00:00 Z
+:page-last_modified_at: 2019-12-17 00:00:00 Z
 
 Full reference of Tackler configuration. All settings have defaults 
 values, and only those which would be overridden should be defined.
@@ -18,12 +18,17 @@ link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
 tackler {
   core {
 
-    # Default time zone
+    # Default txn time zone
     #
-    # Timezone is used if Txn timestamp does not have zone info.
+    # Default timezone is used with transaction's timestamp
+    # if it does not have timezone info.
     #
-    # Format is either zone's offset or ZoneID (IANA Time Zone Database),
-    # for example: "Z", "GMT", "UTC", "+02:00", "Europe/Helsinki"
+    # See also "report-timezone" on "reporting" section about
+    # timestamps on reports.
+    #
+    # Format is either zone's offset or name of ZoneID entry
+    # (IANA Time Zone Database), for example:
+    #    "Z", "GMT", "UTC", "+02:00", "Europe/Helsinki"
     #
     # If timezone is offset, then timestamp is not adjusted based on
     # daylight saving time.
@@ -147,6 +152,21 @@ tackler {
 
     # Generic reporting settings
     reporting {
+
+      # Timezone setting for reports
+      #
+      # By default, dates, times and timestamps on reports
+      # are displayed without any conversion, with zone info.
+      #
+      # If set, the 'report-timezone' sets timezone for all reports,
+      # and all dates and timestamps are converted onto report's zone.
+      # Also zone info is dropped from dates and timestamps.
+      # Report will have information about used timezone, if this actived.
+      #
+      # Default is no time zone setting for reports
+      # Valid values are: ZoneId or offset
+      #   e.g. "Z", "GMT", "UTC", "+02:00", "Europe/Helsinki"
+      //report-timezone = Europe/Helsinki
 
       # Settings for output scale of report output
       #
@@ -278,6 +298,17 @@ tackler {
       }
 
       register {
+
+        # Timestamp style
+        #
+        # This set how timestamps are displayed with register report
+        # See also 'timezone', 'report-timezone' options.
+        #
+        # Valid values are: date, seconds, full
+        #   date:    only date part is displayed (this is default)
+        #   seconds: date and time is displayed (up to seconds)
+        #   full:    date and time is displayed (up to nanoseconds)
+        //timestamp-style = date
 
         # Title of register report
         # Valid values: string

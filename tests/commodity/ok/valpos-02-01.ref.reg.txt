@@ -1,26 +1,26 @@
 
 REGISTER
 --------
-2019-04-01Z 'Buy 10 ACME
+2019-04-01 Z 'Buy 10 ACME
             Assets:Cash                                 -120.00            -120.00 EUR
             Assets:Stocks                                 10.00              10.00 ACME
 ---------------------------------------------------------------------------------------
-2019-04-02Z 'sell four ACME in total 4.8 EUR
+2019-04-02 Z 'sell four ACME in total 4.8 EUR
             ; check fixed price with multiple entries
             Assets:Cash                                    4.80            -115.20 EUR
             Assets:Stocks                                 -4.00               6.00 ACME
 ---------------------------------------------------------------------------------------
-2019-04-03Z 'sell three ACME in total 3.6 EUR
+2019-04-03 Z 'sell three ACME in total 3.6 EUR
             ; check inferred price with multiple entries
             Assets:Cash                                    3.60            -111.60 EUR
             Assets:Stocks                                 -3.00               3.00 ACME
 ---------------------------------------------------------------------------------------
-2019-04-04Z 'Credit card transaction
+2019-04-04 Z 'Credit card transaction
             ; expence in foreing, billing in native currency
             a                                           -100.00            -100.00 €
             e                                            120.00             120.00 $
 ------------------------------------------------------------------------------------
-2019-04-05Z 'Credit card transaction
+2019-04-05 Z 'Credit card transaction
             ; expence in foreing, billing in native currency
             a                                           -221.00            -321.00 €
             e                                            231.00             351.00 $

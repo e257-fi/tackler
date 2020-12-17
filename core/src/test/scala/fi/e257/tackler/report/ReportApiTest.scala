@@ -101,7 +101,7 @@ class ReportApiTest extends AnyFlatSpec {
     val report = rpt.jsonReport(txnData)
 
     assert(_title.getOption(report) === Some("BALANCE GROUPS"))
-    assert(_balgrp_title.getOption(report) === Some("2017-12Z"))
+    assert(_balgrp_title.getOption(report) === Some("2017-12 Z"))
     assert(_balgrp_accountTreeSum.getOption(report) === Some("-45.00"))
     assert(_balgrp_delta.getOption(report) === Some("0.00"))
 
@@ -119,7 +119,7 @@ class ReportApiTest extends AnyFlatSpec {
     val report = rpt.jsonReport(txnData)
 
     assert(_title.getOption(report) === Some("Test-BalGrp"))
-    assert(_balgrp_title.getOption(report) === Some("2017-W50Z"))
+    assert(_balgrp_title.getOption(report) === Some("2017-W50 Z"))
     assert(_balgrp_accountTreeSum.getOption(report) === Some("-45.00"))
     assert(_balgrp_delta.getOption(report) === Some("-15.00"))
 

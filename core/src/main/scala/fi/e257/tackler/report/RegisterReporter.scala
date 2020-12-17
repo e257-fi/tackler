@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 E257.FI
+ * Copyright 2016-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,32 @@
  */
 package fi.e257.tackler.report
 
+import java.time.ZonedDateTime
+
 import io.circe.Json
 import io.circe.syntax._
-import fi.e257.tackler.api.{Metadata, RegisterPosting, RegisterReport, RegisterTxn, TxnTS}
+import fi.e257.tackler.api.{Metadata, RegisterPosting, RegisterReport, RegisterTxn, TimeZoneInfo, TxnTS}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{RegisterEntry, _}
 
 class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySettings) {
+
+  private val regHdrTsOp: (ZonedDateTime => String) = mySettings.reportTZ match {
+    case Some(reportTZ) =>
+      mySettings.timestampStyle match {
+        case DateTsStyle() => { txnTs: ZonedDateTime => TxnTS.localDate(txnTs, reportTZ) }
+        case SecondsTsStyle() => { txnTs: ZonedDateTime => TxnTS.localSeconds(txnTs, reportTZ) }
+        case FullTsStyle() => { txnTs: ZonedDateTime => TxnTS.localFull(txnTs, reportTZ) }
+      }
+    case None => {
+      mySettings.timestampStyle match {
+        case DateTsStyle() => { txnTs: ZonedDateTime => TxnTS.tzDate(txnTs) }
+        case SecondsTsStyle() => { txnTs: ZonedDateTime => TxnTS.tzSeconds(txnTs) }
+        case FullTsStyle() => { txnTs: ZonedDateTime => TxnTS.tzFull(txnTs) }
+      }
+    }
+  }
+
 
   override val name = mySettings.outputname
 
@@ -32,7 +51,7 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
 
     val indent = " " * 12
 
-    val txtRegTxnHeader: String = txn.txnHeaderToString(indent, TxnTS.isoDate)
+    val txtRegTxnHeader: String = txn.txnHeaderToString(indent, regHdrTsOp)
 
     val txtRegPostings = regEntryPostings
       .map(regPosting => {
@@ -123,12 +142,12 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
   }
 
   override
-  def jsonReport(txnData: TxnData): Json = {
+  def jsonReport(txns: TxnData): Json = {
     val rrf = getFilters()
+    // There is no TimeZoneInfo element, because there isn't any time manipulation done with JSON report
+    val md = txns.getMetadata(rrf)
 
-    val md = txnData.getMetadata(rrf)
-
-    jsonRegisterReport(md, rrf, txnData)
+    jsonRegisterReport(md, rrf, txns)
   }
 
   override
@@ -139,9 +158,10 @@ class RegisterReporter(val mySettings: RegisterSettings) extends ReportLike(mySe
     formats.foreach({ case (format, writers) =>
       format match {
         case TextFormat() => {
-          doRowOutputs(writers, txtRegisterReport(md, rrf, txns))
+          doRowOutputs(writers, txtRegisterReport(Metadata.append(md, TimeZoneInfo(mySettings.reportTZ)), rrf, txns))
         }
         case JsonFormat() => {
+          // There is no TimeZoneInfo element, because there isn't any time manipulation done with JSON report
           doRowOutputs(writers, Seq(jsonRegisterReport(md, rrf, txns).printWith(printer)))
         }
       }

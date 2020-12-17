@@ -67,6 +67,18 @@ Balance Groups are selected by `reports.balance-group.group-by` conf-setting.
 See xref:./tackler-conf.adoc[tackler.conf] and `reports.balance-group.*` for full
 information of balance group report configuration options.
 
+If `report-timezone` is set, then transaction timestamps are converted
+into report's time zone and zone info will not be displayed for balance groups.
+
+If `report-timezone` is not active, then transaction timestamps
+are used as is, and no conversion will be done.
+
+[WARNING]
+====
+It is possible change how transactions are grouped by selecting different time zones
+for `report-timezone`. This will also change values of balance groups as transactions
+move to different balance groups.
+====
 
 === Account selectors
 
@@ -102,8 +114,8 @@ Compare following two reports:
 ----
 BALANCE GROUPS
 --------------
-2019-01Z
---------
+2019-01 Z
+---------
                  1.00    6.00  e1
                  2.00    5.00  e1:e2
                  3.00    3.00  e1:e2:e3
@@ -115,8 +127,8 @@ BALANCE GROUPS
 ----
 BALANCE GROUPS
 --------------
-2019-01Z
---------
+2019-01 Z
+---------
                  1.00    6.00  e1
 =====================
                  1.00
@@ -149,8 +161,8 @@ transactions on week 2016-W01 and "e:ey2016:em01:ed03, ..." on week 2016-W02.
 ....
 BALANCE GROUPS
 --------------
-2016-W01Z
----------
+2016-W01 Z
+----------
                  0.00   -8.0000005  a
                  0.00   -8.0000005  a:ay2016
            -8.0000005   -8.0000005  a:ay2016:am01
@@ -161,8 +173,8 @@ BALANCE GROUPS
             6.0000003    6.0000003  e:ey2016:em01:ed02
 =====================
             0.0000000
-2016-W02Z
----------
+2016-W02 Z
+----------
                  0.00   -114.0000019  a
                  0.00   -114.0000019  a:ay2016
          -114.0000019   -114.0000019  a:ay2016:am01
@@ -187,8 +199,8 @@ Below is one entry of monthly based balance group report.
 ....
 BALANCE GROUPS
 --------------
-2017-05Z
---------
+2017-05 Z
+---------
                  0.00           3.00 ACME  Assets
                  3.00           3.00 ACME  Assets:Stocks
                  0.00        -359.75 EUR   Assets

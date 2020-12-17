@@ -2,7 +2,7 @@
   "title" : "BALANCE GROUPS",
   "groups" : [
     {
-      "title" : "2009-W01-4+12:00",
+      "title" : "2009-W01-4 +12:00",
       "balances" : [
         {
           "accountSum" : "-20090101.01",
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "title" : "2009-W01-4Z",
+      "title" : "2009-W01-4 Z",
       "balances" : [
         {
           "accountSum" : "-20090101.10",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "title" : "2009-W07-6Z",
+      "title" : "2009-W07-6 Z",
       "balances" : [
         {
           "accountSum" : "-20090214.00",
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "title" : "2009-W53-4+02:00",
+      "title" : "2009-W53-4 +02:00",
       "balances" : [
         {
           "accountSum" : "-20091231.00",
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "title" : "2009-W53-5Z",
+      "title" : "2009-W53-5 Z",
       "balances" : [
         {
           "accountSum" : "-20100101.00",
@@ -102,7 +102,7 @@
       ]
     },
     {
-      "title" : "2009-W53-7Z",
+      "title" : "2009-W53-7 Z",
       "balances" : [
         {
           "accountSum" : "-20100103.00",
@@ -122,7 +122,7 @@
       ]
     },
     {
-      "title" : "2010-W01-1-01:00",
+      "title" : "2010-W01-1 -01:00",
       "balances" : [
         {
           "accountSum" : "-20100104.00",

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,12 +46,12 @@ sealed case class JsonFormat() extends ReportFormat {
 object ReportFormat {
   def apply(format: String): ReportFormat = {
     format match {
-      case Settings.txt => TextFormat()
-      case Settings.json => JsonFormat()
+      case CfgValues.txt => TextFormat()
+      case CfgValues.json => JsonFormat()
 
       /* Error*/
       case frmt => throw new ReportException(
-        "Unknown report format [" + frmt + "]. Valid formats are: " + Settings.txt + ", " + Settings.json)
+        "Unknown report format [" + frmt + "]. Valid formats are: " + CfgValues.txt + ", " + CfgValues.json)
     }
   }
 }
@@ -71,15 +71,15 @@ sealed case class IdentityExportType() extends ExportType
 object ReportType {
   def apply(groupBy: String): ReportType = {
     groupBy match {
-      case Settings.balance => BalanceReportType()
-      case Settings.balanceGroup => BalanceGroupReportType()
-      case Settings.register => RegisterReportType()
+      case CfgValues.balance => BalanceReportType()
+      case CfgValues.balanceGroup => BalanceGroupReportType()
+      case CfgValues.register => RegisterReportType()
       /* Error*/
       case rpt => throw new ReportException(
         "Unknown report type [" + rpt + "]. Valid types are: " +
-          Settings.balance + ", " +
-          Settings.balanceGroup + ", " +
-          Settings.register)
+          CfgValues.balance + ", " +
+          CfgValues.balanceGroup + ", " +
+          CfgValues.register)
     }
   }
 }
@@ -87,11 +87,11 @@ object ReportType {
 object ExportType {
   def apply(groupBy: String): ExportType = {
     groupBy match {
-      case Settings.equity => EquityExportType()
-      case Settings.identity => IdentityExportType()
+      case CfgValues.equity => EquityExportType()
+      case CfgValues.identity => IdentityExportType()
       /* Error*/
       case xpt => throw new ExportException(
-        "Unknown export type [" + xpt + "]. Valid types are: " + Settings.equity + ", " + Settings.identity)
+        "Unknown export type [" + xpt + "]. Valid types are: " + CfgValues.equity + ", " + CfgValues.identity)
     }
   }
 }

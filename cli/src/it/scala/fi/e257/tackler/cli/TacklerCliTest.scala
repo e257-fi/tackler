@@ -304,6 +304,12 @@ class DirsuiteReportingTest extends DirSuiteLike {
       TacklerCli.runReturnValue(args)
     }
   }
+
+  runDirSuiteTestCases(basedir, Glob("reporting/time-and-zones/*.exec")) { args: Array[String] =>
+    assertResult(TacklerCli.SUCCESS) {
+      TacklerCli.runReturnValue(args)
+    }
+  }
 }
 
 /**

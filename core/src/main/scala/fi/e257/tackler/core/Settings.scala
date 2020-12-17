@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 E257.FI
+ * Copyright 2016-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,6 +66,8 @@ object CfgKeys {
 
   val reporting: String = "reporting"
 
+  val reporting_reportTZ: String = "reporting.report-timezone"
+
   val reporting_reports: String  = "reporting.reports"
   val reporting_exports: String  = "reporting.exports"
 
@@ -107,6 +109,7 @@ object CfgKeys {
       val minScale: String = keybase + "." + "scale.min"
       val maxScale: String = keybase + "." + "scale.max"
 
+      val tsStyle: String = keybase + "." + "timestamp-style"
       val title: String = keybase + "." + "title"
       val accounts: String = keybase + "." + "accounts"
     }
@@ -124,12 +127,7 @@ object CfgKeys {
   }
 }
 
-/**
- * Different selections which are possible to be made by CLI or CONF-file
- */
-object Settings {
-  private val log: Logger = LoggerFactory.getLogger(this.getClass)
-
+object CfgValues {
   val balance = "balance"
   val balanceGroup = "balance-group"
   val register = "register"
@@ -145,6 +143,17 @@ object Settings {
   val date = "date"
   val isoWeek = "iso-week"
   val isoWeekDate = "iso-week-date"
+
+  val tsDateStyle = "date"
+  val tsSecondsStyle = "seconds"
+  val tsFullStyle = "full"
+}
+
+/**
+ * Different selections which are possible to be made by CLI or CONF-file
+ */
+object Settings {
+  private val log: Logger = LoggerFactory.getLogger(this.getClass)
 
   @SuppressWarnings(Array("org.wartremover.warts.Overloading"))
   def apply(cfgPath: Path, initialConfig: Config): Settings = {
@@ -207,7 +216,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   /**
    * Default timezone to be used in case of missing ZoneId / Offset
    */
-  val timezone: ZoneId = ZoneId.of(cfg.getString(CfgKeys.timezone))
+  val timezone: ZoneId = getTimezoneEx(CfgKeys.timezone)
 
   /**
    * Default time to be used if time component is missing from Txn
@@ -255,6 +264,9 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
    * Reporting
    */
   object Reporting {
+
+    val reportTZ: Option[ZoneId]= getTimezone(CfgKeys.reporting_reportTZ)
+
     val reports: List[ReportType] = cfg.getStringList(CfgKeys.reporting_reports).asScala
       .map(ReportType(_)).toList
 
@@ -301,9 +313,11 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
       protected val keys = CfgKeys.Reports.Register
 
       private val scale = getReportScale(keys.keybase)
+
       val minScale: Int = scale._1
       val maxScale: Int = scale._2
 
+      val tsStyle: TimestampStyle = getTimestampStyle(keys.tsStyle)
       val title: String = cfg.getString(keys.title)
       val accounts: List[String] = getReportAccounts(keys.accounts)
     }
@@ -360,6 +374,46 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
       cfg.getStringList(key).asScala.toList
     } else {
       this.Reporting.accounts
+    }
+  }
+
+  def getTimezoneEx(key: String): ZoneId = {
+    try {
+      ZoneId.of(cfg.getString(key))
+    } catch {
+      case ex @(_ :java.time.zone.ZoneRulesException | _ : java.time.DateTimeException) =>
+        val msg = "CFG: Invalid time zone for '" + key + "'. Error was: " + ex.getMessage
+        log.error(msg)
+        throw new ConfigurationException(msg)
+    }
+  }
+  /**
+   * Get optional timezone
+   *
+   * @param key
+   * @return Some(zoneId) or None
+   */
+  def getTimezone(key: String): Option[ZoneId] = {
+    if (cfg.hasPath(key)) {
+      Some(getTimezoneEx(key))
+    } else {
+      None
+    }
+  }
+
+  /**
+   * Get timestamp style for reports
+   *
+   * Default is date
+   *
+   * @param key
+   * @return timestamp style
+   */
+  def getTimestampStyle(key: String): TimestampStyle = {
+    if (cfg.hasPath(key))
+      TimestampStyle(cfg.getString(key))
+    else {
+      DateTsStyle()
     }
   }
 

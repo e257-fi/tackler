@@ -26,13 +26,18 @@
             "value" : "d1227257ad0ae6872b23d8ba48934f6bf54766afd8e7daf6e35a919bbb01867b"
           }
         }
+      },
+      {
+        "TimeZoneInfo" : {
+          "zoneId" : "Europe/Helsinki"
+        }
       }
     ]
   },
   "title" : "BALANCE GROUPS",
   "groups" : [
     {
-      "title" : "2016-07Z",
+      "title" : "2016-07",
       "balances" : [
         {
           "accountSum" : "-1.0000001",

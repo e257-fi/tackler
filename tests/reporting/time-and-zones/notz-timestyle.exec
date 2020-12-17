@@ -1,0 +1,9 @@
+# format: exec
+# test: 426f6950-4da0-40a5-970f-4e2a05ee141b
+# desc: no report-timezone
+# desc: timestamp-style = full
+# desc: timestamp-style = seconds
+# desc: timestamp-style = date
+exec:--cfg;tests/reporting/time-and-zones/notz-timestyle-full.conf;--output;out.notz-timestyle-full;
+exec:--cfg;tests/reporting/time-and-zones/notz-timestyle-seconds.conf;--output;out.notz-timestyle-seconds;
+exec:--cfg;tests/reporting/time-and-zones/notz-timestyle-date.conf;--output;out.notz-timestyle-date;

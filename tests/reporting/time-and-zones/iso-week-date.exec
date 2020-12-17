@@ -1,0 +1,4 @@
+# format: exec
+# test: 2173f557-4f58-4483-b959-dc29f4f98ce4
+# desc: local zone: balgrp: iso-week-date
+exec:--cfg;tests/reporting/time-and-zones/iso-week-date.conf;--output;out.iso-week-date;

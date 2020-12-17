@@ -2,7 +2,7 @@
   "title" : "BALANCE GROUPS",
   "groups" : [
     {
-      "title" : "2009-W01Z",
+      "title" : "2009-W01 Z",
       "balances" : [
         {
           "accountSum" : "-40180202.11",
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "title" : "2009-W07Z",
+      "title" : "2009-W07 Z",
       "balances" : [
         {
           "accountSum" : "-20090214.00",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "title" : "2009-W53Z",
+      "title" : "2009-W53 Z",
       "balances" : [
         {
           "accountSum" : "-60291435.00",
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "title" : "2010-W01Z",
+      "title" : "2010-W01 Z",
       "balances" : [
         {
           "accountSum" : "-20100104.00",

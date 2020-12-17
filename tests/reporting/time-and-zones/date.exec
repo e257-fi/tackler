@@ -1,0 +1,4 @@
+# format: exec
+# test: 539b2c43-54b1-47e9-98cc-a5a97a76b83c
+# desc: local zone: balgrp: date; register: full
+exec:--cfg;tests/reporting/time-and-zones/date.conf;--output;out.date;

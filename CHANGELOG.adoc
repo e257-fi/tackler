@@ -12,8 +12,8 @@ Current published release is:
 
 New features and changes in this release:
 
- * ...
- ** ...
+ * Time zone setting for dates and times on reports
+ * Timestamp style setting for Register report
 
 
 ==== Fixes
