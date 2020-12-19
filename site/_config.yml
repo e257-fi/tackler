@@ -57,7 +57,7 @@ asciidoctor:
   base_dir: /
   safe: unsafe
   attributes:
-    - gitlink=link:https://gitlab.com/e257/accounting/tackler/blob/master
+    - gitlink=link:https://gitlab.com/e257/accounting/tackler/blob/main
     - repolink=link:/repo
     - relfileprefix=../
     - outfilesuffix=/

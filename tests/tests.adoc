@@ -18,8 +18,8 @@ Tackler performance test setup and actual results described in xref:../perf/read
 
 == T3DB files
 
-image:https://gitlab.com/e257/accounting/tackler/badges/master/build.svg["Build status", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
-image:https://gitlab.com/e257/accounting/tackler/badges/master/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
+image:https://gitlab.com/e257/accounting/tackler/badges/main/pipeline.svg["Build status", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
+image:https://gitlab.com/e257/accounting/tackler/badges/main/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
 
 T3DB consist of following files:
 

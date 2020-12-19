@@ -11,7 +11,7 @@ To use tackler cli you will need
 
 If you don't have tackler-cli.jar, you can download the latest version from
 https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
-https://gitlab.com/e257/accounting/tackler/blob/master/docs/devel/build.adoc[build it by yourself].
+https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it by yourself].
 
 
 == Minimal setup

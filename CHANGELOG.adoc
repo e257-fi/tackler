@@ -204,7 +204,7 @@ New features and changes in this release are:
  * All user documentation has been moved to Tackler's new web site: https://tackler.e257.fi/
 
 
-link:https://gitlab.com/e257/accounting/tackler/tree/master/tools/generator[Generator]:
+link:https://gitlab.com/e257/accounting/tackler/tree/main/tools/generator[Generator]:
 
  * Version v0.5.1
  ** Generate test data in journal format v2
