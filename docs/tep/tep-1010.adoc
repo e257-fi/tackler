@@ -86,18 +86,20 @@ altitude:: `[ '-' ] DIGIT+ [ '.' DIGIT+ ]` (in meteres)
 Support for complex geometries (WKT).
 
 
-== CLI changes
+== Implementation
+
+=== CLI changes
 
 This has no changes to CLI with initial implementation.
 
 
-== CONF changes
+=== CONF changes
 
 This has no changes to configuration values nor configuration setup
 with initial implementation.
 
 
-== Machinery
+=== Machinery
 
 Changes to machinery
 
@@ -107,12 +109,12 @@ Changes to machinery
 
 
 
-=== API changes
+==== API changes
 
 Api changes to server or client interfaces.
 
 
-==== Server API changes
+===== Server API changes
 
 Changes to server API
 
@@ -121,7 +123,7 @@ Changes to server API
 ** [x] Server: GEO filter Bounding Box filter code
 
 
-==== Client API changes
+===== Client API changes
 
 Changes to client API or JSON model
 
@@ -130,45 +132,45 @@ Changes to client API or JSON model
 *** [x] fields: Latitude (lat), Longitude (lon), optional Altitude (alt)
 
 
-== Reporting
+=== Reporting
 
 Changes to reports or reporting
 
 
-=== Balance report
+==== Balance report
 
 No changes to balance report.
 
 
-=== Balance Group report
+==== Balance Group report
 
 No changes to balance group report.
 
 
-=== Register report
+==== Register report
 
 Changes to register report
 
 * [x] Report geo-field with Txn
 
 
-== Exporting
+=== Exporting
 
 Changes to exports or exporting
 
-=== Equity export
+==== Equity export
 
 No changes to equity export.
 
 
-=== Identity export
+==== Identity export
 
 Changes to identity export
 
 * [x] Output geo-field with Txn Header
 
 
-== Documentation
+=== Documentation
 
 * [x] xref:./readme.adoc[]: Update TEP index
 * [x] xref:../../README.adoc[]: is it a new noteworthy feature?
@@ -186,12 +188,12 @@ Changes to identity export
 *** [x] Client API changes
 
 
-=== Postponed (PP) features
+==== Postponed (PP) features
 
 Anything which wasn't implemented?
 
 
-== Tests
+=== Tests
 
 
 * [x] Changes to journal
@@ -200,7 +202,7 @@ Anything which wasn't implemented?
 ** [x] Server API (to JSON)
 ** [x] Client API (from JSON)
 
-=== Geo URI
+==== Geo URI
 
 Normal, ok-case tests to validate functionality:
 
@@ -227,7 +229,7 @@ Metadata tests
 *** [x] `location`, `uuid`
 
 
-==== Errors
+===== Errors
 
 Various error cases:
 
@@ -249,7 +251,7 @@ Metadata tests
 ** [x] multiple `uuid`
 
 
-=== Geo Filter
+==== Geo Filter
 
 Normal, ok-case tests to validate functionality:
 
@@ -268,7 +270,7 @@ Various special values
 * [x] Missing Z
 
 
-==== Errors
+===== Errors
 
 Various error cases:
 
@@ -278,14 +280,14 @@ Various error cases:
 ** [x] e: depth vs. height
 
 
-=== Perf
+==== Perf
 
 Is there need to run or create new perf tests?
 
 * [ ] perf test
 
 
-=== Feature and Test case tracking
+==== Feature and Test case tracking
 
 Feature-id::
 

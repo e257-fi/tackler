@@ -2,6 +2,13 @@
 
 Add configuration options for how timestamps and time zones are handled and displayed.
 
+== Summary
+
+Add support for:
+
+* Concept of reporting time zone
+* Timestamp style selector for register report
+
 Currently, there is no concept of local timezone or more precisely report's own timezone for which it is generated,
 e.g. there is no indication where a date line should be from report's perspective.
 This is reason why there isn't currently any way to determine to which transactions on different timezones belong to same day
@@ -15,13 +22,6 @@ so there is no way to display actual timestamp information on those reports.
 This is suboptimal to say least. On the other hand, displaying timezones for single zone transactions
 is very noisy and doesn't convey any sensible information in register reports.
 
-
-== Summary of changes
-
-Add support for:
-
-* Concept of reporting time zone
-* Timestamp style selector for register report
 
 === Timezone for Reports (report-timezone)
 
@@ -96,13 +96,12 @@ There will have configuration option (`timestamp-style`) for which timestamp sty
 |===
 
 
-
-== Implementation
-
-=== Journal file format
+== Journal file format
 
 No changes to journal file format.
 
+
+== Implementation
 
 === CLI changes
 
@@ -164,7 +163,7 @@ There will be changes to client API and JSON model
 
 If reportTZ is activated, there will be following changes to client JSON model
 
-====== JSON Model
+===== JSON Model
 
 * [x] Metadata
 ** [x] New metadataItem: TimeZoneInfo

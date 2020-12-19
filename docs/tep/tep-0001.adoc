@@ -1,13 +1,29 @@
-= TEP-XXXX: name
+= TEP-XXXX: short-name
 
 See branch
 link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-XXXX-SHORT-NAME/docs/tep/tep-XXXX.adoc[/tep/tep-XXXX-SHORT-NAME]
 for actual TEP-XXXX content.
 
-Single line description of enhancement
+Single line description
 
-Longer paragraph with high level explanation of enhancement
+== Summary
 
+Summary of changes
+
+* Sub-change 1
+* Sub-change 2
+
+Longer description with high level explanation of this change
+
+
+=== Sub-change 1
+
+Lorem ipsum ...
+
+
+=== Sub-change 2
+
+Lorem ipsum ...
 
 
 == Journal file format
@@ -15,49 +31,61 @@ Longer paragraph with high level explanation of enhancement
 Journal file format changes, if any
 
 
-== CLI changes
+== Implementation
+
+=== CLI changes
 
 Changes to command line interface
 
 * [ ] item
 
 
-== CONF changes
+=== CONF changes
 
 Changes to conf-settings
 
 * [ ] item
 
-== Filtering changes
+=== Filtering changes
 
 
-== Machinery
+=== Machinery
 
 Changes to machinery
 
 * [ ] item
 
 
-=== API changes
+==== API changes
 
 Api changes to server or client interfaces.
 
 
-==== Server API changes
+===== Server API changes
 
 Changes to server API
 
 * [ ] item
 
 
-==== Client API changes
+===== Client API changes
 
 Changes to client API or JSON model
 
 * [ ] item
 
+===== JSON Model
 
-=== New dependencies
+Changes to JSON model
+
+* [ ] Metadata
+* [ ] JSON Reports
+** [ ] BalanceReport
+** [ ] BalanceGroupReport
+** [ ] RegisterReport
+
+
+==== New dependencies
 
 * [ ] link / url of new dependency
 ** [ ] Add and check licenses: link / url
@@ -69,51 +97,51 @@ Changes to client API or JSON model
 ** [ ] Add license material to binary distribution
 
 
-== Reporting
+=== Reporting
 
 Changes to reports or reporting
 
 
-=== Balance report
+==== Balance report
 
 Changes to balance report
 
 * [ ] item
 
 
-=== Balance Group report
+==== Balance Group report
 
 Changes to balance group report
 
 * [ ] item
 
 
-=== Register report
+==== Register report
 
 Changes to register report
 
 * [ ] item
 
 
-== Exporting
+=== Exporting
 
 Changes to exports or exporting
 
-=== Equity export
+==== Equity export
 
 Changes to equity export
 
 * [ ] item
 
 
-=== Identity export
+==== Identity export
 
 Changes to identity export
 
 * [ ] item
 
 
-== Documentation
+=== Documentation
 
 * [ ] xref:./readme.adoc[]: Update TEP index
 * [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
@@ -123,7 +151,7 @@ Changes to identity export
 ** [ ] update xref:../../tests/check-tests.sh[]
 ** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
 * [ ] User docs
-** [ ] user manual
+** [ ] User Manual
 *** [ ] cli-arguments
 **** [ ] `--arg-1`
 **** [ ] `--arg-2`
@@ -136,36 +164,37 @@ Changes to identity export
 ** [ ] API changes
 *** [ ] Server API changes
 *** [ ] Client API changes
+*** [ ] JSON Examples
 
 
-== Future plans and Postponed (PP) features
+=== Future plans and Postponed (PP) features
 
 How and where to go from here?
 
-=== Postponed (PP) features
+==== Postponed (PP) features
 
 Anything which wasn't implemented?
 
 
-== Tests
+=== Tests
 
 Normal, ok-case tests to validate functionality:
 
 * [ ] test
 
-=== Errors
+==== Errors
 
 Various error cases:
 
 * [ ] e: error test
 
-=== Perf
+==== Perf
 
 Is there need to run or create new perf tests?
 
 * [ ] perf test
 
-=== Feature and Test case tracking
+==== Feature and Test case tracking
 
 
 
@@ -178,7 +207,7 @@ Feature-id::
 link:../../tests/tests-XXXX.yml[TEP-XXXX T3DB]
 
 
-=== Metadata template for test coverage tracking
+==== Metadata template for test coverage tracking
 
 ....
 features:

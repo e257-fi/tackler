@@ -1,11 +1,11 @@
-= TEP-1009: Transaction Header Syntax
+== TEP-1009: Transaction Header Syntax
 
-Change Transaction header format so that it is more robust, regular 
+Change Transaction header format so that it is more robust, regular
 and less error prone for humans to manipulate.
 
-== Overview
+== Summary
 
-Currently Tackler's format tries to mimic Ledger's format, and be as much 
+Currently Tackler's format tries to mimic Ledger's format, and be as much
 compatible with it as possible. However, ledger's journal format is somewhat fuzzy,
 and makes it unnecessarily difficult to detect some error cases.
 
@@ -92,17 +92,19 @@ Transaction metadata::
 Transaction medadata (uuid) must start with ``#`` + space -prefix
 
 
-== CLI changes
+== Implementation
+
+=== CLI changes
 
 None
 
 
-== CONF changes
+=== CONF changes
 
 None
 
 
-== Machinery
+=== Machinery
 
 Changes to machinery
 
@@ -113,42 +115,42 @@ Changes to machinery
 * [x] All test and reference vectors have to be updated (also those inside GIT repositories)
 
 
-=== API changes
+==== API changes
 
 None
 
 
-==== Server API changes
+===== Server API changes
 
 None
 
 
-==== Client API changes
+===== Client API changes
 
 None
 
 
-=== New dependencies
+==== New dependencies
 
 None
 
 
-== Reporting
+=== Reporting
 
 This change causes modifications to Register report.
 
 
-=== Balance report
+==== Balance report
 
 None
 
 
-=== Balance Group report
+==== Balance Group report
 
 None
 
 
-=== Register report
+==== Register report
 
 Register report has to be changed due this change.
 
@@ -179,21 +181,21 @@ as there is with journal.
 => Change register report so that will prefix metadata with `#`
 
 
-== Exporting
+=== Exporting
 
 Equity and Identity exports must be valid input to tackler, hence both must be changed.
 
-=== Equity export
+==== Equity export
 
 Change equity export so that it will use `'` for description.
 
 
-=== Identity export
+==== Identity export
 
 Change identity export so that it will use `'` for description, and `#` for metadata.
 
 
-== Documentation
+=== Documentation
 
 * [x] xref:./readme.adoc[]: Update TEP index
 * [x] link:../../CHANGELOG[]: add new item
@@ -206,23 +208,23 @@ Change identity export so that it will use `'` for description, and `#` for meta
 ** [x] All examples
 
 
-== Future plans and Postponed (PP) features
+=== Future plans and Postponed (PP) features
 
 Following characters are reserved for future use in header's first line: `[` `]` `{` `}` `<` `>`
 
 Extending current metadata data (uuid) to actual metadata header block (e.g. several lines).
 
 
-=== Postponed (PP) features
+==== Postponed (PP) features
 
 Nothing
 
 
-== Tests
+=== Tests
 
 Normal, ok-case tests to validate functionality:
 
-==== Phase 1
+===== Phase 1
 
 * [x] Accepts old syntax
 ** [x] Txn header without `'`-prefix
@@ -242,7 +244,7 @@ Normal, ok-case tests to validate functionality:
 
 
 
-==== Phase 2
+===== Phase 2
 
 * [x] Rejects old syntax
 ** [x] Txn header without `'`-prefix
@@ -256,16 +258,16 @@ Normal, ok-case tests to validate functionality:
 * [x] Enable all tests ("todo: perr:" and ignored suites)
 
 
-=== Errors
+==== Errors
 
 Error case tests for Phase-1 and Phase-2.
 
-==== Phase 1
+===== Phase 1
 
 * [x] e: incorrect metadata syntax
 
 
-==== Phase 2
+===== Phase 2
 
 * [ ] Rejects old syntax
 ** [ ] e: Txn header without `'`-prefix
@@ -274,12 +276,12 @@ Error case tests for Phase-1 and Phase-2.
 
 
 
-=== Perf
+==== Perf
 
 No need for new perf tests - change is covered by normal perf suite.
 
 
-=== Feature and Test case tracking
+==== Feature and Test case tracking
 
 Feature-id::
 * name: Txn Header Syntax

@@ -3,6 +3,8 @@
 Txn set checksum and report account selector checksum are verification and auditing tools to ensure
 that generated reports are using correct and known inputs.
 
+== Summary
+
 For overal information, see 
 link:https://tackler.e257.fi/docs/auditing/[Accounting Auditing]
 and example reports listed below:
@@ -18,7 +20,7 @@ and example reports listed below:
 ** xref:../../tests/audit/ok/audit-1E2-04.ref.reg.json[Register JSON report with audit metadata]
 
 
-== Transaction set checksum
+=== Transaction set checksum
 
 Transaction set checksum (txn set checksum) is secure and cryptographically strong hash 
 and proof of presence of transactions which are used to do accounting calculations.
@@ -38,7 +40,7 @@ See xref:../../contrib[contrib] for example script (xref:../../contrib/txn-set-c
 how to calculate that with standard UNIX command line tools.
 
 
-=== Assumptions and Restrictions
+==== Assumptions and Restrictions
 
 Each transaction must have unique UUID. Presence of UUID and uniqueness are enforced.
 
@@ -56,7 +58,7 @@ link:https://tackler.e257.fi/docs/journal/git-storage/[Git Storage Guide]
 for further info.
 
 
-== Report account selector checksum
+=== Report account selector checksum
 
 Report account selectors `core.reporting.accounts` and `core.reports.<report-type>.accounts` are used
 to select which accounts are included into reports. Selected accounts affect calculated and reported totals.
@@ -77,12 +79,15 @@ Account selector checksum is calculated based on following algorithm:
 No changes to journal format are needed.
 
 
-== CLI changes
+== Implementation
+
+
+=== CLI changes
 
 No changes to CLI args are needed.
 
 
-== CONF changes
+=== CONF changes
 
 New configuration group for `core`:
 
@@ -96,7 +101,7 @@ link:https://tackler.e257.fi/docs/journal/format/[Journal Format]
 for further info.
 
 
-== Machinery
+=== Machinery
 
 Following changes are needed
 
@@ -117,7 +122,7 @@ See `MessageDigest` on:
 
 
 
-=== POC implementation
+==== POC implementation
 
 Txn set checksum with external tools
 
@@ -153,12 +158,12 @@ Txn set checksum with external tools
 ----
 
 
-=== API changes
+==== API changes
 
 Api changes to server or client interfaces.
 
 
-==== Server API changes
+===== Server API changes
 
 Changes to server API
 
@@ -166,7 +171,7 @@ Changes to server API
 * [x] Report account selector checksum
 
 
-==== Client API changes
+===== Client API changes
 
 Changes to client API or JSON model
 
@@ -174,17 +179,17 @@ Changes to client API or JSON model
 * [x] Report account selector checksum to Metadata
 
 
-=== New dependencies
+==== New dependencies
 
 No new dependencies
 
 
-== Reporting
+=== Reporting
 
 Changes to reports or reporting
 
 
-=== Balance report
+==== Balance report
 
 Changes to balance report
 
@@ -196,7 +201,7 @@ Changes to balance report
 ** [x] json
 
 
-=== Balance Group report
+==== Balance Group report
 
 Changes to balance group report
 
@@ -208,7 +213,7 @@ Changes to balance group report
 ** [x] json
 
 
-=== Register report
+==== Register report
 
 Changes to register report
 
@@ -220,11 +225,11 @@ Changes to register report
 ** [x] json
 
 
-== Exporting
+=== Exporting
 
 Changes to exports or exporting
 
-=== Equity export
+==== Equity export
 
 Changes to equity export
 
@@ -236,14 +241,14 @@ Changes to equity export
 *** [x] Active selector
 
 
-=== Identity export
+==== Identity export
 
 Changes to identity export
 
 * [x] no changes
 
 
-== Documentation
+=== Documentation
 
 * [x] xref:./readme.adoc[]: Update TEP index
 * [x] xref:../../README.adoc[]: is it a new noteworthy feature?
@@ -264,7 +269,7 @@ Changes to identity export
 *** [x] Client API changes
 
 
-== Future plans and Postponed (PP) features
+=== Future plans and Postponed (PP) features
 
 There are several possibilities to enhance txn set checksum:
 
@@ -275,12 +280,12 @@ There are several possibilities to enhance txn set checksum:
 * There could be a separate, actual content hash which is calculated over some normalization of Txn data.
 
 
-=== Postponed (PP) features
+==== Postponed (PP) features
 
 Anything which wasn't implemented?
 
 
-== Tests
+=== Tests
 
 Normal, ok-case tests to validate functionality:
 
@@ -314,7 +319,7 @@ Normal, ok-case tests to validate functionality:
 * [x] Filter Txns multiple times, check correct metadata / txn-set-checksum
 
 
-=== Errors
+==== Errors
 
 Various error cases:
 
@@ -341,7 +346,7 @@ res2: java.util.UUID = aaa39222-4d8b-4d0e-8204-50e2a0c8b664
 ----
 * [x] e: invalid hash type
 
-=== Perf
+==== Perf
 
 Add new perf test target for txn set checksum
 
@@ -350,7 +355,7 @@ Add new perf test target for txn set checksum
 ** [ ] without txn set checksum
 
 
-=== Feature and Test case tracking
+==== Feature and Test case tracking
 
 xref:../../tests/tests-1007.yml[TEP-1007 T3DB]
 
