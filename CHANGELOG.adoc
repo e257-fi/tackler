@@ -2,18 +2,19 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.32.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.32.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.33.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.33.0"
 
 
 == Release history
 
-=== 0.33.0-SNAPSHOT
+=== 0.33.0
 
 New features and changes in this release:
 
- * Time zone setting for dates and times on reports
- * Timestamp style setting for Register report
+ * TEP-1012: xref:./docs/tep/tep-1012.adoc[Custom timestamps for reports]
+ ** Time zone setting for dates and times on reports
+ ** Timestamp style setting for Register report
 
 
 ==== Fixes
