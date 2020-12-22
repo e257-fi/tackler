@@ -1,5 +1,10 @@
 features:
   - feature:
       id: 22eba439-e94d-4f68-a002-e1549a7bab76
-      subject: Transaction Tags
+      subject: "Transaction Tags"
+
+  - feature:
+      id: ec0a6249-1ae1-406e-babb-f4db8891f7bf
+      parent: c085aec4-8e0f-4571-bf50-0dc16dba411e
+      subject: "Txn Tag Filters"
 

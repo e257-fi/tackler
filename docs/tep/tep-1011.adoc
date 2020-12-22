@@ -1,14 +1,249 @@
 = TEP-1011: Transaction Tags
 
-See branch
-link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1011-txn-tags/docs/tep/tep-1011.adoc[/tep/tep-1011-txn-tags]
-for actual TEP-1011 content.
+Add support for Transaction Tags and Filters
 
-Add support for Transaction Tags
+== Summary
+
+Transaction tags are valueless keywords or category names,
+which can be attached to the transaction's metadata.
+
+Summary of changes
+
+* Transaction tags
+* Transaction tag filters
 
 
-=== Feature and Test case tracking
+=== Transaction tags
 
+There could be multiple tags for single transaction
+and tags can have a hierarchy in similar way as accounts have.
+
+Transaction tags must be predefined if strict mode for tags is activated.
+
+
+=== Transaction tag filters
+
+Transaction Tag Filter selects transactions which any tag matches specified regular expression.
+
+
+== Journal file format
+
+Syntax support for Transaction Tags:
+
+* Same syntax as with accounts (tags and sub-tags)
+* Support for multiline value, maybe?
+
+
+== Implementation
+
+=== CLI changes
+
+No Changes to command line interface in the first phase.
+Searching and filtering by tags will be supported by normal filter api.
+
+
+=== CONF changes
+
+Changes to conf-settings
+
+* [ ] Strict settings for tags
+** [ ] strict-mode selector
+** [ ] Chart of tags
+
+=== Filtering changes
+
+Transaction Tag Filter selects transactions with any tag matches specified regular expression.
+
+----
+{
+  "TxnFilterTxnTags" : {
+    "regex" : "<regex>"
+  }
+}
+----
+
+If multiple tags should or must be matched then this should be done by using logical filter combinators
+and multiple txn tag filters.
+
+
+=== Machinery
+
+Changes to machinery
+
+* [ ] item
+
+
+==== API changes
+
+Api changes to server or client interfaces.
+
+
+===== Server API changes
+
+Changes to server API
+
+* [ ] item
+
+
+===== Client API changes
+
+Changes to client API or JSON model
+
+* [ ] item
+
+===== JSON Model
+
+Changes to JSON model
+
+* [ ] Metadata
+* [ ] JSON Reports
+** [ ] BalanceReport
+** [ ] BalanceGroupReport
+** [ ] RegisterReport
+
+
+==== New dependencies
+
+* [ ] link / url of new dependency
+** [ ] Add and check licenses: link / url
+** [ ] Is there NOTICE file(s)?
+** [ ] Add license under link:../licenses/[doc/licenses]
+*** [ ] Add NOTICES under link:../licenses/[doc/licenses]
+** [ ] Add link of license to xref:../readme.adoc[index]
+** [ ] Add link to xref:../../site/_docs/credits.adoc[THANKS]
+** [ ] Add license material to binary distribution
+
+
+=== Reporting
+
+Changes to reports or reporting
+
+
+==== Balance report
+
+No changes to balance report
+
+
+==== Balance Group report
+
+No changes to balance group report
+
+
+==== Register report
+
+Changes to register report
+
+* [ ] Print txn tags
+** [ ] Multiline handling?
+
+
+=== Exporting
+
+Changes to exports or exporting
+
+==== Equity export
+
+No changes to equity export
+
+
+==== Identity export
+
+Changes to identity export
+
+* [ ] Include Txn Tags to Identity Export
+
+
+=== Documentation
+
+* [ ] xref:./readme.adoc[]: Update TEP index
+* [ ] xref:../../README.adoc[]: is it a new noteworthy feature?
+* [ ] link:../../CHANGELOG[]: add new item
+* [x] Does it warrant own T3DB file?
+** [x] update xref:../../tests/tests.adoc[]
+** [x] update xref:../../tests/check-tests.sh[]
+** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [ ] User docs
+** [ ] User Manual
+*** [ ] txn tag document
+*** [ ] txn tag filter chapter in txn filter document
+** [ ] tackler.conf: tags
+** [ ] `tags.conf`
+*** [ ] `tags.strict`
+*** [ ] `tags.cot`
+** [ ] examples
+* [ ] Developer docs
+** [ ] API changes
+*** [ ] Server API changes
+*** [ ] Client API changes
+*** [ ] JSON Examples
+
+
+=== Future plans and Postponed (PP) features
+
+How and where to go from here?
+
+* Support for multiline syntax?
+
+==== Postponed (PP) features
+
+Anything which wasn't implemented?
+
+
+=== Tests
+
+Normal, ok-case tests to validate functionality:
+
+* [ ] test
+
+* [ ] pok: syntax
+** [ ] single tag
+** [ ] multiple tags
+** [ ] comma
+*** [ ] no space
+*** [ ] space before
+*** [ ] space after
+*** [ ] space before and after
+
+* [ ] pok: meta header
+** [ ] multiple meta items, correct order
+
+
+* [ ] Identity export
+** [ ] Single tag
+** [ ] Multiple tags
+
+* [ ] txn tag filter
+** [ ] single tag matches
+** [ ] root part matches
+** [ ] sub-tag matches
+** [ ] leaf matches
+
+==== Errors
+
+Various error cases:
+
+* [ ] Parse Errors (perr): syntax
+** [ ] multiple tags
+*** [ ] ',' at the end `a, b, c,`
+*** [ ] missing tag `a, ,d`
+** [ ] tag name syntax
+** [ ] ':' at the beginning, missing root tag (`:a`)
+*** [ ] ':' at the end missing leaf (`a:b:`)
+** [ ] '::' -  missing sub-tag (`a::c`)
+* [ ] perr: meta header
+** [ ] duplicate tag sections
+** [ ] duplicate uuid sections
+** [ ] duplicate geo sections
+
+* [ ] e: error test
+
+==== Perf
+
+Is there need to run or create new perf tests?
+
+* [ ] perf test
+
+==== Feature and Test case tracking
 
 Feature-id::
 
@@ -16,7 +251,47 @@ Feature-id::
 * uuid: 22eba439-e94d-4f68-a002-e1549a7bab76
 
 
+Feature-id::
+
+* name: Txn Tag Filters
+* parent: 22eba439-e94d-4f68-a002-e1549a7bab76
+* uuid: ec0a6249-1ae1-406e-babb-f4db8891f7bf
+
+
 link:../../tests/tests-1011.yml[TEP-1011 T3DB]
+
+
+==== Metadata template for test coverage tracking
+
+....
+features:
+  - feature:
+      id: uuid
+      subject: "todo: one-line description of main feature"
+
+  - feature:
+      id: uuid
+      parent: uuid-of-parent
+      subject: "todo: one-line description of sub feature"
+      tests:
+        errors:
+          - error:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              desc: "todo: description"
+        operations:
+          - test:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              descriptions:
+                - desc: "todo: description"
+              references:
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+                - ref: identity
+                - ref: equity
+....
 
 
 '''
