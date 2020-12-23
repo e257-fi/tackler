@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 E257.FI
+ * Copyright 2019-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package fi.e257.tackler.parser
 
 
+import fi.e257.tackler.api.TxnHeader
 import fi.e257.tackler.core.Settings
 import org.scalatest.funspec.AnyFunSpec
 
@@ -64,7 +65,7 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 4",
-          """at input ' '"""
+          """at input ' """
         ),
         (
           """
@@ -76,7 +77,7 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 4",
-          """at input ' '"""
+          """at input ' """
         ),
         (
           """
@@ -89,7 +90,7 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 5",
-          """at input ' #'"""
+          """at input ' """
         ),
         (
           """
@@ -102,7 +103,7 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 5",
-          """at input ' #'"""
+          """at input ' """
         ),
       )
 
@@ -116,14 +117,16 @@ class TacklerParserMetadataTests extends AnyFunSpec {
         1
       }).foldLeft(0)(_ + _)
 
-      assert(count === 6)
+      assert(count === perrStrings.length)
     }
 
     /**
       * test: 5bb95c2e-2fad-4584-9380-e6cafe732cf6
       */
     it("accepts multiple metadata items") {
-      val pokStrings: List[(String, String, String)] = List(
+      val pokStrings: List[
+        (String, Int,
+          List[(String, (TxnHeader => String))])] = List(
         (
           """
             |2019-05-01
@@ -133,8 +136,9 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             | e -1
             |
             |""".stripMargin,
-          "68ddc754-40ad-4d73-824c-17e75e59c731",
-          "geo:60,25"
+          2, List(
+          ("68ddc754-40ad-4d73-824c-17e75e59c731", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
+          ("geo:60,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }))
         ),
         (
           """
@@ -145,21 +149,27 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             | e -1
             |
             |""".stripMargin,
-          "c075a1a4-37d5-4d79-a92b-5cbb323519f0",
-          "geo:61,25"
+          2, List(
+          ("c075a1a4-37d5-4d79-a92b-5cbb323519f0", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
+          ("geo:61,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }))
         ),
       )
 
       val tt = new TacklerTxns(Settings())
 
-      val count = pokStrings.map(pokStr => {
+      val totalTestCount = pokStrings.map(pokStr => {
         val txnData = tt.string2Txns(pokStr._1)
 
-        assert(txnData.txns.head.header.uuid.map(_.toString).getOrElse("this-will-not-match") === pokStr._2)
-        assert(txnData.txns.head.header.location.map(_.toString).getOrElse("this-will-not-match") === pokStr._3)
+        val testVector = pokStr._3
+        val testCount = testVector.map(test => {
+          assert(test._1 === test._2(txnData.txns.head.header))
+          1
+        }).foldLeft(0)(_ + _)
+
+        assert(testCount === pokStr._2)
         1
       }).foldLeft(0)(_ + _)
-      assert(count === 2)
+      assert(totalTestCount === pokStrings.length)
     }
   }
 }

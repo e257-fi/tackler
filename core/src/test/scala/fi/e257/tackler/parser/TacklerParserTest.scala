@@ -96,7 +96,7 @@ class TacklerParserTest extends AnyFunSpec {
       val ex = intercept[TacklerParseException] {
         tt.string2Txns(txnStr)
       }
-      assert(ex.getMessage ===
+      assert(ex.getMessage.startsWith(
         s"""Txn Parse Error: Invalid input: [
            |2017-01-01
            | # uuid:
@@ -105,8 +105,7 @@ class TacklerParserTest extends AnyFunSpec {
            |
         |], msg:
            |   Can not parse input
-           |   on line: 3, at position: 8
-           |   no viable alternative at input ' # uuid:\\n'""".stripMargin)
+           |   on line: 3""".stripMargin))
     }
 
     /**
