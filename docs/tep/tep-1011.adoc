@@ -205,12 +205,14 @@ Normal, ok-case tests to validate functionality:
 *** [ ] space before and after
 
 * [ ] pok: meta header
-** [ ] multiple meta items, correct order
+** [ ] multiple meta items
 
 
 * [ ] Identity export
 ** [ ] Single tag
 ** [ ] Multiple tags
+** [ ] Identity feedback
+** [ ] Multiple metadata items
 
 * [ ] txn tag filter
 ** [ ] single tag matches

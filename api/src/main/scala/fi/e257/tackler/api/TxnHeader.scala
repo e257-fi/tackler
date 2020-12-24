@@ -31,6 +31,7 @@ final case class TxnHeader(
   description: Option[String],
   uuid: Option[UUID],
   location: Option[GeoPoint],
+  tags: Option[Tags],
   comments: Option[List[String]]
 ) {
 
@@ -87,6 +88,7 @@ final case class TxnHeader(
 
     val uuidStr = uuid.map(u => indent + "# uuid: " + u.toString + "\n")
     val locStr = location.map(loc => indent + "# location: " + loc.toString + "\n")
+    val tagsStr = tags.map(t => indent + "# tags: " + t.mkString("", ", ", "\n"))
     val commentsStr = comments.map(cs =>
       cs.map(c => indent + "; " + c + "\n").mkString
     )
@@ -94,6 +96,7 @@ final case class TxnHeader(
     tsFormatter(timestamp) + codeStr.getOrElse(" ") + description.fold("")("'" + _) + "\n" +
       uuidStr.getOrElse("") +
       locStr.getOrElse("") +
+      tagsStr.getOrElse("") +
       commentsStr.getOrElse("")
   }
 }

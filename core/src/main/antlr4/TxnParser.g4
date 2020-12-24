@@ -23,7 +23,7 @@ options {
 
 txns: blankline* txn (blankline+ txn)* blankline* opt_sp EOF;
 
-txn: date code? (description | opt_sp) NL txn_meta? txn_comment* postings;
+txn: date code? (description | opt_sp) NL txn_meta[0, 0, 0]? txn_comment* postings;
 
 date: DATE
     | TS
@@ -39,16 +39,17 @@ description: sp '\'' text;
 
 text: ~(NL)*;
 
-txn_meta:
-      txn_meta_uuid NL
-    | txn_meta_uuid NL txn_meta_location NL
-    | txn_meta_location NL
-    | txn_meta_location NL txn_meta_uuid NL
-    ;
+txn_meta [int u, int l, int t]:  (
+        {$u < 1}? txn_meta_uuid NL      {$u++;}
+     |  {$l < 1}? txn_meta_location NL  {$l++;}
+     |  {$t < 1}? txn_meta_tags NL      {$t++;}
+     )+;
 
 txn_meta_uuid:     indent '#' sp UUID_NAME ':' sp UUID_VALUE opt_sp;
 
 txn_meta_location: indent '#' sp LOCATION_NAME ':' sp geo_uri opt_sp;
+
+txn_meta_tags:     indent '#' sp TAGS_NAME ':' sp tags opt_sp;
 
 geo_uri: GEO_NAME ':' lat ',' lon (',' alt)?;
 
@@ -57,6 +58,12 @@ lat: INT | NUMBER;
 lon: INT | NUMBER;
 
 alt: INT | NUMBER;
+
+tags:
+      tag
+    | tags opt_sp ',' opt_sp tag;
+
+tag: ID (':' (ID | SUBID | INT))*;
 
 txn_comment: indent comment NL;
 
