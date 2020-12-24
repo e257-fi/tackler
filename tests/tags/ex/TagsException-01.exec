@@ -1,0 +1,4 @@
+# format: exec
+# test: 
+# desc: tag not found
+exec:--cfg;tests/tags/ex.conf;--input.file;TagsException-01.txn;--output;out.TagsException-01;

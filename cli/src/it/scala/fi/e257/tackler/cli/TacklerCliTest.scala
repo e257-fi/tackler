@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 E257.FI
+ * Copyright 2016-2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.nio.file.{Files, NoSuchFileException, Path, Paths}
 import java.util.regex.PatternSyntaxException
 
 import better.files._
-import fi.e257.tackler.core.{AccountException, CommodityException, ConfigurationException, GroupByException, ReportException, TacklerException, TxnException}
+import fi.e257.tackler.core.{AccountException, CommodityException, ConfigurationException, GroupByException, ReportException, TacklerException, TagsException, TxnException}
 import fi.e257.tackler.parser.TacklerParseException
 import fi.e257.testing.{DirSuiteLike, Glob}
 import org.rogach.scallop.exceptions.{ExcessArguments, RequiredOptionNotFound, UnknownOption, ValidationFailure}
@@ -240,6 +240,33 @@ class DirsuiteLocationTest extends DirSuiteLike {
     }
   }
 }
+
+/**
+ * Tags
+ */
+class DirsuiteTagsTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
+  runDirSuiteTestCases(basedir, Glob("tags/ex/TagsException-*.exec")) { args: Array[String] =>
+    assertThrows[TagsException] {
+      TacklerCli.runExceptions(args)
+    }
+  }
+  /*
+  runDirSuiteTestCases(basedir, Glob("tags/ex/TacklerException-*.exec")) { args: Array[String] =>
+    assertThrows[TacklerException] {
+      TacklerCli.runExceptions(args)
+    }
+  }
+  */
+
+  runDirSuiteTestCases(basedir, Glob("tags/ok/*.exec")) { args: Array[String] =>
+    assertResult(TacklerCli.SUCCESS) {
+      TacklerCli.runReturnValue(args)
+    }
+  }
+}
+
 
 /**
  * Parser

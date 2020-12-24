@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 E257.FI
+ * Copyright 2020 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,25 +16,25 @@
  */
 package fi.e257.tackler.parser
 
-
 import fi.e257.tackler.api.TxnHeader
 import fi.e257.tackler.core.Settings
 import org.scalatest.funspec.AnyFunSpec
 
-class TacklerParserMetadataTests extends AnyFunSpec {
+class TacklerParserTagsTests extends AnyFunSpec {
 
-  describe("Metadata") {
+  describe("Metadata (Tags)") {
 
+    val spaces = " \t   \t"
     /**
-      * test: b88d6733-2acf-4021-a3d7-deaf58b518a6
+      * test: 4d364251-f578-4c00-8390-9d8b5feea90b
       */
-    it("rejects invalid metadata constructions") {
+    it("rejects invalid tags metadata constructions") {
       val perrStrings: List[(String, String, String)] = List(
         (
           """
-            |2019-05-01
+            |2020-12-24
             | ; metadata must be first
-            | # uuid: 2c01d889-c928-477b-bf53-55e19887d34b
+            | # tags: t,us
             | a 1
             | e 1
             |
@@ -44,10 +44,10 @@ class TacklerParserMetadataTests extends AnyFunSpec {
         ),
         (
           """
-            |2019-05-01
-            | # location: geo:60,25
+            |2020-12-24
+            | # tags: t,u,v
             | ; no comments between metadata
-            | # uuid: f0cf7f01-4af9-41b9-82ae-9601d9e05186
+            | # uuid: ff692918-290e-4b45-b78e-dba45619eec2
             | a 1
             | e 1
             |
@@ -57,9 +57,9 @@ class TacklerParserMetadataTests extends AnyFunSpec {
         ),
         (
           """
-            |2019-05-01
-            | # uuid: ff46c6d0-c42f-4dfd-a176-beabe95d84a2
-            | # uuid: e1bbad16-05ef-4366-8adc-8717b3bb5f38
+            |2020-12-24
+            | # tags: t,u
+            | # tags: v,x
             | a 1
             | e 1
             |
@@ -69,19 +69,7 @@ class TacklerParserMetadataTests extends AnyFunSpec {
         ),
         (
           """
-            |2019-05-01
-            | # location: geo:60,25
-            | # location: geo:61,25
-            | a  1
-            | e -1
-            |
-            |""".stripMargin,
-          "on line: 4",
-          """at input ' """
-        ),
-        (
-          """
-            |2019-05-01
+            |2020-12-24
             | # location: geo:60,25
             | # uuid: ea23a28b-a99e-4af4-8f87-c011d606efd7
             | # location: geo:61,25
@@ -94,10 +82,10 @@ class TacklerParserMetadataTests extends AnyFunSpec {
         ),
         (
           """
-            |2019-05-01
-            | # uuid: 5e6ab503-b85b-48ba-bc49-8ed0db2a2ce1
+            |2020-12-24
+            | # tags: t,u
             | # location: geo:60,25
-            | # uuid: 552ac798-5807-4875-b64a-e63d02c255d0
+            | # tags: x,y
             | a  1
             | e -1
             |
@@ -121,84 +109,116 @@ class TacklerParserMetadataTests extends AnyFunSpec {
     }
 
     /**
-      * test: 5bb95c2e-2fad-4584-9380-e6cafe732cf6
+      * test: df593f17-2c74-4657-8da9-afc9ba445755
       */
-    it("accepts multiple metadata items") {
+    it("accepts tags metadata") {
       val pokStrings: List[
         (String, Int,
           List[(String, (TxnHeader => String))])] = List(
         (
           """
-            |2019-05-01
-            | # uuid: 68ddc754-40ad-4d73-824c-17e75e59c731
-            | # location: geo:60,25
-            | a  1
-            | e -1
-            |
-            |""".stripMargin,
-          2, List(
-          ("68ddc754-40ad-4d73-824c-17e75e59c731", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
-          ("geo:60,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }))
-        ),
-        (
-          """
-            |2019-05-01
-            | # location: geo:61,25
-            | # uuid: c075a1a4-37d5-4d79-a92b-5cbb323519f0
-            | a  1
-            | e -1
-            |
-            |""".stripMargin,
-          2, List(
-          ("c075a1a4-37d5-4d79-a92b-5cbb323519f0", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
-          ("geo:61,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }))
-        ),
-        (
-          """
             |2020-12-24
             | # location: geo:61,25
-            | # uuid: c075a1a4-37d5-4d79-a92b-5cbb323519f0
+            | # uuid: 369d63de-7a3b-4a3f-a741-a592fad19b9f
             | # tags: a:b:c
             | a  1
             | e -1
             |
             |""".stripMargin,
           3, List(
-          ("c075a1a4-37d5-4d79-a92b-5cbb323519f0", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
+          ("369d63de-7a3b-4a3f-a741-a592fad19b9f", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
           ("geo:61,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }),
           ("a:b:c", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ",", "")).getOrElse("barf") }))
         ),
         (
           """
             |2020-12-24
-            | # tags: a:b:c
-            | # location: geo:61,25
-            | # uuid: c075a1a4-37d5-4d79-a92b-5cbb323519f0
+            | # tags: a
             | a  1
             | e -1
             |
             |""".stripMargin,
-          3, List(
-          ("c075a1a4-37d5-4d79-a92b-5cbb323519f0", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
-          ("geo:61,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }),
-          ("a:b:c", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ",", "")).getOrElse("barf") }))
+          1, List(
+          ("a", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
         ),
         (
           """
             |2020-12-24
-            | # location: geo:61,25
-            | # tags: a:b:c
-            | # uuid: c075a1a4-37d5-4d79-a92b-5cbb323519f0
+            | # tags: a, b
             | a  1
             | e -1
             |
             |""".stripMargin,
-          3, List(
-          ("c075a1a4-37d5-4d79-a92b-5cbb323519f0", { hdr: TxnHeader => hdr.uuid.map(_.toString).getOrElse("barf") }),
-          ("geo:61,25", { hdr: TxnHeader => hdr.location.map(_.toString).getOrElse("barf") }),
-          ("a:b:c", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ",", "")).getOrElse("barf") }))
+          1, List(
+          ("a, b", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
         ),
-       )
+        (
+          """
+            |2020-12-24
+            | # tags: a, b, c
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("a, b, c", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: a, b, c, d
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("a, b, c, d", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: a, b, c, d, e
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("a, b, c, d, e", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: a:b:c, d, e
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("a:b:c, d, e", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: a:b:c , d ,e
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("a:b:c, d, e", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+        (
+          s"""
+            |2020-12-24
+            | #${spaces}tags:${spaces}a:b:c${spaces},${spaces}d${spaces},${spaces}e${spaces}
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("a:b:c, d, e", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+      )
 
       val tt = new TacklerTxns(Settings())
 
