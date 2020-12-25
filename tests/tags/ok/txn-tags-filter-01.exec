@@ -1,0 +1,4 @@
+# format: exec
+# test: 5ea202ba-01d1-4d37-b8cd-544187b56d22
+# desc: not txn tag filter
+exec:--cfg;tests/tags/ok.conf;--input.file;txn-tags-filter.txn;--output;out.txn-tags-filter-01;--api-filter-def;{ "txnFilter": { "TxnFilterNOT": { "txnFilter": { "TxnFilterTxnTags": { "regex": "reindeer:Normal·Nose" }}}}};

@@ -1,5 +1,110 @@
 features:
   - feature:
       id: 22eba439-e94d-4f68-a002-e1549a7bab76
-      subject: Transaction Tags
-
+      subject: "Transaction Tags"
+      tests:
+        reports:
+          registry:
+            - test:
+                refid: 14f69076-b06d-475c-90d5-cfcd6b1ea581
+            - test:
+                refid: a9e1ef57-18e7-488a-baa2-b7b05a376801
+            - test:
+                refid: 5ea202ba-01d1-4d37-b8cd-544187b56d22
+            - test:
+                refid: b00719e0-a04d-47ec-b0b9-a3fb00fa6208
+          identity:
+            - test:
+                refid: 14f69076-b06d-475c-90d5-cfcd6b1ea581
+            - test:
+                refid: a9e1ef57-18e7-488a-baa2-b7b05a376801
+            - test:
+                refid: 5ea202ba-01d1-4d37-b8cd-544187b56d22
+            - test:
+                refid: b00719e0-a04d-47ec-b0b9-a3fb00fa6208
+        operations:
+          - test:
+              name: TacklerParserMetadataTests
+              desc: "rejects invalid metadata constructions"
+              refid: b88d6733-2acf-4021-a3d7-deaf58b518a6
+          - test:
+              name: TacklerParserMetadataTests
+              desc: "accepts multiple metadata items"
+              refid: 5bb95c2e-2fad-4584-9380-e6cafe732cf6
+          - test:
+              id: 4d364251-f578-4c00-8390-9d8b5feea90b
+              name: TacklerParserTagsTests
+              descriptions:
+                - desc: "rejects invalid tags metadata constructions"
+          - test:
+              id: df593f17-2c74-4657-8da9-afc9ba445755
+              name: TacklerParserTagsTests
+              descriptions:
+                - desc: "accepts tags metadata"
+          - test:
+              id: a79e871f-0b68-4172-9337-25c719b9ac11
+              name: tags/ex/TagsException-01.exec
+              descriptions:
+                - desc: "tag not found"
+          - test:
+              id: a9e1ef57-18e7-488a-baa2-b7b05a376801
+              name: tags/ok/basic-01.exec
+              descriptions:
+                - desc: "basic tags"
+              references:
+                - ref: identity
+                - ref: register
+                  formats: txt, json
+          - test:
+              id: 14f69076-b06d-475c-90d5-cfcd6b1ea581
+              name: tags/ok/identity-01.exec
+              descriptions:
+                - desc: "identity-to-input test for tags"
+              references:
+                - ref: identity
+                - ref: register
+                  formats: txt, json
+  - feature:
+      id: ec0a6249-1ae1-406e-babb-f4db8891f7bf
+      parent: c085aec4-8e0f-4571-bf50-0dc16dba411e
+      subject: "Txn Tag Filters"
+      tests:
+        operations:
+          - test:
+              refid: 4cce4204-16b1-40a4-b1ea-ce11272d5824
+              desc: "decode from JSON and then encode to text"
+          - test:
+              refid: 3624a7b3-3668-45ee-9580-aa64fb955a33
+              desc: "encode filter to JSON"
+          - test:
+              refid: f3213817-fe0c-4bec-b6be-b3396bad8114
+              desc: "encode filter to TEXT"
+          - test:
+              refid: 2b56249e-4dff-445f-b30c-427c7c29e8e1
+              desc: "encode metadata as JSON"
+          - test:
+              refid: f26027f1-b9d5-4f87-a173-9ffac1b1b862
+              desc: "encode metadata as TEXT"
+          - test:
+              id: f3d05712-3c6e-482c-bfb9-8b559b8f6eb9
+              name: TxnFilterTxnTagsTest
+              descriptions:
+                - desc: "Transaction Tags filters"
+          - test:
+              id: 5ea202ba-01d1-4d37-b8cd-544187b56d22
+              name: tags/ok/txn-tags-filter-01.exec
+              descriptions:
+                - desc: "not txn tag filter"
+              references:
+                - ref: identity
+                - ref: register
+                  formats: txt, json
+          - test:
+              id: b00719e0-a04d-47ec-b0b9-a3fb00fa6208
+              name: tags/ok/txn-tags-filter-02.exec
+              descriptions:
+                - desc: "complex txn tag filter"
+              references:
+                - ref: identity
+                - ref: register
+                  formats: txt, json

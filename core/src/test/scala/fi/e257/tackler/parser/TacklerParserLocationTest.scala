@@ -203,7 +203,7 @@ class TacklerParserLocationTest extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input ' # location: geo:0.0,0.0,0,'"""
+          """at input ' """
         ),
         (
           // perr: missing lat/lon
@@ -215,7 +215,7 @@ class TacklerParserLocationTest extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input ' # location: geo:0\n'"""
+          """geo:0"""
         ),
       )
 

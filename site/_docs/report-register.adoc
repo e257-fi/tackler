@@ -109,7 +109,9 @@ Below are links to example register reports:
 * Register reports with xref:auditing.adoc[audit metadata]
 ** {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.txt/[Register report with audit metadata]
 ** {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register JSON report with audit metadata]
-
+* Register reports with Transaction Tags
+** {repolink}/tests/tags/ok/basic-01.ref.reg.txt/[Register report with Txn Tags]
+** {repolink}/tests/tags/ok/basic-01.ref.reg.json/[Register JSON report with Txn Tags]
 
 === Example output of register report
 

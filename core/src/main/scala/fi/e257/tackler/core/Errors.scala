@@ -24,6 +24,8 @@ class AccountException(message: String) extends TacklerException(message)
 
 class CommodityException(message: String) extends TacklerException(message)
 
+class TagsException(message: String) extends TacklerException(message)
+
 class TxnException(message: String) extends TacklerException(message)
 
 class GroupByException(message: String) extends TacklerException(message)

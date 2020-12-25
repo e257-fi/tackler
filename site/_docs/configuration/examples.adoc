@@ -1,6 +1,6 @@
 = Configuration Examples
 :page-date: 2019-10-06 00:00:00 Z
-:page-last_modified_at: 2020-12-20 00:00:00 Z
+:page-last_modified_at: 2020-12-25 00:00:00 Z
 
 This document has Tackler configuration examples.
 
@@ -34,6 +34,7 @@ books/      # This result of: git clone /path/to/books.git
     │   └── ...
     ├── conf/
     │   ├── accounts.conf
+    │   ├── tags.conf
     │   └── tackler.conf
     └── txns/
         └── 2016/
@@ -110,6 +111,7 @@ tackler {
       }
     }
     include required("./accounts.conf")
+    include required("./tags.conf")
   }
 }
 ----
@@ -162,6 +164,7 @@ tackler {
     }
 
     include required("./accounts.conf")
+    include required("./tags.conf")
   }
 }
 ----

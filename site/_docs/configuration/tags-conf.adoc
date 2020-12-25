@@ -1,0 +1,96 @@
+= Tags.conf
+:page-date: 2020-12-25 00:00:00 Z
+:page-last_modified_at: 2020-12-12 00:00:00 Z
+
+The tags.conf contains Chart of Tags for Tackler. If strict mode is activated for tags,
+then all tags must be defined in chart of tags. If not, that's fatal error.
+
+See xref:./tackler-conf.adoc[tackler.conf] for tackler's general configuration
+and xref:./accounts-conf.adoc[accounts.conf] for accounts configuration.
+
+File format is
+link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
+(Human-Optimized Config Object Notation)
+
+[source,hocon]
+----
+# Tags related settings
+tags {
+
+  # Strict tags name validation mode
+  #
+  # If set true, then Tackler will process only tags
+  # which are listed on Chart of tags (tags.chart-of-tags) (CoT).
+  # It is fatal error if tag is not defined in CoT,
+  # and strict is same time set to be true.
+  #
+  strict = true
+
+  # Chart of Tags
+  #
+  # This is a list of known tag names.
+  #
+  # Names must be quoted ("name")
+  # and they are comma separated.
+  #
+  # Tag names have following form (same as for accounts):
+  #
+  #    TOPTAG[:SUBTAG[:...]]
+  #
+  # Top-tag name (ID) must start with character,
+  # and after that there could be
+  # '_', '-', '·', numbers and characters.
+  #
+  # Sub-tag name (SUBID) must be separated with ':',
+  # can start with numbers and can be all numeric.
+  #
+  # Characters can be a wide range of
+  # international UTF-8 characters.
+  #
+  # See https://tackler.e257.fi/docs/journal/charsets/ for full list.
+  #
+  # Or in other words:
+  #
+  #    tag
+  #       = ID (':' (ID | SUBID))*
+  #
+  #    ID
+  #       = NameStartChar (NameChar)*
+  #
+  #    SUBID
+  #       = (NameStartChar | '0'..'9') (NameChar)*
+  #
+  #    NameStartChar
+  #       = '$' | '¢' | '£' | '¤' | '¥' // not in block 20A0-20CF
+  #       | '\u00B5' //  Micro Sign
+  #       | '\u00B9' | '\u00B2' | '\u00B3' // not in block 2070-209F
+  #       | '\u00B0' // Degree Sign
+  #       | '\u00BC' | '\u00BD' | '\u00BE' // not in block 2150-218F
+  #       | 'A'..'Z' | 'a'..'z'
+  #       | '\u00C0'..'\u00D6'
+  #       | '\u00D8'..'\u00F6'
+  #       | '\u00F8'..'\u02FF'
+  #       | '\u0370'..'\u037D'
+  #       | '\u037F'..'\u1FFF'
+  #       | '\u200C'..'\u200D'
+  #       | '\u2070'..'\u218F'
+  #       | '\u2C00'..'\u2FEF'
+  #       | '\u3001'..'\uD7FF'
+  #       | '\uF900'..'\uFDCF'
+  #       | '\uFDF0'..'\uFFFD'
+  #    NameChar
+  #       = NameStartChar
+  #       | '0'..'9'
+  #       | '-'
+  #       | '_'
+  #       | '\u00B7'
+  #       | '\u0300'..'\u036F'
+  #       | '\u203F'..'\u2040'
+  #
+  # Example Chart of Tag (CoT):
+  chart-of-tags = [
+    "travel:ice·cream·spree",
+    "vehichle:XYZ-123"
+  ]
+}
+----

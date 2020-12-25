@@ -44,6 +44,7 @@ package object filter {
         case tf: TxnFilterTxnUUID => TxnFilterTxnUUIDF.filter(tf, txn)
         case tf: TxnFilterBBoxLatLon => TxnFilterBBoxLatLonF.filter(tf, txn)
         case tf: TxnFilterBBoxLatLonAlt => TxnFilterBBoxLatLonAltF.filter(tf, txn)
+        case tf: TxnFilterTxnTags => TxnFilterTxnTagsF.filter(tf, txn)
         case tf: TxnFilterTxnComments => TxnFilterTxnCommentsF.filter(tf, txn)
 
         // TXN Postings
@@ -172,6 +173,18 @@ package object filter {
           }
         }
         case None => false // no geo
+      }
+    }
+  }
+
+  implicit object TxnFilterTxnTagsF extends CanTxnFilter[TxnFilterTxnTags] {
+
+    override def filter(tf: TxnFilterTxnTags, txn: Transaction): Boolean = {
+      txn.header.tags.map(tags => {
+        tags.exists(c => tf.rgx.matcher(c).matches())
+      }) match {
+        case Some(b) => b
+        case None => false
       }
     }
   }

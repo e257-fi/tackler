@@ -33,12 +33,12 @@ class TacklerCliArgs(args: Seq[String]) extends ScallopConf(args) {
 
   override def onError(e: Throwable): Unit = e match {
     case Help("") =>
-      printHelp
+      printHelp()
       throw e
     case Version =>
       throw e
     case ex: ScallopException => {
-      printHelp
+      printHelp()
       println("\nError with CLI Arguments: " + ex.getMessage)
       throw ex
     }

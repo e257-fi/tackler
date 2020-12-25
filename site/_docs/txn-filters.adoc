@@ -224,6 +224,19 @@ See xref:gis/txn-geo-filters.adoc[Transaction Geo Filters] documentation for how
 ----
 
 
+===== Txn Tags
+
+Txn Tags filter selects transactions which have a tag matching specified regular expression.
+
+----
+{
+  "TxnFilterTxnTags" : {
+    "regex" : "<regex>"
+  }
+}
+----
+
+
 ===== Txn Comments
 
 Txn Description filter selects transactions which have a comment which matches specified regular expression.

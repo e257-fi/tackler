@@ -34,3 +34,4 @@ Exports in Tackler journal format (`equity` and `identity`) are not supported wi
 * {repolink}/tests/commodity/ok/basic-03.ref.reg.json/[Register report with Commodities]
 * {repolink}/tests/audit/ok/audit-1E2-04.ref.reg.json/[Register report with Metadata]
 * {repolink}/tests/audit/ok/audit-1E1-01.ref.reg.json/[Register report with Report Timezone Metadata]
+* {repolink}/tests/tags/ok/basic-01.ref.reg.json/[Register report with Txn Tags]

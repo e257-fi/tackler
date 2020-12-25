@@ -82,6 +82,11 @@ class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
       |                }
       |              },
       |              {
+      |                "TxnFilterTxnTags" : {
+      |                  "regex" : "txn.tags"
+      |                }
+      |              },
+      |              {
       |                "TxnFilterTxnComments" : {
       |                  "regex" : "txn.comments"
       |                }
@@ -172,6 +177,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
       |      Txn Bounding Box 3D
       |        North, East, Height: geo:1,2,3
       |        South, West, Depth:  geo:-1,-2,-3
+      |      Txn Tags: "txn.tags"
       |      Txn Comments: "txn.comments"
       |    OR
       |      Posting Account: "posting:account"
@@ -346,6 +352,7 @@ class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
           TxnFilterTxnUUID(UUID.fromString("29c548db-deb7-44bd-a6a2-e5e4258d256a")),
           TxnFilterBBoxLatLon(59.85, 24, 60.8, 27.5),
           TxnFilterBBoxLatLonAlt(-1, -2, -3, 1, 2, 3),
+          TxnFilterTxnTags("txn.tags"),
           TxnFilterTxnComments("txn.comments"),
         )),
         TxnFilterOR(List[TxnFilter](
@@ -436,6 +443,11 @@ class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
           |                          "north" : 1,
           |                          "east" : 2,
           |                          "height" : 3
+          |                        }
+          |                      },
+          |                      {
+          |                        "TxnFilterTxnTags" : {
+          |                          "regex" : "txn.tags"
           |                        }
           |                      },
           |                      {

@@ -20,18 +20,17 @@ import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
 import java.util.UUID
 
 import cats.syntax.all._
-import fi.e257.tackler.api.{GeoPoint, TxnHeader}
+import fi.e257.tackler.api.{GeoPoint, Tags, TxnHeader}
 import fi.e257.tackler.core._
 import fi.e257.tackler.math.TacklerReal
 import fi.e257.tackler.model._
 import fi.e257.tackler.parser.TxnParser._
+import org.antlr.v4.runtime.ParserRuleContext
 import org.slf4j.{Logger, LoggerFactory}
 
-import scala.collection.JavaConverters
+import scala.jdk.CollectionConverters._
 import scala.util.control.NonFatal
 import scala.util.{Failure, Success}
-
-import scala.jdk.CollectionConverters._
 
 /**
  * Handler utilities for ANTLR Parser Contexts.
@@ -83,6 +82,19 @@ abstract class CtxHandler {
   }
 
   /**
+   * Get Parse Tree as string (accounts, tags, etc.)
+   * ctx= "abc", ':', "def"  => "abc:def"
+   *
+   * @param ctx parse tree context holding items
+   * @return items returned as strings
+   */
+  protected def contextToString(ctx: ParserRuleContext): String = {
+    ctx.children.iterator().asScala
+      .map(_.getText)
+      .mkString("")
+  }
+
+  /**
    * Handle raw parser account entry (account -rule).
    *
    * @param accountCtx account context
@@ -93,23 +105,34 @@ abstract class CtxHandler {
     "org.wartremover.warts.ListOps"))
   protected def handleAccount(accountCtx: AccountContext, commodity: Option[Commodity]): AccountTreeNode = {
 
-    val account: String = accountCtx.children.iterator().asScala
-      .map(_.getText)
-      .mkString("")
+    val account: String = contextToString(accountCtx)
 
     if (settings.Accounts.strict) {
-      settings.Accounts.coa.find({ case (key, _) => key === account }) match {
-        case None =>
+      if (!settings.Accounts.coa.exists({ case (key, _) => key === account })) {
           val lineNro = accountCtx.start.getLine
           val msg = "Error on line: " + lineNro.toString + "; Account not found: [" + account + "]"
           log.error(msg)
           throw new AccountException(msg)
-        case Some((_, value)) =>
-          AccountTreeNode(value.account, commodity)
       }
-    } else {
-      AccountTreeNode(account, commodity)
     }
+
+    AccountTreeNode(account, commodity)
+  }
+
+  protected def handleTagCtx(tagCtx: TagContext): Tags = {
+
+    val tag: String = contextToString(tagCtx)
+
+    if (settings.Tags.strict) {
+      if (! settings.Tags.cot.exists(_ === tag)) {
+          val lineNro = tagCtx.start.getLine
+          val msg = "Error on line: " + lineNro.toString + "; tag not found: [" + tag + "]"
+          log.error(msg)
+          throw new TagsException(msg)
+      }
+    }
+
+    List(tag)
   }
 
   protected def handleAmount(amountCtx: AmountContext): TacklerReal = {
@@ -256,24 +279,50 @@ abstract class CtxHandler {
     Posting(acctn, foo._1, foo._2, foo._3, foo._5, comment)
   }
 
-  protected def handleMeta(metaCtx: Txn_metaContext): (Option[UUID], Option[GeoPoint]) = {
-    val uuid = Option(metaCtx.txn_meta_uuid()).map(muuid => {
-        java.util.UUID.fromString(muuid.UUID_VALUE().getText)
+  @SuppressWarnings(Array(
+    "org.wartremover.warts.Recursion"))
+  protected def handleTagsCtx(tagsCtx: TagsContext): Tags = {
+    // Tags parse tree ctx:
+    //   tagsCtx.tag  always
+    //   tagsCtx.tags sometimes (when multiple tags, recursive)
+    //
+    // See TxnParser.g4: 'txn_meta_tags' and 'tags' rules
+
+    val tag = handleTagCtx(tagsCtx.tag())
+
+    Option(tagsCtx.tags()).fold(
+      tag
+    ){ tagsTagsCtx =>
+      handleTagsCtx(tagsTagsCtx) ++ tag
+    }
+  }
+
+  protected def handleMeta(metaCtx: Txn_metaContext): (Option[UUID], Option[GeoPoint], Option[Tags]) = {
+
+    val uuid:Option[UUID] = Option(metaCtx.txn_meta_uuid()).flatMap(muuid => {
+      muuid.asScala.map(u => java.util.UUID.fromString(u.UUID_VALUE().getText)).headOption
       })
-    val geo = Option(metaCtx.txn_meta_location()).map(geoCtx => {
-      GeoPoint.toPoint(
-        TacklerReal(geoCtx.geo_uri().lat().getText),
-        TacklerReal(geoCtx.geo_uri().lon().getText()),
-        Option(geoCtx.geo_uri().alt()).map(a => TacklerReal(a.getText))
+
+    val geo: (Option[GeoPoint]) = Option(metaCtx.txn_meta_location()).flatMap(geoCtxs => {
+      geoCtxs.asScala.map(geoCtx => {
+        GeoPoint.toPoint(
+          TacklerReal(geoCtx.geo_uri().lat().getText),
+          TacklerReal(geoCtx.geo_uri().lon().getText()),
+          Option(geoCtx.geo_uri().alt()).map(a => TacklerReal(a.getText))
         ) match {
-        case Success(g) => g
-        case Failure(ex) => {
-          log.error("Invalid geo-uri:" + ex.getMessage)
-          throw new TacklerException("Invalid geo-uri: " + ex.getMessage)
+          case Success(g) => g
+          case Failure(ex) => {
+            log.error("Invalid geo-uri:" + ex.getMessage)
+            throw new TacklerException("Invalid geo-uri: " + ex.getMessage)
+          }
         }
-      }
+      }).headOption
     })
-    (uuid, geo)
+
+    val tags = Option(metaCtx.txn_meta_tags()).flatMap(mtagsCtx => {
+      mtagsCtx.asScala.map(c => handleTagsCtx(c.tags())).headOption
+    })
+    (uuid, geo, tags)
   }
 
   /**
@@ -302,11 +351,12 @@ abstract class CtxHandler {
 
 
     val meta = Option(txnCtx.txn_meta())
-      .fold[(Option[UUID], Option[GeoPoint])]((None, None))(metaCtx => {
+      .fold[(Option[UUID], Option[GeoPoint], Option[List[String]])]((None, None, None))(metaCtx => {
       handleMeta(metaCtx)
     })
     val uuid: Option[UUID] = meta._1
     val geo: Option[GeoPoint] = meta._2
+    val tags: Option[Tags] = meta._3
 
     if (settings.Auditing.txnSetChecksum && uuid.isEmpty) {
       val msg = "" +
@@ -350,7 +400,7 @@ abstract class CtxHandler {
       List(Posting(ate, -amount, -amount, false, posts.head.txnCommodity, comment))
     })
 
-    Transaction(TxnHeader(date, code, desc, uuid, geo, comments), posts ++ last_posting.getOrElse(Nil))
+    Transaction(TxnHeader(date, code, desc, uuid, geo, tags, comments), posts ++ last_posting.getOrElse(Nil))
   }
 
   /**

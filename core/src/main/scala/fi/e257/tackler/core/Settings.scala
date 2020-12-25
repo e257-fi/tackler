@@ -64,6 +64,13 @@ object CfgKeys {
     val permit_empty_commodity: String = keybase + "." + "permit-empty-commodity"
   }
 
+  object Tags {
+    val keybase: String = "tags"
+
+    val strict: String      = keybase + "." + "strict"
+    val cot: String         = keybase + "." + "chart-of-tags"
+  }
+
   val reporting: String = "reporting"
 
   val reporting_reportTZ: String = "reporting.report-timezone"
@@ -258,6 +265,12 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
     val commodities: Set[String] = cfg.getStringList(CfgKeys.Accounts.commodities).asScala.toSet[String]
 
     val permit_empty_commodity: Boolean = cfg.getBoolean(CfgKeys.Accounts.permit_empty_commodity)
+  }
+
+  object Tags {
+    val strict: Boolean = cfg.getBoolean(CfgKeys.Tags.strict)
+
+    val cot: List[String] = cfg.getStringList(CfgKeys.Tags.cot).asScala.toList
   }
 
   /**

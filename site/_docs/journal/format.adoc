@@ -1,6 +1,6 @@
 = Journal Format
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-10-05 00:00:00 Z
+:page-last_modified_at: 2020-12-25 00:00:00 Z
 :page-layout: page
 :page-redirect_from: /docs/journal/format/v2/
 
@@ -265,8 +265,22 @@ or xref:../export-identity.adoc[identity export].
  Expenses:Ice_cream 2.12
  Assets:Cash
 ----
-| Optional xref:../gis/txn-geo-location.adoc[Geo Location for Transaction]
+| Optional xref:../gis/txn-geo-location.adoc[Geo Location for Transaction] +
+Since v0.31
 
+
+| Metadata: Txn Tags
+| [[txn-tags]]
+----
+2019-05-01 'Txn with tags
+ # tags: cranberry, caramel
+ Expenses:Ice_cream 2.12
+ Assets:Cash
+----
+| Optional transaction tags +
+Txn tags could be used select subselection of txns for reports.
+See: xref:../txn-filters.adoc#txn_tags[Txn Tag Filters] +
+Since v0.34
 
 | Comments
 |

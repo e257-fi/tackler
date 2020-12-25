@@ -1,0 +1,33 @@
+= Tackler 0.33.0 released
+:page-date: 2020-12-20 22:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.33.0
+:page-category: release
+
+
+
+== New features and changes in this release:
+
+New features and changes in this release:
+
+* Custom and local timestamps for reports
+** Time zone setting (`report-timezone`) for dates and times on reports
+*** link:https://tackler.e257.fi/docs/configuration/tackler-conf/[tackler.conf]
+** Timestamp style setting for Register report
+*** link:https://tackler.e257.fi/docs/report-register/#register_report_configuration[Register Report]
+** Background: {gitlink}/docs/tep/tep-1012.adoc[TEP-1012: Custom timestamps for reports]
+
+=== Noteworthy build and dependency upgrades:
+
+* Scala-JS: 1.x (1.3.1)
+* jgit: 5.10.0.202012080955-r
+* slf4j-api: 1.7.30
+
+=== Fixes
+
+None
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.

@@ -1,0 +1,4 @@
+# format: exec
+# test: b00719e0-a04d-47ec-b0b9-a3fb00fa6208
+# desc: complex txn tag filter
+exec:--cfg;tests/tags/ok.conf;--input.file;txn-tags-filter.txn;--output;out.txn-tags-filter-02;--api-filter-def;{ "txnFilter": { "TxnFilterAND" : { "txnFilters": [ { "TxnFilterTxnTags": { "regex": "reindeer:.*" } },{ "TxnFilterNOT": { "txnFilter": { "TxnFilterTxnTags": { "regex": "reindeer:Normal·Nose" } } } } ] } }};

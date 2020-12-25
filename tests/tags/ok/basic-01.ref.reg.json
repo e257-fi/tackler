@@ -1,0 +1,47 @@
+{
+  "title" : "REGISTER",
+  "transactions" : [
+    {
+      "txn" : {
+        "timestamp" : "2020-12-24T00:00:00Z",
+        "tags" : [
+          "saunatonttu"
+        ]
+      },
+      "postings" : [
+        {
+          "account" : "a",
+          "amount" : "-1.00",
+          "runningTotal" : "-1.00"
+        },
+        {
+          "account" : "e",
+          "amount" : "1.00",
+          "runningTotal" : "1.00"
+        }
+      ]
+    },
+    {
+      "txn" : {
+        "timestamp" : "2020-12-24T00:00:00Z",
+        "uuid" : "209aba54-f8a8-4eb5-924c-7b975d1f6341",
+        "tags" : [
+          "reindeer:Rudolph",
+          "reindeer:Petteri·Punakuono"
+        ]
+      },
+      "postings" : [
+        {
+          "account" : "a",
+          "amount" : "-1.00",
+          "runningTotal" : "-2.00"
+        },
+        {
+          "account" : "e",
+          "amount" : "1.00",
+          "runningTotal" : "2.00"
+        }
+      ]
+    }
+  ]
+}

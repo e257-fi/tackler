@@ -138,7 +138,7 @@ class TxnFilterBBoxLatLonTest extends AnyFunSpec with TxnFilterBBoxSpec {
 
         val count = tvecs.map(v => {
           val geo = GeoPoint.toPoint(v._1, v._2, v._3).get
-          val txn = Transaction(TxnHeader(date, None, None, None, Some(geo), None), posts)
+          val txn = Transaction(TxnHeader(date, None, None, None, Some(geo), None, None), posts)
 
           assert(TxnFilterBBoxLatLonF.filter(txnFilter, txn) === v._4)
           1

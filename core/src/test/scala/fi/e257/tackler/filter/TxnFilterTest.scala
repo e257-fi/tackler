@@ -28,7 +28,7 @@ class TxnFilterTest extends AnyFlatSpec {
   val txnFilterFalse = TxnFilterNone()
   val txnFilterTrue = TxnFilterAll()
 
-  val txn = Transaction(TxnHeader(ZonedDateTime.now(), None, None, None, None, None), Seq.empty)
+  val txn = Transaction(TxnHeader(ZonedDateTime.now(), None, None, None, None, None, None), Seq.empty)
 
   behavior of "AND"
 

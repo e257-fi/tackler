@@ -70,7 +70,7 @@ class TacklerParserUUIDTest extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input ' # uuid::'"""
+          """:"""
         ),
         (
           """
@@ -81,7 +81,7 @@ class TacklerParserUUIDTest extends AnyFunSpec {
             |
             |""".stripMargin,
           "on line: 3",
-          """at input ' # uuid '"""
+          """at input '"""
         ),
         (
           """
