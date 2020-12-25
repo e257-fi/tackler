@@ -253,40 +253,6 @@ Feature-id::
 
 link:../../tests/tests-1011.yml[TEP-1011 T3DB]
 
-
-==== Metadata template for test coverage tracking
-
-....
-features:
-  - feature:
-      id: uuid
-      subject: "todo: one-line description of main feature"
-
-  - feature:
-      id: uuid
-      parent: uuid-of-parent
-      subject: "todo: one-line description of sub feature"
-      tests:
-        errors:
-          - error:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              desc: "todo: description"
-        operations:
-          - test:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              descriptions:
-                - desc: "todo: description"
-              references:
-                - ref: balance
-                - ref: balance-group
-                - ref: register
-                - ref: identity
-                - ref: equity
-....
-
-
 '''
 Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
 See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
