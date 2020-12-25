@@ -24,4 +24,8 @@ trait TxnFilterSpec  {
   def checkUUID(txnData: TxnData, uuid: String) = {
     txnData.txns.exists(txn => txn.header.uuid.map(u => u.toString).getOrElse("") === uuid)
   }
+
+  def noErrors(txnData: TxnData, uuid: String) = {
+    ! txnData.txns.exists(txn => txn.header.uuid.map(u => u.toString).getOrElse("") === uuid)
+  }
 }

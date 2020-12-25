@@ -33,6 +33,95 @@ class TacklerParserTagsTests extends AnyFunSpec {
         (
           """
             |2020-12-24
+            | # tags: ,tuv
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ','"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: tuv,
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """no viable alternative at input"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: tuv,,
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ','"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: tuv, ,
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ','"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: tu v
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ' '"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: :tuv
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input ':'"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: tuv:
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input 'tuv'"""
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: tu::v
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "on line: 3",
+          """at input 'tu'"""
+        ),
+
+        (
+          """
+            |2020-12-24
             | ; metadata must be first
             | # tags: t,us
             | a 1
@@ -71,7 +160,7 @@ class TacklerParserTagsTests extends AnyFunSpec {
           """
             |2020-12-24
             | # location: geo:60,25
-            | # uuid: ea23a28b-a99e-4af4-8f87-c011d606efd7
+            | # tags: tuv
             | # location: geo:61,25
             | a  1
             | e -1

@@ -252,13 +252,6 @@ class DirsuiteTagsTest extends DirSuiteLike {
       TacklerCli.runExceptions(args)
     }
   }
-  /*
-  runDirSuiteTestCases(basedir, Glob("tags/ex/TacklerException-*.exec")) { args: Array[String] =>
-    assertThrows[TacklerException] {
-      TacklerCli.runExceptions(args)
-    }
-  }
-  */
 
   runDirSuiteTestCases(basedir, Glob("tags/ok/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.SUCCESS) {

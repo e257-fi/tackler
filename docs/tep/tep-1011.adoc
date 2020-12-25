@@ -31,7 +31,6 @@ Transaction Tag Filter selects transactions which any tag matches specified regu
 Syntax support for Transaction Tags:
 
 * Same syntax as with accounts (tags and sub-tags)
-* Support for multiline value, maybe?
 
 
 == Implementation
@@ -46,9 +45,9 @@ Searching and filtering by tags will be supported by normal filter api.
 
 Changes to conf-settings
 
-* [ ] Strict settings for tags
-** [ ] strict-mode selector
-** [ ] Chart of tags
+* [x] Strict settings for tags
+** [x] strict-mode selector
+** [x] Chart of tags
 
 === Filtering changes
 
@@ -70,7 +69,8 @@ and multiple txn tag filters.
 
 Changes to machinery
 
-* [ ] item
+* [x] Txn Tag Filters
+* [x] Parser
 
 
 ==== API changes
@@ -82,36 +82,25 @@ Api changes to server or client interfaces.
 
 Changes to server API
 
-* [ ] item
+* [x] Transaction Tags Filter def
 
 
 ===== Client API changes
 
 Changes to client API or JSON model
 
-* [ ] item
-
 ===== JSON Model
 
 Changes to JSON model
 
-* [ ] Metadata
-* [ ] JSON Reports
-** [ ] BalanceReport
-** [ ] BalanceGroupReport
-** [ ] RegisterReport
+* [x] Metadata
+* [x] JSON Reports
+** [x] RegisterReport
 
 
 ==== New dependencies
 
-* [ ] link / url of new dependency
-** [ ] Add and check licenses: link / url
-** [ ] Is there NOTICE file(s)?
-** [ ] Add license under link:../licenses/[doc/licenses]
-*** [ ] Add NOTICES under link:../licenses/[doc/licenses]
-** [ ] Add link of license to xref:../readme.adoc[index]
-** [ ] Add link to xref:../../site/_docs/credits.adoc[THANKS]
-** [ ] Add license material to binary distribution
+No new deps
 
 
 === Reporting
@@ -133,8 +122,7 @@ No changes to balance group report
 
 Changes to register report
 
-* [ ] Print txn tags
-** [ ] Multiline handling?
+* [x] Print txn tags
 
 
 === Exporting
@@ -150,7 +138,7 @@ No changes to equity export
 
 Changes to identity export
 
-* [ ] Include Txn Tags to Identity Export
+* [x] Include Txn Tags to Identity Export
 
 
 === Documentation
@@ -169,7 +157,7 @@ Changes to identity export
 ** [ ] tackler.conf: tags
 ** [ ] `tags.conf`
 *** [ ] `tags.strict`
-*** [ ] `tags.cot`
+*** [ ] `tags.chart-of-tags`
 ** [ ] examples
 * [ ] Developer docs
 ** [ ] API changes
@@ -193,51 +181,54 @@ Anything which wasn't implemented?
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] test
+* [x] pok: syntax
+** [x] single tag
+** [x] multiple tags
+** [x] comma
+*** [x] no space
+*** [x] space before
+*** [x] space after
+*** [x] space before and after
 
-* [ ] pok: syntax
-** [ ] single tag
-** [ ] multiple tags
-** [ ] comma
-*** [ ] no space
-*** [ ] space before
-*** [ ] space after
-*** [ ] space before and after
-
-* [ ] pok: meta header
-** [ ] multiple meta items
+* [x] pok: meta header
+** [x] multiple meta items
 
 
-* [ ] Identity export
-** [ ] Single tag
-** [ ] Multiple tags
-** [ ] Identity feedback
-** [ ] Multiple metadata items
+* [x] Identity export
+** [x] Single tag
+** [x] Multiple tags
+** [x] Identity-to-identity
+** [x] Multiple metadata items (e.g. uuid + tags)
 
-* [ ] txn tag filter
-** [ ] single tag matches
-** [ ] root part matches
-** [ ] sub-tag matches
-** [ ] leaf matches
+* [x] Txn Tag Filter
+** [x] Matching
+*** [x] first tag matches
+*** [x] middle tag matches
+*** [x] last matches
+** [x] Encoding & Decoding (TxnFilterJsonTest)
+*** [x] Decoding JSON to Txn Filter
+*** [x] Encode Filter and it's metadata
+*** [x] encode filter to JSON
+*** [x] encode filter to TEXT
+*** [x] encode metadata as JSON
+*** [x] encode metadata as TEXT
+** [x] Complex Txn Tags Filter (include and exclude same txn)
 
 ==== Errors
 
 Various error cases:
 
-* [ ] Parse Errors (perr): syntax
-** [ ] multiple tags
-*** [ ] ',' at the end `a, b, c,`
-*** [ ] missing tag `a, ,d`
-** [ ] tag name syntax
-** [ ] ':' at the beginning, missing root tag (`:a`)
-*** [ ] ':' at the end missing leaf (`a:b:`)
-** [ ] '::' -  missing sub-tag (`a::c`)
-* [ ] perr: meta header
-** [ ] duplicate tag sections
-** [ ] duplicate uuid sections
-** [ ] duplicate geo sections
+* [x] Parse Errors (perr): syntax
+** [x] multiple tags
+*** [x] ',' at the end `a, b, c,`
+*** [x] missing tag `a, ,d`
+** [x] tag name syntax
+** [x] ':' at the beginning, missing root tag (`:a`)
+*** [x] ':' at the end missing leaf (`a:b:`)
+** [x] '::' -  missing sub-tag (`a::c`)
+* [x] perr: meta header (b88d6733-2acf-4021-a3d7-deaf58b518a6)
+** [x] duplicate tag sections
 
-* [ ] e: error test
 
 ==== Perf
 

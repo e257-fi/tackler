@@ -81,6 +81,18 @@ class TacklerParserMetadataTests extends AnyFunSpec {
         ),
         (
           """
+            |2024-12-25
+            | # tags: tuv
+            | # tags: tuv
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          "on line: 4",
+          """at input ' """
+        ),
+        (
+          """
             |2019-05-01
             | # location: geo:60,25
             | # uuid: ea23a28b-a99e-4af4-8f87-c011d606efd7
@@ -98,6 +110,19 @@ class TacklerParserMetadataTests extends AnyFunSpec {
             | # uuid: 5e6ab503-b85b-48ba-bc49-8ed0db2a2ce1
             | # location: geo:60,25
             | # uuid: 552ac798-5807-4875-b64a-e63d02c255d0
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          "on line: 5",
+          """at input ' """
+        ),
+        (
+          """
+            |2019-05-01
+            | # tags: tuv
+            | # location: geo:60,25
+            | # tags: tuv
             | a  1
             | e -1
             |

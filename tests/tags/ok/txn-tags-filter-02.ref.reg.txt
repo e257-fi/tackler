@@ -1,14 +1,21 @@
+Filter:
+  AND
+    Txn Tags: "reindeer:.*"
+    NOT
+      Txn Tags: "reindeer:Normal·Nose"
+
 
 REGISTER
 --------
-2020-12-24 Z 
-            # tags: saunatonttu
+2020-12-25 Z 
+            # uuid: 300fbfc5-05fd-4286-afd1-84804e746d6c
+            # tags: reindeer:Rudolph, reindeer:Petteri·Punakuono
             a                                             -1.00              -1.00
             e                                              1.00               1.00
 ----------------------------------------------------------------------------------
-2020-12-24 Z 
-            # uuid: 209aba54-f8a8-4eb5-924c-7b975d1f6341
-            # tags: reindeer:Rudolph, reindeer:Petteri·Punakuono
+2020-12-25 Z 
+            # uuid: b15f2a2c-ce4b-465b-a19a-eb5d02602132
+            # tags: reindeer:Petteri·Punakuono
             a                                             -1.00              -2.00
             e                                              1.00               2.00
 ----------------------------------------------------------------------------------

@@ -30,6 +30,7 @@ class TxnFilterTxnHeaderTest extends TxnFilterSpec with AnyFlatSpecLike {
   val uuidTxn02 = "a88f4981-ebe7-4287-a59c-d444e3bd579a"
   val uuidTxn03 = "16cf7363-45d2-480c-ac49-c710f4ea5f0d"
   val uuidTxn04 = "205d4a48-471c-4015-856c-1c827f8befdd"
+  val uuidTxn05 = "b22c729b-10fe-45fa-b580-4b3433a14369"
 
   val txnStr =
     s"""2018-01-01 'abc txn01
@@ -53,6 +54,12 @@ class TxnFilterTxnHeaderTest extends TxnFilterSpec with AnyFlatSpecLike {
        |
        |2018-04-01
        | # uuid: ${uuidTxn04}
+       | e:b:abc  1
+       | a
+       |
+       |2020-12-24
+       | # uuid: ${uuidTxn05}
+       | # tags: abc
        | e:b:abc  1
        | a
        |
