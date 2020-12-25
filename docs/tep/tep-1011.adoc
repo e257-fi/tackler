@@ -150,20 +150,21 @@ Changes to identity export
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update xref:../../tests/check-tests.sh[]
 ** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
-* [ ] User docs
-** [ ] User Manual
-*** [ ] txn tag document
-*** [ ] txn tag filter chapter in txn filter document
-** [ ] tackler.conf: tags
-** [ ] `tags.conf`
-*** [ ] `tags.strict`
-*** [ ] `tags.chart-of-tags`
-** [ ] examples
-* [ ] Developer docs
-** [ ] API changes
-*** [ ] Server API changes
-*** [ ] Client API changes
-*** [ ] JSON Examples
+* [x] User docs
+** [x] Journal
+** [x] User Manual
+*** [x] txn tag document
+*** [x] txn tag filter chapter in txn filter document
+** [x] tackler.conf: tags
+** [x] `tags.conf`
+*** [x] `tags.strict`
+*** [x] `tags.chart-of-tags`
+** [x] examples
+* [x] Developer docs
+** [x] API changes
+*** [x] Server API changes (no changes)
+*** [x] Client API changes (no changes)
+*** [x] JSON Examples
 
 
 === Future plans and Postponed (PP) features

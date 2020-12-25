@@ -1,13 +1,14 @@
 = Tackler.conf
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-12-17 00:00:00 Z
+:page-last_modified_at: 2019-12-25 00:00:00 Z
 
 Full reference of Tackler configuration. All settings have defaults 
 values, and only those which would be overridden should be defined.
 
-See xref:./accounts-conf.adoc[accounts.conf] for accounts configuration.
+See xref:./accounts-conf.adoc[accounts.conf] for accounts configuration
+and xref:./tags-conf.adoc[tags.conf] for defining transaction tags.
 
-See xref:./examples.adoc[example configurations] for various production setups.
+Examples of production setups are under xref:./examples.adoc[example configurations] section.
 
 File format is
 link:https://github.com/typesafehub/config/blob/master/HOCON.md[HOCON]
@@ -363,7 +364,10 @@ tackler {
     }
 
     # Include Chart of Accounts and commodity related settings from separate file
-    include "accounts.conf"
+    include required("./accounts.conf")
+
+    # Include Chart of Tags settings from separate file
+    include required("./tags.conf")
   }
 }
 ----

@@ -19,6 +19,7 @@
     - link: /docs/configuration/
     - link: /docs/configuration/tackler-conf/
     - link: /docs/configuration/accounts-conf/
+    - link: /docs/configuration/tags-conf/
     - link: /docs/configuration/examples/
     - link: /docs/journal/
     - link: /docs/journal/sharding/
