@@ -301,6 +301,18 @@ final case class TxnFilterBBoxLatLonAlt(
 }
 
 /**
+ * Select transaction if regular expression matches any of txn tags.
+ *
+ * Used regular expression engine is java.util.regex.Pattern.
+ *
+ * @param regex to match any of txn tags.
+ */
+final case class TxnFilterTxnTags(regex: String) extends TxnFilterRegex(regex) {
+  val target = "Txn Tags"
+}
+
+
+/**
  * Select transaction if regular expression matches any of txn comments.
  *
  * Used regular expression engine is java.util.regex.Pattern.
