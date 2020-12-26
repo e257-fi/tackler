@@ -1,10 +1,59 @@
 = TEP-1013: Configuration key change of Accounts CoA
 
-See branch
-link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1013-cfg-coa-change/docs/tep/tep-1013.adoc[/tep/tep-1013-cfg-coa-change]
-for actual TEP-1013 content.
-
 Change Accounts configuration key `coa` to `chart-of-accounts`.
+
+== Summary
+
+Change configuration key of Chart of Accounts  to `chart-of-accounts`, but also support the old key.
+
+If both new and old one are defined at the same time,  then that is hard error.
+
+
+== Implementation
+
+=== CONF changes
+
+Changes to conf-settings
+
+* [ ] Add `chart-of-accounts`
+** [ ] Remove cfg based empty defaults,  so that new-and-old present at the same time case can be detected.
+
+
+=== Documentation
+
+* [ ] xref:./readme.adoc[]: Update TEP index
+* [ ] link:../../CHANGELOG[]: add new item
+* [ ] Does it warrant own T3DB file?
+** [ ] update xref:../../tests/tests.adoc[]
+** [ ] update xref:../../tests/check-tests.sh[]
+** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [ ] User docs
+** [ ] accounts.conf
+*** [ ] `chart-of-accounts`
+** [ ] examples
+*** [ ] `chart-of-accounts`
+
+
+=== Future plans and Postponed (PP) features
+
+At some point, move commodities outside of accounts. Provide global main switch for strict mode.
+
+
+=== Tests
+
+Normal, ok-case tests to validate functionality:
+
+* [ ] New and old setting for CoA
+** [ ] old is defined
+** [ ] new is defined
+** [ ] none is defined
+
+
+==== Errors
+
+Various error cases:
+
+* [ ] e: old and new are defined at the same time
 
 
 ==== Feature and Test case tracking
@@ -16,39 +65,6 @@ Feature-id::
 
 
 link:../../tests/tests-1013.yml[TEP-1013 T3DB]
-
-
-==== Metadata template for test coverage tracking
-
-....
-features:
-  - feature:
-      id: uuid
-      subject: "todo: one-line description of main feature"
-
-  - feature:
-      id: uuid
-      parent: uuid-of-parent
-      subject: "todo: one-line description of sub feature"
-      tests:
-        errors:
-          - error:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              desc: "todo: description"
-        operations:
-          - test:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              descriptions:
-                - desc: "todo: description"
-              references:
-                - ref: balance
-                - ref: balance-group
-                - ref: register
-                - ref: identity
-                - ref: equity
-....
 
 
 '''
