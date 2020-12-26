@@ -27,9 +27,9 @@ Fixes in this release: None
 Updated deps and tools:
 
  * Dependencies
- ** ...
+ ** scala-collection-compat: 2.3.2
  * Build
- ** ...
+ ** sbt: 1.4.6
  * Tests
  ** ...
 
