@@ -1,0 +1,57 @@
+= TEP-1013: Configuration key change of Accounts CoA
+
+See branch
+link:https://gitlab.com/e257/accounting/tackler/tree/tep/tep-1013-cfg-coa-change/docs/tep/tep-1013.adoc[/tep/tep-1013-cfg-coa-change]
+for actual TEP-1013 content.
+
+Change Accounts configuration key `coa` to `chart-of-accounts`.
+
+
+==== Feature and Test case tracking
+
+Feature-id::
+
+* name: Configuration key change of Accounts CoA
+* uuid: 5de84172-6eb7-4d70-acab-ba7c7f5b2114
+
+
+link:../../tests/tests-1013.yml[TEP-1013 T3DB]
+
+
+==== Metadata template for test coverage tracking
+
+....
+features:
+  - feature:
+      id: uuid
+      subject: "todo: one-line description of main feature"
+
+  - feature:
+      id: uuid
+      parent: uuid-of-parent
+      subject: "todo: one-line description of sub feature"
+      tests:
+        errors:
+          - error:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              desc: "todo: description"
+        operations:
+          - test:
+              id: uuid
+              name: "todo: name of test class/method or test description file"
+              descriptions:
+                - desc: "todo: description"
+              references:
+                - ref: balance
+                - ref: balance-group
+                - ref: register
+                - ref: identity
+                - ref: equity
+....
+
+
+'''
+Tackler is distributed on an *"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND*, either express or implied.
+See the link:../../LICENSE[License] for the specific language governing permissions and limitations under
+the link:../../LICENSE[License].

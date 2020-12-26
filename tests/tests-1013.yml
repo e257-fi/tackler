@@ -1,0 +1,55 @@
+features:
+  - feature:
+      id: 5de84172-6eb7-4d70-acab-ba7c7f5b2114
+      subject: "Configuration key change of Accounts CoA"
+
+#features:
+#  - feature:
+#      id:
+#      subject:
+#
+#  - feature:
+#      id:
+#      parent:
+#      subject:
+#      tests:
+#        errors:
+#          - error:
+#              id:
+#              refid:
+#              name:
+#              desc:
+#              desciptions:
+#                - desc:
+#                - desc:
+#        reports:
+#          balance:
+#            - test:
+#                refid:
+#          balance-group:
+#            - test:
+#                refid:
+#          registry:
+#            - test:
+#                refid:
+#          identity:
+#            - test:
+#                refid:
+#          equity:
+#            - test:
+#                refid:
+#        operations:
+#          - test:
+#              id:
+#              refid:
+#              name:
+#              desc:
+#              descriptions:
+#                - desc:
+#                - desc:
+#              references:
+#                - ref: identity
+#                - ref: equity
+#                - ref: balance
+#                - ref: balance-group
+#                - ref: register

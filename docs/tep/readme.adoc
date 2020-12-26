@@ -28,6 +28,7 @@ None at the moment.
 === TEPs in planning phase
 
 * xref:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
+* xref:./tep-1013.adoc[TEP-1013: Configuration key change of Accounts CoA]
 
 
 === TEP Template
