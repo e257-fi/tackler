@@ -102,8 +102,8 @@ accounts {
   #       | '\u0300'..'\u036F'
   #       | '\u203F'..'\u2040'
   #
-  # Example Chart of Accounts (coa):
-  coa = [
+  # Example Chart of Accounts (CoA):
+  chart-of-accounts = [
     "Income",
     "Income:Lottery",
     "Expenses",

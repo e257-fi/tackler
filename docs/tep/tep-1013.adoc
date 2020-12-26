@@ -15,23 +15,23 @@ If both new and old one are defined at the same time,  then that is hard error.
 
 Changes to conf-settings
 
-* [ ] Add `chart-of-accounts`
-** [ ] Remove cfg based empty defaults,  so that new-and-old present at the same time case can be detected.
+* [x] Add `chart-of-accounts`
+** [x] Remove cfg based empty defaults,  so that new-and-old present at the same time case can be detected.
 
 
 === Documentation
 
 * [ ] xref:./readme.adoc[]: Update TEP index
 * [ ] link:../../CHANGELOG[]: add new item
-* [ ] Does it warrant own T3DB file?
-** [ ] update xref:../../tests/tests.adoc[]
-** [ ] update xref:../../tests/check-tests.sh[]
-** [ ] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
-* [ ] User docs
-** [ ] accounts.conf
-*** [ ] `chart-of-accounts`
-** [ ] examples
-*** [ ] `chart-of-accounts`
+* [x] Does it warrant own T3DB file?
+** [x] update xref:../../tests/tests.adoc[]
+** [x] update xref:../../tests/check-tests.sh[]
+** [x] Add new T3DB file xref:../../tests/tests-XXXX.yml[]
+* [x] User docs
+** [x] accounts.conf
+*** [x] `chart-of-accounts`
+** [x] examples
+*** [x] `chart-of-accounts`
 
 
 === Future plans and Postponed (PP) features
@@ -43,17 +43,17 @@ At some point, move commodities outside of accounts. Provide global main switch 
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] New and old setting for CoA
-** [ ] old is defined
-** [ ] new is defined
-** [ ] none is defined
+* [x] New and old setting for CoA
+** [x] old is defined
+** [x] new is defined
+** [x] none is defined
 
 
 ==== Errors
 
 Various error cases:
 
-* [ ] e: old and new are defined at the same time
+* [x] e: old and new are defined at the same time
 
 
 ==== Feature and Test case tracking

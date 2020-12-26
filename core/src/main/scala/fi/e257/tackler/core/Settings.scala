@@ -59,7 +59,8 @@ object CfgKeys {
     val keybase: String = "accounts"
 
     val strict: String      = keybase + "." + "strict"
-    val coa: String         = keybase + "." + "coa"
+    val deprecated_coa: String  = keybase + "." + "coa"
+    val coa: String         = keybase + "." + "chart-of-accounts"
     val commodities: String = keybase + "." + "commodities"
     val permit_empty_commodity: String = keybase + "." + "permit-empty-commodity"
   }
@@ -259,8 +260,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
   object Accounts {
     val strict: Boolean = cfg.getBoolean(CfgKeys.Accounts.strict)
 
-    val coa: Map[String, AccountTreeNode] = cfg.getStringList(CfgKeys.Accounts.coa).asScala
-      .toSet[String].map(acc => (acc, AccountTreeNode(acc, None))).toMap
+    val coa: Map[String, AccountTreeNode] = getChartOfAccounts(CfgKeys.Accounts.coa, CfgKeys.Accounts.deprecated_coa)
 
     val commodities: Set[String] = cfg.getStringList(CfgKeys.Accounts.commodities).asScala.toSet[String]
 
@@ -342,6 +342,33 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
 
       val accounts: List[String] = getReportAccounts(keys.accounts)
     }
+  }
+
+  /**
+   * Get Chart of Accounts
+   *
+   * Get CoA by either new key or deprecated old key. If both are defined, throw up
+   * @param key current settings key
+   * @param deprecatedKey deprecated key
+   * @return chart of account, if none of keys is defined, then it's empty
+   */
+  def getChartOfAccounts(key: String, deprecatedKey: String): Map[String, AccountTreeNode] = {
+    val accounts = if (cfg.hasPath(key)) {
+      if (cfg.hasPath(deprecatedKey)) {
+        val msg = s"Chart of Accounts has both current key '$key' and deprecated key '$deprecatedKey' defined"
+        log.error(msg)
+        throw new ConfigurationException(msg)
+      }
+      cfg.getStringList(key).asScala
+    } else if (cfg.hasPath(deprecatedKey)){
+      log.warn(s"Using deprecated settings key ($deprecatedKey) for Chart of Accounts")
+      log.warn(s"Chart of Accounts should be defined by $key")
+      cfg.getStringList(deprecatedKey).asScala
+
+    } else {
+      List.empty[String]
+    }
+    accounts.toSet[String].map(acc => (acc, AccountTreeNode(acc, None))).toMap
   }
 
   def getReportScale(keyBase: String): (Int, Int) = {
