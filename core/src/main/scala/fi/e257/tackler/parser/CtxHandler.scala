@@ -82,6 +82,16 @@ abstract class CtxHandler {
   }
 
   /**
+   * Error reporting helper
+   * @param ctx where the error happened
+   * @param msg actual error message
+   * @return actual error message prefixed with line information
+   */
+  protected def errorOnLine(ctx: ParserRuleContext, msg: String): String = {
+    "Error on line: " + ctx.start.getLine.toString + "; " + msg
+  }
+
+  /**
    * Get Parse Tree as string (accounts, tags, etc.)
    * ctx= "abc", ':', "def"  => "abc:def"
    *
@@ -109,8 +119,7 @@ abstract class CtxHandler {
 
     if (settings.Accounts.strict) {
       if (!settings.Accounts.coa.exists({ case (key, _) => key === account })) {
-          val lineNro = accountCtx.start.getLine
-          val msg = "Error on line: " + lineNro.toString + "; Account not found: [" + account + "]"
+          val msg = errorOnLine(accountCtx, "Account not found: [" + account + "]")
           log.error(msg)
           throw new AccountException(msg)
       }
@@ -119,14 +128,19 @@ abstract class CtxHandler {
     AccountTreeNode(account, commodity)
   }
 
+  /**
+   * Handle singe tag context, e.g. one tag
+   *
+   * @param tagCtx this is one tag (inside tagCtx)
+   * @return single tag as list (with one element, the tag)
+   */
   protected def handleTagCtx(tagCtx: TagContext): Tags = {
 
     val tag: String = contextToString(tagCtx)
 
     if (settings.Tags.strict) {
       if (! settings.Tags.cot.exists(_ === tag)) {
-          val lineNro = tagCtx.start.getLine
-          val msg = "Error on line: " + lineNro.toString + "; tag not found: [" + tag + "]"
+          val msg = errorOnLine(tagCtx, "Tag not found: [" + tag + "]")
           log.error(msg)
           throw new TagsException(msg)
       }
@@ -164,8 +178,7 @@ abstract class CtxHandler {
           postCommodity.foreach(c => {
             // postCommodity is always defined by grammar
             if (c.name === valPosCommodity.name) {
-              val lineNro = postingCtx.start.getLine
-              val msg = "Error on line: " + lineNro.toString + "; Both commodities are same for value position [" + valPosCommodity.name + "]"
+              val msg = errorOnLine(postingCtx, "Both commodities are same for value position [" + valPosCommodity.name + "]")
               log.error(msg)
               throw new CommodityException(msg)
             }
@@ -187,9 +200,7 @@ abstract class CtxHandler {
           Option(pos.opt_opening_pos()).foreach(opening_pos => {
             val opening_price = handleAmount(opening_pos.amount())
             if (opening_price < 0) {
-              val lineNro = postingCtx.start.getLine
-              val msg = "Error on line: " + lineNro.toString +
-                "; Unit cost '{ ... }' is negative"
+              val msg = errorOnLine(postingCtx, "Unit cost '{ ... }' is negative")
               log.error(msg)
               throw new CommodityException(msg)
             }
@@ -204,9 +215,7 @@ abstract class CtxHandler {
               // this is '=', e.g. total price
               val total_cost = handleAmount(cp.amount())
               if ((total_cost < 0 && 0 <= postAmount) || (postAmount < 0 && 0 <= total_cost)) {
-                val lineNro = postingCtx.start.getLine
-                val msg = "Error on line: " + lineNro.toString +
-                 "; Total cost '=' has different sign than primary posting value"
+                val msg = errorOnLine(postingCtx, "Total cost '=' has different sign than primary posting value")
                 log.error(msg)
                 throw new CommodityException(msg)
               }
@@ -215,9 +224,7 @@ abstract class CtxHandler {
               // this is '@', e.g. unit price
               val unit_price = handleAmount(cp.amount())
               if (unit_price < 0) {
-                val lineNro = postingCtx.start.getLine
-                val msg = "Error on line: " + lineNro.toString +
-                  "; Unit price '@' is negative"
+                val msg = errorOnLine(postingCtx, "Unit price '@' is negative")
                 log.error(msg)
                 throw new CommodityException(msg)
               }
@@ -237,18 +244,18 @@ abstract class CtxHandler {
    *
    * @param commodity optional commodity
    */
-  protected def checkCommodity(commodity: Option[Commodity], lineNro: Int): Unit = {
+  protected def checkCommodity(commodity: Option[Commodity], postingCtx: PostingContext): Unit = {
     commodity match {
       case Some(c) => {
         if (!settings.Accounts.commodities.exists(_ === c.name)) {
-          val msg = "Error on line: " + lineNro.toString + "; Commodity not found: [" + c.name + "]"
+          val msg = errorOnLine(postingCtx, "Commodity not found: [" + c.name + "]")
           log.error(msg)
           throw new CommodityException(msg)
         }
       }
       case None => {
         if (settings.Accounts.permit_empty_commodity === false) {
-          val msg = "Error on line: " + lineNro.toString + "; Empty commodities are not allowed"
+          val msg = errorOnLine(postingCtx, "Empty commodities are not allowed")
           log.error(msg)
           throw new CommodityException(msg)
         }
@@ -268,9 +275,8 @@ abstract class CtxHandler {
     val foo = handleValuePosition(postingCtx)
 
     if (settings.Accounts.strict) {
-      val lineNro = postingCtx.start.getLine
-      checkCommodity(foo._4, lineNro)
-      checkCommodity(foo._5, lineNro)
+      checkCommodity(foo._4, postingCtx)
+      checkCommodity(foo._5, postingCtx)
     }
 
     val acctn = handleAccount(postingCtx.account(), foo._4)
@@ -279,6 +285,13 @@ abstract class CtxHandler {
     Posting(acctn, foo._1, foo._2, foo._3, foo._5, comment)
   }
 
+  /**
+   * Handle top level tags context
+   *
+   * This is either single tag or multiple tags
+   * @param tagsCtx is tags (either single or multiple tags)
+   * @return tags as list
+   */
   @SuppressWarnings(Array(
     "org.wartremover.warts.Recursion"))
   protected def handleTagsCtx(tagsCtx: TagsContext): Tags = {
