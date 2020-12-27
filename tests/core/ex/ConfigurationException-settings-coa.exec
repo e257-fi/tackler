@@ -1,0 +1,4 @@
+# format: exec
+# test: f3ad24ca-3e01-49bd-b392-ebd676d95166
+# desc: new and deprecated CoA is defined at the same time
+exec:--cfg;tests/core/ex/settings-coa.conf;--input.file;ok.txn;

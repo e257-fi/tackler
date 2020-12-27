@@ -33,7 +33,7 @@ accounts {
 
   permit-empty-commodity = true
 
-  coa = [
+  chart-of-accounts = [
     "Expenses:Ice_cream",
     "Expenses:Lemonade",
     "Assets:Cash"
