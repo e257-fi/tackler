@@ -209,6 +209,12 @@ class DirsuiteCoreTest extends DirSuiteLike {
     }
   }
 
+  runDirSuiteTestCases(basedir, Glob("core/ex/ConfigurationException-*.exec")) { args: Array[String] =>
+    assertThrows[ConfigurationException] {
+      TacklerCli.runExceptions(args)
+    }
+  }
+
   runDirSuiteTestCases(basedir, Glob("core/ok/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.SUCCESS) {
       TacklerCli.runReturnValue(args)

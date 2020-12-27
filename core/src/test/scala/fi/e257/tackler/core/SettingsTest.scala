@@ -62,6 +62,17 @@ class SettingsTest extends AnyFunSpec {
         assert(s.timezone.toString === "never this")
       }
     }
+
+    /**
+     * test: 890cf82b-6e7b-4fc3-9d4d-4d8f09156493
+     */
+    it("Accounts: new and deprecated CoA settings defined at same time") {
+      val cfg = ConfigFactory.parseString(s"""{ accounts { coa = [ ], chart-of-accounts = [ ] } }""")
+      assertThrows[ConfigurationException]{
+        val s = Settings(cfg)
+        assert(s.Accounts.coa === "never this")
+      }
+    }
   }
   /**
    * feature: eb2816e7-7ccf-42a2-9a1a-99223dc431a3

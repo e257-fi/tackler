@@ -16,6 +16,8 @@ New features and changes in this release:
  ** Support for Transaction Tags
  ** Txn Tag Filter: transaction filters based on tags
  ** Journal format: link:https://tackler.e257.fi/docs/journal/format/#txn-tags[Txn Tags]
+ * TEP-1013: xref:./docs/tep/tep-1013.adoc[Configuration key change of accounts CoA ]
+ ** New configuration key for Chart of Accounts (`chart-of-accounts`)
 
 ==== Fixes
 
