@@ -21,6 +21,12 @@ import sbtcrossproject.{crossProject, CrossType}
 
 lazy val scala_12 = "2.12.12"
 lazy val scala_13 = "2.13.4"
+
+ThisBuild / organization := "fi.e257"
+ThisBuild / version := "0.34.0-SNAPSHOT"
+ThisBuild / scalaVersion := scala_13
+ThisBuild / publishTo := sonatypePublishToBundle.value
+
 lazy val supportedScalaVersions = List(scala_12, scala_13)
 
 lazy val noPublishSettings = Seq(
@@ -30,9 +36,6 @@ lazy val noPublishSettings = Seq(
 )
 
 lazy val commonSettings = Seq(
-  organization := "fi.e257",
-  version := "0.34.0-SNAPSHOT",
-  scalaVersion := scala_13,
   crossScalaVersions := supportedScalaVersions,
   compileOrder := CompileOrder.JavaThenScala,
   scalacOptions ++= Seq(
@@ -100,8 +103,7 @@ lazy val commonSettings = Seq(
     Wart.NonUnitStatements,
     Wart.PublicInference,
     Wart.Throw //https://github.com/puffnfresh/wartremover/commit/869763999fcc1fd685c1a8038c974854457b608f
-  ),
-  publishTo := sonatypePublishTo.value,
+  )
 )
 
 /**
