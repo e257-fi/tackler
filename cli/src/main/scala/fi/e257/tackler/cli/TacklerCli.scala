@@ -220,14 +220,16 @@ object TacklerCli {
    * @return Zero on success, non-zero in case of error.
    */
   def runReturnValue(args: Array[String]): Int = {
-    def reportFailure(msg: String) : Int = {
+    def reportFailure(msg: List[String]) : Int = {
       val con = new BufferedWriter(
         new OutputStreamWriter(Console.err, StandardCharsets.UTF_8))
 
-      con.write(msg)
+      log.error(msg.mkString("; "))
+
+      con.write(msg.mkString("\n   "))
       con.write("\n\n")
       con.flush()
-      con.write("Error while running Tackler, see above for reason.\n")
+      con.write("Error while running Tackler, see above for the reason.\n")
       con.flush()
       FAILURE
     }
@@ -250,38 +252,38 @@ object TacklerCli {
         FAILURE
 
       case ex: ConfigurationException =>
-        val msg = "" +
-          "Error: \n" +
-          "   Invalid tackler configuration\n" +
-          "   message: " + ex.getMessage
+        val msg = List(
+          "Error:",
+          "Invalid tackler configuration",
+          "message: " + ex.getMessage)
         reportFailure(msg)
 
       case ex: NoSuchFileException =>
-        val msg = "" +
-          "Error: \n" +
-          "   File not found\n" +
-          "   message: " + ex.getMessage
+        val msg = List(
+          "Error:",
+          "File not found",
+          "message: " + ex.getMessage)
         reportFailure(msg)
 
       case ex: java.util.regex.PatternSyntaxException =>
-        val msg = "" +
-          "Error: \n" +
-          "   Syntax error with regular expression\n" +
-          "   message: " + ex.getMessage
+        val msg = List(
+          "Error:",
+          "Syntax error with regular expression",
+          "message: " + ex.getMessage)
         reportFailure(msg)
 
       case ex: TacklerParseException =>
-        val msg = "" +
-          "Exception: \n" +
-          "   class: " + ex.getClass.toString + "\n" +
-          "   message: " + ex.getMessage
+        val msg = List(
+          "Exception:",
+          "class: " + ex.getClass.toString,
+          "message: " + ex.getMessage)
         reportFailure(msg)
 
       case ex: TacklerException =>
-        val msg = "" +
-          "Exception: \n" +
-          "   class: " + ex.getClass.toString + "\n" +
-          "   message: " + ex.getMessage
+        val msg = List(
+          "Exception:",
+          "class: " + ex.getClass.toString,
+          "message: " + ex.getMessage)
         reportFailure(msg)
     }
   }
