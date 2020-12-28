@@ -279,7 +279,7 @@ Since v0.31
 ----
 | Optional transaction tags +
 Txn tags could be used select subselection of txns for reports.
-See: xref:../txn-filters.adoc#txn_tags[Txn Tag Filters] +
+See: xref:../txn-filters.adoc#txn-tags[Txn Tag Filters] +
 Since v0.34
 
 | Comments

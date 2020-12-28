@@ -4,17 +4,19 @@
 :page-permalink: /features/
 
 
-* Tackler's xref:docs/reliability.adoc[all features are extensively tested]
+* Tackler xref:docs/reliability.adoc[is extremely well tested]
 
-* Native support for xref:docs/journal/git-storage.adoc[GIT based journal storage]
+* Integrated xref:docs/journal/git-storage.adoc[version control based journal storage] (and plain files too!)
 
-* Support for xref:docs/auditing.adoc[Accounting Auditing and Assurance]
+* Can provide Audit Trail for xref:docs/auditing.adoc[Accounting Auditing and Assurance]
 
 * Support for xref:docs/commodities.adoc[Commodities] and xref:docs/currencies.adoc[Currencies]
 
-* Support for link:/docs/gis/[Accounting with Geo Location (GIS)]
+* Can do link:/docs/gis/[Accounting with Geo Location (GIS)]
 
-* Strict xref:docs/accounts-conf.adoc[account and commodity name validation] with Chart of Accounts
+* xref:docs/configuration/accounts-conf.adoc[Chart of Accounts] with strict account and commodity name validation
+
+* xref:docs/configuration/tags-conf.adoc[Transaction Tags] with strict name validation
 
 * Clean and simple xref:docs/journal/format.adoc[journal format]
 
@@ -25,11 +27,24 @@
 ** xref:docs/export-equity.adoc[Equity] and xref:docs/export-identity.adoc[Identity] Exports
 
 
-* Support for xref:docs/txn-filters.adoc[Transaction Filters]
+* xref:docs/txn-filters.adoc[Transaction Filters]
+** Logical operators: xref:docs/txn-filters.adoc#logic-ops[AND, OR, NOT] to combine multiple filters
+** All transaction properties have filters: xref:docs/txn-filters.adoc#ts-begin[Time],
+xref:docs/txn-filters.adoc#txn-code[Code],
+xref:docs/txn-filters.adoc#txn-desc[Description],
+xref:docs/txn-filters.adoc#txn-uuid[UUID],
+xref:docs/txn-filters.adoc#txn-gis[Location (GIS)],
+xref:docs/txn-filters.adoc#txn-tags[Tags],
+xref:docs/txn-filters.adoc#txn-comments[Comments],
+** All posting properties have filters:
+xref:docs/txn-filters.adoc#txn-posting-account[Accounts],
+xref:docs/txn-filters.adoc#txn-posting-amount[Amounts],
+xref:docs/txn-filters.adoc#txn-posting-comment[Comments],
+xref:docs/txn-filters.adoc#txn-posting-commodity[Commodities]
 
-* Supports xref:docs/journal/charsets.adoc[wide range of UTF-8 characters, scripts and languages]
+* Supports wide range of xref:docs/journal/charsets.adoc[Unicode characters, scripts and languages]
 
-* Supports ISO 8601 xref:docs/journal/format.adoc#timestamps[timestamps with timezones and nanosecond] resolution
+* Real transaction xref:docs/journal/format.adoc#timestamps[timestamps with timezones and nanosecond] resolution
 
 * Text and xref:docs/json.adoc[JSON] output formats for reports
 
@@ -38,12 +53,12 @@
 ** xref:docs/client-api.adoc[Client API] for JVM and JS environments
 
 
-* Has good performance with xref:docs/performance.adoc[large transaction set]
+* Has really xref:docs/performance.adoc[good performance]
 
 ** Tackler is {gitlink}/perf/results/perf-hw00.adoc[tested up to one million (1E6)] transactions
 
-** Tackler can parse and process {gitlink}/perf/results/readme.adoc[56000 txn/s] on Quad Core system
+** Tackler can read and process {gitlink}/perf/results/readme.adoc[42_000 txn/s] on normal laptop computer
 
 
-* link:/docs/[Extensive documentation]
+* Tackler has link:/docs/[extensive documentation] for users and developers
 

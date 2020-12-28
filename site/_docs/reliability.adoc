@@ -1,6 +1,6 @@
 = Reliability
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-03-29 00:00:00 Z
+:page-last_modified_at: 2020-12-27 00:00:00 Z
 
 [quote]
 ____
@@ -9,28 +9,33 @@ as reliability is for integrity +
 when integrity is the essence of trust.
 ____
 
+Tackler's operations and results must always be correct and trustworthy. If there are any errors with journal,
+then it will fail fast and hard and won't process dubious input as valid one.
 
 == Testing
 
-All tackler's features must be tested, and overell test coverage 
-should be almost perfect.  Tackler is tested with functional and 
-logical test sets to ensure that all logical code paths are covered.
+Tackler test coverage is better than *99.8%*.
 
-At the moment, Tackler test coverage is better than *99.7%*.
+Foundation of tackler development is that all features must be tested logically and code-wise,
+and overall test coverage should be almost perfect.  Tackler is tested with functional and
+logical test sets to ensure that all code paths are covered by tests.
 
-Tackler has *99* tracked features. For those 99 features, tackler has
-over *500* test cases, tackler-cli is executed over *160* times by test setup,
-and results are verified by over *400* reference reports.
+Tackler has *106* tracked features. For those features, tackler has *571* test cases,
+tackler-cli is executed *181* times by test setup,
+and results are verified by *454* reference reports.
+
+With every integration test run, journal with
+{gitlink}/core/src/it/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala#L114[*one hundred thousand* (100 000)] transactions is processed,
+*ten times*, to verify tackler's ability handle big journals.
+
+Tackler is stress and performance tested with up to {gitlink}/perf/readme.adoc[*one million* (1E6)] transactions sets with external test setup.
 
 === Performance
 
-Accounting Journal with size of *one hundred thousand* (1E5) transactions 
-is used with integration tests
-(see: {gitlink}/core/src/it/scala/fi/e257/tackler/parser/TacklerTxnsGitTest.scala[TacklerTxnsGitTest])
-and tackler is stress and performance tested with up to *one million* (1E6)
-transactions test sets.  On laptop, tackler can process over 30 000 txn/s.
-See xref:./performance.adoc[Performance Overview] for details
-or {gitlink}/docs/devel/build.adoc[test it yourself].
+On laptop, tackler can process over 40 000 txn/s. On server systems, tackler can easily read and process 50-60 thousand
+transactions per second.  Tackler's performance scales almost linearly with available CPU and memory.
+
+See xref:./performance.adoc[Performance Overview] for details or {gitlink}/docs/devel/build.adoc[test it yourself].
 
 
 === Tackler Test Tracking Database
