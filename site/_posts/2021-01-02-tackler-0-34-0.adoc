@@ -1,0 +1,37 @@
+= Tackler 0.34.0 released
+:page-date: 2021-01-02 22:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.34.0
+:page-category: release
+
+
+
+== New features and changes in this release:
+
+New features and changes in this release:
+
+* Support for link:https://tackler.e257.fi/docs/journal/format/#txn-tags[Transaction Tags]
+** Support for link:https://tackler.e257.fi/docs/txn-filters/#txn-tags[Transaction Tag Filters ]
+** Background: {gitlink}/docs/tep/tep-1011.adoc[TEP-1011: Transaction Tags and Filters]
+
+* New configuration key for link:https://tackler.e257.fi/docs/configuration/accounts-conf/[Chart of Accounts (`chart-of-accounts`)]
+** The old key is still supported but deprecated, please migrate to the new key.
+** Background: {gitlink}/docs/tep/tep-1013.adoc[TEP-1013: Configuration key change of accounts CoA ]
+
+
+=== Fixes
+
+None
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Checksum
+
+.SHA-256 of Tackler-cli.jar
+----
+e8c1cb57e9f7f00bc35e39f1076193156c4f8a03714fdcb9d72bf16635e7d43d  tackler-cli-0.34.0.jar
+----
