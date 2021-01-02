@@ -2,13 +2,13 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.33.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.33.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.34.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.34.0"
 
 
 == Release history
 
-=== 0.34.0-SNAPSHOT
+=== 0.34.0
 
 New features and changes in this release:
 
@@ -32,8 +32,6 @@ Updated deps and tools:
  ** scala-collection-compat: 2.3.2
  * Build
  ** sbt: 1.4.6
- * Tests
- ** ...
 
 
 

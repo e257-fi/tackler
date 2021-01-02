@@ -1,6 +1,6 @@
 image:https://gitlab.com/e257/accounting/tackler/badges/main/pipeline.svg?ignore_skipped=true["Build status", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
 image:https://gitlab.com/e257/accounting/tackler/badges/main/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
-image:https://api.bintray.com/packages/e257/tackler/tackler-cli/images/download-.svg[link="https://bintray.com/e257/tackler/tackler-cli/_latestVersion"]
+image:https://api.bintray.com/packages/e257/tackler/tackler-cli/images/download.svg[link="https://bintray.com/e257/tackler/tackler-cli/_latestVersion"]
 image:https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.13/badge.svg["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.13"] +
 image:https://tackler.e257.fi/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-core_2.13/latest/fi/e257/tackler/index.html"]
 image:https://tackler.e257.fi/img/scaladoc-api.svg[ "ScalaDoc: tackler-api",  link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-api_2.13/latest/fi/e257/tackler/api/index.html"]
