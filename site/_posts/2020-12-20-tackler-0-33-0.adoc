@@ -31,3 +31,11 @@ None
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Checksum
+
+.SHA-256 of Tackler-cli.jar
+----
+6e310865c99a8d1d82e1f426ab56470b93d092bdaeffe77c49814c4235155f7b  tackler-cli-0.33.0.jar
+----
