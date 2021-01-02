@@ -1,10 +1,10 @@
 image:https://gitlab.com/e257/accounting/tackler/badges/main/pipeline.svg?ignore_skipped=true["Build status", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
 image:https://gitlab.com/e257/accounting/tackler/badges/main/coverage.svg["Coverage", link="https://gitlab.com/e257/accounting/tackler/-/jobs/"]
-image:https://api.bintray.com/packages/e257/tackler/tackler-cli/images/download.svg[link="https://bintray.com/e257/tackler/tackler-cli/_latestVersion"]
-image:https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.12/badge.svg["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.12"] +
-image:https://tackler.e257.fi/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-core_2.12/latest/fi/e257/tackler/index.html"]
-image:https://tackler.e257.fi/img/scaladoc-api.svg[ "ScalaDoc: tackler-api",  link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-api_2.12/latest/fi/e257/tackler/api/index.html"]
-image:https://www.scala-js.org/assets/badges/scalajs-0.6.17.svg["Scala.js",link="https://www.scala-js.org"]
+image:https://api.bintray.com/packages/e257/tackler/tackler-cli/images/download-.svg[link="https://bintray.com/e257/tackler/tackler-cli/_latestVersion"]
+image:https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.13/badge.svg["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/fi.e257/tackler-core_2.13"] +
+image:https://tackler.e257.fi/img/scaladoc-core.svg["ScalaDoc: tackler-core", link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-core_2.13/latest/fi/e257/tackler/index.html"]
+image:https://tackler.e257.fi/img/scaladoc-api.svg[ "ScalaDoc: tackler-api",  link="https://tackler.e257.fi/scaladoc/fi.e257/tackler-api_2.13/latest/fi/e257/tackler/api/index.html"]
+image:https://www.scala-js.org/assets/badges/scalajs-1.3.0.svg["Scala.js",link="https://www.scala-js.org"]
 
 = Tackler
 
@@ -161,7 +161,7 @@ See xref:./site/_docs/credits.adoc[THANKS] for full list of credits.
 == License
 
 ....
-Copyright 2016-2020 E257.FI Contributors
+Copyright 2016-2021 E257.FI Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
