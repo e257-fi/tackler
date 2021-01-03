@@ -1,6 +1,6 @@
 = Quickstart
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2020-12-20 00:00:00 Z
+:page-last_modified_at: 2021-01-03 00:00:00 Z
 :page-permalink: /docs/quickstart/
 
 
@@ -124,6 +124,7 @@ See
 xref:./journal/format.adoc[Journal Format],
 xref:./installation.adoc[Installation Manual],
 xref:./usage.adoc[Usage Guide],
-xref:./configuration/tackler-conf.adoc[tackler.conf] and
-xref:./configuration/accounts-conf.adoc[accounts.conf]
+xref:./configuration/tackler-conf.adoc[tackler.conf],
+xref:./configuration/accounts-conf.adoc[accounts.conf] and
+xref:./configuration/examples.adoc[Configuration Examples]
 how to configure tackler and use it with full-fledged production setup.

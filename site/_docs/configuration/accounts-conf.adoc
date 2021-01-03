@@ -1,6 +1,6 @@
 = Accounts.conf
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2019-10-05 00:00:00 Z
+:page-last_modified_at: 2021-01-03 00:00:00 Z
 
 accounts.conf contains Chart of Accounts (CoA) for Tackler,
 and other accounts and commodities related settings.
@@ -19,10 +19,10 @@ accounts {
 
   # Strict account and commodity name validation mode
   #
-  # If set true, then Tackler will process only accounts
-  # which are listed on Chart of Accounts (accounts.coa).
+  # If set true, then Tackler will process and accept only accounts
+  # which are listed on Chart of Accounts (CoA).
   # It is fatal error if account is not listed in CoA,
-  # and strict is same time set to be true.
+  # and strict mode is set to be true at the same time.
   #
   # Same applies for commodities (see below).
   #

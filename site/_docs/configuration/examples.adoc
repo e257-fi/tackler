@@ -1,6 +1,6 @@
 = Configuration Examples
 :page-date: 2019-10-06 00:00:00 Z
-:page-last_modified_at: 2020-12-28 00:00:00 Z
+:page-last_modified_at: 2021-01-03 00:00:00 Z
 
 This document has configuration examples of tackler for real life use.
 
@@ -84,6 +84,7 @@ If above configuration auto discovery method is not used, then path to configura
 with `--cfg` command line option.
 
 
+[[backend-fs-or-git]]
 === Backend configuration: filesystem or Git
 
 With this setup it is possible to use either filesystem or git backend at the same time.

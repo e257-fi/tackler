@@ -1,6 +1,6 @@
 = Installation Manual
 :page-date: 2019-03-29 00:00:00 Z
-:page-last_modified_at: 2020-12-20 00:00:00 Z
+:page-last_modified_at: 2021-01-03 00:00:00 Z
 
 This is installation manual for tackler command line.
 
@@ -18,15 +18,86 @@ https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build
 
 Minimal initial installation and setup is described in xref:quickstart.adoc[Quickstart Guide].
 
+Tackler could be used with minimal quickstart setup just fine, but to get most out of it (strict modes, git storage system, Audit trail functinality etc.), it must be configured properly. Below is recommended setup for production use.
 
-=== Minimal setup with account name validation (Chart of Accounts)
 
-To enable account name validation for minimal quickstart setup, there have to be Chart of Accounts, 
-which defines all used account names:
+[[layout]]
+== Recommended Setup and layout
 
+Recommended layout and setup (the "installation") would be:
+
+----
+.
+├── bin
+│   ├── tackler-cli.jar
+│   └── tackler.conf
+└── journal
+    ├── conf
+    │   ├── accounts.conf
+    │   ├── tackler.conf
+    │   └── tags.conf
+    └── txns
+        ├── ...
+        ├── 2020
+        │   ├── ...
+        │   └── 12
+        │       ├── journal-1.txn
+        │       └── journal-2.txn
+        └── 2021
+            └── 01
+                ├── journal-1.txn
+                └── journal-2.txn
+----
+
+This setup uses year/month based sharding for transactions (the directory structure under `txns`).  It's up to for each
+system to decide which is xref:./journal/sharding.adoc[the best way to shard transaction data], or not to shard transactions at all.
+
+
+=== Configuration Settings for Recommended Layout
+
+By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file. It's also possible to provide path to configuration with `--cfg` option, if you don't like to use auto discovery functionality or would like to e.g. use several different configuration files.
+
+==== tackler.conf
+
+.bin/tackler.conf
+----
+include required("../journal/conf/tackler.conf")
+----
+
+Actual configuration is located under journal:
+
+.journal/conf/tackler.conf
+----
+tackler {
+  core {
+    basedir = ../journal
+    input {
+      storage = fs
+      fs {
+        dir = "txns"
+        glob = "**.txn"
+      }
+    }
+    include required("./accounts.conf")
+    include required("./tags.conf")
+  }
+}
+----
+
+This setup makes it possible to separate journal setup and data, and store relevant configuration next to transaction data (and possibly under version control).
+
+See xref:./configuration/examples.adoc#backend-fs-or-git[Configuration Example: fs or git] how combine git based transaction storage with this setup.
+
+
+==== accounts.conf
+
+If there is missing or mistyped account, that will cause an error and tackler will stop processing journal.
+See xref:./configuration/accounts-conf.adoc[accounts.conf] for full documentation
+of Chart of Accounts and commodity listing.
+
+.journal/conf/accounts.conf
 [source,sh]
 ----
-cat >> accounts.conf << EOF
 accounts {
 
   strict = true
@@ -39,67 +110,25 @@ accounts {
     "Assets:Cash"
   ]
 }
-EOF
 ----
 
-After that it's possible to run tackler with account name validation:
+==== tags.conf
 
- java -jar ./tackler-cli.jar
+If there is missing or mistyped tag, that will cause an error and tackler will stop processing journal.
+See xref:./configuration/tags-conf.adoc[tags.conf] for full documentation
+of Chart of Tags.
 
-If there is missing or mistyped account, that will cause an exception error.
-See xref:./configuration/accounts-conf.adoc[example of accounts.conf] for full documentation
-of Chart of Accounts and commodity listing.
+.journal/conf/tags.conf
+[source,sh]
+----
+tags {
+   strict = true
 
-
-[[layout]]
-== Recommended layout
-
-Recommended layout and setup would be:
-
-....
-./bin/tackler-cli.jar
-./bin/tackler.conf
-./bin/accounts.conf
-./txns/
-./txns/YYYY/MM/journal-01.txn
-./txns/YYYY/MM/journal-02.txn
-...
-....
-
-Where `YYYY` and `MM` stand for time based data shard with year and month slides. It's up to individual 
-setup which is xref:./journal/sharding.adoc[the best way to shard transaction data], if any. 
-
-Transactions can be selected either based on  shards or by using filters. 
-See xref:./usage.adoc#txn-filters[Usage Guide] for how to use filters, 
-and xref:./filters.adoc[Transaction Filters] document for overall information about available filters. 
-
-
-=== Configuration Settings for Recommended Layout
-
-By default Tackler will try to find configuration file (`tackler.conf`) next to its jar-file.
-You can also provide path to configuration file with `--cfg` option.
-
-With recommended setup, configuration file xref:./configuration/tackler-conf.adoc[tackler.conf] is located next to the jar-file
-and it is auto-discovered.  There is also xref:./configuration/accounts-conf.adoc[accounts.conf] which contains
-accounts and commodity names definitions. This makes it possible to do strict account and commodity name validation.
-
-Minimal `tackler.conf` for above setup could be:
-
-....
-tackler {
-  core {
-    basedir = ../
-    input {
-      storage = fs
-      fs {
-        dir = "txns"
-        glob = "**.txn"
-      }
-    }
-    include "accounts.conf"
-  }
+   chart-of-tags = [
+      "travel:ice·cream·spree",
+   ]
 }
-....
+----
 
 With this setup, it is possible to run Tackler by:
 
@@ -107,42 +136,17 @@ With this setup, it is possible to run Tackler by:
 
 and it will just work.
 
-There are more examples how to use tackler in xref:./usage.adoc[Usage Guide].
 
+== Next steps
 
-== Configuration
+See reference configuration files for full details:
 
-Please see xref:./configuration.adoc[Configuration Manual] for information about how to tailor and configure system.
+* xref:./configuration/tackler-conf.adoc[tackler.conf]
+* xref:./configuration/accounts-conf.adoc[accounts.conf]
+* xref:./configuration/tags-conf.adoc[tags.conf]
 
-You can override some of the configuration varibles with CLI arguments.
-These configuration variables, and command line switches are documented
-in xref:./configuration/tackler-conf.adoc[tackler.conf].
+xref:./journal/git-storage.adoc[Git Storage Guide] has information how to use integrated version control features with Tackler.
 
+Git and filesystem based production setup is described in xref:./configuration/examples.adoc#backend-fs-or-git[Configuration Example]
 
-=== Chart of Accounts and commodities
-
-By default it is fatal error if there is an unknown account or commodity within
-transactions.  It's also fatal error if there is a posting without commodity
-and at the same `accounts.permit-empty-commodity` is `false`.
-
-Both checks for accounts and commodities can be turned off with:
-
-    --accounts.strict=false
-
-but then there is no safety net against typos with account names.
-
-Postings with empty/missing commodities can be allowed with configuration setting:
-
-....
-accounts {
-   permit-empty-commodity = true
-}
-....
-
-With production systems, it is highly recommended to provide valid
-Chart of Accounts and list of valid commodities.
-
-Chart of accounts is defined either as part of main configuration or
-as separate configuration file. See xref:./configuration/accounts-conf.adoc[accounts.conf] for example configuration.
-
-
+xref:./journal/sharding.adoc[Transaction Data Sharding] has ideas for different storage schemes.
