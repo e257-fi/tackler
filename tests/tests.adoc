@@ -82,6 +82,11 @@ link:./tests-1011.yml[T3DB for TEP-1011]::
 * Transaction Tags
 
 
+link:./tests-1013.yml[T3DB for TEP-1013]::
+
+* Configuration key change of Accounts CoA
+
+
 link:./tests-tmpl.yml[Template for T3DB entry]
 
 
