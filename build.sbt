@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ lazy val scala_12 = "2.12.12"
 lazy val scala_13 = "2.13.4"
 
 ThisBuild / organization := "fi.e257"
-ThisBuild / version := "0.34.0"
+ThisBuild / version := "0.35.0-SNAPSHOT"
 ThisBuild / scalaVersion := scala_13
 ThisBuild / publishTo := sonatypePublishToBundle.value
 
