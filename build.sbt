@@ -19,7 +19,6 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val scala_12 = "2.12.12"
 lazy val scala_13 = "2.13.4"
 
 ThisBuild / organization := "fi.e257"
@@ -27,7 +26,7 @@ ThisBuild / version := "0.35.0-SNAPSHOT"
 ThisBuild / scalaVersion := scala_13
 ThisBuild / publishTo := sonatypePublishToBundle.value
 
-lazy val supportedScalaVersions = List(scala_12, scala_13)
+lazy val supportedScalaVersions = List(scala_13)
 
 lazy val noPublishSettings = Seq(
   publish := {},
@@ -75,17 +74,6 @@ lazy val commonSettings = Seq(
   ),
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 12)) =>
-        Seq(
-          //"-Xfatal-warnings",
-          // These won't work with 2.13
-          "-Ywarn-inaccessible",
-          "-Ywarn-infer-any",
-          "-Ywarn-nullary-override",
-          "-Ywarn-nullary-unit",
-          "-Yno-adapted-args",
-          "-Ypartial-unification",
-        )
       case Some((2, 13)) =>
         Seq(
           // WIP: Disable fatal-warnings for Scala 2.13 "-Xfatal-warnings",
@@ -166,14 +154,7 @@ lazy val core = (project in file("core")).
     libraryDependencies += typesafeConfig,
     libraryDependencies += jgit,
     libraryDependencies += slf4j,
-    libraryDependencies += scalaCollCompat,
-    libraryDependencies ++= {
-      CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, 13)) =>
-          Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0")
-        case _ => Nil
-      }
-    },
+    libraryDependencies += scalaParCollection,
     libraryDependencies += scalatest % "it,test",
   )
 
@@ -227,7 +208,6 @@ lazy val cli = (project in file("cli")).
     libraryDependencies += slf4j,
     libraryDependencies += scallop,
     libraryDependencies += typesafeConfig,
-    libraryDependencies += scalaCollCompat,
     libraryDependencies += scalatest % "it,test",
     libraryDependencies += dirsuite % "it,test"
   )

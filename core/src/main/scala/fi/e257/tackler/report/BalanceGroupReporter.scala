@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
  */
 package fi.e257.tackler.report
 
-import io.circe.Json
-import io.circe.syntax._
 import fi.e257.tackler.api.{BalanceGroupReport, Metadata, TimeZoneInfo, TxnTS}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{Transaction, TxnData}
-import fi.e257.tackler.Scala12to13.Converters._
+import io.circe.Json
+import io.circe.syntax._
+
+import scala.collection.parallel.CollectionConverters._
 
 
 class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends BalanceReporterLike(mySettings) {

@@ -12,6 +12,7 @@ Current published release is:
 
 New features and changes in this release:
 
+ * Dropped support for Scala 2.12
  * ...
  ** ...
 
@@ -26,11 +27,11 @@ Fixes in this release: None
 Updated deps and tools:
 
  * Dependencies
- ** ..
+ ** scala-parallel-collections: 1.0.0
  * Build
- ** ..
+ ** ...
  * Tests
- ** ..
+ ** ...
 
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import fi.e257.tackler.math.{TacklerReal, ZERO}
 import fi.e257.tackler.model._
 
 import scala.collection.mutable
-import fi.e257.tackler.Scala12to13.Converters._
+import scala.collection.parallel.CollectionConverters._
 
 object Accumulator {
 
