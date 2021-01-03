@@ -25,9 +25,9 @@ Usage of transaction filters:
 
 There are following logical transaction filters:
 
-* `AND`: all filters must select txn, so that it will be selected
-* `OR`: if any of filters select txn, then it's selected
-* `NOT`: reverses result (selected will be unselected, unselected will be selected)
+* xref:#and[`AND`]: all filters must select txn, so that it will be selected
+* xref:#or[`OR`]: if any of filters select txn, then it's selected
+* xref:#not[`NOT`]: reverses result (selected will be unselected, unselected will be selected)
 
 
 == Transaction property filters
@@ -36,17 +36,18 @@ Transaction filters select transactions based on single transaction's
 properties and attributes.
 
 * Transaction header
-** Time (Begin, End)
-** Code
-** Description
-** UUID
-** Geo Location
-** Txn Comments
+** xref:#ts-begin[Time (Begin, End)]
+** xref:#txn-code[Code]
+** xref:#txn-desc[Description]
+** xref:#txn-uuid[UUID]
+** xref:#txn-gis[Geo Location]
+** xref:#txn-tags[Txn Tags]
+** xref:#txn-comments[Txn Comments]
 * Postings
-** Account
-** Amount (account and amount: less, equal, greater)
-** Commodity
-** Posting Comment
+** xref:#txn-posting-account[Account]
+** xref:#txn-posting-amount[Amount (account and amount: less, equal, greater)]
+** xref:#txn-posting-commodity[Commodity]
+** xref:#txn-posting-comment[Posting Comment]
 
 
 === Transaction filter definitions and JSON Serialization
@@ -74,6 +75,7 @@ where `TxnFilter` is definition of top-level transaction filter. That top-level 
 filter can be logical filter or transaction property filter.
 
 
+[[logic-ops]]
 ==== Logical Filters
 
 Logical filters combine one or multiple transaction filters by logical operation.
@@ -113,6 +115,7 @@ Similarly it unselects all transactions which are selected by contained filter.
 
 Transaction property filters select transactions based on properties of single transaction.
 
+[[ts-begin]]
 ===== Txn Timestamp: Begin
 
 Timestamp Begin filter selects transactions which timestamp is
@@ -129,7 +132,7 @@ Time is expressed in ISO 8601 format with zone, e.g.
 }
 ----
 
-
+[[ts-end]]
 ===== Txn Timestamp: End
 
 Timestamp End filter selects transactions which timestamp is
@@ -147,6 +150,7 @@ Time is expressed in ISO 8601 format with zone, e.g.
 ----
 
 
+[[txn-code]]
 ===== Txn Code
 
 Txn Code filter selects transactions which code matches specified regular expression.
@@ -160,6 +164,7 @@ Txn Code filter selects transactions which code matches specified regular expres
 ----
 
 
+[[txn-desc]]
 ===== Txn Description
 
 Txn Description filter selects transactions which description matches specified regular expression.
@@ -173,6 +178,7 @@ Txn Description filter selects transactions which description matches specified 
 ----
 
 
+[[txn-uuid]]
 ===== Txn UUID
 
 Txn UUID filter selects transactions which UUID is same as specified.
@@ -184,7 +190,7 @@ Txn UUID filter selects transactions which UUID is same as specified.
 },
 ----
 
-
+[[txn-gis]]
 ===== Geo Location
 
 Transaction Geo Filters selects transactions which geographic location is inside Bounding Box defined by the filter.
@@ -224,6 +230,7 @@ See xref:gis/txn-geo-filters.adoc[Transaction Geo Filters] documentation for how
 ----
 
 
+[[txn-tags]]
 ===== Txn Tags
 
 Txn Tags filter selects transactions which have a tag matching specified regular expression.
@@ -236,7 +243,7 @@ Txn Tags filter selects transactions which have a tag matching specified regular
 }
 ----
 
-
+[[txn-comments]]
 ===== Txn Comments
 
 Txn Description filter selects transactions which have a comment which matches specified regular expression.
@@ -250,9 +257,11 @@ Txn Description filter selects transactions which have a comment which matches s
 ----
 
 
+[[txn-postings]]
 ==== Transaction Posting filters
 
 
+[[txn-posting-account]]
 ===== Posting Account
 
 Posting Account filter selects transactions which have an account which matches specified regular expression.
@@ -265,6 +274,7 @@ Posting Account filter selects transactions which have an account which matches 
 }
 ----
 
+[[txn-posting-amount]]
 ===== Posting Amount (equal)
 
 Posting Amount (egual) selects transactions which have a posting for specified account (regex)
@@ -326,7 +336,7 @@ with amount that is greater than specified amount.
 }
 ----
 
-
+[[txn-posting-commodity]]
 ===== Posting Commodity
 
 Posting Commodity selects transactions which have a posting with commodity which matches specified regular expression.
@@ -340,6 +350,7 @@ Posting Commodity selects transactions which have a posting with commodity which
 ----
 
 
+[[txn-posting-comment]]
 ===== Posting Comment
 
 Posting Commodity selects transactions which have a posting with comment which matches specified regular expression.

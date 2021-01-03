@@ -1,17 +1,28 @@
 = Configuration Examples
 :page-date: 2019-10-06 00:00:00 Z
-:page-last_modified_at: 2020-12-25 00:00:00 Z
+:page-last_modified_at: 2021-01-03 00:00:00 Z
 
-This document has Tackler configuration examples.
+This document has configuration examples of tackler for real life use.
 
-== Example of Production Setup Layout
+== Example of Production Setup
 
-Production Setup Layout is based on two different VCS setup. The first version control setup
-(auxiliary repository) contains all  tools and documentation.
+This setup has two main features:
 
-The second version control setup (journal) contains all accounting data
-and all accounting related settings. It is important to have accounting data
-and settings on the same repository so it possible to evolve both in sync.
+* Setup is done so that it is using version control for the setup itself and also for permanent journal data.
+
+* Tackler is configured so that it is possible swicth back and forth between journal on filesystem
+and journal data stored on version control.
+
+The first version control setup (auxiliary repository) contains all tools, scripts
+and documentation how to use and interpreter journal, for example description of Chart of Accounts, etc.
+
+The second version control setup (journal) contains all accounting data and all accounting related settings.
+Accounting data and settings (Chart of Accounts, report configurations) should be kept in same repository,
+so that both will evolve in sync over time, and it should be possible to re-run reports from past.
+
+Backend, which is used normally for daily operations, can be either filesystem or git based,
+and it is possible to switch between backends by command line argument.
+
 
 === Directory and Version Control Structure
 
@@ -23,10 +34,10 @@ books/      # This result of: git clone /path/to/books.git
 │   └── ...
 ├── .gitignore
 ├── bin/
-│   └── report.sh*
+│   └── report.sh       # This runs tackler
 ├── dist/
 │   ├── tackler-cli-x.y.z.jar
-│   └── tackler.conf    # This is only a stub and includes real configuration
+│   └── tackler.conf    # This is only a stub
 ├── docs/
 │   └── readme.txt
 └── journal/    # This is result of: git clone /path/to/journal.git
@@ -35,12 +46,16 @@ books/      # This result of: git clone /path/to/books.git
     ├── conf/
     │   ├── accounts.conf
     │   ├── tags.conf
-    │   └── tackler.conf
-    └── txns/
-        └── 2016/
-            ├── 2016-01-01-journal.txn
-            ├── ...
-            └── 2016-12-01-journal.txn
+    │   └── tackler.conf    # this is real tackler configuration
+    └── txns/  # This has all journal data, shard by year
+        ├── 2016/
+        │   ├── 2016-01-01-journal.txn
+        │   ├── ...
+        │   └── 2016-12-01-journal.txn
+        ├── 2017/
+        │   ├── 2017-01-01-journal.txn
+        │   ├── ...
+
 ----
 
 Journal data must not be included into auxiliary repository
@@ -60,32 +75,33 @@ tackler to the real configuration under journal.
 [source,hocon]
 .Content of `books/dist/tackler.conf`
 ----
-# Parent path for the include path is folder of the tackler's jar file
-# This could also be an absolute path
+# Tackler's jar file location is parent path for the include directive,
+# e.g. dist-folder in this setup. It could also be an absolute path.
 include required("../journal/conf/tackler.conf")
 ----
 
-If configuration auto discovery methdod is not used, then path to configuration file should be provided
+If above configuration auto discovery method is not used, then path to configuration file must be provided
 with `--cfg` command line option.
 
 
-=== Configuration for Filesystem and Git Setup
+[[backend-fs-or-git]]
+=== Backend configuration: filesystem or Git
 
-With this setup it is possible to use either filesystem based backend or git backend at the same time.
+With this setup it is possible to use either filesystem or git backend at the same time.
 
-Switching between backends can be done on the fly from CLI with options:
+Switching between backends can be done on the fly with CLI option:
 
 - Filesystem (if default is git): `--input.storage=fs`
 - Git backend (if default is fs): `--input.storage=git`
 
-Follow
+.Configuration setup for filesystem and git backends at the same time
 [source,hocon]
 ----
 tackler {
   core {
     # Relative or absolute path to journal-folder
-    # If this is relative path, then parent folder is determined
-    # based on jar-file's location (e.g. dist/ folder with this setup)
+    # If this is relative path, then parent path is determined
+    # based on tackler's jar-file location (e.g. dist-folder in this setup)
     basedir = ../journal
 
     input {
@@ -105,7 +121,7 @@ tackler {
         repository = .git
         # Name of main branch, e.g. "Y2020", "main", "master", etc.
         ref = "master"
-        # This is path inside *repository*
+        # This path is inside *repository*, e.g. path directly under ref's root
         dir = txns/
         suffix = ".txn"
       }
@@ -168,4 +184,3 @@ tackler {
   }
 }
 ----
-
