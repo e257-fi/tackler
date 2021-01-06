@@ -59,6 +59,15 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
 
         List(eqTxnHeader(commStr)) ++
           bal.metadata.map(md => md.mkString(" ; ", "\n ; ", "")).toList ++
+            (if (eqBalRow.isEmpty) {
+              List(
+                " ; WARNING:",
+                " ; WARNING: " + "The sum of equity transaction is zero without equity account.",
+                " ; WARNING: " + "Therefore there is no equity posting row, and this is probably not right.",
+                " ; WARNING: " + "Is account selector correct for this Equity Export?",
+                " ; WARNING:",
+              )
+            } else { Nil }) ++
           bs.map(acc => {
             " " + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
           }) ++ eqBalRow ++ List("")

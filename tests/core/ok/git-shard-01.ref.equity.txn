@@ -6,6 +6,11 @@
  ;   suffix:  .txn
  ;   message: test: shard-01
  ; 
+ ; WARNING:
+ ; WARNING: The sum of equity transaction is zero without equity account.
+ ; WARNING: Therefore there is no equity posting row, and this is probably not right.
+ ; WARNING: Is account selector correct for this Equity Export?
+ ; WARNING:
  a  111
  e  -111
 

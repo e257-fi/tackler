@@ -6,6 +6,11 @@
  ; Account selector checksum:
  ;   SHA-256: 2cc00a77563ae31320090f4c3227d5e40c283c47d3f0014680275211cf28ba5c
  ; 
+ ; WARNING:
+ ; WARNING: The sum of equity transaction is zero without equity account.
+ ; WARNING: Therefore there is no equity posting row, and this is probably not right.
+ ; WARNING: Is account selector correct for this Equity Export?
+ ; WARNING:
  a:ay2016:am11  -25.0000001
  e:ey2016:em11:ed25  25.0000001
 

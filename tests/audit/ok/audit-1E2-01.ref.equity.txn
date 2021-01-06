@@ -13,6 +13,11 @@
  ; Account selector checksum:
  ;   None: select all non-zero
  ; 
+ ; WARNING:
+ ; WARNING: The sum of equity transaction is zero without equity account.
+ ; WARNING: Therefore there is no equity posting row, and this is probably not right.
+ ; WARNING: Is account selector correct for this Equity Export?
+ ; WARNING:
  a:ay2016:am01  -11.0000001
  e:ey2016:em01:ed11  11.0000001
 
