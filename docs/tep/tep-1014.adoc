@@ -123,9 +123,10 @@ Changes to exports or exporting
 
 Changes to equity export
 
+* [ ] Use cfg equity-account
 * [x] Warning in case of zero-sum equity transaction
 * [x] Explicit value for equity posting
-* [ ] Indent equity transaction same amount as txns in identity export (3 spaces)
+* [x] Indent equity transaction same amount as txns in identity export (3 spaces)
 
 
 ==== Identity export

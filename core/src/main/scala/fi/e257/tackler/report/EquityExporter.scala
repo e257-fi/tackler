@@ -37,6 +37,7 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
     if (bal.isEmpty) {
       Nil
     } else {
+      val eqTxnIndent = "   "
       val lastTxn = txnData.txns.last
       def eqTxnHeader(commStr: String) = {
         val c = if (commStr.isEmpty) {
@@ -60,22 +61,22 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
           } else {
             " " + commStr
           })
-          List(" " + "Equity:Balance" + "  " + deltaStr)
+          List(eqTxnIndent + "Equity:Balance" + "  " + deltaStr)
         }
 
         List(eqTxnHeader(commStr)) ++
-          bal.metadata.map(md => md.mkString(" ; ", "\n ; ", "")).toList ++
+          bal.metadata.map(md => md.mkString(eqTxnIndent + "; ", "\n" + eqTxnIndent +"; ", "")).toList ++
             (if (eqBalRow.isEmpty) {
               List(
-                " ; WARNING:",
-                " ; WARNING: " + "The sum of equity transaction is zero without equity account.",
-                " ; WARNING: " + "Therefore there is no equity posting row, and this is probably not right.",
-                " ; WARNING: " + "Is account selector correct for this Equity Export?",
-                " ; WARNING:",
+                eqTxnIndent + "; WARNING:",
+                eqTxnIndent + "; WARNING: " + "The sum of equity transaction is zero without equity account.",
+                eqTxnIndent + "; WARNING: " + "Therefore there is no equity posting row, and this is probably not right.",
+                eqTxnIndent + "; WARNING: " + "Is account selector correct for this Equity Export?",
+                eqTxnIndent + "; WARNING:",
               )
             } else { Nil }) ++
           bs.map(acc => {
-            " " + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
+            eqTxnIndent + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
           }) ++ eqBalRow ++ List("")
 
       })

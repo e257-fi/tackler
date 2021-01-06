@@ -1,16 +1,16 @@
 2017-02-02T00:00:00Z 'Equity: last txn (uuid): 7594bf5f-15b5-46ef-ab7b-21d3c5f19bdc
- ; Git storage:
- ;   commit:  422ca7f3cbc1f3597fd2312d7d6c7793115e1e50
- ;   ref:     shard-01
- ;   dir:     git-txns
- ;   suffix:  .txn
- ;   message: test: shard-01
- ; 
- ; WARNING:
- ; WARNING: The sum of equity transaction is zero without equity account.
- ; WARNING: Therefore there is no equity posting row, and this is probably not right.
- ; WARNING: Is account selector correct for this Equity Export?
- ; WARNING:
- a  111
- e  -111
+   ; Git storage:
+   ;   commit:  422ca7f3cbc1f3597fd2312d7d6c7793115e1e50
+   ;   ref:     shard-01
+   ;   dir:     git-txns
+   ;   suffix:  .txn
+   ;   message: test: shard-01
+   ; 
+   ; WARNING:
+   ; WARNING: The sum of equity transaction is zero without equity account.
+   ; WARNING: Therefore there is no equity posting row, and this is probably not right.
+   ; WARNING: Is account selector correct for this Equity Export?
+   ; WARNING:
+   a  111
+   e  -111
 
