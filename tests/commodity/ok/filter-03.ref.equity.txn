@@ -1,12 +1,12 @@
 2017-05-06T00:00:00Z 'Equity
  a  -300
- Equity:Balance
+ Equity:Balance  300
 
 2017-05-06T00:00:00Z 'Equity for EUR
  a  -11 EUR
- Equity:Balance
+ Equity:Balance  11 EUR
 
 2017-05-06T00:00:00Z 'Equity for USD
  a  -3000 USD
- Equity:Balance
+ Equity:Balance  3000 USD
 

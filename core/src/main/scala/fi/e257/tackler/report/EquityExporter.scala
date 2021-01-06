@@ -51,10 +51,16 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
         .groupBy(b => b.acctn.commStr)
         .toSeq.sortBy({ case (commStr, _) => commStr }) // Scala 2.12 vs. 2.13: fix order sorting by commodity
         .flatMap({ case (commStr, bs) =>
-        val eqBalRow = if (bs.map(b => b.accountSum).realSum.isZero) {
+        val delta = bs.map(b => b.accountSum).realSum
+        val eqBalRow = if (delta.isZero) {
           Nil
         } else {
-          List(" " + "Equity:Balance")
+          val deltaStr = (-delta).toString() + (if (commStr.isEmpty) {
+            ""
+          } else {
+            " " + commStr
+          })
+          List(" " + "Equity:Balance" + "  " + deltaStr)
         }
 
         List(eqTxnHeader(commStr)) ++
