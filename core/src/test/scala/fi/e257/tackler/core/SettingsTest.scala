@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -355,6 +355,41 @@ class SettingsTest extends AnyFunSpec {
         val s = Settings(cfg)
         assert(s.Reports.Register.tsStyle.toString === "never this")
       }
+    }
+  }
+
+  /**
+   * feature: e5434121-1112-4379-8729-3504912f56a8
+   */
+  describe("Equity account") {
+
+    /**
+     * test: bd1a57e6-1763-421d-b61a-a8a747b9f4ed
+     */
+    it("unknown eq-acc, strict = true") {
+      val cfg = ConfigFactory.parseString(s"""{ accounts { strict = true }, exports { equity { equity-account = "wizard-oz" } } }""")
+      val ex = intercept[ConfigurationException]{
+        Settings(cfg)
+      }
+      assert(ex.message.contains("Unknown account [wizard-oz] for Equity Account"))
+    }
+
+    /**
+     * test: b021a29c-d529-48a8-b75d-5455201d23ad
+     */
+    it("unknown eq-acc, strict = false") {
+      val cfg = ConfigFactory.parseString(s"""{ accounts { strict = false }, exports { equity { equity-account = "wizard-oz" } } }""")
+      val s = Settings(cfg)
+      assert(s.Exports.Equity.equityAccount === "wizard-oz")
+    }
+
+    /**
+     * test: a2f8ce52-702d-4549-9253-4158d77257e8
+     */
+    it("default account, strict = true") {
+      val cfg = ConfigFactory.parseString(s"""{ accounts { strict = true } } """)
+      val s = Settings(cfg)
+      assert(s.Exports.Equity.equityAccount === "Equity:Balance")
     }
   }
 }

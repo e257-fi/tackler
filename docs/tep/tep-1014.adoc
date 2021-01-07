@@ -53,7 +53,7 @@ No changes to command line interface
 
 Changes to conf-settings
 
-* [ ] new cfg key: `exports.equity.equity-account`
+* [x] new cfg key: `exports.equity.equity-account`
 
 
 === Filtering changes
@@ -64,8 +64,8 @@ No changes.
 
 Changes to machinery
 
-* [ ] Equity account support
-** [ ] EquityExportSettings
+* [x] Equity account support
+** [x] EquitySettings
 
 
 ==== API changes
@@ -77,7 +77,7 @@ Api changes to server or client interfaces.
 
 Changes to server API
 
-* [ ] new: EquityExportSettings
+* [x] new: EquitySettings
 
 
 ===== Client API changes
@@ -112,7 +112,7 @@ No changes to balance group report
 
 Changes to register report
 
-* [ ] when equity transaction is processed, the warning of zero equity transaction could be displayed on reqister report
+* [x] when equity transaction is processed, the warning of zero equity transaction could be displayed on reqister report
 
 
 === Exporting
@@ -123,7 +123,7 @@ Changes to exports or exporting
 
 Changes to equity export
 
-* [ ] Use cfg equity-account
+* [x] Use cfg equity-account
 * [x] Warning in case of zero-sum equity transaction
 * [x] Explicit value for equity posting
 * [x] Indent equity transaction same amount as txns in identity export (3 spaces)

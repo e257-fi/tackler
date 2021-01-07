@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,15 @@ import fi.e257.tackler.core._
 import fi.e257.tackler.math._
 import fi.e257.tackler.model.TxnData
 
-class EquityExporter(val settings: Settings) extends ExporterLike {
-  private val mySettings = settings.Exports.Equity
+class EquityExporter(val mySettings: EquitySettings) extends ExporterLike {
 
   @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
   def txnEquity(txnData: TxnData): Seq[String] = {
 
     val bf = if (mySettings.accounts.isEmpty) {
-      new BalanceFilterNonZero(settings.Auditing.hash)
+      new BalanceFilterNonZero(mySettings.hash)
     } else {
-      new BalanceFilterNonZeroByAccount(mySettings.accounts, settings.Auditing.hash)
+      new BalanceFilterNonZeroByAccount(mySettings.accounts, mySettings.hash)
     }
     val bal = Balance("", txnData, bf)
 
@@ -61,7 +60,7 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
           } else {
             " " + commStr
           })
-          List(eqTxnIndent + "Equity:Balance" + "  " + deltaStr)
+          List(eqTxnIndent + mySettings.equityAccount + "  " + deltaStr)
         }
 
         List(eqTxnHeader(commStr)) ++
