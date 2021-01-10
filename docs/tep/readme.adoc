@@ -29,6 +29,7 @@ None at the moment.
 === TEPs in planning phase
 
 * xref:./tep-1003.adoc[TEP-1003: Profit and Loss (PnL)]
+* xref:./tep-1014.adoc[TEP-1014: Equity Features and Enhancements]
 
 
 === TEP Template

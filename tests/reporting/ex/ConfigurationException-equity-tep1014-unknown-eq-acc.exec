@@ -1,0 +1,4 @@
+# format: exec
+# test: f932155c-5953-4b24-8c33-cf4d49c22fa3
+# desc: unknown equity account (not defined in CoA)
+exec:--cfg;tests/reporting/ex.equity-tep1014.conf;--input.file;eq-tep1014.txn;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,22 +21,22 @@ import fi.e257.tackler.core._
 import fi.e257.tackler.math._
 import fi.e257.tackler.model.TxnData
 
-class EquityExporter(val settings: Settings) extends ExporterLike {
-  private val mySettings = settings.Exports.Equity
+class EquityExporter(val mySettings: EquitySettings) extends ExporterLike {
 
   @SuppressWarnings(Array("org.wartremover.warts.TraversableOps"))
   def txnEquity(txnData: TxnData): Seq[String] = {
 
     val bf = if (mySettings.accounts.isEmpty) {
-      new BalanceFilterNonZero(settings.Auditing.hash)
+      new BalanceFilterNonZero(mySettings.hash)
     } else {
-      new BalanceFilterNonZeroByAccount(mySettings.accounts, settings.Auditing.hash)
+      new BalanceFilterNonZeroByAccount(mySettings.accounts, mySettings.hash)
     }
     val bal = Balance("", txnData, bf)
 
     if (bal.isEmpty) {
       Nil
     } else {
+      val eqTxnIndent = "   "
       val lastTxn = txnData.txns.last
       def eqTxnHeader(commStr: String) = {
         val c = if (commStr.isEmpty) {
@@ -51,16 +51,31 @@ class EquityExporter(val settings: Settings) extends ExporterLike {
         .groupBy(b => b.acctn.commStr)
         .toSeq.sortBy({ case (commStr, _) => commStr }) // Scala 2.12 vs. 2.13: fix order sorting by commodity
         .flatMap({ case (commStr, bs) =>
-        val eqBalRow = if (bs.map(b => b.accountSum).realSum.isZero) {
+        val delta = bs.map(b => b.accountSum).realSum
+        val eqBalRow = if (delta.isZero) {
           Nil
         } else {
-          List(" " + "Equity:Balance")
+          val deltaStr = (-delta).toString() + (if (commStr.isEmpty) {
+            ""
+          } else {
+            " " + commStr
+          })
+          List(eqTxnIndent + mySettings.equityAccount + "  " + deltaStr)
         }
 
         List(eqTxnHeader(commStr)) ++
-          bal.metadata.map(md => md.mkString(" ; ", "\n ; ", "")).toList ++
+          bal.metadata.map(md => md.mkString(eqTxnIndent + "; ", "\n" + eqTxnIndent +"; ", "")).toList ++
+            (if (eqBalRow.isEmpty) {
+              List(
+                eqTxnIndent + "; WARNING:",
+                eqTxnIndent + "; WARNING: " + "The sum of equity transaction is zero without equity account.",
+                eqTxnIndent + "; WARNING: " + "Therefore there is no equity posting row, and this is probably not right.",
+                eqTxnIndent + "; WARNING: " + "Is account selector correct for this Equity Export?",
+                eqTxnIndent + "; WARNING:",
+              )
+            } else { Nil }) ++
           bs.map(acc => {
-            " " + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
+            eqTxnIndent + acc.acctn.account + "  " + acc.accountSum.toString() + acc.acctn.commodity.map(c => " " + c.name).getOrElse("")
           }) ++ eqBalRow ++ List("")
 
       })

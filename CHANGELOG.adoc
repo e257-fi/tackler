@@ -12,6 +12,12 @@ Current published release is:
 
 New features and changes in this release:
 
+ * TEP-1014: xref:./docs/tep/tep-1014.adoc[Equity Export Enhancements]
+ ** Cfg key to set equity transaction's target account
+ ** Print out actual value for equity posting - don't use implicit (last posting's empty) value for it
+ ** Print out warning, if equity transaction zeros out without equity posting
+ ** Indent equity transaction same amount as identity export (3 spaces)
+ * Drop support for Scala 2.12
  * ...
  ** ...
 
@@ -26,11 +32,11 @@ Fixes in this release: None
 Updated deps and tools:
 
  * Dependencies
- ** ..
+ ** scala-parallel-collections: 1.0.0
  * Build
- ** ..
+ ** scala: drop support for 2.12
  * Tests
- ** ..
+ ** ...
 
 
 

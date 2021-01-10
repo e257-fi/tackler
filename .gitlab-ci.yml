@@ -26,31 +26,31 @@ variables:
 
 
 test·jdk11:
-  image: "hseeberger/scala-sbt:11.0.9.1_1.4.4_2.13.4"
+  image: "hseeberger/scala-sbt:11.0.9.1_1.4.6_2.13.4"
 
   stage: "test"
 
   script:
-    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
+    - sbt "clean" "test" "it:test" "cli/assembly"
 
 
 test·jdk8:
-  image: "hseeberger/scala-sbt:8u265_1.4.4_2.13.4"
+  image: "hseeberger/scala-sbt:8u265_1.4.6_2.13.4"
 
   stage: "test"
 
   script:
-    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
+    - sbt "clean" "test" "it:test" "cli/assembly"
 
 
 codecov:
-  image: "hseeberger/scala-sbt:8u265_1.4.4_2.13.4"
+  image: "hseeberger/scala-sbt:8u265_1.4.6_2.13.4"
 
   stage: "test"
 
   script:
-    - sbt "+clean" coverage "++2.13.4! test" "++2.13.4! it:test"
-    - sbt "++2.13.4! coverageAggregate"
+    - sbt "clean" coverage "test" "it:test"
+    - sbt "coverageAggregate"
 
   coverage: '/All done. Coverage was \[\d+.\d+%\]/'
 

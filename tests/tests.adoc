@@ -82,9 +82,19 @@ link:./tests-1011.yml[T3DB for TEP-1011]::
 * Transaction Tags
 
 
+link:./tests-1012.yml[T3DB for TEP-1012]::
+
+* Custom timestamps for reports
+
+
 link:./tests-1013.yml[T3DB for TEP-1013]::
 
 * Configuration key change of Accounts CoA
+
+
+link:./tests-1014.yml[T3DB for TEP-1014]::
+
+* Equity Features and Enhancements
 
 
 link:./tests-tmpl.yml[Template for T3DB entry]

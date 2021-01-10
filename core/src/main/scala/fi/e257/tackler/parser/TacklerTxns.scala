@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * git2Txns is based on example
  * by: Copyright 2013, 2014 Dominik Stadler
@@ -22,8 +22,6 @@
  *
  */
 package fi.e257.tackler.parser
-import java.nio.file.Path
-
 import better.files._
 import cats.syntax.all._
 import fi.e257.tackler.api.GitInputReference
@@ -36,8 +34,10 @@ import org.eclipse.jgit.treewalk.TreeWalk
 import org.eclipse.jgit.treewalk.filter.{AndTreeFilter, PathFilter, PathSuffixFilter}
 import org.slf4j.{Logger, LoggerFactory}
 
+import java.nio.file.Path
+import scala.collection.parallel.CollectionConverters._
 import scala.util.control.NonFatal
-import fi.e257.tackler.Scala12to13.Converters._
+
 
 /**
  * Helper methods for [[TacklerTxns]] and Txns Input handling.

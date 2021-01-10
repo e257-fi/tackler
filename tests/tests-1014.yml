@@ -1,0 +1,242 @@
+features:
+  - feature:
+      id: e5434121-1112-4379-8729-3504912f56a8
+      subject: "Equity Features and Enhancements"
+      tests:
+        operations:
+          - test:
+              id: 78982e06-4f11-4f52-8689-df400b8c3a93
+              name: reporting/equity/equity-tep1014-as-input.exec
+              descriptions:
+                - desc: "equity as input"
+                - desc: "plain"
+                - desc: "integer and decimal"
+                - desc: "with commodity"
+                - desc: "with warning (no equity posting)"
+  - feature:
+      id: a3e74b65-8a05-45ff-857a-43d843e145e1
+      parent: e5434121-1112-4379-8729-3504912f56a8
+      subject: "Configuration setting for equity target account"
+      tests:
+        errors:
+          - error:
+              id: bd1a57e6-1763-421d-b61a-a8a747b9f4ed
+              name: SettingsTest
+              descriptions:
+                - desc: "unknown eq-acc, strict = true"
+          - error:
+              id: f932155c-5953-4b24-8c33-cf4d49c22fa3
+              name: reporting/ex/ConfigurationException-equity-tep1014-unknown-eq-acc.exec
+              descriptions:
+                - desc: "unknown equity account (not defined in CoA)"
+        operations:
+          - test:
+              id: b021a29c-d529-48a8-b75d-5455201d23ad
+              name: SettingsTest
+              descriptions:
+                - desc: "unknown eq-acc, strict = false"
+          - test:
+              id: a2f8ce52-702d-4549-9253-4158d77257e8
+              name: SettingsTest
+              descriptions:
+                - desc: "default account, strict = true"
+          - test:
+              id: 70182e6d-cd63-4f36-85be-66778132aace
+              name: EquitySettingsTest
+              descriptions:
+                - desc: "defaults"
+          - test:
+              id: 19d938ba-908d-4157-9d63-b33652ce8ace
+              name: EquitySettingsTest
+              descriptions:
+                - desc: "cfg settings"
+          - test:
+              id: b236b5e8-7016-4d72-a413-3254eee3c8c3
+              name: EquitySettingsTest
+              descriptions:
+                - desc: "apply parameters"
+  - feature:
+      id: 347c6faf-e3c4-465d-8980-c44435c12039
+      parent: e5434121-1112-4379-8729-3504912f56a8
+      subject: "Explicit value for equity posting"
+      tests:
+        operations:
+          - test:
+              id: c0b34ebb-a5d2-4b09-96cb-2594b3635650
+              name: reporting/ok/equity-tep1014-01.exec
+              descriptions:
+                - desc: "test correct MathContext with equity sum line (scala bug 11592)"
+                - desc: "verify Equity account name set by configuration"
+          - test:
+              refid: 7d95bef8-6aaa-4706-a276-d206752d017b
+              name: ./reporting/ok/register-acc-01.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: 53f67fea-6307-44ca-9834-7a2f9b71a15a
+              name: ./reporting/ok/bal-acc-01.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: c6da0aef-125f-4d33-9780-ffaa9e724499
+              name: ./reporting/ok/rep-01.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: 3ec3e091-dc23-455b-963a-4ba66db7223f
+              name: ./reporting/ok/balgrp-acc-01.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: 29d24d2e-702f-4c27-b5de-82ac88ca68ca
+              name: ./reporting/ok/equity-acc-01.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: 09e9a673-4730-4a03-b73a-5959730450f6
+              name: ./commodity/ok/filter-03.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: 633da495-ef30-4484-8b14-fbd1fdcc9684
+              name: ./commodity/ok/filter-02.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: 76da1ba6-b17d-4260-bc2d-7d1dcca54d50
+              name: ./accumulator/ok/eq-uuid-01.exec
+              descriptions:
+                - desc: "warning about zero equity posting"
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: f46b00a3-b4dc-44e0-a8ae-b8039e2a33a7
+              name: ./accumulator/ok/eq-uuid-02.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+          - test:
+              refid: d37de2c1-61bf-4ffc-8f7a-933ce8380b2f
+              name: ./commodity/ok/valpos-02-01.exec
+              descriptions:
+                - desc: "Equity posting with amount and commodity"
+          - test:
+              refid: 2501f96c-46d8-4711-9e7e-dc70e4af329d
+              name: ./commodity/ok/valpos-02.exec
+              descriptions:
+                - desc: "Equity posting with amount and commodity"
+          - test:
+              refid: 09e9a673-4730-4a03-b73a-5959730450f6
+              name: ./commodity/ok/filter-03.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+                - desc: "Equity posting with amount and commodity"
+          - test:
+              refid: 633da495-ef30-4484-8b14-fbd1fdcc9684
+              name: ./commodity/ok/filter-02.exec
+              descriptions:
+                - desc: "Equity posting with amount (no commodity)"
+                - desc: "Equity posting with amount and commodity"
+          - test:
+              refid: d0dd6b75-238e-49cf-a048-a77baafba9bd
+              name: ./commodity/ok/valpos-03.exec
+              descriptions:
+                - desc: "Equity posting with amount and commodity"
+          - test:
+              refid: 1df0fb31-6604-4679-9ec4-7a1d65e49574
+              name: ./commodity/ok/filter-01.exec
+              descriptions:
+                - desc: "Equity posting with amount and commodity"
+          - test:
+              refid: 773106ca-d6e5-4514-b19b-3e4d34283152
+              name: ./commodity/ok/valpos-01-01.exec
+              descriptions:
+                - desc: "Equity posting with amount and commodity"
+  - feature:
+      id: bd2adc2c-0a34-4f12-a3fa-52142520ccbd
+      parent: e5434121-1112-4379-8729-3504912f56a8
+      subject: "Warning when equity transaction is zero without equity posting"
+      tests:
+        operations:
+          - test:
+              refid: 92780169-2419-4a88-8cf5-84994dbca782
+              name: ./reporting/ok/big-02.exec
+          - test:
+              refid: 0f862997-95b1-4e06-bc5f-bc170c7594ff
+              name: ./reporting/ok/big-01.exec
+          - test:
+              refid: aeffbcc2-bcc4-40f3-9b37-03dbca3bff88
+              name: ./commodity/ok/basic-05.exec
+          - test:
+              refid: c7d115a7-664c-479d-8bf4-c1a85a06d5ba
+              name: ./commodity/ok/basic-03-02.exec
+          - test:
+              refid: 779fdbd7-93f8-48da-9860-8ce7a5c66e6e
+              name: ./commodity/ok/unknown-01.exec
+          - test:
+              refid: c5493e99-d0f3-49b3-8450-3ae6ef970b10
+              name: ./commodity/ok/basic-04.exec
+          - test:
+              refid: 8a7a8c60-aab9-4700-b081-9804c1ec537f
+              name: ./commodity/ok/basic-03.exec
+          - test:
+              refid: 0dae7dfd-c816-4a77-afff-a372e1802026
+              name: ./commodity/ok/basic-06.exec
+          - test:
+              refid: 7616a6e8-8492-4fe7-9921-ae00f86af2cd
+              name: ./commodity/ok/basic-03-01.exec
+          - test:
+              refid: 04af8049-355d-4c6c-ac63-c153b0141c48
+              name: ./commodity/ok/basic-02.exec
+          - test:
+              refid: a5318e06-309e-4c52-996b-b07aefac4c46
+              name: ./commodity/ok/basic-01.exec
+          - test:
+              refid: 9e00e09f-8ac4-4fd7-b3c1-e383d711d48c
+              name: ./accumulator/ok/bal-gap-03.exec
+          - test:
+              refid: 9220c02f-1b2a-4f7b-9ae5-8dc16bf1f071
+              name: ./accumulator/ok/bal-gap-01.exec
+          - test:
+              refid: e094ee52-1742-4da1-bc54-15662c293a69
+              name: ./accumulator/ok/bal-01.exec
+          - test:
+              refid: cb7e3f4c-a709-4f0e-9f22-336755dfe6b2
+              name: ./accumulator/ok/bal-gap-02.exec
+          - test:
+              refid: 76da1ba6-b17d-4260-bc2d-7d1dcca54d50
+              name: ./accumulator/ok/eq-uuid-01.exec
+          - test:
+              refid: fb5c09d2-dfbf-41b7-9412-81bcf37f0c76
+              name: ./accumulator/ok/bal-02.exec
+          - test:
+              refid:  93651962-6b61-4fd6-941a-339abd87ec73
+              name: ./audit/ok/audit-1E1-01.exec
+          - test:
+              refid: 20ce2b43-e433-4edb-894a-48e955cdcd01
+              name: ./audit/ok/audit-1E2-07.exec
+          - test:
+              refid: f8c0fe2b-f189-4338-b75e-3c8e68a8c7e2
+              name: ./audit/ok/audit-1E1-02.exec
+          - test:
+              refid: 2250f5f5-7eb4-456b-a693-3ea63c219584
+              name: ./audit/ok/audit-1E2-02.exec
+          - test:
+              refid: b2ea4102-40a2-46e5-aca3-398cf4849058
+              name: ./audit/ok/audit-1E2-03.exec
+          - test:
+              refid: 4e8e1d79-bbb5-4e6f-9072-d7e3c5b8c7ea
+              name: ./audit/ok/audit-1E2-01.exec
+          - test:
+              refid: 41a9479b-1907-44bb-88bc-48c3cbe8c00f
+              name: ./audit/ok/audit-1E2-04.exec
+          - test:
+              refid: 1d2c22c1-e3fa-4cd4-a526-45318c15d13e
+              name: ./core/ok/git-shard-01.exec
+          - test:
+              refid: 7752eee6-d3cf-4084-93c0-cb43a093fdd0
+              name: ./core/ok/git-commit-04.exec
+          - test:
+              refid: 80d3c14d-64ee-46d3-b9fd-37f82384a562
+              name: ./core/ok/git-tag-01.exec
+          - test:
+              refid: a6031106-1bf7-47cf-8837-0c77566db79d
+              name: ./core/ok/git-and-filter-01.exec
