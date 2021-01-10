@@ -345,6 +345,19 @@ class DirsuiteReportingTest extends DirSuiteLike {
 }
 
 /**
+ * Reporting: Equity
+ */
+class DirsuiteReportingEquityTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
+  runDirSuiteTestCases(basedir, Glob("reporting/equity/*.exec")) { args: Array[String] =>
+    assertResult(TacklerCli.SUCCESS) {
+      TacklerCli.runReturnValue(args)
+    }
+  }
+}
+
+/**
  * Compatibility tests
  */
 class DirsuiteCompatibilityTest extends DirSuiteLike {

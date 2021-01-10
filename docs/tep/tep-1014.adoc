@@ -137,7 +137,7 @@ No changes to identity export
 === Documentation
 
 * [ ] xref:./readme.adoc[]: Update TEP index
-* [ ] link:../../CHANGELOG[]: add new item
+* [x] link:../../CHANGELOG[]: add new item
 * [x] Does it warrant own T3DB file?
 ** [x] update xref:../../tests/tests.adoc[]
 ** [x] update xref:../../tests/check-tests.sh[]
@@ -165,30 +165,30 @@ Anything which wasn't implemented?
 
 Normal, ok-case tests to validate functionality:
 
-* [ ] Zero sum equity transaction
-* [ ] Equity transaction with value, no commodity
-* [ ] Equity transaction with value and commodity
-* [ ] Equity transaction with Big and small values
+* [x] Zero sum equity transaction
+* [x] Equity transaction with value, no commodity
+* [x] Equity transaction with value and commodity
+* [x] Equity transaction with Big and small values
 
-* [ ] Check validity of Equity target account
-** [ ] Invalid Equity account, non-strict
-*** [ ] Equity export is selected
-*** [ ] Equity export is not selected
-** [ ] Equity account is not set in cfg, strict mode activated and the account is not in CoA
+* [x] Check validity of Equity target account
+** [x] Invalid Equity account, non-strict
+*** [x] Equity export is selected
+*** [x] Equity export is not selected
+** [x] Equity account is not set in cfg, strict mode activated and the account is not in CoA
 
-* [ ] equity export as input
-** [ ] plain equity transaction
-** [ ] eq txn with warning
-** [ ] eq txn with commodity
+* [x] equity export as input
+** [x] plain equity transaction
+** [x] eq txn with warning
+** [x] eq txn with commodity
 
 
 ==== Errors
 
 Various error cases:
 
-* [ ] err: Invalid Equity account, strict
-** [ ] err: Equity export is selected
-** [ ] err: Equity export is not selected
+* [x] err: Invalid Equity account, strict
+** [x] err: Equity export is selected
+** [x] err: Equity export is not selected
 
 
 ==== Perf
@@ -203,41 +203,26 @@ Feature-id::
 * name: Equity Enhancements
 * uuid: e5434121-1112-4379-8729-3504912f56a8
 
+Feature-id::
+
+* name: Configuration setting for equity target account
+* parent: e5434121-1112-4379-8729-3504912f56a8
+* uuid: a3e74b65-8a05-45ff-857a-43d843e145e1
+
+Feature-id::
+
+* name: Explicit value for equity posting
+* parent: e5434121-1112-4379-8729-3504912f56a8
+* uuid: 347c6faf-e3c4-465d-8980-c44435c12039
+
+Feature-id::
+
+* name: Warning when equity transaction is zero without equity posting
+* parent: e5434121-1112-4379-8729-3504912f56a8
+* uuid: bd2adc2c-0a34-4f12-a3fa-52142520ccbd
+
 
 link:../../tests/tests-1014.yml[TEP-1014 T3DB]
-
-
-==== Metadata template for test coverage tracking
-
-....
-features:
-  - feature:
-      id: uuid
-      subject: "todo: one-line description of main feature"
-
-  - feature:
-      id: uuid
-      parent: uuid-of-parent
-      subject: "todo: one-line description of sub feature"
-      tests:
-        errors:
-          - error:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              desc: "todo: description"
-        operations:
-          - test:
-              id: uuid
-              name: "todo: name of test class/method or test description file"
-              descriptions:
-                - desc: "todo: description"
-              references:
-                - ref: balance
-                - ref: balance-group
-                - ref: register
-                - ref: identity
-                - ref: equity
-....
 
 
 '''

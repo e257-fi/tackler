@@ -1,4 +1,5 @@
 # format: exec
 # test: 41a9479b-1907-44bb-88bc-48c3cbe8c00f
 # desc: metadata: subset by filter, regex account selector
+# desc: warning about zero equity posting
 exec:--cfg;tests/audit/audit.conf;--reporting.console;off;--input.git.ref;txns-1E2;--output;out.audit-1E2-04;--reporting.accounts;.*;--api-filter-def;{ "txnFilter": { "TxnFilterTxnDescription": { "regex": "1E2 txn-(1|17|100)" }}};
