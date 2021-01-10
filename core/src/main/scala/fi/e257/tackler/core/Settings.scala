@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
  */
 package fi.e257.tackler.core
 
-import java.nio.file.Path
-import java.time.{LocalTime, ZoneId}
-
 import better.files._
+import cats.syntax.all._
 import com.typesafe.config.{Config, ConfigFactory}
+import fi.e257.tackler.model.AccountTreeNode
 import org.slf4j.{Logger, LoggerFactory}
 
-import fi.e257.tackler.model.AccountTreeNode
-
+import java.nio.file.Path
+import java.time.{LocalTime, ZoneId}
 import scala.jdk.CollectionConverters._
 
 /**
@@ -127,9 +126,11 @@ object CfgKeys {
     protected val keybase: String = "exports"
 
     object Equity {
+      // Export: => no title, no scale
       protected val keybase: String = Exports.keybase + "." + "equity"
 
-      // Export: => no title
+      val equityAccount: String = keybase + "." + "equity-account"
+
       val accounts: String = keybase + "." + "accounts"
     }
   }
@@ -163,10 +164,27 @@ object CfgValues {
 object Settings {
   private val log: Logger = LoggerFactory.getLogger(this.getClass)
 
+  private def fnlz(s: Settings): Settings = {
+    // Force initialization of all inner objects of Setting
+    // This will trigger configuration errors immediately and not at the time of usage
+    s.Auditing
+    s.Accounts
+    s.Tags
+    s.Reporting
+    s.Reports
+    s.Reports.Balance
+    s.Reports.BalanceGroup
+    s.Reports.Register
+    s.Exports
+    s.Exports.Equity
+    s
+  }
+
   @SuppressWarnings(Array("org.wartremover.warts.Overloading"))
   def apply(cfgPath: Path, initialConfig: Config): Settings = {
 
-    File(cfgPath).verifiedExists(File.LinkOptions.follow) match {
+    val optPath = File(cfgPath).verifiedExists(File.LinkOptions.follow)
+    val s = optPath match {
       case Some(true) => {
         try {
           new Settings(Some(cfgPath), initialConfig)
@@ -184,16 +202,17 @@ object Settings {
         new Settings(None, initialConfig)
       }
     }
+    fnlz(s)
   }
 
   @SuppressWarnings(Array("org.wartremover.warts.Overloading"))
   def apply(config: Config): Settings = {
-    new Settings(None, config)
+    fnlz(new Settings(None, config))
   }
 
   @SuppressWarnings(Array("org.wartremover.warts.Overloading"))
   def apply(): Settings = {
-    new Settings(None, ConfigFactory.empty())
+    fnlz(new Settings(None, ConfigFactory.empty()))
   }
 }
 
@@ -340,6 +359,8 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
     object Equity {
       protected val keys = CfgKeys.Exports.Equity
 
+      val equityAccount:String = getEquityAccount(keys.equityAccount)
+
       val accounts: List[String] = getReportAccounts(keys.accounts)
     }
   }
@@ -417,6 +438,22 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
     }
   }
 
+  def getEquityAccount(key: String): String = {
+    if (cfg.hasPath(key)) {
+      val eqAccount = cfg.getString(key)
+      if (Accounts.strict) {
+        if (!Accounts.coa.exists({ case (key, _) => key === eqAccount })) {
+          val msg = s"CFG: Unknown account [${eqAccount}] for Equity Account, and strict mode is activated"
+          log.error(msg)
+          throw new ConfigurationException(msg)
+        }
+      }
+      eqAccount
+    } else {
+      "Equity:Balance"
+    }
+  }
+
   def getTimezoneEx(key: String): ZoneId = {
     try {
       ZoneId.of(cfg.getString(key))
@@ -427,6 +464,7 @@ class Settings(optPath: Option[Path], providedConfig: Config) {
         throw new ConfigurationException(msg)
     }
   }
+
   /**
    * Get optional timezone
    *

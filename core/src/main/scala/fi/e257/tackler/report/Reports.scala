@@ -150,7 +150,7 @@ final case class Reports(settings: Settings) {
 
     settings.Reporting.exports.foreach {
       case EquityExportType() =>
-        val eqReport = new EquityExporter(settings)
+        val eqReport = new EquityExporter(EquitySettings(settings))
         writeExport("equity", outputBase, txnData, eqReport)
 
       case IdentityExportType() =>

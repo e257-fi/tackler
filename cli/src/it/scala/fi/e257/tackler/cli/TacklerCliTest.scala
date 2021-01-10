@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 E257.FI
+ * Copyright 2016-2021 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -307,6 +307,12 @@ class DirsuiteAccumulatorTest extends DirSuiteLike {
 class DirsuiteReportingTest extends DirSuiteLike {
   val basedir = Paths.get("tests")
 
+  runDirSuiteTestCases(basedir, Glob("reporting/ex/ConfigurationException-*.exec")) { args: Array[String] =>
+    assertThrows[ConfigurationException]{
+      TacklerCli.runExceptions(args)
+    }
+  }
+
   runDirSuiteTestCases(basedir, Glob("reporting/ex/ReportException-*.exec")) { args: Array[String] =>
     assertThrows[ReportException]{
       TacklerCli.runExceptions(args)
@@ -332,6 +338,19 @@ class DirsuiteReportingTest extends DirSuiteLike {
   }
 
   runDirSuiteTestCases(basedir, Glob("reporting/time-and-zones/*.exec")) { args: Array[String] =>
+    assertResult(TacklerCli.SUCCESS) {
+      TacklerCli.runReturnValue(args)
+    }
+  }
+}
+
+/**
+ * Reporting: Equity
+ */
+class DirsuiteReportingEquityTest extends DirSuiteLike {
+  val basedir = Paths.get("tests")
+
+  runDirSuiteTestCases(basedir, Glob("reporting/equity/*.exec")) { args: Array[String] =>
     assertResult(TacklerCli.SUCCESS) {
       TacklerCli.runReturnValue(args)
     }

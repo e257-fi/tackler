@@ -1,4 +1,5 @@
 # format: exec
 # test: 20ce2b43-e433-4edb-894a-48e955cdcd01
 # desc: SHA-384: metadata: subset by filter, regex account selector
+# desc: warning about zero equity posting
 exec:--cfg;tests/audit/audit-sha384.conf;--reporting.console;off;--input.git.ref;txns-1E2;--output;out.audit-1E2-07;--reporting.accounts;.*;--api-filter-def;{ "txnFilter": { "TxnFilterTxnDescription": { "regex": "1E2 txn-(1|17|100)" }}};

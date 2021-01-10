@@ -1,0 +1,5 @@
+# format: exec
+# test: c0b34ebb-a5d2-4b09-96cb-2594b3635650
+# desc: test correct MathContext with equity sum line (scala bug 11592)
+# desc: verify Equity account name set by configuration
+exec:--cfg;tests/reporting/ok.equity-tep1014.conf;--input.file;../big-and-small.txn;--output;out.equity-tep1014-01;
