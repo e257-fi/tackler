@@ -57,6 +57,7 @@ asciidoctor:
   base_dir: /
   safe: unsafe
   attributes:
+    - jarlink=link:https://tackler.e257.fi/dist/tackler-cli-0.35.0.jar
     - gitlink=link:https://gitlab.com/e257/accounting/tackler/blob/main
     - repolink=link:/repo
     - relfileprefix=../
