@@ -2,8 +2,8 @@
 
 Current published release is:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.34.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.34.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.35.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "0.35.0"
 
 
 == Release history
@@ -17,8 +17,6 @@ New features and changes in this release:
  ** Print out actual value for equity posting - don't use implicit (last posting's empty) value for it
  ** Print out warning, if equity transaction zeros out without equity posting
  ** Indent equity transaction same amount as identity export (3 spaces)
- * ...
- ** ...
 
 
 ==== Fixes

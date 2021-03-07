@@ -23,7 +23,7 @@ lazy val scala_12 = "2.12.13"
 lazy val scala_13 = "2.13.5"
 
 ThisBuild / organization := "fi.e257"
-ThisBuild / version := "0.35.0-SNAPSHOT"
+ThisBuild / version := "0.35.0"
 ThisBuild / scalaVersion := scala_13
 ThisBuild / publishTo := sonatypePublishToBundle.value
 
