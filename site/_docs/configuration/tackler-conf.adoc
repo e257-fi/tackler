@@ -352,6 +352,9 @@ tackler {
 
       # Equity export
       equity {
+        # Account name for Equity transaction's target account
+        //equity-account = "Equity:Balance"
+
         # List of accounts to include into equity export
         #
         # If not set, then reporting.accounts is used as default

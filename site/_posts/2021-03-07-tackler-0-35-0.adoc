@@ -1,0 +1,35 @@
+= Tackler 0.35.0 released
+:page-date: 2021-03-07 22:00:00 +0200
+:page-author: 35vlg84
+:page-version: 0.35.0
+:page-category: release
+
+
+
+== New features and changes in this release:
+
+New features and changes in this release:
+
+* TEP-1014: {gitlink}/docs/tep/tep-1014.adoc[Equity Export Enhancements]
+** Cfg key to set equity transaction's target account
+** Print out actual value for equity posting - don't use implicit (last posting's empty) value for it
+** Print out warning, if equity transaction zeros out without equity posting
+** Indent equity transaction same amount as identity export (3 spaces)
+
+
+=== Fixes
+
+None
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Checksum
+
+.SHA-256 of Tackler-cli.jar
+----
+91cf23dee0c59c9f42db7fb39a84fdfe6cbd4d07204b4eb62b5ea4bb3de56f83  tackler-cli-0.35.0.jar
+----
