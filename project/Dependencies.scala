@@ -28,6 +28,7 @@ object Dependencies {
   val scalaParCollectionVersion = "1.0.0"
   val scalatestVersion = "3.2.3"
   val scallopVersion = "4.0.1"
+  val scalaCollCompatVersion = "2.4.2"
   val configVersion = "1.4.1"
   val dirsuiteVersion = "0.31.0"
   val jgitVersion = "5.10.0.202012080955-r"
@@ -52,6 +53,7 @@ object Dependencies {
   ).map(_ % circeOpticsVersion % "it,test")
 
   val scalaParCollection = "org.scala-lang.modules" %% "scala-parallel-collections" % scalaParCollectionVersion
+  val scalaCollCompat = "org.scala-lang.modules" %% "scala-collection-compat" % scalaCollCompatVersion
 
   val scalatest = "org.scalatest" %% "scalatest" % scalatestVersion
   val scallop = "org.rogach" %% "scallop" % scallopVersion

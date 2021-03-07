@@ -16,13 +16,12 @@
  */
 package fi.e257.tackler.report
 
+import fi.e257.tackler.Scala12to13.Converters._
 import fi.e257.tackler.api.{BalanceGroupReport, Metadata, TimeZoneInfo, TxnTS}
 import fi.e257.tackler.core._
 import fi.e257.tackler.model.{Transaction, TxnData}
 import io.circe.Json
 import io.circe.syntax._
-
-import scala.collection.parallel.CollectionConverters._
 
 
 class BalanceGroupReporter(val mySettings: BalanceGroupSettings) extends BalanceReporterLike(mySettings) {

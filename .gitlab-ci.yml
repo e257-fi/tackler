@@ -31,7 +31,7 @@ test·jdk11:
   stage: "test"
 
   script:
-    - sbt "clean" "test" "it:test" "cli/assembly"
+    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
 
 
 test·jdk8:
@@ -40,7 +40,7 @@ test·jdk8:
   stage: "test"
 
   script:
-    - sbt "clean" "test" "it:test" "cli/assembly"
+    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
 
 
 codecov:
@@ -49,8 +49,8 @@ codecov:
   stage: "test"
 
   script:
-    - sbt "clean" coverage "test" "it:test"
-    - sbt "coverageAggregate"
+    - sbt "+clean" coverage "++2.13.4! test" "++2.13.4! it:test"
+    - sbt "++2.13.4! coverageAggregate"
 
   coverage: '/All done. Coverage was \[\d+.\d+%\]/'
 

@@ -16,11 +16,11 @@
  */
 package fi.e257.tackler.core
 
+import fi.e257.tackler.Scala12to13.Converters._
 import fi.e257.tackler.math.{TacklerReal, ZERO}
 import fi.e257.tackler.model._
 
 import scala.collection.mutable
-import scala.collection.parallel.CollectionConverters._
 
 object Accumulator {
 

@@ -24,6 +24,7 @@
 package fi.e257.tackler.parser
 import better.files._
 import cats.syntax.all._
+import fi.e257.tackler.Scala12to13.Converters._
 import fi.e257.tackler.api.GitInputReference
 import fi.e257.tackler.core.{Settings, TacklerException}
 import fi.e257.tackler.model.{OrderByTxn, TxnData, Txns}
@@ -35,9 +36,7 @@ import org.eclipse.jgit.treewalk.filter.{AndTreeFilter, PathFilter, PathSuffixFi
 import org.slf4j.{Logger, LoggerFactory}
 
 import java.nio.file.Path
-import scala.collection.parallel.CollectionConverters._
 import scala.util.control.NonFatal
-
 
 /**
  * Helper methods for [[TacklerTxns]] and Txns Input handling.
