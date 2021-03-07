@@ -32,10 +32,13 @@ Updated deps and tools:
 
  * Dependencies
  ** scala-parallel-collections: 1.0.0
+ ** scallop: 4.0.2
  * Build
- ** ...
+ ** sbt: 1.4.7
+ ** scala: 2.12.13
+ ** scala-js: 1.5.0
  * Tests
- ** ...
+ ** ScalaTest: 3.2.3
 
 
 
