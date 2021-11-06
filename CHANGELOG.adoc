@@ -26,11 +26,27 @@ Fixes in this release: None
 Updated deps and tools:
 
  * Dependencies
- ** ...
+ ** cats: 2.6.1
+ ** circe: 0.14.1
+ ** circe-optics: 0.14.1
+ ** jgit: 5.13.0.202109080827-r
+ ** logback: 1.2.6
+ ** slf4j: 1.7.32
  * Build
- ** ...
+ ** sbt: 1.5.5
+ ** sbt-assembly: 1.1.0
+ ** sbt-git: 1.0.2
+ ** sbt-scalajs: 1.7.1
+ ** sbt-crossproject: 1.1.0
+ ** sbt-scalajs-crossproject: 1.1.0
+ ** scala-2.12: 2.12.5
+ ** scala-2.13: 2.13.7
+ ** scala-collection-compat: 2.5.0
  * Tests
- ** ...
+ ** sbt-scoverage: 1.9.2
+ ** sbt-wartremover: 2.4.16
+ ** sbt-sonatype: 3.9.10
+ ** ScalaTest: 3.2.10
 
 
 

@@ -19,8 +19,8 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val scala_12 = "2.12.13"
-lazy val scala_13 = "2.13.5"
+lazy val scala_12 = "2.12.15"
+lazy val scala_13 = "2.13.7"
 
 ThisBuild / organization := "fi.e257"
 ThisBuild / version := "0.36.0-SNAPSHOT"
@@ -151,11 +151,11 @@ lazy val core = (project in file("core")).
   settings(
     name := "tackler-core",
     fork := true,
-    antlr4Version in Antlr4 := "4.7.2",
-    antlr4GenListener in Antlr4 := false,
-    antlr4GenVisitor in Antlr4 := false,
-    antlr4TreatWarningsAsErrors in Antlr4 := true,
-    antlr4PackageName in Antlr4 := Some("fi.e257.tackler.parser")
+    Antlr4 / antlr4Version := "4.7.2",
+    Antlr4 / antlr4GenListener := false,
+    Antlr4 / antlr4GenVisitor := false,
+    Antlr4 / antlr4TreatWarningsAsErrors := true,
+    Antlr4 / antlr4PackageName := Some("fi.e257.tackler.parser")
   ).
   settings(
     libraryDependencies += betterFiles,
