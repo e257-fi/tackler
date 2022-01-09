@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 E257.FI
+ * Copyright 2016-2022 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ object Dependencies {
   val scalaParCollectionVersion = "1.0.0"
   val scalatestVersion = "3.2.10"
   val scallopVersion = "4.1.0"
-  val scalaCollCompatVersion = "2.5.0"
   val configVersion = "1.4.1"
   val dirsuiteVersion = "0.31.0"
   val jgitVersion = "6.0.0.202111291000-r"
@@ -53,7 +52,6 @@ object Dependencies {
   ).map(_ % circeOpticsVersion % "it,test")
 
   val scalaParCollection = "org.scala-lang.modules" %% "scala-parallel-collections" % scalaParCollectionVersion
-  val scalaCollCompat = "org.scala-lang.modules" %% "scala-collection-compat" % scalaCollCompatVersion
 
   val scalatest = "org.scalatest" %% "scalatest" % scalatestVersion
   val scallop = "org.rogach" %% "scallop" % scallopVersion
