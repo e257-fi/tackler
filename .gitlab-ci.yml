@@ -52,5 +52,8 @@ codecov:
     - sbt "+clean" coverage "++2.13.7! test" "++2.13.7! it:test"
     - sbt "++2.13.7! coverageAggregate"
 
-  coverage: '/All done. Coverage was \[\d+.\d+%\]/'
+  coverage: '/All done. Coverage was stmt=\[\d+.\d+%\]/'
+  artifacts:
+    reports:
+      cobertura: target/scala-2.13/coverage-report/cobertura.xml
 
