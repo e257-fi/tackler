@@ -3,7 +3,7 @@ addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.10.0")
 addSbtPlugin("com.simplytyped" % "sbt-antlr4" % "0.8.3")
 
 // ScalaJS
-addSbtPlugin("org.scala-js"       % "sbt-scalajs"              % "1.7.1")
+addSbtPlugin("org.scala-js"       % "sbt-scalajs"              % "1.8.0")
 addSbtPlugin("org.portable-scala" % "sbt-crossproject"         % "1.1.0")
 addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.1.0")
 

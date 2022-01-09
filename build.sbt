@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 E257.FI
+ * Copyright 2016-2022 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val scala_12 = "2.12.15"
 lazy val scala_13 = "2.13.7"
 
 ThisBuild / organization := "fi.e257"
@@ -27,7 +26,7 @@ ThisBuild / version := "0.36.0-SNAPSHOT"
 ThisBuild / scalaVersion := scala_13
 ThisBuild / publishTo := sonatypePublishToBundle.value
 
-lazy val supportedScalaVersions = List(scala_12, scala_13)
+lazy val supportedScalaVersions = List(scala_13)
 
 lazy val noPublishSettings = Seq(
   publish := {},
@@ -71,29 +70,9 @@ lazy val commonSettings = Seq(
     "-Ywarn-unused:params", // Warn if a value parameter is unused.
     "-Ywarn-unused:patvars", // Warn if a variable bound in a pattern is unused.
     "-Ywarn-unused:privates", // Warn if a private member is unused.
-    "-Ywarn-value-discard" // Warn when non-Unit expression results are unused.
+    "-Ywarn-value-discard", // Warn when non-Unit expression results are unused.
+    "-Ywarn-unused:imports",
   ),
-  scalacOptions ++= {
-    CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 12)) =>
-        Seq(
-          //"-Xfatal-warnings",
-          // These won't work with 2.13
-          "-Ywarn-inaccessible",
-          "-Ywarn-infer-any",
-          "-Ywarn-nullary-override",
-          "-Ywarn-nullary-unit",
-          "-Yno-adapted-args",
-          "-Ypartial-unification",
-        )
-      case Some((2, 13)) =>
-        Seq(
-          // WIP: Disable fatal-warnings for Scala 2.13 "-Xfatal-warnings",
-          "-Ywarn-unused:imports",
-	)
-      case _ => Nil
-    }
-  },
   Compile / console / scalacOptions --= Seq(
     "-Ywarn-unused:imports",
     "-Xfatal-warnings"
@@ -151,7 +130,7 @@ lazy val core = (project in file("core")).
   settings(
     name := "tackler-core",
     fork := true,
-    Antlr4 / antlr4Version := "4.7.2",
+    Antlr4 / antlr4Version := "4.9.3",
     Antlr4 / antlr4GenListener := false,
     Antlr4 / antlr4GenVisitor := false,
     Antlr4 / antlr4TreatWarningsAsErrors := true,
@@ -166,14 +145,7 @@ lazy val core = (project in file("core")).
     libraryDependencies += typesafeConfig,
     libraryDependencies += jgit,
     libraryDependencies += slf4j,
-    libraryDependencies += scalaCollCompat,
-    libraryDependencies ++= {
-      CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((2, 13)) =>
-          Seq(scalaParCollection)
-        case _ => Nil
-      }
-    },
+    libraryDependencies += scalaParCollection,
     libraryDependencies += scalatest % "it,test",
   )
 
@@ -231,7 +203,6 @@ lazy val cli = (project in file("cli")).
     libraryDependencies += slf4j,
     libraryDependencies += scallop,
     libraryDependencies += typesafeConfig,
-    libraryDependencies += scalaCollCompat,
     libraryDependencies += scalatest % "it,test",
     libraryDependencies += dirsuite % "it,test"
   )
