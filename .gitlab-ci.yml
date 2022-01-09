@@ -26,16 +26,7 @@ variables:
 
 
 test·jdk11:
-  image: "hseeberger/scala-sbt:11.0.13_1.5.5_2.13.7"
-
-  stage: "test"
-
-  script:
-    - sbt "+clean" "+test" "+it:test" "+cli/assembly"
-
-
-test·jdk8:
-  image: "hseeberger/scala-sbt:8u312_1.5.5_2.13.7"
+  image: "hseeberger/scala-sbt:11.0.13_1.6.1_2.13.7"
 
   stage: "test"
 
@@ -44,7 +35,7 @@ test·jdk8:
 
 
 codecov:
-  image: "hseeberger/scala-sbt:8u312_1.5.5_2.13.7"
+  image: "hseeberger/scala-sbt:11.0.13_1.6.1_2.13.7"
 
   stage: "test"
 

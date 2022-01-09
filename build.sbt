@@ -151,7 +151,7 @@ lazy val core = (project in file("core")).
   settings(
     name := "tackler-core",
     fork := true,
-    Antlr4 / antlr4Version := "4.7.2",
+    Antlr4 / antlr4Version := "4.9.3",
     Antlr4 / antlr4GenListener := false,
     Antlr4 / antlr4GenVisitor := false,
     Antlr4 / antlr4TreatWarningsAsErrors := true,
