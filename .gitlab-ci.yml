@@ -46,5 +46,7 @@ codecov:
   coverage: '/All done. Coverage was stmt=\[\d+.\d+%\]/'
   artifacts:
     reports:
-      cobertura: target/scala-2.13/coverage-report/cobertura.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: target/scala-2.13/coverage-report/cobertura.xml
 
