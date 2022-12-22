@@ -19,7 +19,7 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val scala_13 = "2.13.7"
+lazy val scala_13 = "2.13.10"
 
 ThisBuild / organization := "fi.e257"
 ThisBuild / version := "0.36.0-SNAPSHOT"
@@ -130,7 +130,7 @@ lazy val core = (project in file("core")).
   settings(
     name := "tackler-core",
     fork := true,
-    Antlr4 / antlr4Version := "4.9.3",
+    Antlr4 / antlr4Version := "4.11.1",
     Antlr4 / antlr4GenListener := false,
     Antlr4 / antlr4GenVisitor := false,
     Antlr4 / antlr4TreatWarningsAsErrors := true,
@@ -173,17 +173,10 @@ lazy val cli = (project in file("cli")).
     assembly / test := {},
     assembly / assemblyJarName := "tackler-cli" + "-" + version.value + ".jar",
     assembly / assemblyMergeStrategy := {
-      // Scala-collection-compat vs. scala 2.12.13: both have support for nowarn,
-      // see: https://github.com/scala/scala-collection-compat/issues/426
-      case PathList("scala", "annotation", "nowarn.class" | "nowarn$.class") =>
-          MergeStrategy.first
       // Fix (e.g. discard) module-info.class with JDK 8 vs. JDK 11,
       // it's not needed, this is an app, not lib
-      // Bouncycastle files are living nowdays under META-INF/versions/9, hence endsWith
-      case x if x.endsWith("/module-info.class") => MergeStrategy.discard
-      case x =>
-        val oldStrategy = (assembly / assemblyMergeStrategy).value
-        oldStrategy(x)
+      case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+      case x => MergeStrategy.first
     },
     gitCommitId := git.gitHeadCommit.value.getOrElse("Not available"),
     gitLocalChanges := git.gitUncommittedChanges.value,
