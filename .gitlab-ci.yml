@@ -4,7 +4,7 @@
 ### https://gitlab.com/e257/accounting/tackler
 ###
 
-# hseeberger images have ready-to-go sbt and scala at user's home, 
+# sbtscala/scala-sbt images have ready-to-go sbt and scala at user's home,
 # but that location and especially ~/.ivy2 is not cache-able by GitLab:
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/327
 before_script:
@@ -26,7 +26,7 @@ variables:
 
 
 test·jdk11:
-  image: "hseeberger/scala-sbt:11.0.13_1.6.1_2.13.7"
+  image: "sbtscala/scala-sbt:eclipse-temurin-11.0.17_8_1.8.0_2.13.10"
 
   stage: "test"
 
@@ -35,7 +35,7 @@ test·jdk11:
 
 
 codecov:
-  image: "hseeberger/scala-sbt:11.0.13_1.6.1_2.13.7"
+  image: "sbtscala/scala-sbt:eclipse-temurin-11.0.17_8_1.8.0_2.13.10"
 
   stage: "test"
 
