@@ -1,0 +1,6 @@
+= Tackler goes to Matrix
+:page-category: site
+:page-date: 2022-12-23 14:00:00 +0200
+:page-author: 35vlg84
+
+The main chat room for Tackler is now hosted on link:https://matrix.to/#/#tackler:matrix.org[#tackler:matrix.org].

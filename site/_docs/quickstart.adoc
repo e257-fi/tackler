@@ -23,7 +23,7 @@ for how to configure tackler and use it with full-fledged production setup.
 
 === 0. Get tackler-cli.jar
 
-Download tackler-cli.jar from https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
+Download tackler-cli.jar from {jarlink}[here] or
 https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it yourself].
 
 

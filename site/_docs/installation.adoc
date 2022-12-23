@@ -10,7 +10,7 @@ To use tackler cli you will need
   * Tackler command line binary (`tackler-cli.jar`-file)
 
 Download the latest version of tackler-cli.jar from
-https://bintray.com/e257/tackler/tackler-cli/_latestVersion#files[here] or
+{jarlink}[here] or
 https://gitlab.com/e257/accounting/tackler/blob/main/docs/devel/build.adoc[build it yourself].
 
 
