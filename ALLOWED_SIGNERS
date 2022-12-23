@@ -4,5 +4,9 @@
 #
 # This is "allowed signers" file, see 'man ssh-keygen' or <https://man.openbsd.org/ssh-keygen> for details.
 #
+# Git configuration:
+#
+#    git config gpg.ssh.allowedSignersFile ALLOWED_SIGNERS
+#
 35vlg84-x4e6b92@e257.fi namespaces="git",valid-after="20221222",valid-before="20240131" sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIGp5oLOwUMtkX2fFjDTu1xSglWErql1pqwJntiOT2C0AAAAABHNzaDo=
 
