@@ -2,8 +2,8 @@
 
 Currently published releases are:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.35.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "0.35.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "1.0.0"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "1.0.0"
 
 
 == Release history
@@ -14,17 +14,17 @@ Currently published releases are:
 |===
 |Component | Version
 
-|Tackler CLI  | 22.12.0-SNAPSHOT
-|tackler-core | 1.0.0-SNAPSHOT
-|tackler-api  | 1.0.0-SNAPSHOT
+|Tackler CLI  | 22.12.0
+|tackler-core | 1.0.0
+|tackler-api  | 1.0.0
 |===
 
 New features and changes in this release:
 
  * New versioning scheme (YY.MM.PATCH) for Tackler CLI, where YY and MM are release year and month
  * 1.0.0 release for Tackler core and api
- * Upgrade JGit to 6.x
  * Tackler requires at least Java 11 to run
+ * Upgrade JGit to 6.4.0
  * Deprecations
  ** Drop support for Scala 2.12
  ** Drop support for Java 8

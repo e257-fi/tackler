@@ -19,9 +19,9 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val tackler_cli_version  = "22.12.0-SNAPSHOT"
-lazy val tackler_api_version  = "1.0.0-SNAPSHOT"
-lazy val tackler_core_version = "1.0.0-SNAPSHOT"
+lazy val tackler_cli_version  = "22.12.0"
+lazy val tackler_api_version  = "1.0.0"
+lazy val tackler_core_version = "1.0.0"
 
 
 lazy val scala_13 = "2.13.10"
