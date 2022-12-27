@@ -1,0 +1,37 @@
+= Tackler 22.12.0 released
+:page-date: 2022-12-27 22:00:00 +0200
+:page-author: 35vlg84
+:page-version: 22.12.0
+:page-category: release
+
+
+
+== New features and changes in this release:
+
+There is new versioning scheme (YY.MM.PATCH) for Tackler CLI, where YY and MM are release year and month. Also `tackler-core` and `tackler-api` has been released as versions 1.0.0.
+
+Other changes in this release:
+
+* Tackler requires at least Java 11 to run
+* Upgrade JGit to 6.4.0
+* Deprecations
+** Drop support for Scala 2.12
+** Drop support for Java 8
+
+
+=== Fixes
+
+None
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Checksum
+
+.SHA-256 of Tackler-cli.jar
+----
+fb387c75ad6b295f22aaa087fa91595e5f0cea79b850a8ad347c2d239d68b785  tackler-cli-22.12.0.jar
+----

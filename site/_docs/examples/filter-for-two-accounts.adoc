@@ -1,0 +1,124 @@
+= Txn Filter to find card payments
+:page-date: 2022-12-23 00:00:00 Z
+:page-last_modified_at: 2022-12-24 12:00:00 Z
+
+This is an example of transaction filter to find card payments from journal.
+
+Further info:
+
+* xref:../txn-filters.adoc[Transaction Filters]
+* xref:../usage.adoc#txn-filters-shell[Transaction filters with shell scripts]
+
+== Journal
+
+....
+2022-12-01 'Paid off card A
+   Liabilities:Card:A  1001 USD
+   Assets:Bank1:Checking
+
+2022-12-02 'Paid off card B
+   Liabilities:Card:B  1002 USD
+   Assets:Bank1:Checking
+
+2022-12-03 'Payid these with checks!
+   Expences:HolidayPresents  100 USD
+   Assets:Bank1:Checking
+
+2022-12-04 'Withdrawn cash with card B
+   Assets:Cash  200 USD
+   Liabilities:Card:B
+....
+
+
+==  Filter definition
+
+Find card payment transactions: e.d destination account is under Liabilities with positive amount, and origination account is under Assets with negative amount.
+ 
+....
+two_accounts_filter () {
+    flt=$(cat << EOF | base64 --wrap=0
+{
+    "txnFilter" : {
+        "TxnFilterAND" : {
+            "txnFilters" : [
+                {
+                    "TxnFilterPostingAmountGreater" : {
+			"regex" : "Liabilities:.*",
+			"amount" : 0
+                    }
+                },
+                {
+                    "TxnFilterPostingAmountLess" : {
+			"regex" : "Assets:.*",
+			"amount" : 0
+                    }
+                }
+            ]
+        }
+    }
+}
+EOF
+)
+    echo "base64:$flt"
+}
+....
+
+
+
+== Register listing, without filter
+
+....
+java -jar bin/tackler-cli.jar
+....
+
+....
+REGISTER
+--------
+2022-12-01 Z 'Paid off card A
+            Assets:Bank1:Checking                      -1001.00           -1001.00 USD
+            Liabilities:Card:A                          1001.00            1001.00 USD
+--------------------------------------------------------------------------------------
+2022-12-02 Z 'Paid off card B
+            Assets:Bank1:Checking                      -1002.00           -2003.00 USD
+            Liabilities:Card:B                          1002.00            1002.00 USD
+--------------------------------------------------------------------------------------
+2022-12-03 Z 'Payid these with checks!
+            Assets:Bank1:Checking                       -100.00           -2103.00 USD
+            Expences:HolidayPresents                     100.00             100.00 USD
+--------------------------------------------------------------------------------------
+2022-12-04 Z 'Withdrawn cash with card B
+            Assets:Cash                                  200.00             200.00 USD
+            Liabilities:Card:B                          -200.00             802.00 USD
+--------------------------------------------------------------------------------------
+....
+
+
+== Register report with filter
+
+....
+java -jar bin/tackler-cli.jar --api-filter-def $(two_accounts_filter)
+....
+
+....
+Filter:
+  AND
+    Posting Amount
+      account: "Liabilities:.*"
+      amount > 0
+    Posting Amount
+      account: "Assets:.*"
+      amount < 0
+
+
+REGISTER
+--------
+2022-12-01 Z 'Paid off card A
+            Assets:Bank1:Checking                      -1001.00           -1001.00 USD
+            Liabilities:Card:A                          1001.00            1001.00 USD
+--------------------------------------------------------------------------------------
+2022-12-02 Z 'Paid off card B
+            Assets:Bank1:Checking                      -1002.00           -2003.00 USD
+            Liabilities:Card:B                          1002.00            1002.00 USD
+--------------------------------------------------------------------------------------
+....
+

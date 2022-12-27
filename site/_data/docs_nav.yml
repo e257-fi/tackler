@@ -41,6 +41,7 @@
   docs:
     - link: /docs/examples/trimix-filling-station/
     - link: /docs/gis/example/
+    - link: /docs/examples/filter-for-two-accounts/
 
 - title: Embedding Tackler
   docs:
