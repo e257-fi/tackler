@@ -259,7 +259,6 @@ class SettingsTest extends AnyFunSpec {
       val hashes = List(
         "MD6",
         "SHA2",
-        "SHA256",
         "SHA-257",
       )
 
