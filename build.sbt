@@ -19,10 +19,14 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
+lazy val tackler_cli_version  = "22.12.0-SNAPSHOT"
+lazy val tackler_api_version  = "1.0.0-SNAPSHOT"
+lazy val tackler_core_version = "1.0.0-SNAPSHOT"
+
+
 lazy val scala_13 = "2.13.10"
 
 ThisBuild / organization := "fi.e257"
-ThisBuild / version := "0.36.0-SNAPSHOT"
 ThisBuild / scalaVersion := scala_13
 ThisBuild / publishTo := sonatypePublishToBundle.value
 
@@ -105,6 +109,7 @@ lazy val api = crossProject(JSPlatform, JVMPlatform).
   settings(commonSettings: _*).
   settings(
     name := "tackler-api",
+    version := tackler_api_version,
     libraryDependencies += "org.typelevel" %%% "cats-kernel" % catsVersion,
     libraryDependencies += "org.typelevel" %%% "cats-core" % catsVersion,
     libraryDependencies += "io.circe" %%% "circe-core" % circeVersion,
@@ -129,6 +134,7 @@ lazy val core = (project in file("core")).
   settings(commonSettings: _*).
   settings(
     name := "tackler-core",
+    version := tackler_core_version,
     fork := true,
     Antlr4 / antlr4Version := "4.11.1",
     Antlr4 / antlr4GenListener := false,
@@ -160,6 +166,7 @@ lazy val cli = (project in file("cli")).
   settings(noPublishSettings).
   settings(commonSettings: _*).
   settings(
+    version := tackler_cli_version,
     fork := true,
     Test / baseDirectory := file((Test / baseDirectory).value + "/.."),
     IntegrationTest / baseDirectory := (Test / baseDirectory).value,

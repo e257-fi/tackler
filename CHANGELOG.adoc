@@ -1,6 +1,6 @@
 = Tackler releases
 
-Current published release is:
+Currently published releases are:
 
  libraryDependencies += "fi.e257" %%% "tackler-api"  % "0.35.0"
  libraryDependencies += "fi.e257" %%  "tackler-core" % "0.35.0"
@@ -8,12 +8,26 @@ Current published release is:
 
 == Release history
 
-=== 0.36.0-SNAPSHOT
+=== Tackler release 2022-12
+
+[cols="1,2",width=50%]
+|===
+|Component | Version
+
+|Tackler CLI  | 22.12.0-SNAPSHOT
+|tackler-core | 1.0.0-SNAPSHOT
+|tackler-api  | 1.0.0-SNAPSHOT
+|===
 
 New features and changes in this release:
 
- * ...
- ** ...
+ * New versioning scheme (YY.MM.PATCH) for Tackler CLI, where YY and MM are release year and month
+ * 1.0.0 release for Tackler core and api
+ * Upgrade JGit to 6.x
+ * Tackler requires at least Java 11 to run
+ * Deprecations
+ ** Drop support for Scala 2.12
+ ** Drop support for Java 8
 
 
 ==== Fixes
@@ -52,6 +66,7 @@ Updated deps and tools:
  ** sbt-sonatype: 3.9.15
  ** ScalaTest: 3.2.14
 
+'''
 
 
 === 0.35.0
@@ -84,6 +99,7 @@ Updated deps and tools:
  * Tests
  ** ScalaTest: 3.2.3
 
+'''
 
 
 === 0.34.0
@@ -111,6 +127,7 @@ Updated deps and tools:
  * Build
  ** sbt: 1.4.6
 
+'''
 
 
 === 0.33.0
@@ -155,6 +172,7 @@ Updated deps and tools:
  ** DirSuite: 0.31.0
  ** ScalaTest: 3.2.3
 
+'''
 
 
 === 0.32.0
@@ -207,6 +225,7 @@ Updated deps and tools:
  ** sbt-coveralls: drop
  ** sbt-scoverage: 1.6.0
 
+'''
 
 
 === 0.31.0
@@ -233,6 +252,7 @@ Updated deps and tools:
  * Dependencies
  ** jgit: 5.3.1.201904271842-r
 
+'''
 
 
 === 0.30.0
@@ -282,6 +302,7 @@ Updated deps and tools:
  * Tests
  ** scalatest: 3.0.7
 
+'''
 
 
 === 0.24.0
@@ -363,7 +384,7 @@ Changes to Journal Format to make it more lenient when possible.
 
 Updated deps and tools: None
 
-
+'''
 
 
 === 0.23.0
@@ -423,6 +444,7 @@ Updated deps and tools:
  * tests
  ** dirsuite: 0.21.0
 
+'''
 
 
 === 0.22.0
@@ -451,6 +473,7 @@ Updated deps and tools:
  * build
  ** wartremover: 2.4.0
 
+'''
 
 
 === 0.21.0
@@ -480,6 +503,7 @@ Updated deps and tools:
  * build
  ** sbt: 1.2.8
 
+'''
 
 
 === 0.20.0
@@ -497,6 +521,8 @@ Updated deps and tools:
 
  * build
  ** sbt-sonatype: 2.3
+
+'''
 
 
 === 0.10.0
@@ -544,6 +570,8 @@ Updated deps and tools:
  ** sbt-scalajs-crossproject: 0.6.0
  ** sbt-wartremover: 2.3.7
 
+'''
+
 
 === 0.9.0
 
@@ -569,6 +597,8 @@ Updated deps and tools:
  ** sbt-scalajs: 0.6.21
  ** sbt-crossproject: 0.3.0
  ** sbt-scalajs-crossproject: 0.3.0
+
+'''
 
 
 === 0.8.0
@@ -604,6 +634,9 @@ Updated deps and tools:
  ** assembly: 0.14.6
  ** sonatype: 2.0
 
+'''
+
+
 === 0.7.0
 
  * JSON report format
@@ -633,6 +666,9 @@ Build is updated to sbt 1.0.
  ** DirSuite: 0.7.0
  ** scalatest: 3.0.4
 
+'''
+
+
 === 0.6.0
 
  * Support for Units and Commodities
@@ -646,6 +682,8 @@ Build is updated to sbt 1.0.
 ==== Fixes
 
  * Fix equity report when postings balance (zero) out
+
+'''
 
 
 === 0.5.0
@@ -661,6 +699,8 @@ Build is updated to sbt 1.0.
 
 * Use always ISO-8601 week rules regardless of system locale
 
+'''
+
 
 === 0.4.1
 
@@ -672,6 +712,8 @@ Build is updated to sbt 1.0.
 ** Single file 1E6
 ** Generator 0.2.1
 
+'''
+
 
 === 0.4.0
 
@@ -679,6 +721,8 @@ Build is updated to sbt 1.0.
 
 * Internal: better-files
 * Internal: logback 1.2.3
+
+'''
 
 
 === 0.3.2
@@ -689,10 +733,14 @@ Build is updated to sbt 1.0.
 
 * Internal clean ups
 
+'''
+
 
 === 0.3.1
 
 * Change register report output
+
+'''
 
 
 === 0.3.0
@@ -729,6 +777,8 @@ Build is updated to sbt 1.0.
 ** 1E6: (1_000_000) txns testing
 ** Generator (0.1.4)
 
+'''
+
 
 === 0.2.1
 
@@ -736,6 +786,8 @@ Build is updated to sbt 1.0.
 ** initial support for reports and accounts as cli opt
 ** Automatic scale (2-6 decimals)
 ** Register report title format
+
+'''
 
 
 === 0.2.0
@@ -746,10 +798,14 @@ Build is updated to sbt 1.0.
 ** balance-group: group-by from conf
 ** balance summary line
 
+'''
+
 
 === 0.1.90
 
 * Reporting: account definitions
+
+'''
 
 
 === 0.1.0
@@ -760,6 +816,8 @@ Build is updated to sbt 1.0.
 * Chart of Accounts
 * cli+conf: accounts.coa
 * cli+conf: accounts.strict
+
+'''
 
 
 === 0.0.1
