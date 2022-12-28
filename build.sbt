@@ -19,9 +19,18 @@ import Dependencies._
 
 import sbtcrossproject.{crossProject, CrossType}
 
-lazy val tackler_cli_version  = "22.12.0"
-lazy val tackler_api_version  = "1.0.0"
-lazy val tackler_core_version = "1.0.0"
+
+lazy val tackler_cli_version  = "22.12.1"
+
+// There has to be root level version, so that publishing at top level would be possible,
+// ThisBuild / version is affecting 'isSnapshot' etc. even when it's not used by published artifacts
+ThisBuild / version := "1.0.1"
+
+// These are either
+//  * None, then ThisBuild / version is used
+//  * Some("x.y.z")
+lazy val tackler_api_version  = None
+lazy val tackler_core_version = None
 
 
 lazy val scala_13 = "2.13.10"
@@ -33,9 +42,9 @@ ThisBuild / publishTo := sonatypePublishToBundle.value
 lazy val supportedScalaVersions = List(scala_13)
 
 lazy val noPublishSettings = Seq(
+  publish / skip := true,
   publish := {},
   publishLocal := {},
-  publishArtifact := false
 )
 
 lazy val commonSettings = Seq(
@@ -109,7 +118,10 @@ lazy val api = crossProject(JSPlatform, JVMPlatform).
   settings(commonSettings: _*).
   settings(
     name := "tackler-api",
-    version := tackler_api_version,
+    version := {
+	val v = (ThisBuild / version).value
+	tackler_api_version.getOrElse(v),
+    },
     libraryDependencies += "org.typelevel" %%% "cats-kernel" % catsVersion,
     libraryDependencies += "org.typelevel" %%% "cats-core" % catsVersion,
     libraryDependencies += "io.circe" %%% "circe-core" % circeVersion,
@@ -134,7 +146,10 @@ lazy val core = (project in file("core")).
   settings(commonSettings: _*).
   settings(
     name := "tackler-core",
-    version := tackler_core_version,
+    version := {
+	val v = (ThisBuild / version).value
+	tackler_core_version.getOrElse(v),
+    },
     fork := true,
     Antlr4 / antlr4Version := "4.11.1",
     Antlr4 / antlr4GenListener := false,
