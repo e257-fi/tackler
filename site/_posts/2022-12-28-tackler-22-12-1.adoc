@@ -1,0 +1,38 @@
+= Tackler 22.12.1 released
+:page-date: 2022-12-28 21:00:00 +0200
+:page-author: 35vlg84
+:page-version: 22.12.1
+:page-category: release
+
+
+== New features and changes in this release:
+
+This is a re-release of Tackler 2022-12 with JDK 11. No other changes.
+
+
+=== Fixes
+
+Tackler 2022-12 was released accidentally with JDK 17 (Bytecode Version 61.0),
+instead of JDK 11 (Bytecode Version 55.0). Hence this re-release with JDK 11.
+
+[cols="1,3,3",width=75%]
+|===
+|Component | Version (JDK 11) | Version (JDK 17)
+
+|Tackler CLI  | 22.12.1 | 22.12.0 
+|tackler-core | 1.0.1   | 1.0.0   
+|tackler-api  | 1.0.1   | 1.0.0   
+|===
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Checksum
+
+.SHA-256 of Tackler-cli.jar
+----
+87480c243f635ed475e63862a5089be1b7e95adf2ed94371bba778ae58fe9e01  tackler-cli-22.12.1.jar
+----
