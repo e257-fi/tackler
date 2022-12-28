@@ -8,7 +8,38 @@ Currently published releases are:
 
 == Release history
 
-=== Tackler release 2022-12.01
+=== Tackler release YY.MM.0 (SNAPSHOT)
+
+[cols="1,2",width=50%]
+|===
+|Component | Version
+
+|Tackler CLI  | YY.MM.0
+|tackler-core | 1.X.Y
+|tackler-api  | 1.X.Y
+|===
+
+
+==== Fixes
+
+Fixes in this release: None
+
+
+==== Development
+
+Updated deps and tools:
+
+ * Dependencies
+ ** ...
+ * Build
+ ** ...
+ * Tests
+ ** ...
+
+'''
+
+
+=== Tackler release 22.12.1
 
 [cols="1,2",width=50%]
 |===
@@ -27,7 +58,7 @@ instead of JDK 11 (Bytecode Version 55.0), so fix that.
 '''
 
 
-=== Tackler release 2022-12
+=== Tackler release 22.12.0
 
 [cols="1,2",width=50%]
 |===
