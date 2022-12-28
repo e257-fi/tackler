@@ -2,11 +2,30 @@
 
 Currently published releases are:
 
- libraryDependencies += "fi.e257" %%% "tackler-api"  % "1.0.0"
- libraryDependencies += "fi.e257" %%  "tackler-core" % "1.0.0"
+ libraryDependencies += "fi.e257" %%% "tackler-api"  % "1.0.1"
+ libraryDependencies += "fi.e257" %%  "tackler-core" % "1.0.1"
 
 
 == Release history
+
+=== Tackler release 2022-12.01
+
+[cols="1,2",width=50%]
+|===
+|Component | Version
+
+|Tackler CLI  | 22.12.1
+|tackler-core | 1.0.1
+|tackler-api  | 1.0.1
+|===
+
+This is a re-release of Tackler 2022-12 with JDK 11. No other changes.
+
+Tackler 2022-12 was released accidentally with JDK 17 (Bytecode Version 61.0),
+instead of JDK 11 (Bytecode Version 55.0), so fix that.
+
+'''
+
 
 === Tackler release 2022-12
 
