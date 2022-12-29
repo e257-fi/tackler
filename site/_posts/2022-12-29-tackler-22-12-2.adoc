@@ -1,0 +1,45 @@
+= Tackler 22.12.2 released
+:page-date: 2022-12-29 20:30:00 +0200
+:page-author: 35vlg84
+:page-version: 22.12.2
+:page-category: release
+
+
+== New features and changes in this release:
+
+This is a re-release of Tackler CLI 22.12.1 with correct assembly packaging. No other changes.
+
+
+=== Fixes
+
+22.12.1 had broken logger functionality for tackler-cli.
+The broken functionality is manifested by following error message:
+....
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+....
+
+This release (22.12.2) fixes that.
+
+[cols="1,2",width=50%]
+|===
+|Component | Version
+
+|Tackler CLI  | 22.12.2
+|tackler-core | no changes
+|tackler-api  | no changes
+|===
+
+
+=== Full Changelog
+
+For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Checksum
+
+.SHA-256 of Tackler-cli.jar
+----
+3ac13c3a93d2299a8c134b0e3518c49da5997de479a89a8c05b77dcff45083f3  tackler-cli-22.12.2.jar
+----
