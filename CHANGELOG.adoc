@@ -8,33 +8,33 @@ Currently published releases are:
 
 == Release history
 
-=== Tackler release YY.MM.0 (SNAPSHOT)
+=== Tackler release 22.12.2
 
 [cols="1,2",width=50%]
 |===
 |Component | Version
 
-|Tackler CLI  | YY.MM.0
-|tackler-core | 1.X.Y
-|tackler-api  | 1.X.Y
+|Tackler CLI  | 22.12.2
+|tackler-core | no changes
+|tackler-api  | no changes
 |===
 
 
 ==== Fixes
 
-Fixes in this release: None
+Fix broken assembly packaging, which broke logger functionality for tackler-cli.
+
+The broken functionality was manifested by following error message:
+....
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+....
 
 
 ==== Development
 
-Updated deps and tools:
-
- * Dependencies
- ** ...
- * Build
- ** ...
- * Tests
- ** ...
+Updated deps and tools: None
 
 '''
 

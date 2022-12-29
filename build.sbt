@@ -20,11 +20,11 @@ import Dependencies._
 import sbtcrossproject.{crossProject, CrossType}
 
 
-lazy val tackler_cli_version  = "23.01.0-SNAPSHOT"
+lazy val tackler_cli_version  = "22.12.2"
 
 // There has to be root level version, so that publishing at top level would be possible,
 // ThisBuild / version is affecting 'isSnapshot' etc. even when it's not used by published artifacts
-ThisBuild / version := "1.0.2-SNAPSHOT"
+ThisBuild / version := "1.0.1"
 
 // These are either
 //  * None, then ThisBuild / version is used
