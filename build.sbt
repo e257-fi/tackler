@@ -193,12 +193,17 @@ lazy val cli = (project in file("cli")).
       Tests.Setup(() => TacklerTests.setup("tests", log))
     },
     assembly / test := {},
+    assembly / mainClass := Some("fi.e257.tackler.cli.TacklerCli"),
     assembly / assemblyJarName := "tackler-cli" + "-" + version.value + ".jar",
     assembly / assemblyMergeStrategy := {
       // Fix (e.g. discard) module-info.class with JDK 8 vs. JDK 11,
       // it's not needed, this is an app, not lib
-      case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-      case x => MergeStrategy.first
+      case "module-info.class" => MergeStrategy.discard
+      // Discard module-info also from multi java jars (e.g. META-INF/versions/9/module-info.class)
+      case x if x.endsWith("/module-info.class") => MergeStrategy.discard
+      case x =>
+        val oldStrategy = (assembly / assemblyMergeStrategy).value
+        oldStrategy(x)
     },
     gitCommitId := git.gitHeadCommit.value.getOrElse("Not available"),
     gitLocalChanges := git.gitUncommittedChanges.value,
