@@ -54,8 +54,7 @@ properties and attributes.
 
 Transaction filters can be defined in and decoded from JSON.
 
-Regualar expression syntax used by Transaction filters uses
-link:https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html[regular expression syntax specified by Java].
+Regualar expression syntax used by Transaction filters is based on {regex-link}[Java regular expressions].
 
 Below is filter format definition syntax in JSON pseudo-format.
 
@@ -153,7 +152,7 @@ Time is expressed in ISO 8601 format with zone, e.g.
 [[txn-code]]
 ===== Txn Code
 
-Txn Code filter selects transactions which code matches specified regular expression.
+Txn Code filter selects transactions which code matches specified {regex-link}[regular expression].
 
 ----
 {
@@ -167,7 +166,7 @@ Txn Code filter selects transactions which code matches specified regular expres
 [[txn-desc]]
 ===== Txn Description
 
-Txn Description filter selects transactions which description matches specified regular expression.
+Txn Description filter selects transactions which description matches specified {regex-link}[regular expression].
 
 ----
 {
@@ -233,7 +232,7 @@ See xref:gis/txn-geo-filters.adoc[Transaction Geo Filters] documentation for how
 [[txn-tags]]
 ===== Txn Tags
 
-Txn Tags filter selects transactions which have a tag matching specified regular expression.
+Txn Tags filter selects transactions which have a tag matching specified {regex-link}[regular expression].
 
 ----
 {
@@ -246,7 +245,7 @@ Txn Tags filter selects transactions which have a tag matching specified regular
 [[txn-comments]]
 ===== Txn Comments
 
-Txn Description filter selects transactions which have a comment which matches specified regular expression.
+Txn Description filter selects transactions which have a comment which matches specified {regex-link}[regular expression].
 
 ----
 {
@@ -264,7 +263,7 @@ Txn Description filter selects transactions which have a comment which matches s
 [[txn-posting-account]]
 ===== Posting Account
 
-Posting Account filter selects transactions which have an account which matches specified regular expression.
+Posting Account filter selects transactions which have an account which matches specified {regex-link}[regular expression].
 
 ----
 {
@@ -277,7 +276,7 @@ Posting Account filter selects transactions which have an account which matches 
 [[txn-posting-amount]]
 ===== Posting Amount (equal)
 
-Posting Amount (egual) selects transactions which have a posting for specified account (regex)
+Posting Amount (egual) selects transactions which have a posting for specified account ({regex-link}[regex])
 with exactly same amount as specified amount.
 
 ----
@@ -295,7 +294,7 @@ with exactly same amount as specified amount.
 
 ===== Posting Amount (less)
 
-Posting Amount (less) selects transactions which have a posting for specified account (regex)
+Posting Amount (less) selects transactions which have a posting for specified account ({regex-link}[regex])
 with amount that is less than specified amount.
 
 ----
@@ -339,7 +338,7 @@ with amount that is greater than specified amount.
 [[txn-posting-commodity]]
 ===== Posting Commodity
 
-Posting Commodity selects transactions which have a posting with commodity which matches specified regular expression.
+Posting Commodity selects transactions which have a posting with commodity which matches specified {regex-link}[regular expression].
 
 ----
 {
@@ -353,7 +352,7 @@ Posting Commodity selects transactions which have a posting with commodity which
 [[txn-posting-comment]]
 ===== Posting Comment
 
-Posting Commodity selects transactions which have a posting with comment which matches specified regular expression.
+Posting Commodity selects transactions which have a posting with comment which matches specified {regex-link}[regular expression].
 
 ----
 {

@@ -6,8 +6,8 @@ This is installation manual for tackler command line.
 
 To use tackler cli you will need
 
-  * Java Runtime Environment (Java 8 and Java 11 are tested regularly)
-  * Tackler command line binary (`tackler-cli.jar`-file)
+  * Java Runtime Environment (Tackler requires at least Java 11 to run)
+  * Tackler command line binary (`tackler-cli-XX.YY.Z.jar`-file)
 
 Download the latest version of tackler-cli.jar from
 {jarlink}[here] or

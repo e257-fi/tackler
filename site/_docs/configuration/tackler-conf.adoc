@@ -79,8 +79,6 @@ tackler {
       #
       # Name of used hash algorithm (JDK Sun Provider MessageDigest):
       #
-      #   JDK-8:  MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
-      #
       #   JDK-11: MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
       #           SHA-512/224, SHA-512/256
       #           SHA3-224, SHA3-256, SHA3-384, SHA3-512
