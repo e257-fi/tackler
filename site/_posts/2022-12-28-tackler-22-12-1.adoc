@@ -30,9 +30,10 @@ instead of JDK 11 (Bytecode Version 55.0). Hence this re-release with JDK 11.
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
 
 
-=== Checksum
+=== Signature & SHA-256
 
-.SHA-256 of Tackler-cli.jar
+{asc-body}-22.12.1.jar.asc[tackler-cli-22.12.1.jar.asc]
+
 ----
 87480c243f635ed475e63862a5089be1b7e95adf2ed94371bba778ae58fe9e01  tackler-cli-22.12.1.jar
 ----

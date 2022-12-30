@@ -37,9 +37,10 @@ This release (22.12.2) fixes that.
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
 
 
-=== Checksum
+=== Signature & SHA-256
 
-.SHA-256 of Tackler-cli.jar
+{asc-body}-22.12.2.jar.asc[tackler-cli-22.12.2.jar.asc]
+
 ----
 3ac13c3a93d2299a8c134b0e3518c49da5997de479a89a8c05b77dcff45083f3  tackler-cli-22.12.2.jar
 ----

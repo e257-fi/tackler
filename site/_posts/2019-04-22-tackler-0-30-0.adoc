@@ -41,3 +41,12 @@ full list of supported language, scripts and signs as account name characters
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Signature & SHA-256
+
+{asc-body}-0.30.0.jar.asc[tackler-cli-0.30.0.jar.asc]
+
+....
+d658cdd710add125806e8cfe6afbe28fba129f12f7af47127ad7b451542f6fb3  tackler-cli-0.30.0.jar
+....

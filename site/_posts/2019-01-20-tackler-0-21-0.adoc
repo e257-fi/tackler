@@ -23,3 +23,11 @@
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+=== Signature & SHA-256
+ 
+{asc-body}-0.21.0.jar.asc[tackler-cli-0.21.0.jar.asc]
+
+....
+21012aed3a7e98d8496660f83da3e2fdb8d4006acc625da2c2704f2d60e04a92  tackler-cli-0.21.0.jar
+....

@@ -9,3 +9,10 @@ This is same as Tackler v0.10.0. The difference is that code is
 hosted at link:https://gitlab.com/e257/accounting/tackler/[gitlab.com] and moved under new groupId.
 
 
+=== Signature & SHA-256
+
+{asc-body}-0.20.0.jar.asc[tackler-cli-0.20.0.jar.asc]
+
+....
+6a18725adbf7cb19266f23ba74b382b0fc4882efbace271f2694c5a1a59d2cbe  tackler-cli-0.20.0.jar
+....

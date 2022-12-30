@@ -44,3 +44,9 @@ See following openjdk bugs for details:
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Signature
+
+{asc-body}-0.23.0.jar.asc[tackler-cli-0.23.0.jar.asc]
+

@@ -27,9 +27,10 @@ None
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
 
 
-=== Checksum
+=== Signature & SHA-256
 
-.SHA-256 of Tackler-cli.jar
+{asc-body}-0.35.0.jar.asc[tackler-cli-0.35.0.jar.asc]
+
 ----
 91cf23dee0c59c9f42db7fb39a84fdfe6cbd4d07204b4eb62b5ea4bb3de56f83  tackler-cli-0.35.0.jar
 ----

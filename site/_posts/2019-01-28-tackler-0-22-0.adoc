@@ -25,3 +25,12 @@ This is needed for Windows/MinGW/MSYS2.
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Signature & SHA-256
+
+{asc-body}-0.22.0.jar.asc[tackler-cli-0.22.0.jar.asc]
+
+....
+d37824fa0edb7fe87a186bcefb12f9aa967ade75a3a3318b941ab1102ec90da0  tackler-cli-0.22.0.jar
+....
