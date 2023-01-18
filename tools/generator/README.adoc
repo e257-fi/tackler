@@ -1,0 +1,24 @@
+= Test generator for Ledger -like data
+
+
+This generator makes test transaction sets in various size [1E1, 1E2, 1E3, 1E4, 1E5, 1E6].
+
+== Build 
+....
+sbt "clean; assembly"
+....
+
+== Use
+
+....
+java -jar target/scala-2.13/generator-0.5.1.jar
+....
+....
+      --basedir  <arg>   basedir for generated txn data. Default is "./data"
+      --compatible       if this is given, then ledger compatible data is
+                         generated
+      --count  <arg>     how many txns to generate: [1E1, 1E2, 1E3, 1E4, 1E5,
+                         1E6]
+      --single-file      if this is given, then single txn-file is generated
+  -h, --help             Show help message
+....

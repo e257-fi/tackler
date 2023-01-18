@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 E257.FI
+ * Copyright 2016-2023 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ object Dependencies {
   /*
    * Versions
    */
-  val betterFilesVersion = "3.7.0"
-  val scallopVersion = "3.1.5"
+  val betterFilesVersion = "3.9.1"
+  val scallopVersion = "4.1.0"
 
   /*
    * Libraries
