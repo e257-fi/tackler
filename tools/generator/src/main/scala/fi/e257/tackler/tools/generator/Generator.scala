@@ -27,6 +27,7 @@ import scala.util.control.NonFatal
 object Generator {
   val SUCCESS: Int = 0
   val FAILURE: Int = 127
+  val SET_NAME_PREFIX: String = "txns"
 
   def nameUUID(name: String): String = {
     // no real RFC-4122 namespace, this is ok for this purpose
@@ -59,7 +60,7 @@ object Generator {
 
     if (cliCfg.single_file.getOrElse(false)) {
       File(basedir).createDirectories()
-      val txnFile = File(basedir, "txns-" + countStr + ".txn")
+      val txnFile = File(basedir, SET_NAME_PREFIX + "-" + countStr + ".txn")
       txnFile.createIfNotExists().overwrite("")
     }
 
@@ -96,7 +97,7 @@ object Generator {
                |""".stripMargin
 
           if (cliCfg.single_file.getOrElse(false)) {
-            val txnFile = File(basedir, "perf-" + countStr + ".txn")
+            val txnFile = File(basedir, SET_NAME_PREFIX + "-" + countStr + ".txn")
             txnFile.append(txn)
           } else {
             val txnName = ts.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss")) + s"-$i.txn"
@@ -116,7 +117,7 @@ object Generator {
         "\",\n    \"",
         "\"\n  ]\n}\n")
 
-    val coaFile = File(basedir, s"txns-$countStr-accounts.conf")
+    val coaFile = File(basedir, s"$SET_NAME_PREFIX-$countStr-accounts.conf")
     coaFile.overwrite(coaConf)
   }
 
