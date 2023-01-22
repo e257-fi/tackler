@@ -13,7 +13,7 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2")
 
 // QA tools
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.6")
-addSbtPlugin("org.wartremover" % "sbt-wartremover" % "3.0.7")
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "3.0.9")
 
 // Publishing
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.15")
