@@ -18,6 +18,12 @@ Summary of changes
 There could be multiple tags for single transaction
 and tags can have a hierarchy in similar way as accounts have.
 
+[IMPORTANT]
+.Amendment to this TEP-1011
+====
+Duplicate tags are not allowed in transaction tags set.
+====
+
 Transaction tags must be predefined if strict mode for tags is activated.
 
 

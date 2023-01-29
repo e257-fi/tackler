@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 E257.FI
+ * Copyright 2017-2023 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -334,6 +334,13 @@ abstract class CtxHandler {
 
     val tags = Option(metaCtx.txn_meta_tags()).flatMap(mtagsCtx => {
       mtagsCtx.asScala.map(c => handleTagsCtx(c.tags())).headOption
+    })
+    tags.foreach(t => {
+       if (t.distinct.size != t.size) {
+         val msg = "txn tags contains duplicate tags"
+         log.error(msg)
+         throw new TacklerException(msg)
+       }
     })
     (uuid, geo, tags)
   }

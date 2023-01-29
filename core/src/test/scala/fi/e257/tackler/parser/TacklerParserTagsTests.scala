@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 E257.FI
+ * Copyright 2020-2023 E257.FI
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package fi.e257.tackler.parser
 
 import fi.e257.tackler.api.TxnHeader
-import fi.e257.tackler.core.Settings
+import fi.e257.tackler.core.{Settings, TacklerException}
 import org.scalatest.funspec.AnyFunSpec
 
 class TacklerParserTagsTests extends AnyFunSpec {
@@ -198,6 +198,35 @@ class TacklerParserTagsTests extends AnyFunSpec {
     }
 
     /**
+     * test: 32e2d33d-f357-4751-8286-605cee07ea78
+     */
+    it("reject duplicate tags in txn tags set") {
+      val tt = new TacklerTxns(Settings())
+
+      val perrStrings: List[(String, String)] = List(
+        (
+          """
+            |2023-01-29
+            | # tags: a, b, c, a
+            | a 1
+            | e 1
+            |
+            |""".stripMargin,
+          "duplicate",
+        ),
+      )
+      val count = perrStrings.map(perrStr => {
+        val ex = intercept[TacklerException]({
+          val _ = tt.string2Txns(perrStr._1)
+        })
+        assert(ex.getMessage.contains(perrStr._2))
+        1
+      }).foldLeft(0)(_ + _)
+
+      assert(count === perrStrings.length)
+    }
+
+     /**
       * test: df593f17-2c74-4657-8da9-afc9ba445755
       */
     it("accepts tags metadata") {
@@ -273,6 +302,17 @@ class TacklerParserTagsTests extends AnyFunSpec {
             |""".stripMargin,
           1, List(
           ("a, b, c, d, e", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
+        ),
+        (
+          """
+            |2020-12-24
+            | # tags: e, c, a:b, b, d
+            | a  1
+            | e -1
+            |
+            |""".stripMargin,
+          1, List(
+          ("e, c, a:b, b, d", { hdr: TxnHeader => hdr.tags.map(_.mkString("", ", ", "")).getOrElse("barf") }))
         ),
         (
           """

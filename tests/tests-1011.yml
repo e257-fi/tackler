@@ -37,6 +37,11 @@ features:
               descriptions:
                 - desc: "rejects invalid tags metadata constructions"
           - test:
+              id: 32e2d33d-f357-4751-8286-605cee07ea78
+              name: TacklerParserTagsTests
+              descriptions:
+                - desc: "reject duplicate tags in txn tags set"
+          - test:
               id: df593f17-2c74-4657-8da9-afc9ba445755
               name: TacklerParserTagsTests
               descriptions:
