@@ -28,7 +28,7 @@ New features and changes in this release:
 
 Fixes in this release:
 
-* Reject duplicate tags in transaction tag set (xref:./docs/tep/tep-1014.adoc[TEP-1011]).
+* Reject duplicate tags in transaction tag set (xref:./docs/tep/tep-1011.adoc[TEP-1011]).
 
 
 ==== Development
