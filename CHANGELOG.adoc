@@ -39,6 +39,8 @@ Updated deps and tools:
  ** ...
  * Build
  ** sbt: 1.8.2
+ ** sbt-scalajs: 1.13.0
+ ** sbt-sonatype: 3.9.17
  * Tests
  ** sbt-wartremover: 3.0.9
  ** ScalaTest: 3.2.15
