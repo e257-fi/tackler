@@ -84,7 +84,7 @@ final case class TxnHeader(
    * @return new line terminated header of txn
    */
   def txnHeaderToString(indent: String, tsFormatter: (ZonedDateTime => String)): String = {
-    val codeStr = code.map(c => " (" + c + ") ")
+    val codeStr = code.map(c => s" (${c})")
 
     val uuidStr = uuid.map(u => indent + "# uuid: " + u.toString + "\n")
     val locStr = location.map(loc => indent + "# location: " + loc.toString + "\n")
@@ -93,7 +93,7 @@ final case class TxnHeader(
       cs.map(c => indent + "; " + c + "\n").mkString
     )
 
-    tsFormatter(timestamp) + codeStr.getOrElse(" ") + description.fold("")("'" + _) + "\n" +
+    tsFormatter(timestamp) + codeStr.getOrElse("") + description.fold("")(" '" + _) + "\n" +
       uuidStr.getOrElse("") +
       locStr.getOrElse("") +
       tagsStr.getOrElse("") +

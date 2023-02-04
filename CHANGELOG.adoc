@@ -29,6 +29,8 @@ New features and changes in this release:
 Fixes in this release:
 
 * Reject duplicate tags in transaction tag set (xref:./docs/tep/tep-1011.adoc[TEP-1011]).
+* Trim extra whitespace in Transaction header, when there isn't description
+  This is cosmetic change, it didn't have any effect on validity of identity output or parsing of identity output
 
 
 ==== Development
