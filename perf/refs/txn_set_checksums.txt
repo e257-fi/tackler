@@ -1,0 +1,19 @@
+
+txn-set-checksum.sh data/txns-1E1
+9b29071e1bf228cfbd31ca2b8e7263212e4b86e51cfee1e8002c9b795ab03f76
+
+txn-set-checksum.sh data/txns-1E2
+462ced2b6bc3a06fc73cd841da62bd782bc59028ec3102e0216577356d02e971
+
+txn-set-checksum.sh data/txns-1E3
+3c7b3275b2707d8fd79f528ca25b1c659063d42ca590ffe8cfce7dac69bd2ccc
+
+txn-set-checksum.sh data/txns-1E4
+4a47000d046a62b1f7bd15b978f225e54d7f2e211e7a1f26c2d59a1f2ec8fec7
+
+txn-set-checksum.sh data/txns-1E5
+27060dc1ebde35bebd8f7af2fd9815bc9949558d3e3c85919813cd80748c99a7
+
+txn-set-checksum.sh data/txns-1E6
+78cfa915355e65b35699dd69dc3dce995a81111baad1baec6d07fd9d507ac5a1
+

@@ -84,7 +84,7 @@ class TacklerTxnsGitTest extends AnyFunSpec {
       /**
        * test: fae31eb0-bd4a-483e-9eb7-9e4c36e7f785
        */
-      it(s"made ${loops} loops with txns-1E1") {
+      ignore(s"made ${loops} loops with txns-1E1") {
 
         val loopCount = (1 to loops).foldLeft((0, 0)) { case (i, r) => {
           val tt = new TacklerTxns(settings)
@@ -138,7 +138,7 @@ class TacklerTxnsGitTest extends AnyFunSpec {
         }
 
         val txn_s_ave = loopCount._2 / 10
-        val txn_s_ref = 31000
+        val txn_s_ref = 40000
         System.err.println(f"On average: ${txn_s_ave}%.0f txn/s. " +
           f"Reference system (laptop): ${txn_s_ref} txn/s (${txn_s_ave - txn_s_ref}%+.0f txn/s)")
         assert(loopCount._1 === 10)

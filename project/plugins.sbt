@@ -12,7 +12,7 @@ addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.1.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2")
 
 // QA tools
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.6")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.7")
 addSbtPlugin("org.wartremover" % "sbt-wartremover" % "3.0.9")
 
 // Publishing

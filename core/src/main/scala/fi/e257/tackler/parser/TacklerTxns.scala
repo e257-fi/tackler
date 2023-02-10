@@ -109,6 +109,10 @@ object TacklerTxns {
 class TacklerTxns(val settings: Settings) extends CtxHandler {
   private val log: Logger = LoggerFactory.getLogger(this.getClass)
 
+  // perf: private var ts_start: Long = 0
+  // perf: private var ts_end: Long = 0
+  // perf: private var par_total: Long = 0
+
   /**
    * Get Transactions from list of input paths.
    * Throws an exception in case of error.
@@ -224,6 +228,7 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
     "org.wartremover.warts.Equals"))
   def git2Txns(inputRef: TacklerTxns.GitInputSelector): TxnData = {
 
+    // perf: ts_start = System.currentTimeMillis()
     using(getRepo(settings.input_git_repository))(repository => {
 
       val gitdir = settings.input_git_dir
@@ -295,7 +300,10 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
             commit.getShortMessage
           )
 
-          TxnData(Some(meta), rawTxns.flatten.sorted(OrderByTxn), Some(settings))
+          val txn_data = TxnData(Some(meta), rawTxns.flatten.sorted(OrderByTxn), Some(settings))
+          //perf: ts_end = System.currentTimeMillis()
+          //perf: System.err.println("total time: " + (ts_end - ts_start) + "ms, parse time: " + par_total + "ms, git: " + ((ts_end - ts_start) - par_total) + "ms")
+          txn_data
         })
       })
     })
@@ -307,9 +315,15 @@ class TacklerTxns(val settings: Settings) extends CtxHandler {
 
     val loader = repository.open(objectId, org.eclipse.jgit.lib.Constants.OBJ_BLOB)
 
-    using(loader.openStream())(stream => {
-      handleTxns(TacklerParser.txnsStream(stream))
+
+    val txns = using(loader.openStream())(stream => {
+      // perf: val ts_par_start = System.currentTimeMillis()
+      val t = handleTxns(TacklerParser.txnsStream(stream))
+      // perf: val ts_par_end = System.currentTimeMillis()
+      // perf: par_total = par_total + (ts_par_end-ts_par_start)
+      t
     })
+    txns
   }
 
   /**

@@ -21,15 +21,15 @@ object Dependencies {
   /*
    * Versions
    */
-  val betterFilesVersion = "3.9.1"
+  val betterFilesVersion = "3.9.2"
   val catsVersion = "2.9.0"
-  val circeVersion = "0.14.3"
+  val circeVersion = "0.14.4"
   val circeOpticsVersion = "0.14.1"
   val scalaParCollectionVersion = "1.0.4"
   val scalatestVersion = "3.2.15"
   val scallopVersion = "4.1.0"
   val configVersion = "1.4.2"
-  val dirsuiteVersion = "0.31.0"
+  val dirsuiteVersion = "0.32.0"
   val jgitVersion = "6.4.0.202211300538-r"
   val logbackVersion = "1.4.5"
   val slf4jVersion = "2.0.6"
@@ -55,7 +55,7 @@ object Dependencies {
 
   val scalatest = "org.scalatest" %% "scalatest" % scalatestVersion
   val scallop = "org.rogach" %% "scallop" % scallopVersion
-  val dirsuite = "fi.e257.testing" %% "dirsuite" % dirsuiteVersion
+  val dirsuite = "fi.e257" %% "dirsuite" % dirsuiteVersion
 
   /* lib: java */
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % jgitVersion

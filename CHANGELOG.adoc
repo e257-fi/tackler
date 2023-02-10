@@ -38,12 +38,15 @@ Fixes in this release:
 Updated deps and tools:
 
  * Dependencies
- ** ...
+ ** better-files: 3.9.2
+ ** circe: 0.14.4
  * Build
  ** sbt: 1.8.2
  ** sbt-scalajs: 1.13.0
+ ** sbt-scoverage: 2.0.7
  ** sbt-sonatype: 3.9.17
  * Tests
+ ** dirsuite: 0.32.0
  ** sbt-wartremover: 3.0.9
  ** ScalaTest: 3.2.15
 
