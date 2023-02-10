@@ -84,7 +84,7 @@ class TacklerTxnsGitTest extends AnyFunSpec {
       /**
        * test: fae31eb0-bd4a-483e-9eb7-9e4c36e7f785
        */
-      ignore(s"made ${loops} loops with txns-1E1") {
+      it(s"made ${loops} loops with txns-1E1") {
 
         val loopCount = (1 to loops).foldLeft((0, 0)) { case (i, r) => {
           val tt = new TacklerTxns(settings)
