@@ -10,7 +10,6 @@ variables:
 # but that location and especially ~/.ivy2 is not cache-able by GitLab:
 # https://gitlab.com/gitlab-org/gitlab-runner/issues/327
 before_script:
-  - git submodule update --init
   - mkdir -p sbt-cache
   - mkdir -p sbt-cache/coursier
   - "[ -d sbt-cache/sbt ] || cp -a $HOME/.sbt/  sbt-cache/sbt"
