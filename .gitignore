@@ -4,7 +4,6 @@
 /**/target/
 /bin/
 /tools/bin/
-/tests/
 /tmp/
 /**/*.sc
 *.swp
