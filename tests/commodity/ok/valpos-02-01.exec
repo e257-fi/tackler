@@ -1,7 +1,0 @@
-# format: exec
-# test: d37de2c1-61bf-4ffc-8f7a-933ce8380b2f
-# desc: total amount value position to value position (identity test)
-# desc: Equity posting with amount and commodity
-exec:--cfg;tests/commodity/ok.conf;--input.file;valpos-02.txn;--output;out.valpos-02-01-step1;
-#
-exec:--cfg;tests/commodity/ok.conf;--input.file;out.valpos-02-01-step1.identity.txn;--output;out.valpos-02-01;

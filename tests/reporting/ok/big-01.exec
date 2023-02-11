@@ -1,4 +1,0 @@
-# format: exec
-# test: 0f862997-95b1-4e06-bc5f-bc170c7594ff
-# desc: warning about zero equity posting
-exec:--cfg;tests/reporting/ok.conf;--reporting.exports;identity;equity;--reporting.reports;balance;balance-group;register;--reporting.formats;txt;json;--input.file;big.txn;--output;out.big-01;

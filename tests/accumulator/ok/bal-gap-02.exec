@@ -1,4 +1,0 @@
-# format: exec
-# test: cb7e3f4c-a709-4f0e-9f22-336755dfe6b2
-# desc: warning about zero equity posting
-exec:--cfg;tests/accumulator/ok.conf;--input.file;bal-gap-02.txn;--output;out.bal-gap-02;

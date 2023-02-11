@@ -1,4 +1,0 @@
-# format: exec
-# test: c096f7a8-a87c-4b3c-ad37-b860775597a0
-# desc: existing, but empty configuration
-exec:--cfg;tests/cli/ex/empty.conf;

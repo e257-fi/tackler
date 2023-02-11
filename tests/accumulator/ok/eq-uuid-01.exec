@@ -1,9 +1,0 @@
-# format: exec
-# test: 76da1ba6-b17d-4260-bc2d-7d1dcca54d50
-# desc: warning about zero equity posting
-# desc: Equity posting with amount (no commodity)
-exec:--cfg;tests/accumulator/ok.conf;--input.file;eq-uuid.txn;--output;out.eq-uuid-01-step-1;--reporting.accounts;^a.*;
-# feed back previous equity report
-# This will produce warning about zero out Equity:Balance, the reason is that that account is fed back from step1 and is not
-# not actually result of last step's equity, hence warning
-exec:--cfg;tests/accumulator/ok.conf;--input.file;out.eq-uuid-01-step-1.equity.txn;--output;out.eq-uuid-01;--reporting.exports;equity;identity;--reporting.reports;balance;balance-group;register;

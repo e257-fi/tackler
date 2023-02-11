@@ -1,4 +1,0 @@
-# format: exec
-# test: d844f381-94dd-42ad-a3a5-dbf08974f7fa
-# desc: Override configured storage by command line (git -> fs)
-exec:--cfg;tests/core/git-ok.conf;--input.storage;fs;--output;out.strg-selector-01;

@@ -1,4 +1,0 @@
-# format: exec
-# test: 3ec3e091-dc23-455b-963a-4ba66db7223f
-# desc: Equity posting with amount (no commodity)
-exec:--cfg;tests/reporting/ok.balgrp-acc.conf;--input.file;reporting.txn;--output;out.balgrp-acc-01;

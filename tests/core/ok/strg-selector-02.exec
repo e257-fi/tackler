@@ -1,4 +1,0 @@
-# format: exec
-# test: af6d111d-5b01-40ad-8da2-98f26dacc4f3
-# desc: Override configured storage by command line (fs -> git)
-exec:--cfg;tests/core/id2id.conf;--input.storage;git;--output;out.strg-selector-02;

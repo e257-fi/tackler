@@ -1,4 +1,0 @@
-# format: exec
-# test: f44faf05-7019-4c34-b0af-3345feb4ad37
-# commit-id-01: 3rd commit
-exec:--cfg;tests/core/git-ok.conf;--input.git.commit;3ebf14112c0ba2b4263a4b7388c589b10db27b1e;--output;out.git-commit-03;

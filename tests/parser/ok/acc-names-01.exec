@@ -1,4 +1,0 @@
-# format: exec
-# test: 00d410e8-f627-4bb1-a403-0dbe1d64a73a
-# desc: tep-1008: numerical account names
-exec:--cfg;tests/parser/acc-names.conf;--input.file;acc-names-01.txn;--output;out.acc-names-01;

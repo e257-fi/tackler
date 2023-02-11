@@ -1,4 +1,0 @@
-# format: exec
-# test: d948d0cd-d06c-4772-be5c-46e8875e4910
-# desc: cli: error propagation in case of invalid value
-exec:--cfg;tests/location/ex.conf;--input.file;values.txn;

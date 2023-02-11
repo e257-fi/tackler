@@ -1,6 +1,0 @@
-# format: exec
-# test:  93651962-6b61-4fd6-941a-339abd87ec73
-# desc: each report has different account selector
-# desc: combined metadata with report-timestamp
-# desc: warning about zero equity posting
-exec:--cfg;tests/audit/acc-selectors.conf;--output;out.audit-1E1-01;

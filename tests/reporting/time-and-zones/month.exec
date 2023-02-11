@@ -1,4 +1,0 @@
-# format: exec
-# test: 8afac016-4579-487e-b866-23093e73a30f
-# desc: local zone: balgrp: month; register: seconds
-exec:--cfg;tests/reporting/time-and-zones/month.conf;--output;out.month;

@@ -1,4 +1,0 @@
-# format: exec
-# test: c6da0aef-125f-4d33-9780-ffaa9e724499
-# desc: Equity posting with amount (no commodity)
-exec:--cfg;tests/reporting/ok.conf;--input.file;reporting.txn;--output;out.rep-01;--reporting.console;true;

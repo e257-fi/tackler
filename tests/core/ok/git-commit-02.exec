@@ -1,4 +1,0 @@
-# format: exec
-# test: 7dfebf19-480c-4bf5-806a-4d560a20a1d4
-# commit-id-01: 2nd commit
-exec:--cfg;tests/core/git-ok.conf;--input.git.commit;3a1622d0c81cd1520f42ee357315d1db8c0e0771;--output;out.git-commit-02;

@@ -1,7 +1,0 @@
-# format: exec
-# test: c7d115a7-664c-479d-8bf4-c1a85a06d5ba
-# desc: This is also testing equite else-branch when there is no uuid with last txn
-# desc: warning about zero equity posting
-exec:--cfg;tests/commodity/ok.conf;--input.file;basic-03.txn;--output;out.basic-03-02-step1;
-#
-exec:--cfg;tests/commodity/ok.conf;--input.file;out.basic-03-02-step1.equity.txn;--output;out.basic-03-02;

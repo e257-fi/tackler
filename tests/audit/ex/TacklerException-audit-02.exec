@@ -1,4 +1,0 @@
-# format: exec
-# test: 78f82210-7e9b-4741-9a0f-cc69636c70c4
-# desc: duplicate uuids with txn-set-checksum
-exec:--cfg;tests/audit/audit.conf;--input.git.ref;errs-1E2;--input.git.dir;txns/2016/05;

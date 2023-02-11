@@ -1,5 +1,0 @@
-# format: exec
-# test: 2501f96c-46d8-4711-9e7e-dc70e4af329d
-# desc: total prices
-# desc: Equity posting with amount and commodity
-exec:--cfg;tests/commodity/ok.conf;--input.file;valpos-02.txn;--output;out.valpos-02;

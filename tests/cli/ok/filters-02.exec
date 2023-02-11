@@ -1,4 +1,0 @@
-# format: exec
-# test: 8bbe1d2a-8548-49cf-9d8b-942242b882bd
-# Test filter definition via base64 string. This is same as filter-01 
-exec:--cfg;tests/cli/ok.conf;--input.file;filters.txn;--output;out.filters-02;--api-filter-def;base64:eyAidHhuRmlsdGVyIjogeyAiVHhuRmlsdGVyVHhuRGVzY3JpcHRpb24iOiB7ICJyZWdleCI6ICJhYi4qIiB9fX0K;

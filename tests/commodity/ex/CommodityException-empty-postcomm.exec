@@ -1,3 +1,0 @@
-# format: exec
-# test: 561ca500-ec5b-41b5-8466-eb82362a06ea
-exec:--cfg;tests/commodity/ex-empty.conf;--input.file;empty-postcomm.txn;

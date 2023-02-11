@@ -1,3 +1,0 @@
-# format: exec
-# test: 429c3406-2b73-4b8b-8b62-bd27cd2bb351
-exec:--cfg;tests/commodity/ex.conf;--input.file;unknown-postcomm.txn;

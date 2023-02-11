@@ -1,4 +1,0 @@
-# format: exec
-# test: 370393e9-bc2f-4aa1-a81c-08d536487fe7
-# desc: compatibility test vector for TEP-1009, Phase-1
-exec:--cfg;tests/compat/ok.conf;--input.file;journal-v1v2-01.txn;--output;out.journal-v1v2-01;

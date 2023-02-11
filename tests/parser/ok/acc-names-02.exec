@@ -1,4 +1,0 @@
-# format: exec
-# test: bf61d3a8-8a77-4b8a-917e-1d58acfde25a
-# desc: tep-1008: commidities with numerial parts
-exec:--cfg;tests/parser/acc-names.conf;--input.file;acc-names-02.txn;--output;out.acc-names-02;

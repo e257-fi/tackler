@@ -1,7 +1,0 @@
-# format: exec
-# test: 14f69076-b06d-475c-90d5-cfcd6b1ea581
-#
-# desc: identity-to-input test for tags
-exec:--cfg;tests/tags/ok.conf;--input.file;basic-01.txn;--output;out.identity-01-step1;
-#
-exec:--cfg;tests/tags/ok.conf;--input.file;out.identity-01-step1.identity.txn;--output;out.identity-01;

@@ -1,5 +1,0 @@
-# format: exec
-# test: 7752eee6-d3cf-4084-93c0-cb43a093fdd0
-# commit-id 2rd by abbrev commit id
-# desc: warning about zero equity posting
-exec:--cfg;tests/core/git-ok.conf;--input.git.commit;3a1622d;--output;out.git-commit-04;--reporting.exports;identity;equity;--reporting.reports;balance;balance-group;register;--reporting.formats;txt;json;

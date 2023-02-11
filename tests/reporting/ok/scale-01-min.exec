@@ -1,4 +1,0 @@
-# format: exec
-# test: cee50970-c0af-491d-b61f-6956bc413970
-# min scale full chain tests
-exec:--cfg;tests/reporting/scale.conf;--input.file;scale-min.txn;--output;out.scale-01-min;

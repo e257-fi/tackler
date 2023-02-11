@@ -1,4 +1,0 @@
-# format: exec
-# test: f865d983-2f48-40f8-9010-d326a83e959e
-# test effect of git.dir setting (cfg)
-exec:--cfg;tests/core/git-dir.conf;--output;out.git-dirtxn-02;

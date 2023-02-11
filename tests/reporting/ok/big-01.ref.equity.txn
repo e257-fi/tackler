@@ -1,9 +1,0 @@
-2017-03-01T00:00:00Z 'Equity
-   ; WARNING:
-   ; WARNING: The sum of equity transaction is zero without equity account.
-   ; WARNING: Therefore there is no equity posting row, and this is probably not right.
-   ; WARNING: Is account selector correct for this Equity Export?
-   ; WARNING:
-   a:b  12345678901234567890.123456789
-   e:b  -12345678901234567890.123456789
-

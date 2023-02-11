@@ -1,4 +1,0 @@
-# format: exec
-# test: 53f67fea-6307-44ca-9834-7a2f9b71a15a
-# desc: Equity posting with amount (no commodity)
-exec:--cfg;tests/reporting/ok.bal-acc.conf;--reporting.formats;txt;json;--input.file;reporting.txn;--output;out.bal-acc-01;

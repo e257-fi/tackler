@@ -1,7 +1,0 @@
-# format: exec
-# test: bb9cee1f-a0e6-45fc-9815-9ad9875e4bd4
-#
-# desc: identity-to-input test for location
-exec:--cfg;tests/location/ok.conf;--input.file;basic-01.txn;--output;out.identity-01-step1;
-#
-exec:--cfg;tests/location/ok.conf;--input.file;out.identity-01-step1.identity.txn;--output;out.identity-01;

@@ -1,3 +1,0 @@
-# format: exec
-# test: e242f20d-4b96-4b9b-8eb3-2eb7b6e2dc6b
-exec:--cfg;tests/reporting/bal-zero.conf;--input.file;bal-zero.txn;--output;out.bal-zero;

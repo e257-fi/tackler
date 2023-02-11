@@ -1,5 +1,0 @@
-# format: exec
-# test: 4e8e1d79-bbb5-4e6f-9072-d7e3c5b8c7ea
-# desc: metadata: subset by dir, no filters, all-pass account selector
-# desc: warning about zero equity posting
-exec:--cfg;tests/audit/audit.conf;--reporting.console;off;--input.git.ref;txns-1E2;--output;out.audit-1E2-01;--input.git.dir;txns/2016/01/11;

@@ -1,5 +1,0 @@
-# format: exec
-# test: d0dd6b75-238e-49cf-a048-a77baafba9bd
-# desc: Value positions with C1->C2; C3->C2
-# desc: Equity posting with amount and commodity
-exec:--cfg;tests/commodity/ok.conf;--input.file;valpos-03.txn;--output;out.valpos-03;

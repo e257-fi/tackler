@@ -1,4 +1,0 @@
-# format: exec
-# test: c97ac3bf-7561-4a79-9d00-a582d9949ea8
-# desc: local zone: balgrp: iso-week; register: active reportTZ, no timestamp-style 
-exec:--cfg;tests/reporting/time-and-zones/iso-week.conf;--output;out.iso-week;

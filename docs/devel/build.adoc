@@ -8,6 +8,9 @@ Tackler build is done by link:http://www.scala-sbt.org/[sbt].
 Tackler source code is located at
 link:https://gitlab.com/e257/accounting/tackler[GitLab / E257 / Accounting / Tackler]
 
+Tackler Test Suite is located at 
+link:https://gitlab.com/e257/accounting/tackler-tests[GitLab / E257 / Accounting / Tackler Test Suite]
+check it out as `tests` at the root of tackler source code root. 
 
 == Building and testing
 

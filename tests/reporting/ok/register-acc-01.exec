@@ -1,4 +1,0 @@
-# format: exec
-# test: 7d95bef8-6aaa-4706-a276-d206752d017b
-# desc: Equity posting with amount (no commodity)
-exec:--cfg;tests/reporting/ok.register-acc.conf;--input.file;reporting.txn;--output;out.register-acc-01;

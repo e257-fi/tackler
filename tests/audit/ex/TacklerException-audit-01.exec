@@ -1,4 +1,0 @@
-# format: exec
-# test: 24f154c7-9681-497b-a28c-c90cfb0533a5
-# desc: missing UUID with txn-set-checksum
-exec:--cfg;tests/audit/audit.conf;--input.git.ref;errs-1E2;--input.git.dir;txns/2016/04;

@@ -1,4 +1,0 @@
-# format: exec
-# test: 814654ee-83a8-466b-bcac-0b671d4ddf80
-# max scale full chain tests
-exec:--cfg;tests/reporting/scale.conf;--input.file;scale-max.txn;--output;out.scale-02-max;

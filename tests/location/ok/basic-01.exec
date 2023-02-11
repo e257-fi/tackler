@@ -1,3 +1,0 @@
-# format: exec
-# test: 8adbd77d-dd49-41a7-9412-fa9189ce3db6
-exec:--cfg;tests/location/ok.conf;--input.file;basic-01.txn;--output;out.basic-01;
