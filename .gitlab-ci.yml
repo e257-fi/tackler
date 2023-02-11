@@ -12,6 +12,7 @@ before_script:
   - mkdir -p sbt-cache/coursier
   - "[ -d sbt-cache/sbt ] || cp -a $HOME/.sbt/  sbt-cache/sbt"
   - "[ -d sbt-cache/coursier/cache ] || cp -a $HOME/.cache/coursier/v1 sbt-cache/coursier/cache"
+  - git submodule update
 
 cache:
   key: "$CI_COMMIT_REF_SLUG"
