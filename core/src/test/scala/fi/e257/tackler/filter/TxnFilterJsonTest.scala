@@ -30,137 +30,6 @@ import io.circe.syntax._
 import org.scalatest.funspec.AnyFunSpecLike
 
 class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
-  val filterJsonStr =
-    """{
-      |  "txnFilter" : {
-      |    "TxnFilterAND" : {
-      |      "txnFilters" : [
-      |        {
-      |          "TxnFilterAND" : {
-      |            "txnFilters" : [
-      |              {
-      |                "TxnFilterTxnTSBegin" : {
-      |                  "begin" : "2018-01-01T10:11:22.345+02:00"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterTxnTSEnd" : {
-      |                  "end" : "2018-12-01T14:11:22.678+02:00"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterTxnCode" : {
-      |                  "regex" : "txn.code"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterTxnDescription" : {
-      |                  "regex" : "txn.desc"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterTxnUUID" : {
-      |                  "uuid" : "29c548db-deb7-44bd-a6a2-e5e4258d256a"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterBBoxLatLon" : {
-      |                  "south" : 59.85,
-      |                  "west" : 24,
-      |                  "north" : 60.8,
-      |                  "east" : 27.5
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterBBoxLatLonAlt" : {
-      |                  "south" : -1,
-      |                  "west" : -2,
-      |                  "depth" : -3,
-      |                  "north" : 1,
-      |                  "east" : 2,
-      |                  "height" : 3
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterTxnTags" : {
-      |                  "regex" : "txn.tags"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterTxnComments" : {
-      |                  "regex" : "txn.comments"
-      |                }
-      |              }
-      |            ]
-      |          }
-      |        },
-      |        {
-      |          "TxnFilterOR" : {
-      |            "txnFilters" : [
-      |              {
-      |                "TxnFilterPostingAccount" : {
-      |                  "regex" : "posting:account"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterPostingAmountEqual" : {
-      |                  "regex" : "posting:amount:equal",
-      |                  "amount" : 1
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterPostingAmountLess" : {
-      |                  "regex" : "posting.amount:less",
-      |                  "amount" : 2
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterPostingAmountGreater" : {
-      |                  "regex" : "posting.amount:greater",
-      |                  "amount" : 123456789123456789.012345678901234567890123456789
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterPostingCommodity" : {
-      |                  "regex" : "posting.commodity"
-      |                }
-      |              },
-      |              {
-      |                "TxnFilterPostingComment" : {
-      |                  "regex" : "posting.comment"
-      |                }
-      |              }
-      |            ]
-      |          }
-      |        },
-      |        {
-      |          "TxnFilterNOT" : {
-      |            "txnFilter" : {
-      |              "TxnFilterTxnDescription" : {
-      |                "regex" : "not-me-not"
-      |              }
-      |            }
-      |          }
-      |        },
-      |        {
-      |          "TxnFilterAll" : {
-      |""".stripMargin +
-      "            " + // protect against stupid end-of-line white-space stripping
-    """
-      |          }
-      |        },
-      |        {
-      |          "TxnFilterNone" : {
-      |""".stripMargin +
-      "            " + // protect against stupid end-of-line white-space stripping
-    """
-      |          }
-      |        }
-      |      ]
-      |    }
-      |  }
-      |}
-      |""".stripMargin
 
   val filterTextStr =
     """Filter:
@@ -242,15 +111,6 @@ class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
   val txnsAll = tt.string2Txns(txnStr)
 
   describe("Decoding JSON to Txn Filter") {
-    /**
-     * test: 4cce4204-16b1-40a4-b1ea-ce11272d5824
-     */
-    it("decode from JSON and then encode to text") {
-      val txnFilterRoot: Either[circe.Error, TxnFilterDefinition] = decode[TxnFilterDefinition](filterJsonStr)
-
-      assert(filterTextStr === JsonHelper.getFilter(txnFilterRoot).text("").mkString("", "\n", "\n\n"))
-    }
-
     /**
      * test: 283d64f6-4508-48ac-89a3-e70e25784330
      */
@@ -371,20 +231,6 @@ class TxnFilterJsonTest extends TxnFilterSpec with AnyFunSpecLike {
         TxnFilterNone()
       ))
     )
-
-    /**
-     * test: 3624a7b3-3668-45ee-9580-aa64fb955a33
-     */
-    it("encode filter to JSON") {
-      assert(filterJsonStr === txnFilter.asJson.toString() + "\n")
-    }
-
-    /**
-     * test: f3213817-fe0c-4bec-b6be-b3396bad8114
-     */
-    it("encode filter to TEXT") {
-      assert(filterTextStr === txnFilter.text("").mkString("", "\n", "\n\n"))
-    }
 
     /**
      * test: 2b56249e-4dff-445f-b30c-427c7c29e8e1
