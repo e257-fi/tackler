@@ -39,9 +39,12 @@ Updated deps and tools:
 
  * Dependencies
  ** better-files: 3.9.2
- ** circe: 0.14.4
+ ** circe: 0.14.5
+ ** jgit: 6.5.0.202303070854-r
+ ** logback: 1.4.7
+ ** slf4-api: 2.0.7
  * Build
- ** sbt: 1.8.2
+ ** sbt: 1.8.3
  ** sbt-scalajs: 1.13.0
  ** sbt-scoverage: 2.0.7
  ** sbt-sonatype: 3.9.17
