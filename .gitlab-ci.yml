@@ -27,7 +27,7 @@ variables:
 
 
 test·jdk11:
-  image: "sbtscala/scala-sbt:eclipse-temurin-focal-17.0.8.1_1_1.9.6_2.13.12"
+  image: "sbtscala/scala-sbt:eclipse-temurin-focal-17.0.8.1_1_1.9.7_2.13.12"
 
   stage: "test"
 
@@ -36,7 +36,7 @@ test·jdk11:
 
 
 codecov:
-  image: "sbtscala/scala-sbt:eclipse-temurin-focal-17.0.8.1_1_1.9.6_2.13.12"
+  image: "sbtscala/scala-sbt:eclipse-temurin-focal-17.0.8.1_1_1.9.7_2.13.12"
 
   stage: "test"
 

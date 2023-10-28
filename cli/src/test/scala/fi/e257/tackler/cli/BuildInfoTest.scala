@@ -31,7 +31,7 @@ class BuildInfoTest extends AnyFlatSpec {
   }
 
   it should "sbtVersion" in {
-    assert(BuildInfo.sbtVersion.startsWith("1.8"))
+    assert(BuildInfo.sbtVersion.startsWith("1.9"))
   }
 
   it should "toString" in {

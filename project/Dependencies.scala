@@ -28,7 +28,7 @@ object Dependencies {
   val scalaParCollectionVersion = "1.0.4"
   val scalatestVersion = "3.2.17"
   val scallopVersion = "4.1.0"
-  val configVersion = "1.4.2"
+  val configVersion = "1.4.3"
   val dirsuiteVersion = "0.32.0"
   val jgitVersion = "6.7.0.202309050840-r"
   val logbackVersion = "1.4.11"
