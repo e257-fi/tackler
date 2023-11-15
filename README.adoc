@@ -126,6 +126,12 @@ and link:https://tackler.e257.fi/docs/client-api/[Client API]
 are more likely to subject of change.
 
 
+== Security
+
+If you find a security issue in Tackler, please report it as outlined in
+link:./SECURITY.md[Security Policy].
+
+
 == Contributing to Tackler
 
 Contributions to the project are most welcome. See
