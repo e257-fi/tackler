@@ -33,7 +33,7 @@ lazy val tackler_api_version  = None
 lazy val tackler_core_version = None
 
 
-lazy val scala_13 = "2.13.12"
+lazy val scala_13 = "2.13.15"
 
 ThisBuild / organization := "fi.e257"
 ThisBuild / scalaVersion := scala_13
