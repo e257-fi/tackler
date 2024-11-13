@@ -46,3 +46,12 @@ Support for old Journal Format Version v1 will be dropped in future release of T
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+
+=== Signature & SHA-256
+
+{asc-body}-0.24.0.jar.asc[tackler-cli-0.24.0.jar.asc]
+
+....
+960bd089235cece7bd63dc0c476f86460b96314dd03cb8007389eae78e2506ad  tackler-cli-0.24.0.jar
+....

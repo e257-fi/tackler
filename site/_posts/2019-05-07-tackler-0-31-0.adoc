@@ -26,3 +26,11 @@ New features and changes in this release:
 === Full Changelog
 
 For full changelog, see {gitlink}/CHANGELOG.adoc[CHANGELOG] in tackler's repository.
+
+=== Signature & SHA-256
+
+{asc-body}-0.31.0.jar.asc[tackler-cli-0.31.0.jar.asc]
+
+....
+8145ef5e1a7bbf0a790375e3d2c2f86bc38482cecef4f4c406ebc08bedb3a05e  tackler-cli-0.31.0.jar
+....
